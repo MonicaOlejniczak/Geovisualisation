@@ -1,0 +1,12 @@
+.idea
+*.out
+*.aux
+*.log
+*.gz
+*.toc
+*.synctex
+*.swp
+*.pdf
+*.bbl
+*.blg
+*.dvi

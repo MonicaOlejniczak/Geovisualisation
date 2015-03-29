@@ -1,0 +1,90 @@
+% Initialisation
+\documentclass[a4paper]{article}
+
+% Enforce UTF8 encoding
+\usepackage[utf8]{inputenc}
+
+% Header and footer
+\usepackage{fancyhdr}
+ 
+\pagestyle{fancy}
+\fancyhead[R]{SENG4800 - Individual project proposal}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Document title and author
+\title{3D visualisation of large data in a multi-platform environment}
+\author{Monica Olejniczak}
+
+% Paragraphing
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\begin{document}
+
+	% Title page
+	\makeatletter
+	\begin{titlepage}
+		\vspace*{\fill}
+		\begin{center}
+			\Huge\textbf{\textsf{\@title}}
+			\rule{\textwidth}{1pt}
+			\LARGE\textsc{Final year project} \\
+			\Large\textsc{University of Newcastle}
+			\rule{\textwidth}{1pt}
+			\Large\textbf{\textsf{\@author}}
+        \end{center}
+		\vspace*{\fill}
+	\end{titlepage}
+	\makeatother
+	
+	\section{Project description} {
+	
+		Data visualisation is the presentation of data in a visual context and is particularly important in data analytics since humans are able to recognise patterns, trends and correlations more easily.
+		
+		This project aims to develop cross-platform visualisations in three-dimensions and will focus on using large data in a generic way to demonstrate general applicability. Ideally, the visualisations will provide touch-capability so they are able to be viewed on a smart device.
+	
+	}
+	
+	\section{Basic deliverables} {
+
+		\begin{itemize}
+			\item In-depth topic literature review.
+			\item Build the implementation for a single visualisation with a small dataset.
+		\end{itemize}
+	
+	}
+	
+	\section{Intermediate deliverables} {
+	
+		\begin{itemize}
+			\item Incorporate interactivity such as the ability to rotate, pan and zoom.
+			\item Develop a large dataset for the developed visualisation.
+			\item Build the implementation for another visualisation with a large dataset.
+		\end{itemize}	
+	
+	}
+	
+	\section{Advanced deliverables} {
+	
+		\begin{itemize}	
+			\item Port the visualisations to a touch-interface.
+			\item Incorporate touch gestures.
+			\item Demonstrate general applicability with a different dataset.
+			\item Analyse the computational power needed for the visualisations.
+			\item Perform a user study to compare what types of visualisations are suited for particular purposes.
+		\end{itemize}
+	
+	}
+	
+	\section{Approval for \today} {
+	
+		\vspace{1em}\par
+		\textbf{Student:} 
+		\vspace{2em}\par
+		\textbf{Supervisor:}
+		
+	}
+	
+\end{document}
