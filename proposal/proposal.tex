@@ -8,42 +8,50 @@
 \usepackage{fancyhdr}
  
 \pagestyle{fancy}
-\fancyhead[R]{SENG4800 - Individual project proposal}
+\fancyhead[R]{SENG4800 - Individual project proposal \\ \today}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
 % Document title and author
-\title{3D visualisation of large data in a multi-platform environment}
+\title{3D visualisation of large data in a multi-platform, touch-based environment}
 \author{Monica Olejniczak}
 
 % Paragraphing
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
+% Todo notes
+
+\usepackage[disable]{todonotes}
+\presetkeys{todonotes}{inline}{}
+
+% References
+\usepackage{natbib}
+\renewcommand{\bibname}{References}
+
 \begin{document}
 
 	% Title page
 	\makeatletter
-	\begin{titlepage}
-		\vspace*{\fill}
-		\begin{center}
-			\Huge\textbf{\textsf{\@title}}
-			\rule{\textwidth}{1pt}
-			\LARGE\textsc{Final year project} \\
-			\Large\textsc{University of Newcastle}
-			\rule{\textwidth}{1pt}
-			\Large\textbf{\textsf{\@author}}
-        \end{center}
-		\vspace*{\fill}
-	\end{titlepage}
+	\vspace*{\fill}
+	\begin{center}
+		\Huge\textbf{\textsf{\@title}}
+		\rule{\textwidth}{1pt}
+		\LARGE\textsc{Individual project} \\
+		\Large\textsc{University of Newcastle}
+		\rule{\textwidth}{1pt}
+		\Large\textbf{\textsf{\@author}}
+	\end{center}
+	\vspace*{\fill}
 	\makeatother
+	\newpage
 	
 	\section{Project description} {
 	
-		Data visualisation is the presentation of data in a visual context and is particularly important in data analytics since humans are able to recognise patterns, trends and correlations more easily.
+		Data visualisation is the presentation of data in a visual context and is particularly important in data analytics since humans are able to recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}.
 		
-		This project aims to develop cross-platform visualisations in three-dimensions and will focus on using large data in a generic way to demonstrate general applicability. Ideally, the visualisations will provide touch-capability so they are able to be viewed on a smart device.
+		This project aims to develop touch-based visualisations in three-dimensions and will focus on using large data in a generic way to demonstrate general applicability. Ideally, the visualisations will provide touch-capability so they are able to be viewed on a smart device.
 	
 	}
 	
@@ -52,6 +60,8 @@
 		\begin{itemize}
 			\item In-depth topic literature review.
 			\item Build the implementation for a single visualisation with a small dataset.
+			\item Basic interaction with 3D content - rotate, pan and zoom.
+			\item Port the visualisation to a touch-interface.
 		\end{itemize}
 	
 	}
@@ -59,26 +69,47 @@
 	\section{Intermediate deliverables} {
 	
 		\begin{itemize}
-			\item Incorporate interactivity such as the ability to rotate, pan and zoom.
-			\item Develop a large dataset for the developed visualisation.
+			\item Incorporate additional interactions, including data filtering and volume selection.
 			\item Build the implementation for another visualisation with a large dataset.
+			\item Apply with one or more large datasets.
 		\end{itemize}	
 	
 	}
 	
 	\section{Advanced deliverables} {
 	
-		\begin{itemize}	
-			\item Port the visualisations to a touch-interface.
+		\begin{itemize}
 			\item Incorporate touch gestures.
-			\item Demonstrate general applicability with a different dataset.
 			\item Analyse the computational power needed for the visualisations.
-			\item Perform a user study to compare what types of visualisations are suited for particular purposes.
+			\item Perform a user study to compare what types of visualisations are suited for particular purposes and its impact on user interactions.
+			\item Benchmark the scalability of the visualisations over datasets.
+			\item Integrate with data from the Final Year Project.
 		\end{itemize}
 	
 	}
 	
-	\section{Approval for \today} {
+	\section{Literature review} {
+	
+		\subsection{Issues with big data} {
+		
+			\begin{itemize}
+				\item \citet{kaisler2013big}
+				\item \citet{katal2013big}		
+			\end{itemize}		
+		
+		}
+		
+		\subsection{Visualisation techniques} {
+		
+		}
+		
+		\subsection{Visualising big data} {
+		
+		}
+		
+	}
+	
+	\section{Approval} {
 	
 		\vspace{1em}\par
 		\textbf{Student:} 
@@ -86,5 +117,8 @@
 		\textbf{Supervisor:}
 		
 	}
+	
+	\bibliography{references}
+	\bibliographystyle{apalike}
 	
 \end{document}
