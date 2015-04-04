@@ -1,10 +1,9 @@
+/**
+ * @author Monica Olejniczak
+ */
 define(['THREE'], function (THREE) {
 
     'use strict';
-
-    /**
-     * @author Monica Olejniczak
-     */
 
     /**
      * Initialises the color class.

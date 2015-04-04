@@ -1,3 +1,6 @@
+/**
+ * @author Monica Olejniczak
+ */
 (function () {
 
 	'use strict';

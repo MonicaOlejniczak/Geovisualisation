@@ -1,10 +1,9 @@
+/**
+ * @author Monica Olejniczak
+ */
 define(['threejs'], function (THREE) {
 
     'use strict';
-
-    /**
-     * @author Monica Olejniczak
-     */
 
     /**
      * Initialises the scene.

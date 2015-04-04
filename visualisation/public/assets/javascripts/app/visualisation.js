@@ -1,10 +1,9 @@
-define(['threejs', 'app/Canvas'], function (THREE, Canvas) {
+/**
+ * @author Monica Olejniczak
+ */
+define(['threejs', 'app/canvas'], function (THREE, Canvas) {
 
 	'use strict';
-
-	/**
-	 * @author Monica Olejniczak
-	 */
 
 	/**
 	 * Initialises the visualisation.

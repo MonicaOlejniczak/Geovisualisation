@@ -1,12 +1,12 @@
-define(['threejs', 'app/Scene'], function (THREE, Scene) {
+/**
+ * @author Monica Olejniczak
+ */
+define(['threejs', 'app/scene', 'app/viewport'], function (THREE, Scene, Viewport) {
 
     'use strict';
 
     var canvas;
-
-    /**
-     * @author Monica Olejniczak
-     */
+    var viewport = new Viewport();
 
     /**
      * Initialises the canvas.
@@ -22,11 +22,7 @@ define(['threejs', 'app/Scene'], function (THREE, Scene) {
         var cameraPosition = options.cameraPosition;
         this.camera.position.set(cameraPosition.x || 0, cameraPosition.y || 0, cameraPosition.z || 0);
         //var viewport = ICA.getViewport();
-        var viewport = {
-            width: 1920,
-            height: 500
-        };
-        this.viewportHeight = viewport.height;
+        this.viewportHeight = viewport.getHeight();
         this.tanFOV = Math.tan(THREE.Math.degToRad(this.camera.fov * 0.5));
         this.renderer = new THREE.WebGLRenderer({
             canvas: element,
@@ -148,8 +144,8 @@ define(['threejs', 'app/Scene'], function (THREE, Scene) {
         // Get the viewport
         var viewport = ICA.getViewport();
         // Lookup the size the browser is displaying the canvas
-        var width = viewport.width;
-        var height = viewport.height;
+        var width = viewport.getWidth();
+        var height = viewport.getHeight();
         // Check if the canvas is not the same size
         if (canvas.width != width || canvas.height != height) {
             // Make the canvas the same size
