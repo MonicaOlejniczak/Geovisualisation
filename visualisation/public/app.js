@@ -6,6 +6,8 @@
 	'use strict';
 
 	requirejs.config({
+		// Specify the base url to find files.
+		baseUrl: 'app',
 		// Specify the paths.
 		paths: {
 			jquery: '../bower_components/jquery/dist/jquery',
@@ -19,7 +21,7 @@
 	});
 
 	// Start the main app logic.
-	requirejs(['jquery', 'app/visualisation'], function ($, Visualisation) {
+	requirejs(['jquery', 'view/visualisation'], function ($, Visualisation) {
 		var visualisation = new Visualisation($('#visualisation'));
 	});
 

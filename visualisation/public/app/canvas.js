@@ -1,7 +1,7 @@
 /**
  * @author Monica Olejniczak
  */
-define(['threejs', 'app/scene', 'app/viewport'], function (THREE, Scene, Viewport) {
+define(['threejs', 'scene', 'viewport'], function (THREE, Scene, Viewport) {
 
     'use strict';
 
@@ -21,7 +21,6 @@ define(['threejs', 'app/scene', 'app/viewport'], function (THREE, Scene, Viewpor
         this.camera = new THREE.PerspectiveCamera(75, element.width / element.height, 1, 1000);
         var cameraPosition = options.cameraPosition;
         this.camera.position.set(cameraPosition.x || 0, cameraPosition.y || 0, cameraPosition.z || 0);
-        //var viewport = ICA.getViewport();
         this.viewportHeight = viewport.getHeight();
         this.tanFOV = Math.tan(THREE.Math.degToRad(this.camera.fov * 0.5));
         this.renderer = new THREE.WebGLRenderer({
@@ -141,8 +140,6 @@ define(['threejs', 'app/scene', 'app/viewport'], function (THREE, Scene, Viewpor
      * A method called on each render. This method updates the camera aspect ratio and the renderer display size.
      */
     Canvas.prototype.resize = function () {
-        // Get the viewport
-        var viewport = ICA.getViewport();
         // Lookup the size the browser is displaying the canvas
         var width = viewport.getWidth();
         var height = viewport.getHeight();
