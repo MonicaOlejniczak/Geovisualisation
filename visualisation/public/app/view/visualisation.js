@@ -24,6 +24,8 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 		// Read the data from the test file.
 		this.readData('app/data/generate.js');
 		this.camera.lookAt(scene.position);
+		// Add a base colour.
+		this.color = new THREE.Color(0x376dc7);
 		// Render the scene.
 		this.render();
 	};
@@ -96,7 +98,7 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 		var geometry = new THREE.Geometry();
 		geometry.vertices = curve.getPoints(50);
 		var material = new THREE.LineBasicMaterial({
-			color: Color.generate()
+			color: Color.generate(this.color)
 		});
 		var line = new THREE.Line(geometry, material);
 		this.scene.add(line);
