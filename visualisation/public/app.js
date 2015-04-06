@@ -11,7 +11,8 @@
 		// Specify the paths.
 		paths: {
 			jquery: '../bower_components/jquery/dist/jquery',
-			threejs: '../bower_components/threejs/build/three'
+			threejs: '../bower_components/threejs/build/three',
+			orbitcontrols: '../bower_components/threejs/build/orbit-controls'
 		},
 		shim: {
 			'threejs': {

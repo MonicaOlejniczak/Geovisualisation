@@ -1,7 +1,7 @@
 /**
  * @author Monica Olejniczak
  */
-define(['THREE'], function (THREE) {
+define(['threejs'], function (THREE) {
 
 	'use strict';
 
@@ -17,7 +17,7 @@ define(['THREE'], function (THREE) {
 	/**
 	 * Generates a random colour, blended with a particular colour.
 	 *
-	 * @param blend The THREE.Color to blend with the randomly generated values.
+	 * @param [blend] The THREE.Color to blend with the randomly generated values.
 	 * @returns {THREE.Color}
 	 */
 	Color.generate = function (blend) {

@@ -1,7 +1,13 @@
 /**
  * @author Monica Olejniczak
  */
-define(['threejs', 'scene', 'viewport'], function (THREE, Scene, Viewport) {
+define(function (require) {
+
+	var THREE = require('threejs');
+	var Scene = require('Scene');
+	var Viewport = require('Viewport');
+
+	require('orbitcontrols');
 
 	'use strict';
 
