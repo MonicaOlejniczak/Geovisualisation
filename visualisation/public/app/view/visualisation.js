@@ -22,7 +22,7 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 		// Adds a grid to the scene.
 		scene.add(this.createGrid(50, 5));
 		// Read the data from the test file.
-		this.readData('app/data/test.json');
+		this.readData('app/data/generate.js');
 		this.camera.lookAt(scene.position);
 		// Render the scene.
 		this.render();
@@ -49,11 +49,19 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 	 * @param url The url to read the data from.
 	 */
 	Visualisation.prototype.readData = function (url) {
-		// Make an asynchronous ajax request to retrieve the data from the specified url.
-		$.getJSON(url, function (data) {
-			// Process the data retrieved from the request.
-			this.processData(data);
-		}.bind(this));
+		// Check if the url is a js file
+		if (url.split('\.')[1] === 'js') {
+			// Require the javascript file and use its data
+			require([url], function (generateData) {
+				this.processData(generateData(100, 50));
+			}.bind(this));
+		} else {
+			// Make an asynchronous ajax request to retrieve the data from the specified url.
+			$.getJSON(url, function (data) {
+				// Process the data retrieved from the request.
+				this.processData(data);
+			}.bind(this));
+		}
 	};
 
 	/**
