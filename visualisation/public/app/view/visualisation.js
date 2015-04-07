@@ -16,16 +16,21 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 			camera: {
 				position: new THREE.Vector3(0, 10, 30) // The position of the camera.
 			},
-			controls: true                              // Enable orbit controls.
+			controls: true                             // Enable orbit controls.
 		});
 		var scene = this.scene;
 		// Adds a grid to the scene.
 		scene.add(this.createGrid(50, 5));
 		// Read the data from the test file.
 		this.readData('app/data/generate.js');
+		// Make the camera look at the scene.
 		this.camera.lookAt(scene.position);
 		// Add a base colour.
 		this.color = new THREE.Color(0x376dc7);
+		// Add a light.
+		this.scene.add(this.createPointLight({
+			position: new THREE.Vector3(0, 10, 0)
+		}));
 		// Render the scene.
 		this.render();
 	};
@@ -91,17 +96,22 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 			// Retrieve the point from the series.
 			var point = series[i];
 			// Add the point to the vertices of the geometry.
-			points.push(this.convertPoint(point));
+			points.push(this.convertPosition(point));
 		}
 		// Create the curve using the points obtained from the series.
 		var curve = new THREE.SplineCurve3(points);
-		var geometry = new THREE.Geometry();
-		geometry.vertices = curve.getPoints(50);
-		var material = new THREE.LineBasicMaterial({
-			color: Color.generate(this.color)
+		// Create the tube geometry and material.
+		var geometry = new THREE.TubeGeometry(curve, 50, 0.05, 8, true);
+		var material = new THREE.MeshLambertMaterial({
+			color: this.color
 		});
-		var line = new THREE.Line(geometry, material);
-		this.scene.add(line);
+		// Apply alpha blending to the material.
+		material.opacity = 0.85;
+		material.transparent = true;
+		material.blending = THREE.AdditiveBlending;
+		// Create the mesh and add it to the scene.
+		var mesh = new THREE.Mesh(geometry, material);
+		this.scene.add(mesh);
 	};
 
 	/**
@@ -110,8 +120,8 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 	 * @param point The point being converted.
 	 * @returns {THREE.Vector3} The converted vector.
 	 */
-	Visualisation.prototype.convertPoint = function (point) {
-		return new THREE.Vector3(point[0], 0.01, -point[1]);
+	Visualisation.prototype.convertPosition = function (point) {
+		return new THREE.Vector3(point[0], 0.05, -point[1]);
 	};
 
 	return Visualisation;

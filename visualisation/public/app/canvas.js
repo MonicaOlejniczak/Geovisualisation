@@ -53,7 +53,7 @@ define(function (require) {
 			alpha: true,
 			antialias: true
 		});
-		this.sphereSize = options.sphereSize || 5;
+		this.sphereSize = options.sphereSize || 1;
 		// Check if axes are being added to the scene.
 		if (options.axes) {
 			// Add the axes to the scene.
@@ -174,12 +174,12 @@ define(function (require) {
 	};
 
 	/**
-	 * Adds a directional light to the scene given the options.
+	 * Creates and returns a directional light given the options.
 	 *
 	 * @param options The configuration for the directional light.
 	 * @returns {THREE.DirectionalLight} The directional light that was created.
 	 */
-	Canvas.prototype.addDirectionalLight = function (options) {
+	Canvas.prototype.createDirectionalLight = function (options) {
 		// Create the directional light.
 		var directionalLight = new THREE.DirectionalLight(options.color || 0xffffff, options.intensity || 0.5);
 		// Get the position from the options.
@@ -197,17 +197,17 @@ define(function (require) {
 			// Create the point light helper and add it to the scene.
 			this.scene.add(new THREE.DirectionalLightHelper(directionalLight, this.sphereSize));
 		}
-		// Add the directional light to the scene.
-		this.add(directionalLight);
+		// Return the directional light.
+		return directionalLight;
 	};
 
 	/**
-	 * Adds a point light to the scene given the options.
+	 * Creates and returns a point light given the options.
 	 *
 	 * @param options The configuration for the point light.
 	 * @returns {THREE.PointLight} The point light that was created.
 	 */
-	Canvas.prototype.addPointLight = function (options) {
+	Canvas.prototype.createPointLight = function (options) {
 		// Create the point light.
 		var pointLight = new THREE.PointLight(options.color || 0xffffff, options.intensity || 1, options.distance || 0);
 		// Get the position from the options.
@@ -221,8 +221,8 @@ define(function (require) {
 			// Create the point light helper and add it to the scene.
 			this.scene.add(new THREE.PointLightHelper(pointLight, this.sphereSize));
 		}
-		// Add the point light to the scene.
-		this.add(pointLight);
+		// Return the point light.
+		return pointLight;
 	};
 
 	/**
