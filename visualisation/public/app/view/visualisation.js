@@ -16,7 +16,7 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 			camera: {
 				position: new THREE.Vector3(0, 10, 30) // The position of the camera.
 			},
-			controls: true                             // Enable orbit controls.
+			controls: true
 		});
 		var scene = this.scene;
 		// Adds a grid to the scene.
@@ -106,9 +106,9 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 			color: this.color
 		});
 		// Apply alpha blending to the material.
-		material.opacity = 0.85;
-		material.transparent = true;
-		material.blending = THREE.AdditiveBlending;
+		//material.opacity = 0.85;
+		//material.transparent = true;
+		//material.blending = THREE.AdditiveBlending;
 		// Create the mesh and add it to the scene.
 		var mesh = new THREE.Mesh(geometry, material);
 		this.scene.add(mesh);

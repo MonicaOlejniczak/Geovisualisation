@@ -26,7 +26,7 @@ define(function (require) {
 		// Initialise the scene.
 		this.scene = new THREE.Scene();
 		// Initialise the camera.
-		this.camera = new THREE.PerspectiveCamera(45, element.width / element.height, 1, 1000);
+		this.camera = new THREE.PerspectiveCamera(45, element.width / element.height, 0.1, 1000);
 		// Get the camera options.
 		var cameraOptions = options.camera;
 		// Check if the camera options exist.
@@ -61,8 +61,7 @@ define(function (require) {
 		}
 		// Check if orbit controls are enabled.
 		if (options.controls) {
-			// Add the orbit controls.
-			this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+			this.controls = new THREE.OrbitControls(this.camera, element);
 		}
 	};
 
@@ -249,8 +248,11 @@ define(function (require) {
 	 * The rendering function that updates the canvas.
 	 */
 	Canvas.prototype.render = function () {
-		this.resize();
 		requestAnimationFrame(this.render.bind(this));
+		this.resize();
+		if (this.controls) {
+			this.controls.update();
+		}
 		this.renderer.render(this.scene, this.camera);
 	};
 
