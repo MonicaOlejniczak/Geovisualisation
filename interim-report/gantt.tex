@@ -1,0 +1,86 @@
+\begin{ganttchart}[
+	vgrid={*6{black, dotted},*1{black, dashed}},
+	x unit=0.3cm,
+	y unit title=0.75cm,
+	y unit chart=1cm,
+	time slot format=isodate,
+	title height = 1,
+	title/.append style={draw=none, fill=RoyalBlue!40!black},
+	title label font=\sffamily\bfseries\color{white},
+	title label node/.append style={below=-1.6ex},
+	title left shift=.05,
+	title right shift=-.05,
+	title top shift=.05,
+	title height=.95,
+	bar/.append style={draw=none, fill=MidnightBlue!75},
+	bar height=.6,
+	bar label font=\normalsize\color{black!80},
+%	group right shift=0,
+%	group top shift=.6,
+%	group height=.3,
+%	group peaks height=.2,
+%	bar incomplete/.append style={fill=red}
+]
+{2015-07-27}{2015-11-07} % start and end date
+
+\newganttchartelement{optionalbar}{
+	optionalbar/.style={
+		shape=rectangle,
+		fill=black!70
+	},
+	optionalbar height=.6
+}
+
+\gantttitle{Semester 2}{104} \ganttnewline
+\gantttitlecalendar*{2015-07-27}{2015-11-07}{month=name} \ganttnewline
+\gantttitlecalendar*{2015-07-27}{2015-09-20}{week=1}
+\gantttitle{Recess}{14}
+\gantttitlecalendar*{2015-10-05}{2015-11-07}{week=9}
+
+% Progress reports
+\ganttnewline \ganttgroup{Progress reports}{2015-07-27}{2015-10-30}
+\ganttnewline \ganttbar{Meeting}{2015-07-28}{2015-07-28}
+\ganttbar{}{2015-08-11}{2015-08-11}
+\ganttbar{}{2015-08-25}{2015-08-25}
+\ganttbar{}{2015-09-08}{2015-09-08}
+\ganttbar{}{2015-10-06}{2015-10-06}
+\ganttbar{}{2015-10-20}{2015-10-20}
+
+% Individual research presentation
+\ganttnewline \ganttgroup{Presentation}{2015-07-27}{2015-08-03}
+\ganttnewline \ganttbar{Preparation}{2015-07-27}{2015-08-03}
+\ganttnewline \ganttbar{Rehearsal}{2015-08-01}{2015-08-03}
+
+% Final report
+\ganttnewline \ganttgroup{Final report}{2015-08-04}{2015-10-30}
+\ganttnewline \ganttbar{Document}{2015-10-16}{2015-10-30}
+
+% Basic deliverables
+\ganttnewline \ganttgroup{Basic deliverables}{2015-08-04}{2015-08-18}
+\ganttnewline \ganttbar{Implementation (1)}{2015-08-04}{2015-08-18}
+\ganttnewline \ganttbar{Basic interaction}{2015-08-16}{2015-08-18}
+
+% Intermediate deliverables
+\ganttnewline \ganttgroup{Intermediate deliverables}{2015-08-19}{2015-09-16}
+\ganttnewline \ganttbar{Data filtering}{2015-08-19}{2015-09-09}
+\ganttnewline \ganttbar{Implementation (2)}{2015-08-26}{2015-09-16}
+\ganttnewline \ganttbar{Apply datasets}{2015-09-9}{2015-09-16}
+
+% Advanced deliverables
+\ganttnewline \ganttgroup{Advanced deliverables}{2015-09-17}{2015-10-15}
+\ganttnewline \ganttbar{Integrate data}{2015-09-17}{2015-10-15}
+\ganttnewline \ganttoptionalbar{Benchmark scalability}{2015-09-17}{2015-10-15}
+\ganttnewline \ganttoptionalbar{Analyse computational power}{2015-09-17}{2015-10-15}
+\ganttnewline \ganttoptionalbar{Perform user study}{2015-10-08}{2015-10-15}
+\ganttnewline \ganttoptionalbar{Port to a touch-interface}{2015-10-08}{2015-10-15}
+\ganttnewline \ganttoptionalbar{Incorporate touch gestures}{2015-10-08}{2015-10-15}
+
+% % Examples of gantt chart capabilities: 
+% \ganttnewline \ganttgroup{Label Text}{2015-08-20}{2015-10-5}
+% \ganttnewline \ganttmilestone{Label Text}{2015-08-3}
+% \ganttnewline \completedganttbar{Label Text}{2015-8-9}{2015-8-13}
+% \ganttnewline \ganttlinkedmilestone{Label Text}{2015-08-19}
+% \ganttnewline \ganttbar{Label Text}{2015-09-11}{2015-10-5}
+% \ganttnewline \optionalganttbar{Label Text}{2015-10-6}{2015-10-26}
+
+\end{ganttchart}

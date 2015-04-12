@@ -1,0 +1,272 @@
+% Initialisation
+\documentclass[a4paper]{article}
+\usepackage[left=2.54cm,top=2.54cm,right=2.54cm,bottom=2.54cm]{geometry}
+
+% Enforce UTF8 encoding
+\usepackage[utf8]{inputenc}
+
+% Colours
+\usepackage[dvipsnames]{xcolor}
+
+% Header and footer
+\usepackage{fancyhdr}
+
+\setlength{\headheight}{23pt}
+ 
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[C]{}
+\fancyhead[R]{SENG4800 - Individual interim report \\ \today}
+\fancyfoot[L]{}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Document title and author
+\title{3D visualisation of large data in a multi-platform, touch-based environment}
+\author{Monica Olejniczak}
+
+% Abstract
+\usepackage{abstract}
+\renewcommand{\absnamepos}{flushleft}
+\setlength{\absleftindent}{0pt}
+\setlength{\absrightindent}{0pt}
+
+% Paragraphing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+% Todo notes=
+\usepackage{todonotes}
+\presetkeys{todonotes}{inline}{}
+
+% Gantt charts
+\usepackage{pgfgantt}
+
+% Additional
+\usepackage{float}
+
+% References
+\usepackage{natbib}
+\renewcommand{\bibname}{References}
+
+\begin{document}
+
+	\vspace*{\fill}
+	% Title page
+	\makeatletter
+	\begin{center}
+		\Huge\textbf{\textsf{\@title}}
+		\vspace{0.5em}\\
+		\Large\textbf{\textsf{\@author}}
+	\end{center}
+	\makeatother
+	
+	\begin{abstract}
+		Data visualisation is the presentation of data in a visual context and is particularly important in data analytics since humans are able to recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}.
+		
+		This project aims to develop touch-based visualisations in three-dimensions and will focus on using large data in a generic way to demonstrate general applicability. The visualisations will provide touch-capability so they are able to be viewed on a smart device.
+	\end{abstract}
+	\vspace*{\fill}
+	
+	\newpage
+	\tableofcontents
+	\newpage
+	
+	\section{Background} {
+	\label{section:background}
+
+		\todo{
+			2 - 3.5 pages \\
+			Summary of your literature review as "related work". \\
+			ALSO why is this project important? \\
+			What is the main research question you hope to answer
+		}
+	
+	}
+	
+	\newpage
+	
+	\section{Project plan} {
+	\label{section:plan}
+	
+		\todo{
+			1.5 - 2.5 pages \\
+			Describe design and methods and demonstrate that these are adequately developed, well integrated and appropriate to the aims of the proposal
+		}
+		
+		\subsection{Purpose} {
+		
+		}
+		
+		\subsection{Outcomes} {
+		
+			\todo{This could also be seen as the goals section of your project including arguments of possible significance and usefulness. A big question in this context can be: “What will we be learning from this project?” The goals should be discussed with your supervisor.}
+		
+		}
+		
+		\subsection{Stakeholders} {
+
+			\begin{itemize}
+				\item University of Newcastle.
+				\item School of Engineering and Computer Science.
+				\begin{itemize}
+					\item Dr. Shamus Smith.
+					\item Members of the Software Engineering \emph{(Honours)} Final Year Project.
+				\end{itemize}
+				\item School of Nursing and Midwifery.
+				\begin{itemize}
+					\item Prof. Sally Chan.
+					\item Dr. Sharyn Hunter.
+					\item Dr. Amanda Wilson.
+				\end{itemize}
+				\item The users of the project.
+				\item Researchers interested in visualising big data.
+			\end{itemize}		
+		
+		}
+		
+		\subsection{Scope} {
+		
+			\todo{Statement}
+		
+			\subsubsection{Inclusions} {
+			
+				The project will include the following:
+		
+				\begin{itemize}
+					\item Two different types of visualisations that are able to be compared with each other.
+					\item The ability to pan, zoom and rotate within the scene.
+					\item Data filtering.
+					\item Integration with the Software Engineering \emph{(Honours)} Final Year Project.
+				\end{itemize}
+			
+			}
+			
+			\subsubsection{Exclusions} {
+			
+				The project will exclude the following:
+			
+				\begin{itemize}
+					\item 2D visualisations.
+					\item Native touch support.
+					\item Volume selection.
+				\end{itemize}
+			
+			}
+			
+			\subsubsection{Success criteria} {
+			
+			}
+		
+		}
+		
+		\subsection{Constraints} {
+		
+			The project has the following constraints:
+			
+			\begin{itemize}
+				\item The final deliverables have a non-negotiable deadline.
+				\item There is a limited amount of hours that can be contributed to the project per week.
+				\item There is no allocated budget for this project.
+				\begin{itemize}
+					\item Resources cannot be easily purchased to upgrade processing hardware.
+				\end{itemize}
+				\item The choice of platform may not be fast enough to process big data.
+			\end{itemize}
+		
+		}
+		
+		\subsection{Assumptions} {
+		
+			It has been assumed that:
+			
+			\begin{itemize}
+				\item There will be adequate time to develop the project.
+				\item The project supervisor will be available when required and is able to offer sufficient guidance.
+				\item Project deliverables are reviewed and approved by the project supervisor within a specified time frame.
+				\item The project scope, requirements and assessment deadlines will not change.
+				\item The hardware used to develop the project will remain functional over the course of the year.
+				\item The risks for the project have been identified and accounted for.
+			\end{itemize}
+		
+		}
+		
+		\subsection{Requirements} {
+		
+		}
+		
+		\subsection{Risk management} {
+		
+		}
+	
+	}
+	
+	\newpage
+	
+	\section{Project schedule} {
+	\label{section:schedule}
+	
+		The project plan, which was outlined in Section~\ref{section:plan}, is to be completed according to the project schedule. This has been demonstrated through the Gantt chart in Figure~\ref{gantt:schedule} below, and clearly highlights each milestone that is critical to the success of this project. These include:
+		
+		\begin{description}
+			\item[Progress reports:] Progress update meetings have been scheduled with the project supervisor on a fortnightly basis.
+			\item[Individual research presentation:] The presentation requires written preparation and rehearsal. It should be completed by the end of the first week so more important tasks can be focused on.
+			\item[Final report:] This report encompasses the deliverables of the project as they form the basis for the documentation. The report will need to be allocated at least one fortnight after the deliverables have been completed, so it can be completed to a good standard of quality.
+			\begin{description}
+				\item[Basic deliverables:] This should be completed in two weeks and consists of the implementation for a single visualisation and interactions for panning, zooming and rotating.
+				\item[Intermediate deliverables:] These deliverables have been designated one month to complete. It includes the ability to filter data, apply the visualisation to one or more large datasets and the implementation of another visualisation.
+				\item[Advanced deliverables:] This has also been allotted one month to complete and it is a core requirement to integrate the data to the group project. Analysing the computational power and the scalability of the visualisations are considered to be more important than the other tasks and thus have been allocated more time.
+			\end{description}
+		\end{description}
+		
+		Unfortunately, it is quite probable that no work will be undertaken towards the individual project during the mid-year recess. This is due to the need to prepare for and attend RoboCup 2015, China. It has therefore been omitted from the schedule.
+        
+		\begin{figure}[H]
+	        \resizebox{\textwidth}{!}{\input{gantt.tex}}
+			\caption[Project schedule] {
+                A Gantt chart illustrating the project schedule. Grey bars indicate optional tasks.
+			}
+			\label{gantt:schedule}
+		\end{figure}
+		
+	}
+	
+	\newpage
+	
+	\section{Ethical issues} {
+	\label{section:ethics}
+		
+		The data used to model the visualisations have the potential to lead to ethical issues by containing personal data or copyrighted information.
+		
+		\subsection{Personal data} {
+		
+			Personal data is information that is able to identify a person and could be obtained when this project is integrated with the final year group project. It is necessary to log user information in order to obtain the data required to display the visualisations. Users must:
+			
+			\begin{itemize}
+				\item Remain informed of how the data is stored, preserved and used. 
+				\item Consent to the storage of this information.
+				\item Be informed of how confidentiality will be maintained.
+			\end{itemize}
+			
+			The research data should be anonymised, to increase confidentiality, so individuals cannot be identified from the data. This can be achieved by recording different users with an arbitrary value such as a colour or unique identifier, instead of their name or student number. It is also feasible to not record this data at all and simply just store the values associated with their touches.
+		
+		}
+		
+		\subsection{Copyrighted information} {
+		
+			This poses as an issue when the data used for the visualisation is extracted from an external source. The data should be under a public copyright licence to ensure that there are no copyright infringements when applying it to the project.
+			
+			A possible solution to this issue is to instead generate fake data. This will see the benefit of viewing the visualisation under a large dataset, without needing to fret over copyright issues. However, the visualisation will not display real information and the generated data may appear too random. This data could be generated within a program or by using free online tools.
+		
+		}
+	
+	}
+	
+	\newpage
+	
+	\bibliography{references}
+	\bibliographystyle{apalike}
+	
+\end{document}
