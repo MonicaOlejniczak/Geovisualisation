@@ -24,7 +24,7 @@
 \renewcommand{\footrulewidth}{0pt}
 
 % Document title and author
-\title{3D visualisation of large data in a multi-platform, touch-based environment}
+\title{3D visualisation of large data in a multi-platform environment}
 \author{Monica Olejniczak}
 
 % Abstract
@@ -33,23 +33,49 @@
 \setlength{\absleftindent}{0pt}
 \setlength{\absrightindent}{0pt}
 
+% Table of contents
+\usepackage[nottoc,numbib]{tocbibind}
+
 % Paragraphing
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{8pt}
 
-% Todo notes=
+% Todo notes
 \usepackage{todonotes}
 \presetkeys{todonotes}{inline}{}
 
 % Gantt charts
 \usepackage{pgfgantt}
 
+% Tables
+\usepackage{booktabs}
+\usepackage{tabularx}
+\renewcommand{\arraystretch}{1.5}
+
 % Additional
 \usepackage{float}
+\usepackage{spreadtab}
+\usepackage{etoolbox}
 
 % References
 \usepackage{natbib}
 \renewcommand{\bibname}{References}
+
+% Appendices
+\usepackage[toc,page]{appendix}
+
+% Commands
+\newcommand{\rating}[1]{
+	\ifnumless{#1}{20 * 100} {Very low} {
+		\ifnumless{#1}{40 * 100} {Low} {
+			\ifnumless{#1}{60 * 100} {Medium} {
+				\ifnumless{#1}{80 * 100} {High} {
+					Very high
+				}
+           	}
+		}
+	}
+}
 
 \begin{document}
 
@@ -64,9 +90,9 @@
 	\makeatother
 	
 	\begin{abstract}
-		Data visualisation is the presentation of data in a visual context and is particularly important in data analytics since humans are able to recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}.
+		\todo{Data visualisation is the presentation of data in a visual context and is particularly important in data analytics since humans are able to recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}.
 		
-		This project aims to develop touch-based visualisations in three-dimensions and will focus on using large data in a generic way to demonstrate general applicability. The visualisations will provide touch-capability so they are able to be viewed on a smart device.
+		This project aims to develop touch-based visualisations in three-dimensions and will focus on using large data in a generic way to demonstrate general applicability. The visualisations will provide touch-capability so they are able to be viewed on a smart device.}
 	\end{abstract}
 	\vspace*{\fill}
 	
@@ -75,7 +101,7 @@
 	\newpage
 	
 	\section{Background} {
-	\label{section:background}
+	\label{sec:background}
 
 		\todo{
 			2 - 3.5 pages \\
@@ -89,7 +115,7 @@
 	\newpage
 	
 	\section{Project plan} {
-	\label{section:plan}
+	\label{sec:project_plan}
 	
 		\todo{
 			1.5 - 2.5 pages \\
@@ -97,16 +123,19 @@
 		}
 		
 		\subsection{Purpose} {
+		\label{sec:purpose}
 		
 		}
 		
 		\subsection{Outcomes} {
+		\label{sec:outcomes}
 		
 			\todo{This could also be seen as the goals section of your project including arguments of possible significance and usefulness. A big question in this context can be: “What will we be learning from this project?” The goals should be discussed with your supervisor.}
 		
 		}
 		
 		\subsection{Stakeholders} {
+		\label{sec:stakeholders}
 
 			\begin{itemize}
 				\item University of Newcastle.
@@ -128,41 +157,38 @@
 		}
 		
 		\subsection{Scope} {
+		\label{sec:scope}
 		
-			\todo{Statement}
-		
-			\subsubsection{Inclusions} {
+			\subsubsection{Inclusions and exclusions} {
+			\label{sec:inclusions_and_exclusions}
 			
-				The project will include the following:
-		
-				\begin{itemize}
-					\item Two different types of visualisations that are able to be compared with each other.
-					\item The ability to pan, zoom and rotate within the scene.
-					\item Data filtering.
-					\item Integration with the Software Engineering \emph{(Honours)} Final Year Project.
-				\end{itemize}
-			
-			}
-			
-			\subsubsection{Exclusions} {
-			
-				The project will exclude the following:
-			
-				\begin{itemize}
-					\item 2D visualisations.
-					\item Native touch support.
-					\item Volume selection.
-				\end{itemize}
+				\begin{table}[H]
+				\begin{tabularx}{\textwidth}{@{}XX@{}}
+					\toprule
+					\textbf{Inclusions} & \textbf{Exclusions} \\
+					\midrule
+					3D visualisations that can be compared. & 2D visualisations. \\
+					Basic interaction - pan, zoom and rotate. & Advanced touch interactions. \\
+					Data filtering. & Volume selection. \\
+					Data integration with the Final Year Project. & \\
+					\bottomrule
+				\end{tabularx}
+				\caption{A list of what will and will not be included in this project.}
+				\end{table}
 			
 			}
 			
 			\subsubsection{Success criteria} {
+			\label{sec:success_critera}
+			
+				\todo{Add content}
 			
 			}
 		
 		}
 		
 		\subsection{Constraints} {
+		\label{sec:constraints}
 		
 			The project has the following constraints:
 			
@@ -179,6 +205,7 @@
 		}
 		
 		\subsection{Assumptions} {
+		\label{sec:assumptions}
 		
 			It has been assumed that:
 			
@@ -194,10 +221,32 @@
 		}
 		
 		\subsection{Requirements} {
+		\label{sec:requirements}
 		
 		}
 		
-		\subsection{Risk management} {
+		\subsection{Risks} {
+		\label{sec:risks}
+
+			The following table outlines the risks involved in this project. A more detailed risk assessment can be found in Appendix~\ref{app:risk_assessment}.
+			
+			\begin{table}[H]
+			\begin{tabularx}{\textwidth}{@{}lp{0.35\linewidth}X@{}}
+				\toprule
+				\textbf{Id} & \textbf{Description} & \textbf{Strategy} \\
+				\midrule
+				1 & Deliverables are not completed by the deadline. & \emph{Reduction:} Adhere to the project schedule. \\
+				2 & Hardware failure. & \emph{Reduction:} Hardware will be treated with care. \\
+				3 & Hardware cannot efficiently process big data. & \emph{Reduction:} Make optimisations where possible. \\
+				4 & Software platform cannot efficiently process big data. & \emph{Reduction and acceptance:} Determine what is considered big data for this platform to minimise risk. \\
+				5 & Scope is too large. & \emph{Reduction:} Reasonable requirements are established in the proposal with the project manager. \\
+				6 & Code is lost. & \emph{Reduction:} Version control is used with small commits to minimise the impact of loss. \\
+				7 & Project cannot be integrated to the group project. & \emph{Reduction:} Allocate enough time to this and contribute to the group through other means. \\
+				8 & Project is not useful or applicable to the group. & \emph{Reduction and acceptance} Discuss and confirm applicability with the group and project manager before commencing. Alter the visualisation when required. \\
+				\bottomrule
+			\end{tabularx}
+			\caption{The list of risks associated with this project and their appropriate mitigation strategies.}
+			\end{table}
 		
 		}
 	
@@ -206,9 +255,9 @@
 	\newpage
 	
 	\section{Project schedule} {
-	\label{section:schedule}
+	\label{sec:project_schedule}
 	
-		The project plan, which was outlined in Section~\ref{section:plan}, is to be completed according to the project schedule. This has been demonstrated through the Gantt chart in Figure~\ref{gantt:schedule} below, and clearly highlights each milestone that is critical to the success of this project. These include:
+		The project plan, which was outlined in Section~\ref{sec:project_plan}, is to be completed according to the project schedule. This has been demonstrated through the Gantt chart in Figure~\ref{gantt:schedule} below, and clearly highlights each milestone that is critical to the success of this project. These include:
 		
 		\begin{description}
 			\item[Progress reports:] Progress update meetings have been scheduled with the project supervisor on a fortnightly basis.
@@ -236,11 +285,12 @@
 	\newpage
 	
 	\section{Ethical issues} {
-	\label{section:ethics}
+	\label{sec:ethical_issues}
 		
 		The data used to model the visualisations have the potential to lead to ethical issues by containing personal data or copyrighted information.
 		
 		\subsection{Personal data} {
+		\label{sec:personal_data}
 		
 			Personal data is information that is able to identify a person and could be obtained when this project is integrated with the final year group project. It is necessary to log user information in order to obtain the data required to display the visualisations. Users must:
 			
@@ -255,18 +305,110 @@
 		}
 		
 		\subsection{Copyrighted information} {
+		\label{sec:copyright}
 		
 			This poses as an issue when the data used for the visualisation is extracted from an external source. The data should be under a public copyright licence to ensure that there are no copyright infringements when applying it to the project.
 			
-			A possible solution to this issue is to instead generate fake data. This will see the benefit of viewing the visualisation under a large dataset, without needing to fret over copyright issues. However, the visualisation will not display real information and the generated data may appear too random. This data could be generated within a program or by using free online tools.
+			A possible solution to this issue is to instead generate fake data. This will see the benefit of viewing the visualisation under a large dataset, removing any concern over copyright issues. However, the visualisation will not display real information and the generated data may appear too random. This data could be generated within a program or by using free online tools.
 		
 		}
 	
 	}
 	
 	\newpage
-	
+
+	\bibliographystyle{apalike}	
 	\bibliography{references}
-	\bibliographystyle{apalike}
+	
+	\newpage
+	
+	\begin{appendices}
+		\section{Risk assessment} {
+		\label{app:risk_assessment}
+		
+			\subsection{Category legend} {
+			\label{sec:category_legend}
+			
+				\begin{table}[H]
+				\begin{tabularx}{\textwidth}{@{}lX@{}}
+					\toprule
+					\textbf{Risk category} & \textbf{Examples} \\
+					\midrule
+					Project management & Operational, organisational and contractual software development parameters. \\
+					Process management & Planning, staffing, tracking, quality assurance and configuration management. \\
+					Technical process & Analysis, design, programming and testing. \\
+					Technical product & Requirements stability, design performance, code complexity and test specifications. \\
+					\bottomrule
+				\end{tabularx}
+				\caption{A list of the categories used in the risk assessment.}
+				\end{table}
+			
+			}
+			
+			\subsection{Strategy legend} {
+			\label{sec:strategy_legend}
+
+				\begin{table}[H]
+				\begin{tabularx}{\textwidth}{@{}lX@{}}
+					\toprule
+					\textbf{Risk strategy} & \textbf{Description} \\
+					\midrule
+					Acceptance & The risk is acceptable and will be account for. \\
+					Avoidance & An activity will not be performed if it may result in a risk. \\
+					Reduction & The severity of the impact or the likelihood of the risk will be reduced. \\
+					Research & The risk will be investigated so it can be managed. \\
+					Transfer & The risk is shifted to or outsourced to another person, group or organisation. \\
+					\bottomrule
+				\end{tabularx}
+				\caption{A list of the risk strategies used in the risk assessment.}
+				\end{table}
+
+			}
+
+			\subsection{Risk rating legend} {
+			\label{sec:risk_rating_legend}
+
+				\begin{table}[H]
+				\begin{tabularx}{\textwidth}{@{}XX@{}}
+					\toprule
+					\textbf{Priority score} & \textbf{Risk rating} \\
+					\midrule
+					0 - 19 & Very low \\
+					20 - 39 & Low \\
+					40 - 59 & Medium \\
+					60 - 79 & High \\
+					80 - 100 & Very high \\
+					\bottomrule
+				\end{tabularx}
+				\caption{The mapping between the priority score and its associated risk rating.}
+				\end{table}
+
+			}
+			
+			\subsection{Risk details} {
+			\label{sec:risk_details}
+			
+				\begin{table}[H]
+				\begin{spreadtab}{{tabularx}{\textwidth}{@{}llXXXX@{}}}
+					\toprule
+					@\textbf{Id} & @\textbf{Category} & @\textbf{Likelhood} & @\textbf{Impact} & @\textbf{Score} & @\textbf{Rating} \\
+					\midrule
+					1 & @Project management & :={35}\% & 95 & (c2 / 100) * d2 & \rating{:={e2 * 100}} \\
+					2 & @Technical product & :={10}\% & 80 & (c3 / 100) * d3 & \rating{:={e3 * 100}} \\
+					3 & @Technical product & :={10}\% & 100 & (c4 / 100) * d4 & \rating{:={e4 * 100}} \\
+					4 & @Technical product & :={60}\% & 100 & (c5 / 100) * d5 & \rating{:={e5 * 100}} \\
+					5 & @Process management & :={5}\% & 85 & (c6 / 100) * d6 & \rating{:={e6 * 100}} \\
+					6 & @Technical process & :={1}\% & 75 & (c7 / 100) * d7 & \rating{:={e7 * 100}} \\
+					7 & @Technical product & :={20}\% & 85 & (c8 / 100) * d8 & \rating{:={e8 * 100}} \\
+					8 & @Technical product & :={20}\% & 85 & (c9 / 100) * d9 & \rating{:={e9 * 100}} \\
+					\bottomrule
+				\end{spreadtab}
+				\caption{The details of the risks that were outlined in Section~\ref{sec:risks}.}
+				\end{table}
+			
+			}
+		
+		}
+	\end{appendices}
 	
 \end{document}
