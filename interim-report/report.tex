@@ -61,6 +61,8 @@
 \usepackage{etoolbox}
 \usepackage{multicol}
 \usepackage{subcaption}
+% Remove space after caption
+\setlength{\belowcaptionskip}{-15pt}
 
 % References
 \usepackage{natbib}
@@ -121,15 +123,8 @@
 	
 	\section{Project plan} {
 	\label{sec:project_plan}
-	
-		\todo{1.5 - 2.5 pages \\
-			Describe design and methods and demonstrate that these are adequately developed, well integrated and appropriate to the aims of the proposal.}
 		
-		\todo{This could also be seen as the goals section of your project including arguments of possible significance and usefulness. A big question in this context can be: “What will we be learning from this project?” The goals should be discussed with your supervisor.}
-		
-		This project will be developed in a web environment to ensure the creation of a platform independent system. It will primarily use \href{http://threejs.org/}{Three.js}, a JavaScript library that abstracts WebGL, as a tool for creating 3D visualisations.
-		
-		The main \emph{goals} of this project are to:
+		This project will be developed in a web environment to ensure the creation of a platform independent system. It will primarily use \href{http://threejs.org/}{Three.js}, a JavaScript library that abstracts WebGL, as a tool for creating 3D visualisations. The main \emph{goals} of this project are to:
 		
 		%\begin{multicols}{2}
 		\begin{itemize}
@@ -164,6 +159,8 @@
 		\end{figure}
 		
 		The data for the visualisations can easily be represented as a flat array. It may or may not need to be preprocessed, as this depends on the format of the data. This data representation has also been adopted by \href{https://www.chromeexperiments.com/globe}{The WebGL Globe} Chrome Experiment, as shown in Appendix~\ref{app:globe}, is a great example of visualising big data in an efficient way. This open platform project clearly demonstrates that the goals of this project are achievable. They encourage users to use their own datasets, ensuring a certain level of scalability and applications with geographical data.
+		
+		The development of these visualisations will involve using the established \href{http://threejs.org/docs/#Reference/Extras.Geometries/BoxGeometry}{BoxGeometry} and NURBS surface that are available in Three.js. The \href{http://threejs.org/examples/webgl_geometry_nurbs.html}{NURBS example}, as displayed in Appendix~\ref{app:nurbs}, proves that it is possible to render a smooth 3D surface. This can be applied to represent a heat map and if there lie difficulties in implementing this, then an simpler representation can be modelled.
 		
 		\subsection{Stakeholders} {
 		\label{sec:stakeholders}
@@ -208,13 +205,28 @@
 				\end{table}
 			
 			}
-			
-			\subsubsection{Success criteria} {
-			\label{sec:success_critera}
-			
-				\todo{Add content.}
-			
-			}
+		
+		}
+		
+		\subsection{Dependencies} {
+		\label{sec:dependencies}
+		
+			\begin{table}[H]
+			\begin{tabularx}{\textwidth}{@{}XX@{}}
+				\toprule
+				\textbf{Name} & \textbf{Dependency} \\
+				\midrule
+				BitBucket & Source code host \\
+				SourceTree & Git client \\
+				Node.js & Runtime environment \\
+				Three.js & WebGL abstraction \\
+				RequireJS & Dependency injection \\
+				LaTeX & Typesetting \\
+				Shamus Smith & Project supervisor \\
+				\bottomrule
+			\end{tabularx}
+			\caption{A list of project dependencies.}
+			\end{table}
 		
 		}
 		
@@ -353,8 +365,21 @@
 		
 			\begin{figure}[H]
         		\href{https://www.chromeexperiments.com/globe}{\includegraphics[width=\textwidth]{images/globe}}
-				\caption{A screenshot of the WebGL Globe. \citep{google2011globe}}
+				\caption{A screenshot of the WebGL Globe representing population data. \citep{google2011globe}}
 				\label{fig:webgl_globe}
+			\end{figure}
+		
+		}
+		
+		\newpage
+		
+		\section{Three.js NURBS curve and surface example} {
+		\label{app:nurbs}		
+		
+			\begin{figure}[H]
+        		\href{http://threejs.org/examples/webgl_geometry_nurbs.html}{\includegraphics[width=\textwidth]{images/nurbs}}
+				\caption{A screenshot of the NURBS curve and surface example.}
+				\label{fig:nurbs}
 			\end{figure}
 		
 		}
