@@ -36,6 +36,9 @@
 % Table of contents
 \usepackage[nottoc,numbib]{tocbibind}
 
+% Links
+\usepackage{hyperref}
+
 % Paragraphing
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{8pt}
@@ -56,6 +59,8 @@
 \usepackage{float}
 \usepackage{spreadtab}
 \usepackage{etoolbox}
+\usepackage{multicol}
+\usepackage{subcaption}
 
 % References
 \usepackage{natbib}
@@ -117,22 +122,48 @@
 	\section{Project plan} {
 	\label{sec:project_plan}
 	
-		\todo{
-			1.5 - 2.5 pages \\
-			Describe design and methods and demonstrate that these are adequately developed, well integrated and appropriate to the aims of the proposal
-		}
+		\todo{1.5 - 2.5 pages \\
+			Describe design and methods and demonstrate that these are adequately developed, well integrated and appropriate to the aims of the proposal.}
 		
-		\subsection{Purpose} {
-		\label{sec:purpose}
+		\todo{This could also be seen as the goals section of your project including arguments of possible significance and usefulness. A big question in this context can be: “What will we be learning from this project?” The goals should be discussed with your supervisor.}
 		
-		}
+		This project will be developed in a web environment to ensure the creation of a platform independent system. It will primarily use \href{http://threejs.org/}{Three.js}, a JavaScript library that abstracts WebGL, as a tool for creating 3D visualisations.
 		
-		\subsection{Outcomes} {
-		\label{sec:outcomes}
+		The main \emph{goals} of this project are to:
 		
-			\todo{This could also be seen as the goals section of your project including arguments of possible significance and usefulness. A big question in this context can be: “What will we be learning from this project?” The goals should be discussed with your supervisor.}
+		%\begin{multicols}{2}
+		\begin{itemize}
+			\item Visualise big data in a time efficient manner. 
+			\begin{itemize}
+				\item This should be a reasonable loading time for the user.
+			\end{itemize}
+			\item Apply the visualisations to multiple datasets and ensure they are scalable. 
+			\item Integrate the results into the group project.
+			\begin{itemize}
+				\item Apply the visualisations in different ways.
+			\end{itemize}
+			\item Learn how 3D visualisations can effectively convey information.
+			\item Learn how to optimise calls and understand what drains processing resources easily.
+			\begin{itemize}
+				\item This can be measured with a \href{http://jsperf.com/}{JavaScript performance testing environment}.
+			\end{itemize}
+		\end{itemize}
+		%\end{multicols}
 		
-		}
+		To facilitate these goals, this project will involve creating visualisations that are able to compared with one another. This will be done so it can be seen which visualisation is more effective at representing a dataset in particular applications. With this in mind, it has been decided that heat maps will be used as the basis of this project as they have a wide array of applications. Figure~\ref{fig:heat_maps} features two different ways of visualising a heat map. It has potential applications in displaying a 3D column or bar chart, financial and geographical data. It is interesting to note that geographical data can be applied to both visualisations, where the image on the left can be mapped to a sphere and could represent population data, while the other could represent pollution levels in a city.
+		
+		\begin{figure}[H]
+			\begin{subfigure}[b]{0.5\textwidth}
+                \includegraphics[width=\textwidth,height=4.5cm]{images/heat-map-1}
+	        \end{subfigure}
+	        \begin{subfigure}[b]{0.5\textwidth}
+                \includegraphics[width=\textwidth,height=4.5cm]{images/heat-map-2}
+	        \end{subfigure}
+			\caption{Two different representations of a heat map. \citep{tuomainen2014financial} \citep{fuchs2006physiological}}
+			\label{fig:heat_maps}
+		\end{figure}
+		
+		The data for the visualisations can easily be represented as a flat array. It may or may not need to be preprocessed, as this depends on the format of the data. This data representation has also been adopted by \href{https://www.chromeexperiments.com/globe}{The WebGL Globe} Chrome Experiment, as shown in Appendix~\ref{app:globe}, is a great example of visualising big data in an efficient way. This open platform project clearly demonstrates that the goals of this project are achievable. They encourage users to use their own datasets, ensuring a certain level of scalability and applications with geographical data.
 		
 		\subsection{Stakeholders} {
 		\label{sec:stakeholders}
@@ -181,7 +212,7 @@
 			\subsubsection{Success criteria} {
 			\label{sec:success_critera}
 			
-				\todo{Add content}
+				\todo{Add content.}
 			
 			}
 		
@@ -220,11 +251,6 @@
 		
 		}
 		
-		\subsection{Requirements} {
-		\label{sec:requirements}
-		
-		}
-		
 		\subsection{Risks} {
 		\label{sec:risks}
 
@@ -239,10 +265,10 @@
 				2 & Hardware failure. & \emph{Reduction:} Hardware will be treated with care. \\
 				3 & Hardware cannot efficiently process big data. & \emph{Reduction:} Make optimisations where possible. \\
 				4 & Software platform cannot efficiently process big data. & \emph{Reduction and acceptance:} Determine what is considered big data for this platform to minimise risk. \\
-				5 & Scope is too large. & \emph{Reduction:} Reasonable requirements are established in the proposal with the project manager. \\
+				5 & Scope is too large. & \emph{Reduction:} Reasonable requirements are established in the proposal with the project supervisor. \\
 				6 & Code is lost. & \emph{Reduction:} Version control is used with small commits to minimise the impact of loss. \\
 				7 & Project cannot be integrated to the group project. & \emph{Reduction:} Allocate enough time to this and contribute to the group through other means. \\
-				8 & Project is not useful or applicable to the group. & \emph{Reduction and acceptance} Discuss and confirm applicability with the group and project manager before commencing. Alter the visualisation when required. \\
+				8 & Project is not useful or applicable to the group. & \emph{Reduction and acceptance} Discuss and confirm applicability with the group and project supervisor before commencing. Alter the visualisation when required. \\
 				\bottomrule
 			\end{tabularx}
 			\caption{The list of risks associated with this project and their appropriate mitigation strategies.}
@@ -274,9 +300,7 @@
         
 		\begin{figure}[H]
 	        \resizebox{\textwidth}{!}{\input{gantt.tex}}
-			\caption[Project schedule] {
-                A Gantt chart illustrating the project schedule. Grey bars indicate optional tasks.
-			}
+			\caption[Project schedule] {A Gantt chart illustrating the project schedule. Grey bars indicate optional tasks.}
 			\label{gantt:schedule}
 		\end{figure}
 		
@@ -323,6 +347,20 @@
 	\newpage
 	
 	\begin{appendices}
+	
+		\section{The WebGL Globe Chrome Experiment} {
+		\label{app:globe}
+		
+			\begin{figure}[H]
+        		\href{https://www.chromeexperiments.com/globe}{\includegraphics[width=\textwidth]{images/globe}}
+				\caption{A screenshot of the WebGL Globe. \citep{google2011globe}}
+				\label{fig:webgl_globe}
+			\end{figure}
+		
+		}
+		
+		\newpage
+		
 		\section{Risk assessment} {
 		\label{app:risk_assessment}
 		
@@ -409,6 +447,7 @@
 			}
 		
 		}
+		
 	\end{appendices}
 	
 \end{document}
