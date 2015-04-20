@@ -29,9 +29,10 @@
 
 % Abstract
 \usepackage{abstract}
-\renewcommand{\absnamepos}{flushleft}
 \setlength{\absleftindent}{0pt}
 \setlength{\absrightindent}{0pt}
+\renewcommand{\absnamepos}{flushleft}
+\renewcommand{\abstractnamefont}{\normalfont\Large\bfseries}
 
 % Table of contents
 \usepackage[nottoc,numbib]{tocbibind}
@@ -128,7 +129,7 @@
 		
 		%\begin{multicols}{2}
 		\begin{itemize}
-			\item Visualise big data in a time efficient manner. 
+			\item Visualise big data in a time efficient manner and ensure it is aesthetically pleasing. 
 			\begin{itemize}
 				\item This should be a reasonable loading time for the user.
 			\end{itemize}
@@ -148,13 +149,13 @@
 		To facilitate these goals, this project will involve creating visualisations that are able to compared with one another. This will be done so it can be seen which visualisation is more effective at representing a dataset in particular applications. With this in mind, it has been decided that heat maps will be used as the basis of this project as they have a wide array of applications. Figure~\ref{fig:heat_maps} features two different ways of visualising a heat map. It has potential applications in displaying a 3D column or bar chart, financial and geographical data. It is interesting to note that geographical data can be applied to both visualisations, where the image on the left can be mapped to a sphere and could represent population data, while the other could represent pollution levels in a city.
 		
 		\begin{figure}[H]
-			\begin{subfigure}[b]{0.5\textwidth}
+			\begin{subfigure}[b]{0.495\textwidth}
                 \includegraphics[width=\textwidth,height=4.5cm]{images/heat-map-1}
 	        \end{subfigure}
-	        \begin{subfigure}[b]{0.5\textwidth}
+	        \begin{subfigure}[b]{0.495\textwidth}
                 \includegraphics[width=\textwidth,height=4.5cm]{images/heat-map-2}
 	        \end{subfigure}
-			\caption{Two different representations of a heat map. \citep{tuomainen2014financial} \citep{fuchs2006physiological}}
+			\caption{Two different representations of a heat map \citep{tuomainen2014financial} \citep{fuchs2006physiological}.}
 			\label{fig:heat_maps}
 		\end{figure}
 		
@@ -214,7 +215,7 @@
 			\begin{table}[H]
 			\begin{tabularx}{\textwidth}{@{}XX@{}}
 				\toprule
-				\textbf{Name} & \textbf{Dependency} \\
+				\textbf{Dependency} & \textbf{Description} \\
 				\midrule
 				BitBucket & Source code host \\
 				SourceTree & Git client \\
@@ -360,6 +361,50 @@
 	
 	\begin{appendices}
 	
+		\section{Current progress} {
+		\label{app:current_progress}
+		
+			Initially, this project was inspired by the visualisation of flight paths as shown in Figure~\ref{fig:flight_paths}. These flight paths could instead represent touch-gestures that could be integrated into the group project. A proof of concept of this visualisation was developed to test the capabilities of the Three.js library.
+			
+			\begin{figure}[H]
+        		\href{http://nats.aero/blog/2014/03/europe-24-air-traffic-data-visualisation/}{\includegraphics[width=\textwidth]{images/flight-paths}}
+				\caption{Air traffic data visualisation \citep{nats2014air}.}
+				\label{fig:flight_paths}
+			\end{figure}
+			
+			The format of the data needed to be confirmed before generating it. To do this, a test runner was created to evaluate any performance differences in reading and parsing array data as opposed to objects. The results of this test, which are demonstrated in Figure~\ref{fig:performance_test}, conclude that reading and parsing array data is far more efficient.
+			
+			\begin{figure}[H]
+        		\href{http://jsperf.com/object-and-array-reading}{\includegraphics[width=\textwidth]{images/performance-test}}
+				\caption{The results of the performance test.}
+				\label{fig:performance_test}
+			\end{figure}
+			
+			Lines are incredibly difficult to draw in WebGL \citep{deslauriers2015lines} and was the first challenge when attempting to develop this visualisation. There are two main methods of rendering a line using the Three.js library: 
+			
+			\begin{description}
+				\item[Line Object:] The default thickness of the line is too thin to highlight intersections with alpha blending. To resolve this, the \emph{lineWidth} property should be used. However, it is not supported in Windows which limits the availability of the system.
+				\item[TubeGeometry:] This geometry does not render acute angles accurately and results in a thinner and deformed tube structure. It also does not shade intersecting tubes correctly, which is highlighted in Figure~\ref{fig:tube_geometry}. While the code could be modified through a pull request, this would be too time consuming as the mathematics behind it is very complex and would need to be learned.
+			\end{description}
+			
+			\begin{figure}[H]
+        		\includegraphics[width=\textwidth]{images/tube-geometry}
+				\caption{The issues with TubeGeometry.}
+				\label{fig:tube_geometry}
+			\end{figure}
+			
+			The visualisation did provide relatively good results which have been presented in Figure~\ref{fig:proof_of_concept}. However, when closely inspected the issues with its finer details were too prominent. Given the difficulty of amending the issues that arise when rendering a line, this idea was scrapped.
+			
+			\begin{figure}[H]
+        		\includegraphics[width=\textwidth]{images/proof-of-concept}
+				\caption{An example of the visualisation that was developed.}
+				\label{fig:proof_of_concept}
+			\end{figure}
+		
+		}
+		
+		\newpage
+	
 		\section{Examples} {
 		\label{app:examples}
 		
@@ -368,7 +413,7 @@
 		
 				\begin{figure}[H]
         			\href{https://www.chromeexperiments.com/globe}{\includegraphics[width=\textwidth]{images/globe}}
-					\caption{A screenshot of the WebGL Globe representing population data. \citep{google2011globe}}
+					\caption{A screenshot of the WebGL Globe representing population data \citep{google2011globe}.}
 					\label{fig:webgl_globe}
 				\end{figure}
 		
