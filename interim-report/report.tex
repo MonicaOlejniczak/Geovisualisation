@@ -68,6 +68,8 @@
 % References
 \usepackage{natbib}
 \renewcommand{\bibname}{References}
+% Left align text
+\renewcommand*{\bibfont}{\raggedright}
 
 % Appendices
 \usepackage[toc,page]{appendix}
@@ -108,14 +110,49 @@
 	\tableofcontents
 	\newpage
 	
-	\section{Background} {
-	\label{sec:background}
-
-		\todo{
-			2 - 3.5 pages \\
+	\todo{2 - 3.5 pages \\
 			Summary of your literature review as "related work". \\
 			ALSO why is this project important? \\
-			What is the main research question you hope to answer
+			What is the main research question you hope to answer.}
+			
+		\todo{Issues with big data, information visualisation, visualising big data, making it pretty}
+		
+	\newpage
+	
+	\section{Introduction} {
+	\label{sec:introduction}
+		
+		Data visualisation is the presentation of information in a visual context. It is particularly important in data analytics, since humans are able to recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}. Recognising these relationships is critical when working with big data, as the mass of information needs to be filtered and interpreted, so analysts can make informed decisions \citep{hendley1995case}. This task can be resolved by utilising visualisations, which have the potential to lead to analytic discovery or be used for data reduction \citep{rohrer1997web}. Analytic discovery highlights important information in large volumes of data, while data reduction removes insignificant information so a visualisation can be applied to the remaining data.
+		
+		The creation of an effective visualisation requires finding an appropriate visual mapping for a specific task \citep{rohrer1997web}, which may prove to be challenging as there is a wide array of visualisation types. It can also be paired with the use of a 3-dimensional representation to provide a richer user experience, due to the increased information density \citep{hendley1995case}.
+		
+		This research presents the main issues and challenges of visualising big data.
+		
+		\subsection{Characteristics of big data} {
+		
+			\begin{description}
+				\item[Volume:] This is the quantity of data that is available to an organisation \citep{kaisler2013big} and can exist in the size of petabytes \citep{katal2013big}.
+				\item[Velocity:] Data velocity measures the rate of which data is created \citep{ferguson2012architecting} and how fast it is generated and processed from various sources \citep{katal2013big}.
+				\item[Variety:] Refers to various forms of data and could consist of raw, structured, semi-structured or unstructured data \citep{ferguson2012architecting} such as text, email, image or video.
+				\item[Variability:] The inconsistencies of the data flow \citep{katal2013big}.
+				\item[Value:] This refers to the usefulness of data in making decisions \citep{kaisler2013big}.
+				\item[Complexity:] The degree of how much the data is linked, connected and correlated. Changes that are made to a few elements can either have a substantial, or no effect, on the system based on this characteristic \citep{kaisler2013big}.
+			\end{description}
+		
+		}
+		
+		\subsection{Issues with big data} {
+		
+			data variability  which have the potential to effect data maintainability.
+		
+			\todo{\citet{kaisler2013big} stated that ``incompatible data formats, non-aligned data structures and inconsistent data semantics represents significant challenges [in analytics]''.}
+		
+		}
+			
+		\subsection{Importance of big data} {
+
+			sdsd				
+
 		}
 	
 	}
@@ -125,14 +162,15 @@
 	\section{Project plan} {
 	\label{sec:project_plan}
 		
-		This project will be developed in a web environment to ensure the creation of a platform independent system. It will primarily use \href{http://threejs.org/}{Three.js}, a JavaScript library that abstracts WebGL, as a tool for creating 3D visualisations. The main \emph{goals} of this project are to:
+		This project will be developed in a web environment to ensure the creation of a platform independent system. It will primarily use \href{http://threejs.org/}{Three.js}, a JavaScript library that abstracts WebGL, as a tool for creating 3D visualisations. An initial prototype was designed and has been discussed in Appendix~\ref{app:current_progress}. The main \emph{goals} of this project are to:
 		
 		%\begin{multicols}{2}
 		\begin{itemize}
-			\item Visualise big data in a time efficient manner and ensure it is aesthetically pleasing. 
+			\item Visualise big data in a time efficient manner.
 			\begin{itemize}
 				\item This should be a reasonable loading time for the user.
 			\end{itemize}
+			\item Ensure the visualisation is aesthetically pleasing and of high quality.
 			\item Apply the visualisations to multiple datasets and ensure they are scalable. 
 			\item Integrate the results into the group project.
 			\begin{itemize}
@@ -354,7 +392,7 @@
 	
 	\newpage
 
-	\bibliographystyle{apalike}	
+	\bibliographystyle{plain}
 	\bibliography{references}
 	
 	\newpage
@@ -375,7 +413,7 @@
 			The format of the data needed to be confirmed before generating it. To do this, a test runner was created to evaluate any performance differences in reading and parsing array data as opposed to objects. The results of this test, which are demonstrated in Figure~\ref{fig:performance_test}, conclude that reading and parsing array data is far more efficient.
 			
 			\begin{figure}[H]
-        		\href{http://jsperf.com/object-and-array-reading}{\includegraphics[width=\textwidth]{images/performance-test}}
+        		\href{http://jsperf.com/object-and-array-reading}{\includegraphics[width=\textwidth,height=8.5cm]{images/performance-test}}
 				\caption{The results of the performance test.}
 				\label{fig:performance_test}
 			\end{figure}
