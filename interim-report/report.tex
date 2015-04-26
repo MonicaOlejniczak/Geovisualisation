@@ -27,6 +27,12 @@
 \title{3D visualisation of large data in a multi-platform environment}
 \author{Monica Olejniczak}
 
+% Sections
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+\usepackage[compact]{titlesec}
+\titlespacing{\paragraph}{0pt}{*0}{8pt}
+
 % Abstract
 \usepackage{abstract}
 \setlength{\absleftindent}{0pt}
@@ -61,9 +67,15 @@
 \usepackage{spreadtab}
 \usepackage{etoolbox}
 \usepackage{multicol}
+\usepackage{caption} 
 \usepackage{subcaption}
 % Remove space after caption
 \setlength{\belowcaptionskip}{-15pt}
+\captionsetup[table]{belowskip=-8pt}
+% Remove indentation on description lists
+\usepackage{enumitem}
+\setlist[description, 1]{leftmargin=0pt}
+\setlist[description, 2]{wide=20pt}
 
 % References
 \usepackage{natbib}
@@ -114,45 +126,93 @@
 			Summary of your literature review as "related work". \\
 			ALSO why is this project important? \\
 			What is the main research question you hope to answer.}
-			
-		\todo{Issues with big data, information visualisation, visualising big data, making it pretty}
-		
-	\newpage
 	
 	\section{Introduction} {
 	\label{sec:introduction}
 		
-		Data visualisation is the presentation of information in a visual context. It is particularly important in data analytics, since humans are able to recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}. Recognising these relationships is critical when working with big data, as the mass of information needs to be filtered and interpreted, so analysts can make informed decisions \citep{hendley1995case}. This task can be resolved by utilising visualisations, which have the potential to lead to analytic discovery or be used for data reduction \citep{rohrer1997web}. Analytic discovery highlights important information in large volumes of data, while data reduction removes insignificant information so a visualisation can be applied to the remaining data.
+		Data visualisation is the presentation of information in a visual context. It is particularly important in data analytics, since humans are able to recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}. Recognising these relationships is critical when working with big data, as the mass of information needs to be filtered and interpreted, so analysts can make informed decisions \citep{hendley1995case}. This task can be resolved by creating effective data visualisations, as they have the potential to lead to analytic discovery or be used for data reduction \citep{rohrer1997web}.
 		
-		The creation of an effective visualisation requires finding an appropriate visual mapping for a specific task \citep{rohrer1997web}, which may prove to be challenging as there is a wide array of visualisation types. It can also be paired with the use of a 3-dimensional representation to provide a richer user experience, due to the increased information density \citep{hendley1995case}.
+		\begin{description}
+			\item[Analytic discovery:] Highlights important information in large volumes of data.
+			\item[Data reduction:] Removes uninteresting information so a tool can be applied to the remaining data.
+		\end{description}
 		
-		This research presents the main issues and challenges of visualising big data.
+		This research presents the main issues and challenges associated with big data and its characteristics, discusses how to visualise information and delves into effective visualisation techniques that can be applied with big data. The rest of this report outlines the details of this project which include its goals, plan for development and schedule. This report concludes with the ethical issues that arise from developing this project.
 		
-		\subsection{Characteristics of big data} {
+		\subsection{Big data} {
 		
-			\begin{description}
-				\item[Volume:] This is the quantity of data that is available to an organisation \citep{kaisler2013big} and can exist in the size of petabytes \citep{katal2013big}.
-				\item[Velocity:] Data velocity measures the rate of which data is created \citep{ferguson2012architecting} and how fast it is generated and processed from various sources \citep{katal2013big}.
-				\item[Variety:] Refers to various forms of data and could consist of raw, structured, semi-structured or unstructured data \citep{ferguson2012architecting} such as text, email, image or video.
-				\item[Variability:] The inconsistencies of the data flow \citep{katal2013big}.
-				\item[Value:] This refers to the usefulness of data in making decisions \citep{kaisler2013big}.
-				\item[Complexity:] The degree of how much the data is linked, connected and correlated. Changes that are made to a few elements can either have a substantial, or no effect, on the system based on this characteristic \citep{kaisler2013big}.
-			\end{description}
-		
-		}
-		
-		\subsection{Issues with big data} {
-		
-			data variability  which have the potential to effect data maintainability.
-		
-			\todo{\citet{kaisler2013big} stated that ``incompatible data formats, non-aligned data structures and inconsistent data semantics represents significant challenges [in analytics]''.}
-		
-		}
+			Big data can be defined as the amount of information stored, managed and processed just beyond the capability of present technology \citep{kaisler2013big}.
 			
-		\subsection{Importance of big data} {
+			\subsubsection{Characteristics} {
+			
+				\begin{table}[H]
+				\caption{The various characteristics of big data.}
+				\begin{tabularx}{\textwidth}{@{}lX@{}}
+					\toprule
+					\textbf{Name} & \textbf{Description} \\
+					\midrule
+					Volume & This is the quantity of data that is available to an organisation \citep{kaisler2013big} and can exist in the size of petabytes \citep{katal2013big}. \\
+					Velocity & Data velocity measures the rate of which data is created \citep{ferguson2012architecting} and how fast it is generated and processed from various sources \citep{katal2013big}. \\
+					Variety & Refers to various forms of data and could consist of raw, structured, semi-structured or unstructured data \citep{ferguson2012architecting} such as text, email, image or video. \\
+					Variability & The inconsistencies of the data flow \citep{katal2013big}. \\
+					Value & This refers to the usefulness of data in making decisions \citep{kaisler2013big}. \\
+					Complexity & The degree of how much the data is linked, connected and correlated. Changes that are made to a few elements can either have a substantial, or no effect, on the system based on this characteristic \citep{kaisler2013big}. \\
+					\bottomrule
+				\end{tabularx}
+				\end{table}
+			
+			}
+			
+			\subsubsection{Issues and challenges} {
+				
+				\paragraph{Storage and transport} {
+				
+					There are rigorous demands placed on networks, storage and servers when data is being produced by almost everything \citep{katal2013big}. Uploading data to the cloud is an option \citep{katal2013big} \citep{labrinidis2012challenges}, but may not be feasible for real-time applications due to the upload time of data \citep{katal2013big}. 
+					
+					\citet{kaisler2013big} discusses that transporting big data is difficult due to hardware and network constraints. They have stated that it would take longer to transmit the data than to process it, by calculating that it would take approximately 2800 hours to transfer an exabyte of data with a reliable network connection.
+				
+				}
 
-			sdsd				
-
+				\paragraph{Processing} { 
+				
+					\citet{labrinidis2012challenges} mentions that processing a large volume of data takes a significant amount of time to analyse. It is not feasible to scan the entire data set to locate suitable elements. To effectively process big data, either parallel processing \citep{kaisler2013big}, or the indexing of information during data collection and storage \citep{katal2013big} \citep{labrinidis2012challenges}, needs to take place. However, index structures are usually designed to only support a few classes of search criteria and are challenging to design when the data volume grows rapidly \citep{labrinidis2012challenges}.
+					
+					Hard disk drives are being increasingly replaced by solid state drives and other technologies due to their processing limitations. This has several implications in data processing, which includes query processing, algorithms, query scheduling, database design, concurrency control methods and recovery methods \citep{labrinidis2012challenges}.
+					
+				}
+				
+				\paragraph{Privacy and security} {
+				
+					The privacy and security of data is a primary concern in the area of big data. It raises ethical issues which have been mentioned in Section~\ref{sec:personal_data} and can be considered a technical and sociological problem. Strict laws and regulations can be enforced on certain types of data, which govern what can be done with that information \citep{labrinidis2012challenges}. 
+					
+					Users are often unaware of the information that has been collected from them \citep{katal2013big} and often fear the potential misuse of their personal data, especially when it has been linked from multiple sources \citep{labrinidis2012challenges}. This is particularly problematic when users wish to remain anonymous and unidentifiable.
+					
+				}
+					
+				\todo{data variability  which have the potential to effect data maintainability.
+			
+				\citet{kaisler2013big} stated that ``incompatible data formats, non-aligned data structures and inconsistent data semantics represents significant challenges [in analytics]''.
+				
+				The main difficulty in handling such large amount of data is because that the volume is increasing rapidly in comparison to the computing resources.}
+		
+			}
+				
+			\subsubsection{Importance} {
+	
+				sdsd				
+	
+			}
+		
+		}
+		
+		\subsection{Information visualisation} {
+		
+			The creation of an effective visualisation requires finding an appropriate visual mapping for a specific task \citep{rohrer1997web}. This may prove to be difficult as there are a large array of visualisations that could be applied to a given data set. Moreover, \citet{hendley1995case} discusses that a 3-dimensional representation of data provides a rich user experience, due to the increased information density, as opposed to the traditional 2-dimensional representation. 
+		
+		}
+		
+		\subsection{Effective visualisation techniques/Visualising big data} {
+		
 		}
 	
 	}
@@ -230,6 +290,7 @@
 			\label{sec:inclusions_and_exclusions}
 			
 				\begin{table}[H]
+				\caption{A list of what will and will not be included in this project.}
 				\begin{tabularx}{\textwidth}{@{}XX@{}}
 					\toprule
 					\textbf{Inclusions} & \textbf{Exclusions} \\
@@ -240,7 +301,6 @@
 					Data integration with the Final Year Project. & \\
 					\bottomrule
 				\end{tabularx}
-				\caption{A list of what will and will not be included in this project.}
 				\end{table}
 			
 			}
@@ -251,6 +311,7 @@
 		\label{sec:dependencies}
 		
 			\begin{table}[H]
+			\caption{A list of project dependencies.}
 			\begin{tabularx}{\textwidth}{@{}XX@{}}
 				\toprule
 				\textbf{Dependency} & \textbf{Description} \\
@@ -264,7 +325,6 @@
 				Shamus Smith & Project supervisor \\
 				\bottomrule
 			\end{tabularx}
-			\caption{A list of project dependencies.}
 			\end{table}
 		
 		}
@@ -308,6 +368,7 @@
 			The following table outlines the risks involved in this project. A more detailed risk assessment can be found in Appendix~\ref{app:risk_assessment}.
 			
 			\begin{table}[H]
+			\caption{The list of risks associated with this project and their appropriate mitigation strategies.}
 			\begin{tabularx}{\textwidth}{@{}lp{0.35\linewidth}X@{}}
 				\toprule
 				\textbf{Id} & \textbf{Description} & \textbf{Strategy} \\
@@ -322,7 +383,6 @@
 				8 & Project is not useful or applicable to the group. & \emph{Reduction and acceptance} Discuss and confirm applicability with the group and project supervisor before commencing. Alter the visualisation when required. \\
 				\bottomrule
 			\end{tabularx}
-			\caption{The list of risks associated with this project and their appropriate mitigation strategies.}
 			\end{table}
 		
 		}
@@ -336,7 +396,7 @@
 	
 		The project plan, which was outlined in Section~\ref{sec:project_plan}, is to be completed according to the project schedule. This has been demonstrated through the Gantt chart in Figure~\ref{gantt:schedule} below, and clearly highlights each milestone that is critical to the success of this project. These include:
 		
-		\begin{description}
+		\begin{description}[leftmargin=0pt]
 			\item[Progress reports:] Progress update meetings have been scheduled with the project supervisor on a fortnightly basis.
 			\item[Individual research presentation:] The presentation requires written preparation and rehearsal. It should be completed by the end of the first week so more important tasks can be focused on.
 			\item[Final report:] This report encompasses the deliverables of the project as they form the basis for the documentation. The report will need to be allocated at least one fortnight after the deliverables have been completed, so it can be completed to a good standard of quality.
@@ -392,7 +452,7 @@
 	
 	\newpage
 
-	\bibliographystyle{plain}
+	\bibliographystyle{abbrv}
 	\bibliography{references}
 	
 	\newpage
@@ -479,6 +539,7 @@
 			\label{app:category_legend}
 			
 				\begin{table}[H]
+				\caption{A list of the categories used in the risk assessment.}
 				\begin{tabularx}{\textwidth}{@{}lX@{}}
 					\toprule
 					\textbf{Risk category} & \textbf{Examples} \\
@@ -489,7 +550,6 @@
 					Technical product & Requirements stability, design performance, code complexity and test specifications. \\
 					\bottomrule
 				\end{tabularx}
-				\caption{A list of the categories used in the risk assessment.}
 				\end{table}
 			
 			}
@@ -498,6 +558,7 @@
 			\label{app:strategy_legend}
 
 				\begin{table}[H]
+				\caption{A list of the risk strategies used in the risk assessment.}
 				\begin{tabularx}{\textwidth}{@{}lX@{}}
 					\toprule
 					\textbf{Risk strategy} & \textbf{Description} \\
@@ -509,7 +570,6 @@
 					Transfer & The risk is shifted to or outsourced to another person, group or organisation. \\
 					\bottomrule
 				\end{tabularx}
-				\caption{A list of the risk strategies used in the risk assessment.}
 				\end{table}
 
 			}
@@ -518,6 +578,7 @@
 			\label{app:risk_rating_legend}
 
 				\begin{table}[H]
+				\caption{The mapping between the priority score and its associated risk rating.}
 				\begin{tabularx}{\textwidth}{@{}XX@{}}
 					\toprule
 					\textbf{Priority score} & \textbf{Risk rating} \\
@@ -529,7 +590,6 @@
 					80 - 100 & Very high \\
 					\bottomrule
 				\end{tabularx}
-				\caption{The mapping between the priority score and its associated risk rating.}
 				\end{table}
 
 			}
@@ -538,6 +598,7 @@
 			\label{app:risk_details}
 			
 				\begin{table}[H]
+				\caption{The details of the risks that were outlined in Section~\ref{sec:risks}.}
 				\begin{spreadtab}{{tabularx}{\textwidth}{@{}llXXXX@{}}}
 					\toprule
 					@\textbf{Id} & @\textbf{Category} & @\textbf{Likelhood} & @\textbf{Impact} & @\textbf{Score} & @\textbf{Rating} \\
@@ -552,7 +613,6 @@
 					8 & @Technical product & :={20}\% & 85 & (c9 / 100) * d9 & \rating{:={e9 * 100}} \\
 					\bottomrule
 				\end{spreadtab}
-				\caption{The details of the risks that were outlined in Section~\ref{sec:risks}.}
 				\end{table}
 			
 			}
