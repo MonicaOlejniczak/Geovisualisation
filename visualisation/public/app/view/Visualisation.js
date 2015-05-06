@@ -20,7 +20,7 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 		});
 		var scene = this.scene;
 		// Adds a grid to the scene.
-		scene.add(this.createGrid(50, 5));
+		//scene.add(this.createGrid(50, 5));
 		// Read the data from the test file.
 		this.readData('app/data/generate.js');
 		// Make the camera look at the scene.
@@ -101,17 +101,19 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 		// Create the curve using the points obtained from the series.
 		var curve = new THREE.SplineCurve3(points);
 		// Create the tube geometry and material.
-		var geometry = new THREE.TubeGeometry(curve, 50, 0.05, 8, true);
+		var geometry = new THREE.TubeGeometry(curve, 50, 0.1, 8, false);
 		var material = new THREE.MeshLambertMaterial({
 			color: this.color
 		});
 		// Apply alpha blending to the material.
-		//material.opacity = 0.85;
-		//material.transparent = true;
-		//material.blending = THREE.AdditiveBlending;
+		material.opacity = 0.95;
+		material.transparent = true;
+		material.blending = THREE.AdditiveBlending;
 		// Create the mesh and add it to the scene.
 		var mesh = new THREE.Mesh(geometry, material);
+		//var wireframe = new THREE.WireframeHelper(mesh, 0xffffff);
 		this.scene.add(mesh);
+		//this.scene.add(wireframe);
 	};
 
 	/**
@@ -121,7 +123,7 @@ define(['jquery', 'threejs', 'Canvas', 'util/Color'], function ($, THREE, Canvas
 	 * @returns {THREE.Vector3} The converted vector.
 	 */
 	Visualisation.prototype.convertPosition = function (point) {
-		return new THREE.Vector3(point[0], 0.05, -point[1]);
+		return new THREE.Vector3(point[0], 0.01, -point[1]);
 	};
 
 	return Visualisation;
