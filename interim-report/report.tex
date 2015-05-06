@@ -30,31 +30,6 @@
 %\titlespacing{\paragraph}{0pt}{*0}{8pt}
 
 % http://tex.stackexchange.com/questions/198830/section-title-with-runin-and-koma-class
-%\makeatletter
-%\renewcommand\section{\@startsection{section}{1}{\z@}%
-%    {-1.5ex}%
-%    {0.5em}
-%    {\ifnum \scr@compatibility>\@nameuse{scr@v@2.96}\relax
-%    \setlength{\parfillskip}{\z@ plus 1fil}\fi
-%    \raggedsection\sectfont\nobreak\size@section}%
-%}
-%
-%\renewcommand\subsection{\@startsection{subsection}{1}{\z@}%
-%  {-1.5ex \@plus -1ex \@minus -.2ex}%
-%  {0.5em}
-%  {\ifnum \scr@compatibility>\@nameuse{scr@v@2.96}\relax
-%  \setlength{\parfillskip}{\z@ plus 1fil}\fi
-%  \raggedsection\normalfont\sectfont\nobreak\size@section}%
-%}
-%
-%\renewcommand\paragraph{\@startsection{paragraph}{1}{\z@}%
-%  {-1.5ex \@plus -1ex \@minus -.2ex}%
-%  {0.5em}
-%  {\ifnum \scr@compatibility>\@nameuse{scr@v@2.96}\relax
-%  \setlength{\parfillskip}{\z@ plus 1fil}\fi
-%  \raggedsection\normalfont\sectfont\nobreak\size@section}%
-%}
-%\makeatother
 
 % Abstract
 \usepackage{abstract}
@@ -145,12 +120,7 @@
 	\section{Introduction} {
 	\label{sec:introduction}
 		
-		Data visualisation is the presentation of information in a visual context. It is particularly important in data analytics, since humans are able to recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}. Recognising these relationships is critical when working with big data, as the mass of information needs to be filtered and interpreted, so analysts can make informed decisions \citep{hendley1995case}. This task can be resolved by creating effective data visualisations, as they have the potential to lead to analytic discovery or be used for data reduction \citep{rohrer1997web}.
-		
-		\begin{description}
-			\item[Analytic discovery:] Highlights important information in large volumes of data.
-			\item[Data reduction:] Removes uninteresting information so a tool can be applied to the remaining data.
-		\end{description}
+		Data visualisation is the presentation of information in a visual context. It is particularly important in data analytics, since humans are able to recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}. Recognising these relationships is critical when working with big data, as the mass of information needs to be filtered and interpreted, so analysts can make informed decisions \citep{hendley1995case}. This task can be resolved by creating effective data visualisations, as they have the potential to lead to analytic discovery or be used for data reduction \citep{rohrer1997web}. Analytic discovery highlights important information in large volumes of data, while data reduction removes uninteresting information so a tool can be applied to the remaining data.
 		
 		This research presents the main issues and challenges associated with big data and its characteristics, discusses how to visualise information and delves into effective visualisation techniques that can be applied with big data. The rest of this report outlines the details of this project which include its goals, plan for development and schedule. This report concludes with the ethical issues that arise from developing this project.
 		
@@ -182,15 +152,15 @@
 				
 				\paragraph{Storage and transport} {
 				
-					There are rigorous demands placed on networks, storage and servers when data is being produced by almost everything \citep{katal2013big}. Uploading data to the cloud is an option \citep{katal2013big} \citep{labrinidis2012challenges}, but may not be feasible for real-time applications due to the upload time of data \citep{katal2013big}. 
+					There are rigorous demands placed on storage, networks and servers when data is being produced by almost everything \citep{katal2013big}. Uploading data to the cloud is an option \citep{katal2013big} \citep{labrinidis2012challenges}, but may not be feasible for real-time applications due to its upload time \citep{katal2013big}. 
 					
-					\citet{kaisler2013big} discusses that transporting big data is difficult due to hardware and network constraints. They have stated that it would take longer to transmit the data than to process it, by calculating that it would take approximately 2800 hours to transfer an exabyte of data with a reliable network connection.
+					\citet{kaisler2013big} discusses that transporting big data is difficult due to hardware and network constraints. They calculated that it would take approximately 2800 hours to transfer an exabyte of data with a reliable network connection, which is substantially longer than processing it.
 				
 				}
 
 				\paragraph{Processing} {
 				
-					\citet{labrinidis2012challenges} mentions that processing a large volume of data takes a significant amount of time to analyse, while \citet{katal2013big} notes that the volume of data is increasing rapidly in comparison to the computing resources and is a cause for concern. It is not feasible to scan the entire data set to locate suitable elements. To effectively process big data, either parallel processing \citep{kaisler2013big}, or the indexing of information during data collection and storage \citep{katal2013big} \citep{labrinidis2012challenges}, needs to take place. However, index structures are usually designed to only support a few classes of search criteria and are challenging to design when the data volume grows rapidly \citep{labrinidis2012challenges}.
+					\citet{labrinidis2012challenges} mention that processing a large volume of data takes a significant amount of time to analyse. This is especially due to data volumes increasing more rapidly than the computing resources available \citep{katal2013big}, which is a cause for concern. It is not feasible to scan an entire data set to locate suitable elements. To effectively process big data, either parallel processing \citep{kaisler2013big}, or data indexing during collection and storage \citep{katal2013big} \citep{labrinidis2012challenges}, needs to take place. However, index structures are usually designed to only support a few classes of search criteria and are challenging to design when the data volume grows rapidly \citep{labrinidis2012challenges}.
 					
 					Hard disk drives are being increasingly replaced by solid state drives and other technologies due to their processing limitations. This has several implications in data processing, which includes query processing, algorithms, query scheduling, database design, concurrency control methods and recovery methods \citep{labrinidis2012challenges}.
 					
@@ -198,7 +168,7 @@
 				
 				\paragraph{Privacy and security} {
 				
-					The privacy and security of data is a primary concern in the area of big data. It raises ethical issues which have been mentioned in Section~\ref{sec:personal_data} and can be considered a technical and sociological problem. Strict laws and regulations can be enforced on certain types of data, which govern what can be done with that information \citep{labrinidis2012challenges}. 
+					The privacy and security of data is a primary concern for big data. It raises ethical issues which have been mentioned in Section~\ref{sec:personal_data} and can be considered a technical and sociological problem. Strict laws and regulations can be enforced on certain types of data, which govern what can be done with that information \citep{labrinidis2012challenges}. 
 					
 					Users are often unaware of the information that has been collected from them \citep{katal2013big} and often fear the potential misuse of their personal data, especially when it has been linked from multiple sources \citep{labrinidis2012challenges}. This is particularly problematic when users wish to remain anonymous and unidentifiable.
 					
