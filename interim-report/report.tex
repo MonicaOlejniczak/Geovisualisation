@@ -20,7 +20,7 @@
 \cfoot{\pagemark}
 
 % Document title and author
-\title{Exploring 3D Geovisualisation Techniques for Large Datasets using HTML5 and WebGL}
+\title{Exploring 3D Geovisualisation Techniques and their Applications for Large Datasets using HTML5 and WebGL}
 \author{Monica Olejniczak}
 
 % Sections
@@ -77,6 +77,10 @@
 \usepackage[numbers]{natbib}
 % Left align text
 \renewcommand*{\bibfont}{\raggedright}
+\makeatletter
+	% Change natbib numbering style from [#] to #.
+	\renewcommand\@biblabel[1]{#1.}
+\makeatother
 
 % Appendices
 \usepackage[toc,page]{appendix}
@@ -120,27 +124,62 @@
 	\section{Introduction} {
 	\label{sec:introduction}
 		
-		Data visualisation is the presentation of information in a visual context. It is particularly important in data analytics, since humans are able to make predictions and recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}. Recognising these relationships is critical when working with large datasets, as the mass of information needs to be filtered and interpreted, so analysts can make informed decisions \citep{hendley1995case}. This task can be resolved by creating effective data visualisations, as they have the potential to lead to analytic discovery or be used for data reduction \citep{rohrer1997web}.
+		\todo{change to geovisualisation}
+
+		Data visualisation is the presentation of information in a visual context. It is particularly important in data analytics, since humans are able to make predictions and recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}. Recognising these relationships is critical when working with large datasets, as the mass of information needs to be filtered and interpreted, so analysts can make informed decisions \citep{hendley1995case}. This task can be resolved by creating effective data visualisations, as they have the potential to lead to analytic discovery or be used for data reduction \citep{rohrer1997web}. 
 		
 		\todo{This research presents the main issues and challenges associated with big data and its characteristics, discusses how to visualise information and delves into effective visualisation techniques that can be applied with big data. The rest of this report outlines the details of this project which include its goals, plan for development and schedule. This report concludes with the ethical issues that arise from developing this project.}
 
+	}
+
+	\section{Background} {
+	\label{sec:background}
+
 		\subsection{HTML5 and WebGL} {
 
-			HTML5 is a standardised markup language for describing web documents \citep{w3c2014html5}, providing a common platform for applications to deliver multimedia content to the web \citep{lawson2011introducing, chaturvedi2015web}. WebGL is a cross-platform web standard for a 3D graphics API derived from OpenGL, which has been exposed through the HTML5 canvas element \citep{marrin2011webgl} as a drawing context. It is widely supported in modern browsers, without needing additional plug-ins or extensions, and is designed for building dynamic applications that require 3D visualisations \citep{chaturvedi2015web, marrin2011webgl, parisi2012webgl}. Rendering these visualisations in real-time is possible due to the accelerated graphics rendering in WebGL, which utilises the graphics card memory on a device \citep{chaturvedi2015web} to perform multiple operations in parallel to one another. In this work, HTML5 and WebGL will be used together to visualise geographical data.
+			HTML5 is a standardised markup language for describing web documents \citep{w3c2014html5}, providing a common platform for applications to deliver multimedia content to the web \citep{lawson2011introducing, chaturvedi2015web}. WebGL is a cross-platform web standard for a 3D graphics API derived from OpenGL, which has been exposed through the HTML5 canvas element \citep{marrin2011webgl} as a drawing context. It is widely supported in modern browsers, without needing additional plug-ins or extensions, and is designed for building dynamic applications that require 3D visualisations \citep{chaturvedi2015web, marrin2011webgl, parisi2012webgl}. Rendering such visualisations in real-time is possible due to the accelerated graphics rendering provided by WebGL, which utilises the graphics card memory on a device \citep{chaturvedi2015web} to perform multiple operations in parallel to one another. In this work, HTML5 and WebGL will be utilised to visualise geographical data, which ensures that this project is cross-platform and capable of rendering complex visualisations through accelerated graphics rendering.
+
+		}
+
+		\subsection{Geovisualisation} {
+
+			\subsubsection{Applications} {
+
+			}
+
+			\subsubsection{Interaction} {
+
+				The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in Geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes. It is also essential for a visualisation to support interaction, so it does not become static, and thus greatly limit its usefulness as the dataset that it represents grows larger \citep{yi2007toward}.
+
+				In the context of Geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \citep{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view. \citep{cartwright2001geospatial, hand1997survey}. All navigation techniques will be considered in this project, particularly translate, scale and zoom.
+
+			}
+
+			\subsubsection{Challenges and issues} {
+
+				\todo{geospatial info visualisation -
+				geoagents - Can geovisualization products offer too much information? The Web enables access to vast stores of information,
+				much of it with geospatial referencing, thus Web-based geovisualization has the potential to
+				overwhelm users with a huge volume of unorganized information. The key question here is how can we
+				provide the “information filters” that avoid this overload and allow users to work with a myriad of information.}
+
+			}
+
+			\subsubsection{Visualisation techniques} {
+
+				\todo{nurbs}
+
+			}
+
+
 
 		}
 		
-		\subsection{Information visualisation} {
+		% \subsection{Information visualisation} {
 		
-			The creation of an effective visualisation requires finding an appropriate visual mapping for a specific task \citep{rohrer1997web}. This may prove to be difficult as there are a large array of visualisations that could be applied to a given data set. Moreover, \citet{hendley1995case} discusses that a 3-dimensional representation of data provides a rich user experience, due to the increased information density, as opposed to the traditional 2-dimensional representation. 
+		% 	The creation of an effective visualisation requires finding an appropriate visual mapping for a specific task \citep{rohrer1997web}. This may prove to be difficult as there are a large array of visualisations that could be applied to a given data set. Moreover, \citet{hendley1995case} discusses that a 3-dimensional representation of data provides a rich user experience, due to the increased information density, as opposed to the traditional 2-dimensional representation. 
 		
-		}
-		
-		\subsection{Effective visualisation techniques/Visualising big data} {
-		
-		}
-
-		\todo{ Analytic discovery highlights important information in large volumes of data, while data reduction removes uninteresting information so a tool can be applied to the remaining data.}
+		% }
 	
 	}
 	
@@ -336,6 +375,8 @@
 		\end{description}
 		
 		Unfortunately, it is quite probable that no work will be undertaken towards the individual project during the mid-year recess. This is due to the need to prepare for and attend RoboCup 2015, China. It has therefore been omitted from the schedule.
+
+		\todo{Break up final report into sections that are done throughout the semester}
         
 		\begin{figure}[H]
 	        \resizebox{\textwidth}{!}{\input{gantt.tex}}
@@ -380,7 +421,7 @@
 	
 	\newpage
 
-	\bibliographystyle{plainnat}
+	\bibliographystyle{apalike}
 	\bibliography{references}
 	
 	\newpage
