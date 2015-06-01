@@ -126,62 +126,65 @@
 	\section{Introduction} {
 	\label{sec:introduction}
 		
-		\todo{change to geovisualisation}
+		\todo{change to geovisualisation and introduce it}
 
 		Data visualisation is the presentation of information in a visual context. It is particularly important in data analytics, since humans are able to make predictions and recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}. Recognising these relationships is critical when working with large datasets, as the mass of information needs to be filtered and interpreted, so analysts can make informed decisions \citep{hendley1995case}. This task can be resolved by creating effective data visualisations, as they have the potential to lead to analytic discovery or be used for data reduction \citep{rohrer1997web}. 
 		
-		\todo{This research presents the main issues and challenges associated with big data and its characteristics, discusses how to visualise information and delves into effective visualisation techniques that can be applied with big data. The rest of this report outlines the details of this project which include its goals, plan for development and schedule. This report concludes with the ethical issues that arise from developing this project.}
+		This research discusses the World Wide Web as a platform for Geovisualisations and its required interactions in a 3D environment. Next, the applications and visualisation techniques of Geovisualisation are explored and the aims of this project are outlined. Then, the details of this project are outlined which include its goals, plan for development and schedule. Finally, this report concludes with the ethical issues that arise from developing this project.
 
-	}
+		\subsection{The World Wide Web} {
 
-	\section{Background} {
-	\label{sec:background}
+			Geovisualisations can be realised through the World Wide Web, which has become a prominent medium for publishing geospatial data as they are no longer limited to a static form. Now, immersive and highly interactive environments can be created and taken advantage of to explore and present dynamic geospatial data \citep{maceachren2001research}.
 
-		\subsection{HTML5 and WebGL} {
+			\subsubsection{HTML5} {
 
-			HTML5 is a standardised markup language for describing web documents \citep{w3c2014html5}, providing a common platform for applications to deliver multimedia content to the web \citep{lawson2011introducing, chaturvedi2015web}. WebGL is a cross-platform web standard for a 3D graphics API derived from OpenGL, which has been exposed through the HTML5 canvas element \citep{marrin2011webgl} as a drawing context. It is widely supported in modern browsers, without needing additional plug-ins or extensions, and is designed for building dynamic applications that require 3D visualisations \citep{chaturvedi2015web, marrin2011webgl, parisi2012webgl}. Rendering such visualisations in real-time is possible due to the accelerated graphics rendering provided by WebGL, which utilises the graphics card memory on a device \citep{chaturvedi2015web} to perform multiple operations in parallel to one another. In this work, HTML5 and WebGL will be utilised to visualise geographical data, which ensures that this project is cross-platform and capable of rendering complex visualisations through accelerated graphics rendering.
+				HTML5 is a standardised markup language for describing web documents \citep{w3c2014html5}, providing a common platform for applications to deliver multimedia content to the web \citep{lawson2011introducing, chaturvedi2015web}.
+
+			}
+
+			\subsubsection{WebGL} {
+
+				WebGL is a cross-platform web standard for a 3D graphics API derived from OpenGL, which has been exposed through the HTML5 canvas element \citep{marrin2011webgl} as a drawing context. It is widely supported in modern browsers, without needing additional plug-ins or extensions, and is designed for building dynamic applications that require 3D visualisations \citep{chaturvedi2015web, marrin2011webgl, parisi2012webgl}. Rendering such visualisations in real-time is possible due to the accelerated graphics rendering provided by WebGL, which utilises the graphics card memory on a device \citep{chaturvedi2015web} to perform multiple operations in parallel to one another.
+
+			}
 
 		}
 
-		\subsection{Geovisualisation} {
+		\subsection{Interaction} {
 
-			\subsubsection{Applications} {
+			The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in Geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes. It is also essential for a visualisation to support interaction, otherwise it becomes static and greatly limits its usefulness as the dataset that it represents grows larger \citep{yi2007toward}.
 
-			}
-
-			\subsubsection{Interaction} {
-
-				The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in Geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes. It is also essential for a visualisation to support interaction, so it does not become static, and thus greatly limit its usefulness as the dataset that it represents grows larger \citep{yi2007toward}.
-
-				In the context of Geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \citep{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view. \citep{cartwright2001geospatial, hand1997survey}. This project will consider all navigation techniques, particularly translate, scale and zoom.
-
-			}
-
-			\subsubsection{Challenges and issues} {
-
-				\todo{geospatial info visualisation -
-				geoagents - Can geovisualization products offer too much information? The Web enables access to vast stores of information,
-				much of it with geospatial referencing, thus Web-based geovisualization has the potential to
-				overwhelm users with a huge volume of unorganized information. The key question here is how can we
-				provide the “information filters” that avoid this overload and allow users to work with a myriad of information.}
-
-			}
-
-			\subsubsection{Visualisation techniques} {
-
-				\todo{nurbs}
-
-			}
-
-
+			In the context of Geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \citep{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view. \citep{cartwright2001geospatial, hand1997survey}.
 
 		}
-		
-		% \subsection{Information visualisation} {
-		
-		% 	The creation of an effective visualisation requires finding an appropriate visual mapping for a specific task \citep{rohrer1997web}. This may prove to be difficult as there are a large array of visualisations that could be applied to a given data set. Moreover, \citet{hendley1995case} discusses that a 3-dimensional representation of data provides a rich user experience, due to the increased information density, as opposed to the traditional 2-dimensional representation. 
-		
+
+		\subsection{Applications} {
+
+		}
+
+		% \subsection{Challenges and issues} {
+
+		% 	\todo{geospatial info visualisation -
+		% 	geoagents - Can geovisualization products offer too much information? The Web enables access to vast stores of information,
+		% 	much of it with geospatial referencing, thus Web-based geovisualization has the potential to
+		% 	overwhelm users with a huge volume of unorganized information. The key question here is how can we
+		% 	provide the “information filters” that avoid this overload and allow users to work with a myriad of information.}
+
 		% }
+
+		\subsection{Visualisation techniques} {
+
+			\todo{nurbs}
+
+		}
+
+		\subsection{Aims} {
+
+			\todo{reword section later}
+
+			In this work, HTML5 and WebGL will be utilised to visualise geographical data, which ensures that this project is cross-platform and capable of rendering complex visualisations through accelerated graphics rendering. It will consider all navigation interaction techniques, particularly translation, scaling and rotation.
+
+		}
 	
 	}
 	
