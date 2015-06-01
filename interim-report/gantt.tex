@@ -21,7 +21,7 @@
 %	group peaks height=.2,
 %	bar incomplete/.append style={fill=red}
 ]
-{2015-07-27}{2015-11-07} % start and end date
+{2015-07-27}{2015-11-08} % start and end date
 
 \newganttchartelement{optionalbar}{
 	optionalbar/.style={
@@ -31,49 +31,113 @@
 	optionalbar height=.6
 }
 
-\gantttitle{Semester 2}{104} \ganttnewline
-\gantttitlecalendar*{2015-07-27}{2015-11-07}{month=name} \ganttnewline
+\gantttitle{Semester 2}{105} \ganttnewline
+\gantttitlecalendar*{2015-07-27}{2015-11-08}{month=name} \ganttnewline
 \gantttitlecalendar*{2015-07-27}{2015-09-20}{week=1}
 \gantttitle{Recess}{14}
-\gantttitlecalendar*{2015-10-05}{2015-11-07}{week=9}
+\gantttitlecalendar*{2015-10-05}{2015-11-08}{week=9}
 
 % Progress reports
-\ganttnewline \ganttgroup{Progress reports}{2015-07-27}{2015-10-30}
-\ganttnewline \ganttbar{Meeting}{2015-07-28}{2015-07-28}
-\ganttbar{}{2015-08-11}{2015-08-11}
-\ganttbar{}{2015-08-25}{2015-08-25}
-\ganttbar{}{2015-09-08}{2015-09-08}
-\ganttbar{}{2015-10-06}{2015-10-06}
-\ganttbar{}{2015-10-20}{2015-10-20}
+\ganttnewline \ganttgroup{Meetings}{2015-07-28}{2015-11-04}
 
-% Individual research presentation
-\ganttnewline \ganttgroup{Presentation}{2015-07-27}{2015-08-03}
-\ganttnewline \ganttbar{Preparation}{2015-07-27}{2015-08-03}
-\ganttnewline \ganttbar{Rehearsal}{2015-08-01}{2015-08-03}
+	% Group meetings
+	\ganttnewline \ganttbar{Group}{2015-07-28}{2015-07-28}
+	\ganttbar{}{2015-08-04}{2015-08-04}
+	\ganttbar{}{2015-08-11}{2015-08-11}
+	\ganttbar{}{2015-08-18}{2015-08-18}
+	\ganttbar{}{2015-08-25}{2015-08-25}
+	\ganttbar{}{2015-09-01}{2015-09-01}
+	\ganttbar{}{2015-09-08}{2015-09-08}
+	\ganttbar{}{2015-09-15}{2015-09-15}
+	\ganttbar{}{2015-10-06}{2015-10-06}
+	\ganttbar{}{2015-10-13}{2015-10-13}
+	\ganttbar{}{2015-10-20}{2015-10-20}
+	\ganttbar{}{2015-10-27}{2015-10-27}
+	\ganttbar{}{2015-11-03}{2015-11-03}
 
-% Final report
-\ganttnewline \ganttgroup{Final report}{2015-08-04}{2015-10-30}
-\ganttnewline \ganttbar{Document}{2015-10-16}{2015-10-30}
+	% Supervisor meetings
+	\ganttnewline \ganttbar{Supervisor}{2015-07-28}{2015-07-28}
+	\ganttbar{}{2015-08-11}{2015-08-11}
+	\ganttbar{}{2015-08-25}{2015-08-25}
+	\ganttbar{}{2015-09-08}{2015-09-08}
+	\ganttbar{}{2015-10-06}{2015-10-06}
+	\ganttbar{}{2015-10-20}{2015-10-20}
+	\ganttbar{}{2015-11-03}{2015-11-03}
 
-% Basic deliverables
-\ganttnewline \ganttgroup{Basic deliverables}{2015-08-04}{2015-08-18}
-\ganttnewline \ganttbar{Implementation (1)}{2015-08-04}{2015-08-18}
-\ganttnewline \ganttbar{Basic interaction}{2015-08-16}{2015-08-18}
+	% Client meetings
+	\ganttnewline \ganttbar{Client}{2015-08-05}{2015-08-05}
+	\ganttbar{}{2015-08-26}{2015-08-26}
+	\ganttbar{}{2015-10-07}{2015-10-07}
+	\ganttbar{}{2015-10-21}{2015-10-21}
 
-% Intermediate deliverables
-\ganttnewline \ganttgroup{Intermediate deliverables}{2015-08-19}{2015-09-16}
-\ganttnewline \ganttbar{Data filtering}{2015-08-19}{2015-09-09}
-\ganttnewline \ganttbar{Implementation (2)}{2015-08-26}{2015-09-16}
-\ganttnewline \ganttbar{Apply datasets}{2015-09-9}{2015-09-16}
+% Group participation
+\ganttnewline \ganttgroup{Group participation}{2015-07-27}{2015-11-06}
 
-% Advanced deliverables
-\ganttnewline \ganttgroup{Advanced deliverables}{2015-09-17}{2015-10-15}
-\ganttnewline \ganttbar{Integrate data}{2015-09-17}{2015-10-15}
-\ganttnewline \ganttoptionalbar{Benchmark scalability}{2015-09-24}{2015-10-15}
-\ganttnewline \ganttoptionalbar{Analyse computational power}{2015-09-24}{2015-10-15}
-\ganttnewline \ganttoptionalbar{Perform user study}{2015-10-08}{2015-10-15}
-\ganttnewline \ganttoptionalbar{Port to a touch-interface}{2015-10-08}{2015-10-15}
-\ganttnewline \ganttoptionalbar{Incorporate touch gestures}{2015-10-08}{2015-10-15}
+	% Overall work
+	\ganttnewline \ganttbar{Work}{2015-07-27}{2015-11-06}
+
+	% Progress reports
+	\ganttnewline \ganttbar{Progress reports}{2015-07-31}{2015-07-31}
+	\ganttbar{}{2015-08-07}{2015-08-07}
+	\ganttbar{}{2015-08-14}{2015-08-14}
+	\ganttbar{}{2015-08-21}{2015-08-21}
+	\ganttbar{}{2015-08-28}{2015-08-28}
+	\ganttbar{}{2015-09-04}{2015-09-04}
+	\ganttbar{}{2015-09-11}{2015-09-11}
+	\ganttbar{}{2015-09-18}{2015-09-18}
+	\ganttbar{}{2015-10-09}{2015-10-09}
+	\ganttbar{}{2015-10-16}{2015-10-16}
+	\ganttbar{}{2015-10-23}{2015-10-23}
+	\ganttbar{}{2015-10-30}{2015-10-30}
+
+	% Group system demonstration - week 10
+	\ganttnewline \ganttgroup{Group system demonstration}{2015-10-06}{2015-10-14}
+	\ganttnewline \ganttbar{Preparation}{2015-10-06}{2015-10-14}
+
+	% Group final report - week 12
+	\ganttnewline \ganttgroup{Group final report}{2015-10-20}{2015-10-30}
+	\ganttnewline \ganttbar{Preparation}{2015-10-20}{2015-10-20}
+	\ganttbar{}{2015-10-27}{2015-10-27}
+	\ganttnewline \ganttbar{Document}{2015-10-23}{2015-10-30}
+
+	% Open day presentation - week 13
+	\ganttnewline \ganttgroup{Open day presentation}{2015-10-30}{2015-11-04}
+	\ganttnewline \ganttbar{Preparation}{2015-10-30}{2015-11-04}
+
+% Individual work
+\ganttnewline \ganttgroup{Individual work}{2015-07-27}{2015-11-06}
+
+	% Individual research presentation - week 1
+	\ganttnewline \ganttgroup{Presentation}{2015-07-27}{2015-07-31}
+	\ganttnewline \ganttbar{Preparation}{2015-07-27}{2015-07-31}
+	\ganttnewline \ganttbar{Rehearsal}{2015-07-30}{2015-07-31}
+
+	% Individual final report - week 13
+	\ganttnewline \ganttgroup{Individual final report}{2015-08-01}{2015-11-06}
+	\ganttnewline \ganttbar{Summarise basic deliverables}{2015-08-22}{2015-08-24}
+	\ganttnewline \ganttbar{Summarise intermediate deliverables}{2015-09-24}{2015-09-26}
+	\ganttnewline \ganttbar{Summarise advanced deliverables}{2015-10-23}{2015-10-25}
+	\ganttnewline \ganttbar{Finalise}{2015-10-23}{2015-11-06}
+
+		% Basic deliverables
+		\ganttnewline \ganttgroup{Basic deliverables}{2015-08-01}{2015-08-21}
+		\ganttnewline \ganttbar{Implementation (1)}{2015-08-01}{2015-08-21}
+		\ganttnewline \ganttbar{Basic interaction}{2015-08-16}{2015-08-21}
+
+		% Intermediate deliverables
+		\ganttnewline \ganttgroup{Intermediate deliverables}{2015-08-22}{2015-09-23}
+		\ganttnewline \ganttbar{Data filtering}{2015-08-22}{2015-09-16}
+		\ganttnewline \ganttbar{Implementation (2)}{2015-08-26}{2015-09-23}
+		\ganttnewline \ganttbar{Apply datasets}{2015-09-9}{2015-09-23}
+
+		% Advanced deliverables
+		\ganttnewline \ganttgroup{Advanced deliverables}{2015-09-24}{2015-10-22}
+		\ganttnewline \ganttbar{Integrate data}{2015-09-24}{2015-10-22}
+		\ganttnewline \ganttoptionalbar{Benchmark scalability}{2015-10-01}{2015-10-22}
+		\ganttnewline \ganttoptionalbar{Analyse computational power}{2015-10-01}{2015-10-22}
+		\ganttnewline \ganttoptionalbar{Perform user study}{2015-10-15}{2015-10-22}
+		\ganttnewline \ganttoptionalbar{Port to a touch-interface}{2015-10-15}{2015-10-22}
+		\ganttnewline \ganttoptionalbar{Incorporate touch gestures}{2015-10-15}{2015-10-22}
 
 % % Examples of gantt chart capabilities: 
 % \ganttnewline \ganttgroup{Label Text}{2015-08-20}{2015-10-5}

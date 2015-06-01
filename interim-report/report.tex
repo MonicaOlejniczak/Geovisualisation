@@ -68,10 +68,12 @@
 \captionsetup[table]{aboveskip=-8pt}
 \captionsetup[table]{belowskip=8pt}
 \captionsetup[figure]{belowskip=-15pt}
-% Remove indentation on description lists
+% http://tex.stackexchange.com/questions/10684/vertical-space-in-lists
 \usepackage{enumitem}
+% Remove indentation on description lists
 \setlist[description, 1]{leftmargin=0pt}
-\setlist[description, 2]{wide=20pt}
+\setlist[description, 2]{wide=15pt}
+\setlist[description, 3]{wide=30pt}
 
 % References
 \usepackage[numbers]{natbib}
@@ -151,7 +153,7 @@
 
 				The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in Geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes. It is also essential for a visualisation to support interaction, so it does not become static, and thus greatly limit its usefulness as the dataset that it represents grows larger \citep{yi2007toward}.
 
-				In the context of Geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \citep{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view. \citep{cartwright2001geospatial, hand1997survey}. All navigation techniques will be considered in this project, particularly translate, scale and zoom.
+				In the context of Geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \citep{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view. \citep{cartwright2001geospatial, hand1997survey}. This project will consider all navigation techniques, particularly translate, scale and zoom.
 
 			}
 
@@ -361,28 +363,34 @@
 	\section{Project schedule} {
 	\label{sec:project_schedule}
 	
-		The project plan, which was outlined in Section~\ref{sec:project_plan}, is to be completed according to the project schedule. This has been demonstrated through the Gantt chart in Figure~\ref{gantt:schedule} below, and clearly highlights each milestone that is critical to the success of this project. These include:
+		The project plan, which was outlined in Section~\ref{sec:project_plan}, is to be completed according to the project schedule. Unfortunately, it is quite probable that no work will be undertaken towards the individual project during the mid-year recess. This is due to the need to prepare for and attend RoboCup 2015, China. It has therefore been omitted from the schedule, which has been demonstrated through the Gantt chart in Appendix~\ref{app:gantt_chart}. This chart clearly highlights each milestone that is critical to the success of this course:
 		
 		\begin{description}
-			\item[Progress reports:] Progress update meetings have been scheduled with the project supervisor on a fortnightly basis.
-			\item[Individual research presentation:] The presentation requires written preparation and rehearsal. It should be completed by the end of the first week so more important tasks can be focused on.
-			\item[Final report:] This report encompasses the deliverables of the project as they form the basis for the documentation. The report will need to be allocated at least one fortnight after the deliverables have been completed, so it can be completed to a good standard of quality.
-			\begin{description}
-				\item[Basic deliverables:] This should be completed in two weeks and consists of the implementation for a single visualisation and interactions for panning, zooming and rotating.
-				\item[Intermediate deliverables:] These deliverables have been designated one month to complete. It includes the ability to filter data, apply the visualisation to one or more large datasets and the implementation of another visualisation.
-				\item[Advanced deliverables:] This has also been allotted one month to complete and it is a core requirement to integrate the data to the group project. Analysing the computational power and the scalability of the visualisations are considered to be more important than the other tasks and thus have been allocated more time.
+			\item[Meetings:] The meetings required in this project.
+			\begin{description}[itemsep=-1ex, topsep=0pt, partopsep=0pt]
+				\item[Group:] These weekly meetings are held during the assigned timetable slot for the course and will involve discussing assessment items, progress and assigning tasks to group members.
+				\item[Supervisor:] Progress update meetings have been scheduled with the project supervisor on a fortnightly basis. These meetings are designed acquire advice and to ensure that the individual project is going to plan.
+				\item[Client:] Client meetings will be scheduled when necessary but should be approximately every two or three weeks and will aim to discuss progress, content and ideas.
+			\end{description}
+			\item[Group participation:] The set of assessment items that comprise group work.
+			\begin{description}[itemsep=-1ex, topsep=0pt, partopsep=0pt]
+				\item[Work:] The continous set of work completed for the group project, such as implementation or testing.
+				\item[Progress reports:] These reports are due at the end of every week and should indicate what has been achieved during that week.
+				\item[Group system demonstration:] The system demonstration should be prepared for a week in advance. This will include discussing the requirements of the demonstration, what has currently been achieved by all members and assigning tasks during the previous group meetings. Any remaining functionality that is required for the demonstration will be implemented during this week.
+				\item[Final report:] This report will require a week to document and two meetings in advance to discuss what is required and assign tasks to members of the group.
+				\item[Open day presentation:] This presentation will be prepared for after the group final report is submitted.
+			\end{description}
+			\item[Individual work:] The individual component of the course.
+			\begin{description}[itemsep=-1ex, topsep=0pt, partopsep=0pt]
+				\item[Presentation:] The presentation requires written preparation and rehearsal. It is to be assessed by the end of the first week and will focus on the work completed in this document.
+				\item[Final report:] This report encompasses the deliverables of the individual project as they form the basis for its documentation. The report will be completed in stages, where each set of deliverables will be summarised after their completion. It will then be finalised during a period of two weeks, so the report can be completed to a good standard of quality.
+				\begin{description}[itemsep=-1ex, topsep=0pt, partopsep=0pt]
+					\item[Basic deliverables:] This should be completed in three weeks and consists of the implementation for a single visualisation and interactions for panning, zooming and rotating.
+					\item[Intermediate deliverables:] These deliverables have been designated five weeks to complete. It includes the ability to filter data, apply the visualisation to one or more large datasets and the implementation of another visualisation.
+					\item[Advanced deliverables:] This has been allotted one month to complete and it is a core requirement to integrate the data to the group project. Analysing the computational power and the scalability of the visualisations are considered to be more important than the other tasks and thus have been allocated more time.
+				\end{description}
 			\end{description}
 		\end{description}
-		
-		Unfortunately, it is quite probable that no work will be undertaken towards the individual project during the mid-year recess. This is due to the need to prepare for and attend RoboCup 2015, China. It has therefore been omitted from the schedule.
-
-		\todo{Break up final report into sections that are done throughout the semester}
-        
-		\begin{figure}[H]
-	        \resizebox{\textwidth}{!}{\input{gantt.tex}}
-			\caption[Project schedule] {A Gantt chart illustrating the project schedule. Grey bars indicate optional tasks.}
-			\label{gantt:schedule}
-		\end{figure}
 		
 	}
 	
@@ -586,6 +594,19 @@
 			
 			}
 		
+		}
+
+		\newpage
+
+		\section{Gantt chart} {
+		\label{app:gantt_chart}
+
+			\begin{figure}[H]
+		        \makebox[\textwidth][c]{\resizebox{0.95\paperwidth}{!}{\input{gantt.tex}}}
+				\caption[Project schedule] {A Gantt chart illustrating the project schedule. Grey bars indicate optional tasks.}
+				\label{gantt:schedule}
+			\end{figure}
+
 		}
 		
 	\end{appendices}
