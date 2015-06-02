@@ -129,7 +129,7 @@
 
 		Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation \citep{jiang2005geovisualization}. It is particularly important in data analytics and when working with large datasets, since it enables data exploration and decision-making processes when combined with human understanding \citep{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data \citep{kwan2004geovisualization}.
 		
-		This research discusses the World Wide Web as a platform for Geovisualisations and its required interactions in a 3D environment. Next, the applications and visualisation techniques of Geovisualisation are explored and the aims of this project are outlined. Then, the details of this project are discussed which include its goals, plan for development and schedule. Finally, this report concludes with the ethical issues that arise from developing this project.
+		This research discusses the World Wide Web as a platform for geovisualisations and its required interactions in a 3D environment. Next, the applications and visualisation techniques of geovisualisation are explored and the aims of this project are outlined. Then, the details of this project are discussed which include its goals, plan for development and schedule. Finally, this report concludes with the ethical issues that arise from developing this project.
 
 		\subsection{The World Wide Web} {
 
@@ -151,90 +151,46 @@
 
 		\subsection{Interaction} {
 
-			The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in Geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes. It is also essential for a visualisation to support interaction, otherwise it becomes static and greatly limits its usefulness as the dataset that it represents grows larger \citep{yi2007toward}.
+			The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes. It is also essential for a visualisation to support interaction, otherwise it becomes static and greatly limits its usefulness as the dataset that it represents grows larger \citep{yi2007toward}.
 
-			In the context of Geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \citep{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view. \citep{cartwright2001geospatial, hand1997survey}.
+			In the context of geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \citep{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view. \citep{cartwright2001geospatial, hand1997survey}.
 
 		}
 
 		\subsection{Applications} {
 
-			\citep{maceachren2004geovisualization}
-
-		occupies several applications
-
-			\todo{The wide range of available
-geospatial data creates a potential for
-geovisualization to support activities
-in an equally wide range of application
-domains. Here, we highlight
-applications in three domains, using
-examples from research under way in
-the GeoVISTA Center at Penn State.}
-
-		\todo{geovisualisation for knowledge construction - 
-
-					We now have access to vast digital data resources
-		that include geospatial referencing.This referencing
-		ranges from precise geographic coordinates,
-		through street addresses, to codes for administrative or
-		other types of regions (such as zip codes and drainage
-		basin indices). GPS receivers in locations such as vehicles,
-		PDAs, and cell phones generate an increasing portion
-		of these data. Specific examples of geospatially
-		referenced data include
-
-		- satellite remote sensing readings,
-		- meteorological measurements,
-		- telephone and credit card transaction information
-		(with both purchase and billing addresses),
-		-  stream gauge readings,
-		- land use categories,
-		- transportation records (linked to intersections, highway
-		segments, and ticket offices),
-		- health statistics (collected with home and treatment
-		addresses),
-		- tax and property records, and
-		- census enumerations (for population, agriculture,
-		housing, manufacturing, and other topics)
-
-		Geovisualization is both a process for leveraging these
-		data resources to meet scientific and societal needs and
-		a research field that develops visual methods and tools
-		to support a wide array of geospatial data applications.
-		While researchers have made substantial advances in
-		geovisualization over the past decade, many challenges
-		remain. To support real-world knowledge construction
-		and decision making, some of the most important challenges
-		involve distributed geovisualization—that is,
-		enabling geovisualization across software components,
-		devices, people, and places.
-
-		}
-
-			\subsubsection{Crisis management} {
-
-
-			}
+			There is a comprehensive amount of geospatial data available, which has been made accessible through various digital data resources. Census enumerations, health statistics, land use categories, meteorological measurements, telephone information and transportation records constitute examples of geospatially referenced data that can be applied to geovisualisations for scientific, research and societal purposes. Furthermore, this widely accessible geospatial data has resulted in an equally large range of application domains for geovisualisations, which include earth science, public health, social science and urban planning \citep{maceachren2004geovisualization}.
 
 			\subsubsection{Earth science} {
 
+				The visualisation of environmental data reveals new insights into the patterns of nature and human-related phenomena and helps improve understanding of the dynamic processes of earth systems \citep{yu2012google}.
+
+				\citeauthor{yu2012google} analyses virtual globes as a tool in earth science application, which have been developed to effectively facilitate data collection, exploration and the visualisation of environmental data. They deliver huge volumes of satellite imagery, 3D views of the earth, topographic maps and distance measurement to the general public. These globes have promoted entertainment, education, the exploration of new findings and provided researchers with effective channels of communicating their findings, which has led to increased data sharing. Virtual globes can be applied to many areas and in the case of \emph{Google Earth}, typically focus on large-scale phenomena in the atmosphere, carbon science, ecosystems, energy, geology and natural disasters.
+
+				% equipped assist
 
 			}
 
 			\subsubsection{Public health} {
 
-				Geovisualisations can be modelled to geospatial data about risk factors, health outcomes and interventions to provide an opportunity to understand and act on the varied geographic distribution of disease. However, these datasets are typically difficult to analyse through traditional methods as the data is highly multivariate  \citep{maceachren2004geovisualization}.
+				Geovisualisations can be modelled to geospatial data concerning risk factors, health outcomes and interventions to provide an opportunity to understand and act on the varied geographic distribution of disease. However, these datasets are typically difficult to analyse through traditional methods as the data is highly multivariate \citep{maceachren2004geovisualization}.
 
 				\citeauthor{maceachren2004geovisualization} were able to apply a \emph{mortality and risk factor} dataset to a Geovisualisation, in order to explore the spatial and nonspatial relationships in this data. They considered environmental risk factors, health care access and cancer mortality rates of various ages and genders to demonstrate that it is possible to utilise Geovisualisations in a way that addresses critical issues in public health.
 
 			}
 
-			\subsubsection{Urban planning} {
+			\subsubsection{Social science} {
 
-				\todo{urban planning - using online geographical visualisation tools}
+				\todo{human geography - population datas}
+
 
 			}
+
+			% \subsubsection{Urban planning} {
+
+			% 	Geovisualisations are used as a tool for visualising the likely consequences of proposed developments by exploring their various scenarios. This has the potential to facilitate collaborative decision making by various stakeholders, improve communication and resolve conflicts at a community level \citep{pettit2005using}.
+
+			% }
 
 		}
 
@@ -247,6 +203,8 @@ the GeoVISTA Center at Penn State.}
 		% 	provide the “information filters” that avoid this overload and allow users to work with a myriad of information.}
 
 		% }
+
+		\newpage
 
 		\subsection{Visualisation techniques} {
 
