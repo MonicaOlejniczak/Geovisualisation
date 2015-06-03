@@ -16,7 +16,7 @@
 
 % Header and footer
 \usepackage{scrlayer-scrpage}
-\ohead{SENG4800 - Individual interim report \\ \today}
+\ohead{SENG4800A - Individual interim report \\ \today}
 \cfoot{\pagemark}
 
 % Document title and author
@@ -37,9 +37,6 @@
 \setlength{\absrightindent}{0pt}
 \renewcommand{\absnamepos}{flushleft}
 \renewcommand{\abstractnamefont}{\normalfont\Large\bfseries}
-
-% Table of contents
-\usepackage[nottoc,numbib]{tocbibind}
 
 % Links
 \usepackage{hyperref}
@@ -68,21 +65,15 @@
 \captionsetup[table]{aboveskip=-8pt}
 \captionsetup[table]{belowskip=8pt}
 \captionsetup[figure]{belowskip=-15pt}
-% http://tex.stackexchange.com/questions/10684/vertical-space-in-lists
-\usepackage{enumitem}
-% Remove indentation on description lists
-\setlist[description, 1]{leftmargin=0pt}
-\setlist[description, 2]{wide=15pt}
-\setlist[description, 3]{wide=30pt}
 
 % References
-\usepackage[numbers]{natbib}
-% Left align text
-\renewcommand*{\bibfont}{\raggedright}
-\makeatletter
-	% Change natbib numbering style from [#] to #.
-	\renewcommand\@biblabel[1]{#1.}
-\makeatother
+\usepackage[backend=bibtex,style=authoryear]{biblatex}
+\addbibresource{references.bib}
+\DeclareBibliographyCategory{exclude}
+\newcommand{\bibentry}[1]{
+	\addtocategory{exclude}{#1}
+	\fullcite{#1}
+}
 
 % Appendices
 \usepackage[toc,page]{appendix}
@@ -102,48 +93,38 @@
 
 \begin{document}
 
-	% Title page
-	\begin{titlepage}
-		\vspace*{\fill}
-		\makeatletter
-			\huge\textbf{\textsf{\@title}}
-			\vspace{0.5em}\par
-			\begin{center}
-				\Large\textbf{\textsf{\@author}}
-			\end{center}
-		\makeatother
-		\begin{abstract}
-			\todo{Data visualisation is the presentation of data in a visual context and is particularly important in data analytics since humans are able to recognise patterns, trends and correlations more easily \citep{grinstein2002introduction}.
-			
-			This project aims to develop touch-based visualisations in three-dimensions and will focus on using large data in a generic way to demonstrate general applicability. The visualisations will provide touch-capability so they are able to be viewed on a smart device.}
-		\end{abstract}
-		\vspace*{\fill}
-	\end{titlepage}
-	
-	\newpage
-	\tableofcontents
-	\newpage
+	% Title
+	\makeatletter
+		\begin{huge}
+			\textbf{\textsf{\@title}}
+		\end{huge}
+	\makeatother
+	\begin{abstract}
+		\todo{Data visualisation is the presentation of data in a visual context and is particularly important in data analytics since humans are able to recognise patterns, trends and correlations more easily \parencite{grinstein2002introduction}.
+		
+		This project aims to develop touch-based visualisations in three-dimensions and will focus on using large data in a generic way to demonstrate general applicability. The visualisations will provide touch-capability so they are able to be viewed on a smart device.}
+	\end{abstract}
 	
 	\section{Introduction} {
 	\label{sec:introduction}
 
-		Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation \citep{jiang2005geovisualization}. It is particularly important in data analytics and when working with large datasets, since it enables data exploration and decision-making processes when combined with human understanding \citep{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data \citep{kwan2004geovisualization}.
+		Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation \parencite{jiang2005geovisualization}. It is particularly important in data analytics and when working with large datasets, since it enables data exploration and decision-making processes when combined with human understanding \parencite{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data \parencite{kwan2004geovisualization}.
 		
 		This research discusses the World Wide Web as a platform for geovisualisations and its required interactions in a 3D environment. Next, the applications and visualisation techniques of geovisualisation are explored and the aims of this project are outlined. Then, the details of this project are discussed which include its goals, plan for development and schedule. Finally, this report concludes with the ethical issues that arise from developing this project.
 
 		\subsection{The World Wide Web} {
 
-			Geovisualisations can be realised through the World Wide Web, which has become a prominent medium for publishing geospatial data as they are no longer limited to a static form. Now, immersive and highly interactive environments can be created and taken advantage of to explore and present dynamic geospatial data \citep{maceachren2001research}.
+			Geovisualisations can be realised through the World Wide Web, which has become a prominent medium for publishing geospatial data as they are no longer limited to a static form. Now, immersive and highly interactive environments can be created and taken advantage of to explore and present dynamic geospatial data \parencite{maceachren2001research}.
 
 			\subsubsection{HTML5} {
 
-				HTML5 is a standardised markup language for describing web documents \citep{w3c2014html5}, providing a common platform for applications to deliver multimedia content to the web \citep{lawson2011introducing, chaturvedi2015web}.
+				HTML5 is a standardised markup language for describing web documents \parencite{w3c2014html5}, providing a common platform for applications to deliver multimedia content to the web \parencite{lawson2011introducing, chaturvedi2015web}.
 
 			}
 
 			\subsubsection{WebGL} {
 
-				WebGL is a cross-platform web standard for a 3D graphics API derived from OpenGL, which has been exposed through the HTML5 canvas element \citep{marrin2011webgl} as a drawing context. It is widely supported in modern browsers, without needing additional plug-ins or extensions, and is designed for building dynamic applications that require 3D visualisations \citep{chaturvedi2015web, marrin2011webgl, parisi2012webgl}. Rendering such visualisations in real-time is possible due to the accelerated graphics rendering provided by WebGL, which utilises the graphics card memory on a device \citep{chaturvedi2015web} to perform multiple operations in parallel to one another.
+				WebGL is a cross-platform web standard for a 3D graphics API derived from OpenGL, which has been exposed through the HTML5 canvas element \parencite{marrin2011webgl} as a drawing context. It is widely supported in modern browsers, without needing additional plug-ins or extensions, and is designed for building dynamic applications that require 3D visualisations \parencite{chaturvedi2015web, marrin2011webgl, parisi2012webgl}. Rendering such visualisations in real-time is possible due to the accelerated graphics rendering provided by WebGL, which utilises the graphics card memory on a device \parencite{chaturvedi2015web} to perform multiple operations in parallel to one another.
 
 			}
 
@@ -151,44 +132,37 @@
 
 		\subsection{Interaction} {
 
-			The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes. It is also essential for a visualisation to support interaction, otherwise it becomes static and greatly limits its usefulness as the dataset that it represents grows larger \citep{yi2007toward}.
+			The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes. It is also essential for a visualisation to support interaction, otherwise it becomes static and greatly limits its usefulness as the dataset that it represents grows larger \parencite{yi2007toward}.
 
-			In the context of geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \citep{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view. \citep{cartwright2001geospatial, hand1997survey}.
+			In the context of geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \parencite{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view \parencite{cartwright2001geospatial, hand1997survey}.
 
 		}
 
 		\subsection{Applications} {
 
-			There is a comprehensive amount of geospatial data available, which has been made accessible through various digital data resources. Census enumerations, health statistics, land use categories, meteorological measurements, telephone information and transportation records constitute examples of geospatially referenced data that can be applied to geovisualisations for scientific, research and societal purposes. Furthermore, this widely accessible geospatial data has resulted in an equally large range of application domains for geovisualisations, which include earth science, public health, social science and urban planning \citep{maceachren2004geovisualization}.
+			% equipped assist
 
-			\subsubsection{Earth science} {
+			There is a comprehensive amount of geospatial data available, which has been made accessible through various digital data resources. Census enumerations, health statistics, land use categories, meteorological measurements, telephone information and transportation records constitute examples of geospatially referenced data that can be applied to geovisualisations for scientific, research and societal purposes. Furthermore, this widely accessible geospatial data has resulted in an equally large range of application domains for geovisualisations, which include earth science, public health and social science \parencite{maceachren2004geovisualization}.
 
-				The visualisation of environmental data reveals new insights into the patterns of nature and human-related phenomena and helps improve understanding of the dynamic processes of earth systems \citep{yu2012google}.
+			\todo{break up with image of each application}
 
-				\citeauthor{yu2012google} analyses virtual globes as a tool in earth science application, which have been developed to effectively facilitate data collection, exploration and the visualisation of environmental data. They deliver huge volumes of satellite imagery, 3D views of the earth, topographic maps and distance measurement to the general public. These globes have promoted entertainment, education, the exploration of new findings and provided researchers with effective channels of communicating their findings, which has led to increased data sharing. Virtual globes can be applied to many areas and in the case of \emph{Google Earth}, typically focus on large-scale phenomena in the atmosphere, carbon science, ecosystems, energy, geology and natural disasters.
+			% Earth science
+			In the domain of earth science, the visualisation of environmental data reveals new insights into the patterns of nature and human-related phenomena and helps improve understanding of the dynamic processes of earth systems \parencite{yu2012google}.
 
-				% equipped assist
+			\textcite{yu2012google} analyses virtual globes as a tool in earth science applications, which have been developed to effectively facilitate data collection, exploration and the visualisation of environmental data. They deliver huge volumes of satellite imagery, 3D views of the earth, topographic maps and distance measurement to the general public. These globes have promoted entertainment, education, the exploration of new findings, data sharing and provided researchers with effective channels of communicating their findings. Virtual globes can be applied to many areas and in the case of \emph{Google Earth}, typically focus on large-scale phenomena in the atmosphere, carbon science, ecosystems, energy, geology and natural disasters.
 
-			}
+			% Public health
+			Within public health, geovisualisations can be modelled to geospatial data concerning risk factors, health outcomes and interventions to provide an opportunity to understand and act on the varied geographic distribution of disease. However, these datasets are typically difficult to analyse through traditional methods as the data is highly multivariate \parencite{maceachren2004geovisualization}.
 
-			\subsubsection{Public health} {
+			\textcite{maceachren2004geovisualization} were able to apply a \emph{mortality and risk factor} dataset to a geovisualisation, in order to explore the spatial and nonspatial relationships in this data. They considered environmental risk factors, health care access and cancer mortality rates of various ages and genders to demonstrate that it is possible to utilise geovisualisations in a way that addresses critical issues in public health.
 
-				Geovisualisations can be modelled to geospatial data concerning risk factors, health outcomes and interventions to provide an opportunity to understand and act on the varied geographic distribution of disease. However, these datasets are typically difficult to analyse through traditional methods as the data is highly multivariate \citep{maceachren2004geovisualization}.
+			% Social science
 
-				\citeauthor{maceachren2004geovisualization} were able to apply a \emph{mortality and risk factor} dataset to a Geovisualisation, in order to explore the spatial and nonspatial relationships in this data. They considered environmental risk factors, health care access and cancer mortality rates of various ages and genders to demonstrate that it is possible to utilise Geovisualisations in a way that addresses critical issues in public health.
-
-			}
-
-			\subsubsection{Social science} {
-
-				\todo{human geography - population datas}
-
-
-			}
+			\todo{human geography - population data}
 
 			% \subsubsection{Urban planning} {
 
-			% 	Geovisualisations are used as a tool for visualising the likely consequences of proposed developments by exploring their various scenarios. This has the potential to facilitate collaborative decision making by various stakeholders, improve communication and resolve conflicts at a community level \citep{pettit2005using}.
+			% Geovisualisations are used as a tool for visualising the likely consequences of proposed developments by exploring their various scenarios. This has the potential to facilitate collaborative decision making by various stakeholders, improve communication and resolve conflicts at a community level \citep{pettit2005using}.
 
 			% }
 
@@ -204,8 +178,6 @@
 
 		% }
 
-		\newpage
-
 		\subsection{Visualisation techniques} {
 
 			\todo{nurbs}
@@ -216,13 +188,11 @@
 
 			\todo{reword section later}
 
-			In this work, HTML5 and WebGL will be utilised to visualise geographical data, which ensures that this project is cross-platform and capable of rendering complex visualisations through accelerated graphics rendering. It will consider all navigation interaction techniques, particularly translation, scaling and rotation.
+			In this work, HTML5 and WebGL will be utilised to visualise geographical data, which ensures that this project is cross-platform and capable of rendering complex visualisations through accelerated graphics rendering. It will consider several navigation interaction techniques, particularly translation, scaling and rotation.
 
 		}
 	
 	}
-	
-	\newpage
 	
 	\section{Project plan} {
 	\label{sec:project_plan}
@@ -232,17 +202,11 @@
 		%\begin{multicols}{2}
 		\begin{itemize}
 			\item Visualise a large dataset in a time efficient manner.
-			\begin{itemize}
-				\item This should be a reasonable loading time for the user.
-			\end{itemize}
 			\item Ensure the visualisation is aesthetically pleasing and of high quality.
 			\item Apply the visualisations to multiple datasets and ensure they are scalable. 
 			\item Integrate the results into the group project.
-			\begin{itemize}
-				\item Apply the visualisations in different ways.
-			\end{itemize}
-			\item Learn how 3D visualisations can effectively convey information.
-			\item Learn how to optimise calls and understand what drains processing resources easily.
+			\item Explore how 3D visualisations can effectively convey information.
+			\item Explore how to optimise calls and understand what drains processing resources easily.
 			\begin{itemize}
 				\item This can be measured with a \href{http://jsperf.com/}{JavaScript performance testing environment}.
 			\end{itemize}
@@ -259,60 +223,41 @@
 	        \begin{subfigure}[b]{0.4\textwidth}
                 \includegraphics[width=\textwidth,height=3.5cm]{images/heat-map-2}
 	        \end{subfigure}
-			\caption{Two different representations of a heat map \citep{tuomainen2014financial} \citep{fuchs2006physiological}.}
+			\caption{Two different representations of a heat map. \protect\footnotemark \protect\footnotemark}
 			\label{fig:heat_maps}
 		\end{figure}
+
+		\footnotetext[1]{\bibentry{tuomainen2014financial}}
+		\footnotetext{\bibentry{fuchs2006physiological}}
 		
 		The data for the visualisations can easily be represented as a flat array. It may or may not need to be preprocessed, as this depends on the format of the data. This data representation has also been adopted by \href{https://www.chromeexperiments.com/globe}{The WebGL Globe} Chrome Experiment, as shown in Appendix~\ref{app:globe}, is a great example of visualising big data in an efficient way. This open platform project clearly demonstrates that the goals of this project are achievable. They encourage users to use their own datasets, ensuring a certain level of scalability and applications with geographical data.
 		
 		The development of these visualisations will involve using the established \href{http://threejs.org/docs/#Reference/Extras.Geometries/BoxGeometry}{BoxGeometry} and NURBS surface that are available in Three.js. The \href{http://threejs.org/examples/webgl_geometry_nurbs.html}{NURBS example}, as displayed in Appendix~\ref{app:nurbs}, proves that it is possible to render a smooth 3D surface. This can be applied to represent a heat map and if there lie difficulties in implementing this, then an simpler representation can be modelled.
-		
-		\subsection{Stakeholders} {
-		\label{sec:stakeholders}
 
-			\begin{itemize}
-				\item The users of the project.
-				\item Researchers interested in visualising big data.
-				\item University of Newcastle.
-				\item School of Engineering and Computer Science.
-				\begin{itemize}
-					\item Dr. Shamus Smith.
-					\item Members of the Software Engineering \emph{(Honours)} Final Year Project.
-				\end{itemize}
-				\item School of Nursing and Midwifery.
-				\begin{multicols}{3}
-				\begin{itemize}
-					\item Prof. Sally Chan.
-					\item Dr. Sharyn Hunter.
-					\item Dr. Amanda Wilson.
-				\end{itemize}
-				\end{multicols}
-			\end{itemize}		
+		\subsection{Dataset} {
+
+			\todo{start with fake data, then move onto real data then to a live system (FYP)}
 		
 		}
-		
-		\subsection{Scope} {
-		\label{sec:scope}
-		
-			\subsubsection{Inclusions and exclusions} {
-			\label{sec:inclusions_and_exclusions}
-			
-				\begin{table}[H]
-				\caption{A list of what will and will not be included in this project.}
-				\begin{tabularx}{\textwidth}{@{}XX@{}}
-					\toprule
-					\textbf{Inclusions} & \textbf{Exclusions} \\
-					\midrule
-					3D visualisations that can be compared. & 2D visualisations. \\
-					Basic interaction - pan, zoom and rotate. & Advanced touch interactions. \\
-					Data filtering. & Volume selection. \\
-					Data integration with the Final Year Project. & \\
-					\bottomrule
-				\end{tabularx}
-				\end{table}
-			
-			}
-		
+
+		\subsection{Methodology} {
+
+
+		}
+
+		\subsection{Evaluation} {
+
+
+		}
+
+		\subsection{Deliverables} {
+
+			\todo{This should be completed in three weeks and consists of the implementation for a single visualisation and interactions for panning, zooming and rotating.}
+
+			\todo{These deliverables have been designated five weeks to complete. It includes the ability to filter data, apply the visualisation to one or more large datasets and the implementation of another visualisation.}
+
+			\todo{This has been allotted one month to complete and it is a core requirement to integrate the data to the group project. Analysing the computational power and the scalability of the visualisations are considered to be more important than the other tasks and thus have been allocated more time.}
+
 		}
 		
 		\subsection{Dependencies} {
@@ -330,48 +275,16 @@
 				Three.js & WebGL abstraction \\
 				RequireJS & Dependency injection \\
 				LaTeX & Typesetting \\
-				Shamus Smith & Project supervisor \\
 				\bottomrule
 			\end{tabularx}
 			\end{table}
 		
 		}
 		
-		\subsection{Constraints} {
-		\label{sec:constraints}
-			
-			\begin{itemize}
-				\item The final deliverables have a non-negotiable deadline.
-				\item There is a limited amount of hours that can be contributed to the project per week.
-				\item There is no allocated budget for this project.
-				\begin{itemize}
-					\item Resources cannot be easily purchased to upgrade processing hardware.
-				\end{itemize}
-				\item The choice of platform may not be fast enough to process big data.
-			\end{itemize}
-		
-		}
-		
-		\subsection{Assumptions} {
-		\label{sec:assumptions}
-			
-			%\begin{multicols}{2}
-			\begin{itemize}
-				\item There will be adequate time to develop the project.
-				\item The project supervisor will be available when required and is able to offer sufficient guidance.
-				\item Project deliverables are reviewed and approved by the project supervisor within a specified time frame.
-				\item The project scope, requirements and assessment deadlines will not change.
-				\item The hardware used to develop the project will remain functional over the course of the year.
-				\item The risks for the project have been identified and accounted for.
-			\end{itemize}
-			%\end{multicols}
-		
-		}
-		
 		\subsection{Risks} {
 		\label{sec:risks}
 
-			The following table outlines the risks involved in this project. A more detailed risk assessment can be found in Appendix~\ref{app:risk_assessment}.
+			The following table outlines the risks associated with this project. A more detailed risk assessment can be found in Appendix~\ref{app:risk_assessment}.
 			
 			\begin{table}[H]
 			\caption{The list of risks associated with this project and their appropriate mitigation strategies.}
@@ -395,43 +308,18 @@
 	
 	}
 	
-	\newpage
-	
 	\section{Project schedule} {
 	\label{sec:project_schedule}
 	
-		The project plan, which was outlined in Section~\ref{sec:project_plan}, is to be completed according to the project schedule. Unfortunately, it is quite probable that no work will be undertaken towards the individual project during the mid-year recess. This is due to the need to prepare for and attend RoboCup 2015, China. It has therefore been omitted from the schedule, which has been demonstrated through the Gantt chart in Appendix~\ref{app:gantt_chart}. This chart clearly highlights each milestone that is critical to the success of this course:
-		
-		\begin{description}
-			\item[Meetings:] The meetings required in this project.
-			\begin{description}[itemsep=-1ex, topsep=0pt, partopsep=0pt]
-				\item[Group:] These weekly meetings are held during the assigned timetable slot for the course and will involve discussing assessment items, progress and assigning tasks to group members.
-				\item[Supervisor:] Progress update meetings have been scheduled with the project supervisor on a fortnightly basis. These meetings are designed acquire advice and to ensure that the individual project is going to plan.
-				\item[Client:] Client meetings will be scheduled when necessary but should be approximately every two or three weeks and will aim to discuss progress, content and ideas.
-			\end{description}
-			\item[Group participation:] The set of assessment items that comprise group work.
-			\begin{description}[itemsep=-1ex, topsep=0pt, partopsep=0pt]
-				\item[Work:] The continous set of work completed for the group project, such as implementation or testing.
-				\item[Progress reports:] These reports are due at the end of every week and should indicate what has been achieved during that week.
-				\item[Group system demonstration:] The system demonstration should be prepared for a week in advance. This will include discussing the requirements of the demonstration, what has currently been achieved by all members and assigning tasks during the previous group meetings. Any remaining functionality that is required for the demonstration will be implemented during this week.
-				\item[Final report:] This report will require a week to document and two meetings in advance to discuss what is required and assign tasks to members of the group.
-				\item[Open day presentation:] This presentation will be prepared for after the group final report is submitted.
-			\end{description}
-			\item[Individual work:] The individual component of the course.
-			\begin{description}[itemsep=-1ex, topsep=0pt, partopsep=0pt]
-				\item[Presentation:] The presentation requires written preparation and rehearsal. It is to be assessed by the end of the first week and will focus on the work completed in this document.
-				\item[Final report:] This report encompasses the deliverables of the individual project as they form the basis for its documentation. The report will be completed in stages, where each set of deliverables will be summarised after their completion. It will then be finalised during a period of two weeks, so the report can be completed to a good standard of quality.
-				\begin{description}[itemsep=-1ex, topsep=0pt, partopsep=0pt]
-					\item[Basic deliverables:] This should be completed in three weeks and consists of the implementation for a single visualisation and interactions for panning, zooming and rotating.
-					\item[Intermediate deliverables:] These deliverables have been designated five weeks to complete. It includes the ability to filter data, apply the visualisation to one or more large datasets and the implementation of another visualisation.
-					\item[Advanced deliverables:] This has been allotted one month to complete and it is a core requirement to integrate the data to the group project. Analysing the computational power and the scalability of the visualisations are considered to be more important than the other tasks and thus have been allocated more time.
-				\end{description}
-			\end{description}
-		\end{description}
+		The project plan, which was outlined in Section~\ref{sec:project_plan}, is to be completed according to the project schedule. Unfortunately, it is quite probable that no work will be undertaken towards the individual project during the mid-year recess. This is due to the need to prepare for and attend RoboCup 2015, China. It has therefore been omitted from the schedule, which has been demonstrated through the Gantt chart in Figure~\ref{fig:schedule}.
+
+		\begin{figure}[H]
+	        \makebox[\textwidth][c]{\resizebox{0.95\paperwidth}{!}{\input{gantt.tex}}}
+			\caption[Project schedule] {A Gantt chart illustrating the project schedule. Purple bars indicate group tasks, while blue bars refer to individual work with grey being an optional task.}
+			\label{fig:schedule}
+		\end{figure}
 		
 	}
-	
-	\newpage
 	
 	\section{Ethical issues} {
 	\label{sec:ethical_issues}
@@ -463,11 +351,10 @@
 		}
 	
 	}
-	
-	\newpage
 
-	\bibliographystyle{apalike}
-	\bibliography{references}
+	\begin{small}
+		\printbibliography[notcategory=exclude]
+	\end{small}
 	
 	\newpage
 	
@@ -480,9 +367,11 @@
 			
 			\begin{figure}[H]
         		\href{http://nats.aero/blog/2014/03/europe-24-air-traffic-data-visualisation/}{\includegraphics[width=\textwidth]{images/flight-paths}}
-				\caption{Air traffic data visualisation \citep{nats2014air}.}
+				\caption{Air traffic data visualisation. \protect\footnotemark}
 				\label{fig:flight_paths}
 			\end{figure}
+
+			\footnotetext{\bibentry{nats2014air}}
 			
 			The format of the data needed to be confirmed before generating it. To do this, a test runner was created to evaluate any performance differences in reading and parsing array data as opposed to objects. The results of this test, which are demonstrated in Figure~\ref{fig:performance_test}, conclude that reading and parsing array data is far more efficient.
 			
@@ -492,7 +381,7 @@
 				\label{fig:performance_test}
 			\end{figure}
 			
-			Lines are incredibly difficult to draw in WebGL \citep{deslauriers2015lines} and was the first challenge when attempting to develop this visualisation. There are two main methods of rendering a line using the Three.js library: 
+			Lines are incredibly difficult to draw in WebGL \footnote{\bibentry{deslauriers2015lines}} and was the first challenge when attempting to develop this visualisation. There are two main methods of rendering a line using the Three.js library: 
 			
 			\begin{description}
 				\item[Line Object:] The default thickness of the line is too thin to highlight intersections with alpha blending. To resolve this, the \emph{lineWidth} property should be used. However, it is not supported in Windows which limits the availability of the system.
@@ -525,9 +414,11 @@
 		
 				\begin{figure}[H]
         			\href{https://www.chromeexperiments.com/globe}{\includegraphics[width=\textwidth]{images/globe}}
-					\caption{A screenshot of the WebGL Globe representing population data \citep{google2011globe}.}
+					\caption{A screenshot of the WebGL Globe representing population data. \protect\footnotemark}
 					\label{fig:webgl_globe}
 				\end{figure}
+
+				\footnotetext{\bibentry{google2011globe}}
 		
 			}
 		
@@ -631,19 +522,6 @@
 			
 			}
 		
-		}
-
-		\newpage
-
-		\section{Gantt chart} {
-		\label{app:gantt_chart}
-
-			\begin{figure}[H]
-		        \makebox[\textwidth][c]{\resizebox{0.95\paperwidth}{!}{\input{gantt.tex}}}
-				\caption[Project schedule] {A Gantt chart illustrating the project schedule. Grey bars indicate optional tasks.}
-				\label{gantt:schedule}
-			\end{figure}
-
 		}
 		
 	\end{appendices}
