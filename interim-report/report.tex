@@ -261,33 +261,45 @@
 		
 		}
 
-		\subsection{Software development methodology} {
-		\label{sec:software_development_methodology}
-
-
-		}
-
 		\subsection{Evaluation} {
 		\label{sec:evaluation}
 
 
 		}
+
+		\subsection{Non-functional requirements} {
+
+			\todo{modularity, scalability, testability, performance}
+
+		}
+
+		\subsection{Software development process} {
+		\label{sec:software_development_process}
+
+			A rapid application development (RAD) approach will be undertaken when developing this project. This methodology focuses on iterative development and the rapid construction of prototypes, instead of investing significant amounts of time into planning. RAD enables the software to be written quickly through the reuse of software components and engaging in less formal reviews. This process also performs unit, integration and system testing at the end of each construction phase. 
+
+		}
 		
-		\subsection{Dependencies} {
-		\label{sec:dependencies}
+		\subsection{Development environment} {
+		\label{sec:development_environment}
+
+			The tools and libraries that will be used for the development environment of this project have been outlined in Table~\ref{tab:dependencies}.
 		
 			\begin{table}[H]
-			\caption{A list of project dependencies.}
+			\caption{The list of project dependencies for the development environment.}
+			\label{tab:dependencies}
 			\begin{tabularx}{\textwidth}{@{}XX@{}}
 				\toprule
 				\textbf{Dependency} & \textbf{Description} \\
 				\midrule
+				Git & Version control \\
 				BitBucket & Source code host \\
 				SourceTree & Git client \\
 				Node.js & Runtime environment \\
-				Three.js & WebGL abstraction \\
-				RequireJS & Dependency injection \\
-				LaTeX & Typesetting \\
+				Three.js & WebGL abstraction library \\
+				RequireJS & Dependency injection library \\
+				Intern & Test runner \\
+				Chai & Assertion library \\
 				\bottomrule
 			\end{tabularx}
 			\end{table}
