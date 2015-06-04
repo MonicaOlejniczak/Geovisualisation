@@ -1,3 +1,6 @@
+\newcommand{\groupcolor}{RoyalPurple!80}
+\newcommand{\individualcolor}{MidnightBlue!75}
+
 \begin{ganttchart}[
 	vgrid={*6{black, dotted},*1{black, dashed}},
 	x unit=0.3cm,
@@ -12,7 +15,7 @@
 	title right shift=-.05,
 	title top shift=.05,
 	title height=.95,
-	bar/.append style={draw=none, fill=MidnightBlue!75},
+	bar/.append style={draw=none, fill=\individualcolor},
 	bar height=.5,
 	bar label font=\normalsize\color{black!80}
 %	group right shift=0,
@@ -22,9 +25,6 @@
 %	bar incomplete/.append style={fill=red}
 ]
 {2015-07-27}{2015-11-08} % start and end date
-
-\newcommand{\groupcolor}{RoyalPurple!80}
-\newcommand{\individualcolor}{MidnightBlue!75}
 
 \newganttchartelement{optionalbar}{
 	optionalbar/.style={
@@ -119,30 +119,30 @@
 % Individual final report - week 13
 \ganttnewline \ganttgroup{Individual final report}{2015-08-01}{2015-11-06}
 
-\ganttnewline \ganttbar{Summarise basic deliverables}{2015-08-22}{2015-08-24}
-\ganttnewline \ganttbar{Summarise intermediate deliverables}{2015-09-24}{2015-09-26}
-\ganttnewline \ganttbar{Summarise advanced deliverables}{2015-10-23}{2015-10-25}
+\ganttnewline \ganttbar{Summarise basic deliverables}{2015-08-22}{2015-08-29}
+\ganttnewline \ganttbar{Summarise intermediate deliverables}{2015-09-24}{2015-09-31}
+\ganttnewline \ganttbar{Summarise advanced deliverables}{2015-10-23}{2015-10-30}
 \ganttnewline \ganttbar{Finalise}{2015-10-23}{2015-11-06}
 
 	% Basic deliverables
-	\ganttnewline \ganttgroup{Basic deliverables}{2015-08-01}{2015-08-21}
-	\ganttnewline \ganttbar{Implementation (1)}{2015-08-01}{2015-08-21}
-	\ganttnewline \ganttbar{Basic interaction}{2015-08-16}{2015-08-21}
+	\ganttnewline \ganttgroup{Basic deliverables}{2015-08-01}{2015-08-28}
+	\ganttnewline \ganttbar{Implement first prototype with a small, generated dataset}{2015-08-01}{2015-08-28}
+	\ganttnewline \ganttbar{Basic interaction - translate, zoom, rotate}{2015-08-16}{2015-08-28}
 
 	% Intermediate deliverables
-	\ganttnewline \ganttgroup{Intermediate deliverables}{2015-08-22}{2015-09-23}
-	\ganttnewline \ganttbar{Data filtering}{2015-08-22}{2015-09-16}
-	\ganttnewline \ganttbar{Implementation (2)}{2015-08-26}{2015-09-23}
-	\ganttnewline \ganttbar{Apply datasets}{2015-09-9}{2015-09-23}
+	\ganttnewline \ganttgroup{Intermediate deliverables}{2015-08-29}{2015-09-30}
+	\ganttnewline \ganttbar{Add data filtering}{2015-08-29}{2015-09-23}
+	\ganttnewline \ganttbar{Implement second prototype with a large, generated dataset}{2015-09-02}{2015-09-30}
+	\ganttnewline \ganttbar{Apply real datasets to the prototypes}{2015-09-16}{2015-09-30}
 
 	% Advanced deliverables
-	\ganttnewline \ganttgroup{Advanced deliverables}{2015-09-24}{2015-10-22}
-	\ganttnewline \ganttbar{Integrate data}{2015-09-24}{2015-10-22}
-	\ganttnewline \ganttoptionalbar{Benchmark scalability}{2015-10-01}{2015-10-22}
-	\ganttnewline \ganttoptionalbar{Analyse computational power}{2015-10-01}{2015-10-22}
-	\ganttnewline \ganttoptionalbar{Perform user study}{2015-10-15}{2015-10-22}
-	\ganttnewline \ganttoptionalbar{Port to a touch-interface}{2015-10-15}{2015-10-22}
-	\ganttnewline \ganttoptionalbar{Incorporate touch gestures}{2015-10-15}{2015-10-22}
+	\ganttnewline \ganttgroup{Advanced deliverables}{2015-10-01}{2015-10-29}
+	\ganttnewline \ganttbar{Implement methods to fetch FYP data}{2015-10-01}{2015-10-09}
+	\ganttnewline \ganttbar{Integrate prototypes into the FYP}{2015-10-01}{2015-10-29}
+	\ganttnewline \ganttoptionalbar{Benchmark scalability}{2015-10-08}{2015-10-29}
+	\ganttnewline \ganttoptionalbar{Analyse computational power}{2015-10-08}{2015-10-29}
+	\ganttnewline \ganttoptionalbar{Perform user study}{2015-10-22}{2015-10-29}
+	\ganttnewline \ganttoptionalbar{Incorporate multi-touch gestures - pan, pinch, zoom, rotate}{2015-10-22}{2015-10-29}
 
 % % Examples of gantt chart capabilities: 
 % \ganttnewline \ganttgroup{Label Text}{2015-08-20}{2015-10-5}
