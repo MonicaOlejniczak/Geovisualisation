@@ -56,8 +56,8 @@
 \usepackage{spreadtab}
 \usepackage{etoolbox}
 \usepackage{multicol}
-\usepackage{caption} 
-\usepackage{subcaption}
+\usepackage{caption}
+\usepackage[font=scriptsize]{subcaption}
 % Remove spacing before and after captions
 \captionsetup[table]{aboveskip=-8pt}
 \captionsetup[table]{belowskip=8pt}
@@ -109,63 +109,71 @@
 	\section{Introduction} {
 	\label{sec:introduction}
 
+		\todo{make introduction clearer}
+
 		Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation \parencite{jiang2005geovisualization}. It is particularly important in data analytics and when working with large datasets, since it enables data exploration and decision-making processes when combined with human understanding \parencite{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data \parencite{kwan2004geovisualization}.
 		
 		This research discusses the World Wide Web as a platform for geovisualisations and its required interactions in a 3D environment. Next, the applications and visualisation techniques of geovisualisation are explored and the aims of this project are outlined. Then, the details of this project are discussed which include its goals, plan for development and schedule. Finally, this report concludes with the ethical issues that arise from developing this project.
 
-		\subsection{The World Wide Web} {
+		\subsection{Geovisualisations using the World Wide Web} {
 
-			Geovisualisations can be realised through the World Wide Web, which has become a prominent medium for publishing geospatial data as they are no longer limited to a static form. Now, immersive and highly interactive environments can be created and taken advantage of to explore and present dynamic geospatial data \parencite{maceachren2001research}.
+			Geovisualisations can be realised through the World Wide Web, which has become a prominent medium for publishing geospatial data. The web facilitates the creation of immersive and highly interactive environments, which can be taken advantage of to explore and present dynamic geospatial data \parencite{maceachren2001research}.
 
-			\subsubsection{HTML5} {
-
-				HTML5 is a standardised markup language for describing web documents \parencite{w3c2014html5}, providing a common platform for applications to deliver multimedia content to the web \parencite{lawson2011introducing, chaturvedi2015web}.
-
-			}
-
-			\subsubsection{WebGL} {
-
-				WebGL is a cross-platform web standard for a 3D graphics API derived from OpenGL, which has been exposed through the HTML5 canvas element \parencite{marrin2011webgl} as a drawing context. It is widely supported in modern browsers, without needing additional plug-ins or extensions, and is designed for building dynamic applications that require 3D visualisations \parencite{chaturvedi2015web, marrin2011webgl, parisi2012webgl}. Rendering such visualisations in real-time is possible due to the accelerated graphics rendering provided by WebGL, which utilises the graphics card memory on a device \parencite{chaturvedi2015web} to perform multiple operations in parallel to one another.
-
-			}
+			WebGL is a cross-platform web standard for a 3D graphics API derived from OpenGL, which has been exposed through the HTML5 canvas element \parencite{marrin2011webgl} as a drawing context. It is widely supported in modern browsers, without needing additional plug-ins or extensions, and is designed for building dynamic applications that require 3D visualisations \parencite{chaturvedi2015web, marrin2011webgl, parisi2012webgl}. Rendering such visualisations in real-time is possible due to the accelerated graphics rendering provided by WebGL, which utilises the graphics card memory on a device \parencite{chaturvedi2015web} to perform multiple operations in parallel to one another.
 
 		}
 
-		\subsection{Interaction} {
+		\subsection{Interaction in geovisualisations} {
 
-			The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes. It is also essential for a visualisation to support interaction, otherwise it becomes static and greatly limits its usefulness as the dataset that it represents grows larger \parencite{yi2007toward}.
+			The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes \parencite{yi2007toward}. It is also essential for visualisations to support interaction, otherwise the usefulness of the visualisation is greatly limited as the dataset that it represents grows larger \parencite{yi2007toward}.
 
 			In the context of geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \parencite{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view \parencite{cartwright2001geospatial, hand1997survey}.
 
 		}
 
-		\subsection{Applications} {
+		\subsection{Applications of geovisualisation} {
 
 			% equipped assist
 
-			There is a comprehensive amount of geospatial data available, which has been made accessible through various digital data resources. Census enumerations, health statistics, land use categories, meteorological measurements, telephone information and transportation records constitute examples of geospatially referenced data that can be applied to geovisualisations for scientific, research and societal purposes. Furthermore, this widely accessible geospatial data has resulted in an equally large range of application domains for geovisualisations, which include earth science, public health and social science \parencite{maceachren2004geovisualization}.
+			There is a comprehensive amount of geospatial data available, which has been made accessible through various digital data resources. Census enumerations, health statistics, land use categories, meteorological measurements, telephone information and transportation records constitute examples of geospatially referenced data that can be applied to geovisualisations for scientific, research and societal purposes. Furthermore, this widely accessible geospatial data has resulted in an equally large range of application domains for geovisualisations, which include earth science, public health and social science as shown in Figure~\ref{fig:geovisualisation_applications} \parencite{maceachren2004geovisualization}.
 
-			\todo{break up with image of each application}
+			\newcommand{\applicationwidth}{0.32\textwidth}
+			\newcommand{\applicationheight}{3cm}
+			\begin{figure}[H]
+				\centering
+		        \begin{subfigure}[b]{\applicationwidth}
+	                \includegraphics[width=\textwidth,height=\applicationheight]{images/earth-science}
+	                \caption{Earth science \parencite{google2015earth}}
+	                \label{fig:earth_science}
+		        \end{subfigure}
+		        \begin{subfigure}[b]{\applicationwidth}
+	                \includegraphics[width=\textwidth,height=\applicationheight]{images/public-health}
+	                	\caption{\tiny{Public health \parencite{maceachren2004geovisualization}}}
+	                \label{fig:public_health}
+		        \end{subfigure}
+		        \begin{subfigure}[b]{\applicationwidth}
+	                \includegraphics[width=\textwidth,height=\applicationheight]{images/social-science}
+	                	\caption{Social science \parencite{kwan2004geovisualization}}
+	                \label{fig:social_science}
+		        \end{subfigure}
+				\caption{Application domains for geovisualisation.}
+				\label{fig:geovisualisation_applications}
+			\end{figure}
 
 			% Earth science
-			In the domain of earth science, the visualisation of environmental data reveals new insights into the patterns of nature and human-related phenomena and helps improve understanding of the dynamic processes of earth systems \parencite{yu2012google}.
+			In the domain of \emph{earth science}, the visualisation of environmental data reveals new insights into the patterns of nature and human-related phenomena. These visualisations also help improve the understanding of the dynamic processes of earth systems \parencite{yu2012google}.
 
 			\textcite{yu2012google} analyses virtual globes as a tool in earth science applications, which have been developed to effectively facilitate data collection, exploration and the visualisation of environmental data. They deliver huge volumes of satellite imagery, 3D views of the earth, topographic maps and distance measurement to the general public. These globes have promoted entertainment, education, the exploration of new findings, data sharing and provided researchers with effective channels of communicating their findings. Virtual globes can be applied to many areas and in the case of \emph{Google Earth}, typically focus on large-scale phenomena in the atmosphere, carbon science, ecosystems, energy, geology and natural disasters.
 
 			% Public health
-			Within public health, geovisualisations can be modelled to geospatial data concerning risk factors, health outcomes and interventions to provide an opportunity to understand and act on the varied geographic distribution of disease. However, these datasets are typically difficult to analyse through traditional methods as the data is highly multivariate \parencite{maceachren2004geovisualization}.
+			Within \emph{public health}, geovisualisations can be modelled to geospatial data concerning risk factors, health outcomes and interventions to provide an opportunity to understand and act on the varied geographic distribution of disease. However, these datasets are typically difficult to analyse through traditional methods as the data is highly multivariate \parencite{maceachren2004geovisualization}.
 
-			\textcite{maceachren2004geovisualization} were able to apply a \emph{mortality and risk factor} dataset to a geovisualisation, in order to explore the spatial and nonspatial relationships in this data. They considered environmental risk factors, health care access and cancer mortality rates of various ages and genders to demonstrate that it is possible to utilise geovisualisations in a way that addresses critical issues in public health.
+			\textcite{maceachren2004geovisualization} were able to apply a mortality and risk factor dataset to a geovisualisation, in order to explore the spatial and nonspatial relationships in this data. They considered environmental risk factors, health care access and cancer mortality rates of various ages and genders to demonstrate that it is possible to utilise geovisualisations in a way that addresses critical issues in public health.
 
 			% Social science
+			An important research area in \emph{social science} is the study of human activities and movements in space and time. Geovisualisations can model this data, which has become feasible with the increased availability of georeferenced individual-level data \parencite{kwan2004geovisualization}.
 
-			\todo{human geography - population data}
-
-			% \subsubsection{Urban planning} {
-
-			% Geovisualisations are used as a tool for visualising the likely consequences of proposed developments by exploring their various scenarios. This has the potential to facilitate collaborative decision making by various stakeholders, improve communication and resolve conflicts at a community level \citep{pettit2005using}.
-
-			% }
+			\textcite{kwan2004geovisualization} studied gender and ethnic differences in space-time activity patterns in a metropolitan area. Their study demonstrated that geovisualisation methods are effective in revealing the complex interaction between the spatial and temporal dimensions in structuring human spatial behaviour. \citeauthor{kwan2004geovisualization} also discovered that geovisualisation tools can help formulate more realistic computational or behavioural models for exploratory spatial data analysis.
 
 		}
 
@@ -218,15 +226,17 @@
 		
 		To facilitate these goals, this project will involve creating visualisations that can be: applied to a range of datasets and compared to one another. This will require applying the same datasets to both visualisations and analysing the differences in performance and scalability. With this in mind, it has been decided that heat maps will be used as the basis of this project as they have a wide array of applications. Figure~\ref{fig:heat_maps} features two different ways of visualising a heat map. It has potential applications in displaying a 3D column or bar chart, financial and geographical data. It is interesting to note that geographical data can be applied to both visualisations, where the image on the left can be mapped to a sphere and could represent population data, while the other could represent pollution levels in a city.
 		
+		\newcommand{\heatmapwidth}{0.4\textwidth}
+		\newcommand{\heatmapheight}{3.5cm}
 		\begin{figure}[H]
 			\centering
-			\begin{subfigure}[b]{0.4\textwidth}
-                \includegraphics[width=\textwidth,height=3.5cm]{images/heat-map-1}
+			\begin{subfigure}[b]{\heatmapwidth}
+                \includegraphics[width=\textwidth,height=\heatmapheight]{images/heat-map-1}
                 \caption{Financial data. \protect\footnotemark}
                 \label{fig:heat_map_financial}
 	        \end{subfigure}
-	        \begin{subfigure}[b]{0.4\textwidth}
-                \includegraphics[width=\textwidth,height=3.5cm]{images/heat-map-2}
+	        \begin{subfigure}[b]{\heatmapwidth}
+                \includegraphics[width=\textwidth,height=\heatmapheight]{images/heat-map-2}
                 \caption{Electroencephalogram. \protect\footnotemark}
                 \label{fig:heat_map_eeg}
 	        \end{subfigure}
