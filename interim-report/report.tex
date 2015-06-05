@@ -6,7 +6,7 @@
 	parskip=half
 ]{scrartcl}
 
-\usepackage[left=2.54cm,top=2.54cm,right=2.54cm,bottom=2.54cm,headheight=30pt]{geometry}
+\usepackage[left=2.3cm,top=2.54cm,right=2.3cm,bottom=2.54cm,headheight=30pt]{geometry}
 
 % Enforce UTF8 encoding
 \usepackage[utf8]{inputenc}
@@ -99,29 +99,29 @@
 	% Title
 	\makeatletter
 		\textbf{\LARGE\textsf{\@title}}
-		\vspace{-2.5em}
+		\vspace{-8pt}
 		\begin{center}
 			\large\textbf{\textsf{\@author}}
 		\end{center}
-		\vspace{-2.5em}
+		\vspace{-24pt}
 	\makeatother
 
 	\begin{abstract}
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis vel ipsum scelerisque interdum. Duis velit magna, efficitur vitae tortor vitae, efficitur lacinia ligula. Praesent euismod ut nulla fringilla porttitor. Maecenas sit amet libero ut magna pellentesque tristique sed in nibh. Integer quis interdum nibh. Nam suscipit malesuada mi quis porttitor. Sed sed tristique mi. Aliquam arcu est, lobortis nec sodales ut, facilisis ac lorem. In hac habitasse platea dictumst. Vivamus et elementum libero, eu hendrerit enim. Mauris blandit dui vitae elit pulvinar mollis. Curabitur sollicitudin scelerisque est. Nunc imperdiet felis quis lectus scelerisque convallis. Maecenas et erat nec odio cursus euismod eu ut lacus.
+		Geovisualisation is the interactive visualisation of geospatial information. Visualising this information is particularly important in data analytics, because it aids data exploration and decision-making processes when combined with human understanding.
 
-		Mauris libero turpis, imperdiet et odio et, condimentum tincidunt massa. Nunc nec nulla eu mauris maximus varius. Quisque condimentum porta nisi, sit amet maximus quam bibendum sed. Sed placerat maximus ligula, in dignissim ex consequat a. Proin consequat, neque non fringilla imperdiet, sem orci.
+		This project will attempt to analyse how different datasets can be applied to geovisualisations, which enables data analytics to be performed for a variety of application domains. Applying different datasets to geovisualisations will facilitate increased data exploration and decision-making processes. Furthermore, the analysis will be undertaken in order to compare the differences in performance and scalability between the visualisations and the datasets applied to them.
+
+		To adhere to these project requirements, two visualisations will be developed with WebGL using earth and social science datasets. These visualisations need to be developed quickly, and thus a rapid application development approach is most suitable for this project. Finally, it is critical that the prototypes are developed to be highly modular, performant, scalable and testable to cater to the succeess of this project.
 	\end{abstract}
 	
 	\section{Introduction} {
 	\label{sec:introduction}
 
-		Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation \parencite{jiang2005geovisualization}. Geovisualisations are particularly important in data analytics and when working with large datasets, since they enable data exploration and decision-making processes when combined with human understanding \parencite{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data \parencite{kwan2004geovisualization}.
+		Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation \parencite{jiang2005geovisualization}. Geovisualisations are particularly important in data analytics and when working with large datasets, as visualising geospatial information aids data exploration and decision-making processes when combined with human understanding \parencite{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data \parencite{kwan2004geovisualization}.
 
-		This project will attempt to analyse how different datasets can be applied to geovisualisations, enabling data analytics to be performed for a variety of application domains. Applying different datasets to geovisualisations will facilitate increased data exploration and decision-making processes. Furthermore, the analysis will be undertaken in order to compare the differences in performance and scalability between the visualisations and the datasets applied to them. 
-
-		% This project will attempt to improve student learning by aiding teachers with real-time feedback using mobile visual analytics. Multi-touch tablet devices can be carried by a teacher in a classroom environment, and provide a portable, intuitive and familiar interface to display analytics regarding student learning.
+		This project will attempt to analyse how different datasets can be applied to geovisualisations, which enables data analytics to be performed for a variety of application domains. Applying different datasets to geovisualisations will facilitate increased data exploration and decision-making processes. Furthermore, the analysis will be undertaken in order to compare the differences in performance and scalability between the visualisations and the datasets applied to them.
 		
-		This report explores 3D geovisualisation techniques, discusses the World Wide Web as a platform for geovisualisations and common interactions found in 3D geovisualisations. Next, the applications of geovisualisations are analysed and an overview of the project is provided from this research. Then, the aims and details of this project are discussed which include its goals, plan for development and schedule. Finally, this report concludes with the ethical issues that arise from developing this project.
+		This report explores 3D geovisualisation techniques that could be applied to the project, discusses the World Wide Web as a platform for geovisualisations and common interactions found in 3D geovisualisations. Next, the applications of geovisualisations are analysed and an overview of the project is provided from this research. Then, the aims and details of this project are discussed which include its goals, plan for development and schedule. Finally, this report concludes with the ethical issues that arise from developing this project.
 
 		\subsection{3D geovisualisation techniques} {
 
@@ -131,12 +131,13 @@
 
 			\newcommand{\combinationwidth}{0.45\textwidth}
 			\begin{wrapfigure}{r}{\combinationwidth}
+				\vspace{-12pt}
 				\centering
 				\captionsetup{font=small}
                 \includegraphics[width=\combinationwidth]{images/category-combination}
 				\caption{An example of combining 3D representations of the real world with abstract data. \protect\footnotemark}
 				\label{fig:category_combination}
-				\vspace{-5pt}
+				\vspace{-8pt}
 			\end{wrapfigure}
 
 			\footnotetext{\bibentry{ratti2010copenhagen}}
@@ -227,7 +228,7 @@
 
 		\subsection{Overview} {
 
-			In this work, HTML5 and WebGL will be utilised to visualise geographical data, with triangle based meshes and NURBS surface data displays. This ensures the development of a cross-platform system capable of rendering complex visualisations through accelerated graphics rendering. This project will consider several navigation interaction techniques, particularly translation, scaling and rotation. Finally, the visualisations will be applied to both earth and social science datasets as both domains have a wide array of applications.
+			In this work, HTML5 and WebGL will be used to visualise geographical data, with triangle based meshes and NURBS surface data displays. This ensures the development of a cross-platform system capable of rendering complex visualisations through accelerated graphics rendering. This project will consider several navigation interaction techniques, particularly translation, scaling and rotation. Finally, the visualisations will be applied to both earth and social science datasets as both domains have a wide array of applications.
 
 		}
 	
