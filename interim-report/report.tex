@@ -51,21 +51,27 @@
 \renewcommand{\arraystretch}{1.5}
 \setlength{\textfloatsep}{0.1em}
 
-% Additional
-\usepackage{float}
-\usepackage{spreadtab}
-\usepackage{etoolbox}
-\usepackage{multicol}
+% Figures
+\usepackage{wrapfig}
 \usepackage{caption}
 \usepackage[font=scriptsize]{subcaption}
+
+\newcommand{\subfigcaptionskip}{\vspace{-10pt}}
+
 % Remove spacing before and after captions
 \captionsetup[table]{aboveskip=-8pt}
 \captionsetup[table]{belowskip=8pt}
 \captionsetup[figure]{belowskip=-10pt}
 
+% Additional
+\usepackage{float}
+\usepackage{spreadtab}
+\usepackage{etoolbox}
+
 % References
 \usepackage[backend=bibtex,style=authoryear]{biblatex}
 \addbibresource{references.bib}
+\renewcommand*{\bibfont}{\small}
 \DeclareBibliographyCategory{exclude}
 \newcommand{\bibentry}[1]{
 	\addtocategory{exclude}{#1}
@@ -92,28 +98,56 @@
 
 	% Title
 	\makeatletter
-		\begin{huge}
-			\textbf{\textsf{\@title}}
-		\end{huge}
-		\par
+		\textbf{\LARGE\textsf{\@title}}
+		\vspace{-2.5em}
 		\begin{center}
 			\large\textbf{\textsf{\@author}}
 		\end{center}
+		\vspace{-2.5em}
 	\makeatother
+
 	\begin{abstract}
-		\todo{Data visualisation is the presentation of data in a visual context and is particularly important in data analytics since humans are able to recognise patterns, trends and correlations more easily \parencite{grinstein2002introduction}.
-		
-		This project aims to develop touch-based visualisations in three-dimensions and will focus on using large data in a generic way to demonstrate general applicability. The visualisations will provide touch-capability so they are able to be viewed on a smart device.}
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis vel ipsum scelerisque interdum. Duis velit magna, efficitur vitae tortor vitae, efficitur lacinia ligula. Praesent euismod ut nulla fringilla porttitor. Maecenas sit amet libero ut magna pellentesque tristique sed in nibh. Integer quis interdum nibh. Nam suscipit malesuada mi quis porttitor. Sed sed tristique mi. Aliquam arcu est, lobortis nec sodales ut, facilisis ac lorem. In hac habitasse platea dictumst. Vivamus et elementum libero, eu hendrerit enim. Mauris blandit dui vitae elit pulvinar mollis. Curabitur sollicitudin scelerisque est. Nunc imperdiet felis quis lectus scelerisque convallis. Maecenas et erat nec odio cursus euismod eu ut lacus.
+
+		Mauris libero turpis, imperdiet et odio et, condimentum tincidunt massa. Nunc nec nulla eu mauris maximus varius. Quisque condimentum porta nisi, sit amet maximus quam bibendum sed. Sed placerat maximus ligula, in dignissim ex consequat a. Proin consequat, neque non fringilla imperdiet, sem orci.
 	\end{abstract}
 	
 	\section{Introduction} {
 	\label{sec:introduction}
 
-		\todo{make introduction clearer}
+		Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation \parencite{jiang2005geovisualization}. Geovisualisations are particularly important in data analytics and when working with large datasets, since they enable data exploration and decision-making processes when combined with human understanding \parencite{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data \parencite{kwan2004geovisualization}.
 
-		Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation \parencite{jiang2005geovisualization}. It is particularly important in data analytics and when working with large datasets, since it enables data exploration and decision-making processes when combined with human understanding \parencite{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data \parencite{kwan2004geovisualization}.
+		This project will attempt to 
+
+		% This project will attempt to improve student learning by aiding teachers with real-time feedback using mobile visual analytics. Multi-touch tablet devices can be carried by a teacher in a classroom environment, and provide a portable, intuitive and familiar interface to display analytics regarding student learning.
 		
-		This research discusses the World Wide Web as a platform for geovisualisations and its required interactions in a 3D environment. Next, the applications and visualisation techniques of geovisualisation are explored and the aims of this project are outlined. Then, the details of this project are discussed which include its goals, plan for development and schedule. Finally, this report concludes with the ethical issues that arise from developing this project.
+		This report explores 3D geovisualisation techniques, discusses the World Wide Web as a platform for geovisualisations and common interactions found in 3D geovisualisations. Next, the applications of geovisualisations are analysed and an overview of the project is provided from this research. Then, the aims and details of this project are discussed which include its goals, plan for development and schedule. Finally, this report concludes with the ethical issues that arise from developing this project.
+
+		\subsection{3D geovisualisation techniques} {
+
+			\textcite{bleisch2012geovisualization} defines two distinct categories that represent most 3D geovisualisations: 3D representations of the real world and a combination of 3D representations of the real world with abstract data.
+
+			The \emph{3D representations of the real world} category represents the real world and its objects in realistic or generalised ways to communicate information. This category often uses x, y and z coordinates to show the real world dimensions \textendash\, easting, northing, elevation and sometimes the height of buildings or other objects. A 3D environment attempting to represent the real world usually consists of a digital elevation or surface model with either high resolution orthoimagery, satellite imagery or maps \parencite{bleisch2012geovisualization}.
+
+			\newcommand{\combinationwidth}{0.45\textwidth}
+			\begin{wrapfigure}{r}{\combinationwidth}
+				\centering
+				\captionsetup{font=small}
+                \includegraphics[width=\combinationwidth]{images/category-combination}
+				\caption{An example of combining 3D representations of the real world with abstract data. \protect\footnotemark}
+				\label{fig:category_combination}
+				\vspace{-5pt}
+			\end{wrapfigure}
+
+			\footnotetext{\bibentry{ratti2010copenhagen}}
+
+			Common examples of this category are digital city models and virtual globes. 3D city models often apply photo texturing to suggest additional detail, since the detail may not be present in the underlying geometric model of the city \parencite{bleisch2012geovisualization}.
+
+			In the \emph{combination of 3D representations of the real world with abstract data} category, the representation of the real world environment is enhanced with the inclusion of data displays. This category is designed for communicating, analysing and explorating data and depicts the real world dimensions and data values through the x, y and z axes. An example of this category is shown in Figure~\ref{fig:category_combination} \parencite{bleisch2012geovisualization}.
+
+			To visualise the data displays in this category, triangle meshes, texture maps or non-uniform rational B-spline (NURBS) surfaces can be created and applied to the visualisation. NURBS in particular are computationally efficient and effective at modelling complex structures \parencite{hildebrandt2011image, zhong2006enhanced}.
+
+		}
 
 		\subsection{Geovisualisations using the World Wide Web} {
 
@@ -144,6 +178,7 @@
 		        \begin{subfigure}[b]{\applicationwidth}
 	                \includegraphics[width=\textwidth,height=\applicationheight]{images/earth-science}
 	                \caption{Earth science \parencite{google2015earth}}
+	                % \protect\footnotemark}
 	                \label{fig:earth_science}
 		        \end{subfigure}
 		        \begin{subfigure}[b]{\applicationwidth}
@@ -157,8 +192,11 @@
 	                \label{fig:social_science}
 		        \end{subfigure}
 				\caption{Application domains for geovisualisation.}
+				\subfigcaptionskip
 				\label{fig:geovisualisation_applications}
 			\end{figure}
+
+			% \footnotetext{\bibentry{google2015earth}}
 
 			% Earth science
 			In the domain of \emph{earth science}, the visualisation of environmental data reveals new insights into the patterns of nature and human-related phenomena. These visualisations also help improve the understanding of the dynamic processes of earth systems \parencite{yu2012google}.
@@ -187,17 +225,9 @@
 
 		% }
 
-		\subsection{Visualisation techniques} {
-
-			\todo{nurbs}
-
-		}
-
 		\subsection{Overview} {
 
-			\todo{reword section later}
-
-			In this work, HTML5 and WebGL will be utilised to visualise geographical data, which ensures that this project is cross-platform and capable of rendering complex visualisations through accelerated graphics rendering. It will consider several navigation interaction techniques, particularly translation, scaling and rotation.
+			In this work, HTML5 and WebGL will be utilised to visualise geographical data, with triangle based meshes and NURBS surface data displays. This ensures the development of a cross-platform system capable of rendering complex visualisations through accelerated graphics rendering. This project will consider several navigation interaction techniques, particularly translation, scaling and rotation. Finally, the visualisations will be applied to both earth and social science datasets as both domains have a wide array of applications.
 
 		}
 	
@@ -241,10 +271,11 @@
                 \label{fig:heat_map_eeg}
 	        \end{subfigure}
 			\caption{Two different representations of a heat map.}
+			\subfigcaptionskip
 			\label{fig:heat_maps}
 		\end{figure}
 
-		\footnotetext[3]{\bibentry{tuomainen2014financial}}
+		\footnotetext[5]{\bibentry{tuomainen2014financial}}
 		\footnotetext{\bibentry{fuchs2006physiological}}
 		
 		The data for the visualisations can easily be represented as a flat array and may need to be preprocessed, which depends on the format of the data. This data representation has also been adopted by The WebGL Globe Chrome Experiment~\footnote{\bibentry{google2011globe}}, as shown in Appendix~\ref{app:globe}, is a great example of visualising a large dataset in an efficient way. This open platform project clearly demonstrates that the goals of this project are achievable. They encourage users to use their own datasets, ensuring a certain level of scalability and applications with geographical data.
@@ -278,7 +309,7 @@
 		\subsection{Evaluation} {
 		\label{sec:evaluation}
 
-			The following criteria will be considered when evaluating and comparing the visualisations: time to render, time to perform operations after render, average frames per second, how they scale with small and large datasets and how different colours and schemes effect performance. 
+			The following criteria will be considered when evaluating and comparing the visualisations: time to render, time to perform operations after render, average frames per second, scaling betwen small and large datasets and how different colours and schemes effect performance.
 
 		}
 
@@ -405,9 +436,7 @@
 	
 	}
 
-	\begin{small}
-		\printbibliography[notcategory=exclude]
-	\end{small}
+	\printbibliography[notcategory=exclude]
 	
 	\newpage
 	
