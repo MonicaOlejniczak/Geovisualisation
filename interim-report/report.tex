@@ -6,7 +6,7 @@
 	parskip=half
 ]{scrartcl}
 
-\usepackage[left=2.3cm,top=2.54cm,right=2.3cm,bottom=2.54cm,headheight=30pt]{geometry}
+\usepackage[left=2cm,top=2.54cm,right=2cm,bottom=2.54cm,headheight=30pt]{geometry}
 
 % Enforce UTF8 encoding
 \usepackage[utf8]{inputenc}
@@ -109,7 +109,7 @@
 	\begin{abstract}
 		Geovisualisation is the interactive visualisation of geospatial information. Visualising this information is particularly important in data analytics, because it aids data exploration and decision-making processes when combined with human understanding.
 
-		This project will attempt to analyse how different datasets can be applied to geovisualisations, which enables data analytics to be performed for a variety of application domains. Applying different datasets to geovisualisations will facilitate increased data exploration and decision-making processes. Furthermore, the analysis will be undertaken in order to compare the differences in performance and scalability between the visualisations and the datasets applied to them.
+		This project will attempt to address how to visualise large datasets in WebGL and will analyse how different datasets can be applied to 3D geovisualisations. These conisderations are important in data analytics beacause the web is becoming a prominent medium for publishing geospatial data. This data can then be analysed through geovisualisations for a variety of application domains. Applying different datasets to geovisualisations will facilitate increased data exploration and decision-making processes. Furthermore, this project will compare the differences in performance and scalability between the visualisations and the datasets applied to them.
 
 		To adhere to these project requirements, two visualisations will be developed with WebGL using earth and social science datasets. These visualisations need to be developed quickly, and thus a rapid application development approach is most suitable for this project. Finally, it is critical that the prototypes are developed to be highly modular, performant, scalable and testable to cater to the success of this project.
 	\end{abstract}
@@ -117,9 +117,9 @@
 	\section{Introduction} {
 	\label{sec:introduction}
 
-		Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation \parencite{jiang2005geovisualization}. Geovisualisations are particularly important in data analytics and when working with large datasets, as visualising geospatial information aids data exploration and decision-making processes when combined with human understanding \parencite{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data \parencite{kwan2004geovisualization}.
+		Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation~\parencite{jiang2005geovisualization}. Geovisualisations are particularly important in data analytics and when working with large datasets, as visualising geospatial information aids data exploration and decision-making processes when combined with human understanding~\parencite{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data~\parencite{kwan2004geovisualization}.
 
-		This project will attempt to analyse how different datasets can be applied to geovisualisations, which enables data analytics to be performed for a variety of application domains. Applying different datasets to geovisualisations will facilitate increased data exploration and decision-making processes. Furthermore, the analysis will be undertaken in order to compare the differences in performance and scalability between the visualisations and the datasets applied to them.
+		This project will attempt to address \emph{how to visualise large datasets in WebGL} and will analyse \emph{how different datasets can be applied to 3D geovisualisations}. These conisderations are \emph{important} in data analytics beacause the web is becoming a prominent medium for publishing geospatial data~\parencite{maceachren2004geovisualization}. This data can then be analysed through geovisualisations for a variety of application domains. Applying different datasets to geovisualisations will facilitate increased data exploration and decision-making processes. Furthermore, this project will compare the differences in performance and scalability between the visualisations and the datasets applied to them.
 		
 		This report explores 3D geovisualisation techniques that could be applied to the project, discusses the World Wide Web as a platform for geovisualisations and common interactions found in 3D geovisualisations. Next, the applications of geovisualisations are analysed and an overview of the project is provided from this research. Then, the aims and details of this project are discussed which include its goals, plan for development and schedule. Finally, this report concludes with the ethical issues that arise from developing this project.
 
@@ -127,7 +127,7 @@
 
 			\textcite{bleisch2012geovisualization} defines two distinct categories that represent most 3D geovisualisations: 3D representations of the real world and a combination of 3D representations of the real world with abstract data.
 
-			The \emph{3D representations of the real world} category represents the real world and its objects in realistic or generalised ways to communicate information. This category often uses x, y and z coordinates to show the real world dimensions \textendash\, easting, northing, elevation and sometimes the height of buildings or other objects. A 3D environment attempting to represent the real world usually consists of a digital elevation or surface model with either high resolution orthoimagery, satellite imagery or maps \parencite{bleisch2012geovisualization}.
+			The \emph{3D representations of the real world} category represents the real world and its objects in realistic or generalised ways to communicate information. This category often uses x, y and z coordinates to show the real world dimensions \textendash\, easting, northing, elevation and sometimes the height of buildings or other objects. A 3D environment attempting to represent the real world usually consists of a digital elevation or surface model with either high resolution orthoimagery, satellite imagery or maps~\parencite{bleisch2012geovisualization}.
 
 			\newcommand{\combinationwidth}{0.45\textwidth}
 			\begin{wrapfigure}{r}{\combinationwidth}
@@ -142,27 +142,27 @@
 
 			\footnotetext{\bibentry{ratti2010copenhagen}}
 
-			Common examples of this category are digital city models and virtual globes. 3D city models often apply photo texturing to suggest additional detail, since the detail may not be present in the underlying geometric model of the city \parencite{bleisch2012geovisualization}.
+			Common examples of this category are digital city models and virtual globes. 3D city models often apply photo texturing to suggest additional detail, since the detail may not be present in the underlying geometric model of the city~\parencite{bleisch2012geovisualization}.
 
 			In the \emph{combination of 3D representations of the real world with abstract data} category, the representation of the real world environment is enhanced with the inclusion of data displays. This category aims to communicate, analyse and explore data, where real world dimensions and data values are depicted through the x, y and z axes. An example of this category is shown in Figure~\ref{fig:category_combination} \parencite{bleisch2012geovisualization}.
 
-			To visualise the data displays in this category, triangle based meshes, texture maps or non-uniform rational B-spline surfaces (NURBS) can be created and applied to the visualisation. NURBS in particular are computationally efficient and effective at modelling complex structures \parencite{hildebrandt2011image, zhong2006enhanced}.
+			To visualise the data displays in this category, triangle based meshes, texture maps or non-uniform rational B-spline surfaces (NURBS) can be created and applied to the visualisation. NURBS in particular are computationally efficient and effective at modelling complex structures~\parencite{hildebrandt2011image, zhong2006enhanced}.
 
 		}
 
 		\subsection{Geovisualisations using the World Wide Web} {
 
-			Geovisualisations can be realised through the World Wide Web, which has become a prominent medium for publishing geospatial data. The web facilitates the creation of immersive and highly interactive environments, which can be taken advantage of to explore and present dynamic geospatial data \parencite{maceachren2001research}.
+			Geovisualisations can be realised through the World Wide Web, which has become a prominent medium for publishing geospatial data. The web facilitates the creation of immersive and highly interactive environments, which can be taken advantage of to explore and present dynamic geospatial data~\parencite{maceachren2001research}.
 
-			WebGL is a cross-platform web standard for a 3D graphics API derived from OpenGL, which has been exposed through the HTML5 canvas element \parencite{marrin2011webgl} as a drawing context. It is widely supported in modern browsers, without needing additional plug-ins or extensions, and is designed for building dynamic applications that require 3D visualisations \parencite{chaturvedi2015web, marrin2011webgl, parisi2012webgl}. Rendering such visualisations in real-time is possible due to the accelerated graphics rendering provided by WebGL, which utilises the graphics card memory on a device \parencite{chaturvedi2015web} to perform multiple operations in parallel to one another.
+			WebGL is a cross-platform web standard for a 3D graphics API derived from OpenGL, which has been exposed through the HTML5 canvas element~\parencite{marrin2011webgl} as a drawing context. It is widely supported in modern browsers, without needing additional plug-ins or extensions, and is designed for building dynamic applications that require 3D visualisations~\parencite{chaturvedi2015web, marrin2011webgl, parisi2012webgl}. Rendering such visualisations in real-time is possible due to the accelerated graphics rendering provided by WebGL, which utilises the graphics card memory on a device~\parencite{chaturvedi2015web} to perform multiple operations in parallel to one another.
 
 		}
 
 		\subsection{Interaction in geovisualisations} {
 
-			The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes \parencite{yi2007toward}. It is also essential for visualisations to support interaction, otherwise the usefulness of the visualisation is greatly limited as the dataset that it represents grows larger \parencite{yi2007toward}.
+			The communication between a user and a system, otherwise known as \emph{interaction}, is an important aspect in geovisualisation. Interaction enables users to explore the data presented to them in order to uncover trends and allow for decision-making processes~\parencite{yi2007toward}. It is also essential for visualisations to support interaction, otherwise the usefulness of the visualisation is greatly limited as the dataset that it represents grows larger~\parencite{yi2007toward}.
 
-			In the context of geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography \parencite{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view \parencite{cartwright2001geospatial, hand1997survey}.
+			In the context of geovisualisation, the user should be able to navigate the visualisation itself and the synthetic geography that it represents. Navigation enables particular and pertinent information to be located more successfully and is considered to be one of the most important metaphors for dynamic cartography~\parencite{cartwright2001geospatial}. The navigation of a geospatial representation requires the user to perform standard operations, which include: translate, scale, rotate, map projection, manipulation of the design representation parameters, level of generalisation and field of view~\parencite{cartwright2001geospatial, hand1997survey}.
 
 		}
 
@@ -200,17 +200,17 @@
 			% \footnotetext{\bibentry{google2015earth}}
 
 			% Earth science
-			In the domain of \emph{earth science}, the visualisation of environmental data reveals new insights into the patterns of nature and human-related phenomena. These visualisations also help improve the understanding of the dynamic processes of earth systems \parencite{yu2012google}.
+			In the domain of \emph{earth science}, the visualisation of environmental data reveals new insights into the patterns of nature and human-related phenomena. These visualisations also help improve the understanding of the dynamic processes of earth systems~\parencite{yu2012google}.
 
 			\textcite{yu2012google} analyses virtual globes as a tool in earth science applications, which have been developed to effectively facilitate data collection, exploration and the visualisation of environmental data. They deliver huge volumes of satellite imagery, 3D views of the earth, topographic maps and distance measurement to the general public. These globes have promoted entertainment, education, the exploration of new findings, data sharing and provided researchers with effective channels of communicating their findings. Virtual globes can be applied to many areas and in the case of \emph{Google Earth}, typically focus on large-scale phenomena in the atmosphere, carbon science, ecosystems, energy, geology and natural disasters.
 
 			% Public health
-			Within \emph{public health}, geovisualisations can be modelled to geospatial data concerning risk factors, health outcomes and interventions to provide an opportunity to understand and act on the varied geographic distribution of disease. However, these datasets are typically difficult to analyse through traditional methods as the data is highly multivariate \parencite{maceachren2004geovisualization}.
+			Within \emph{public health}, geovisualisations can be modelled to geospatial data concerning risk factors, health outcomes and interventions to provide an opportunity to understand and act on the varied geographic distribution of disease. However, these datasets are typically difficult to analyse through traditional methods as the data is highly multivariate~\parencite{maceachren2004geovisualization}.
 
 			\textcite{maceachren2004geovisualization} were able to apply a mortality and risk factor dataset to a geovisualisation, in order to explore the spatial and nonspatial relationships in this data. They considered environmental risk factors, health care access and cancer mortality rates of various ages and genders to demonstrate that it is possible to utilise geovisualisations in a way that addresses critical issues in public health.
 
 			% Social science
-			An important research area in \emph{social science} is the study of human activities and movements in space and time. Geovisualisations can model this data, which has become feasible with the increased availability of georeferenced individual-level data \parencite{kwan2004geovisualization}.
+			An important research area in \emph{social science} is the study of human activities and movements in space and time. Geovisualisations can model this data, which has become feasible with the increased availability of georeferenced individual-level data~\parencite{kwan2004geovisualization}.
 
 			\textcite{kwan2004geovisualization} studied gender and ethnic differences in space-time activity patterns in a metropolitan area. Their study demonstrated that geovisualisation methods are effective in revealing the complex interaction between the spatial and temporal dimensions in structuring human spatial behaviour. \citeauthor{kwan2004geovisualization} also discovered that geovisualisation tools can help formulate more realistic computational or behavioural models for exploratory spatial data analysis.
 
@@ -302,7 +302,7 @@
 
 			As discussed in Section~\ref{sec:deliverables}, the visualisations will begin with generated data so development can begin immediately. Using generated data brings control over the size of the dataset applied to a prototype and enables the scalability of each visualisation can be tested. 
 
-			Following the use of fake data, each prototype will have real datasets applied to them. By using the same data for both prototypes, their differences in computational requirements and scalability can be compared and analysed. GeoNames \footnote{\bibentry{wick2005geonames}} is a geographical database that stores population data for a significant number of cities and their respective latitude and longitude coordinates. This database falls under a creative commons attribution license and will be used for both visualisations because there are no copyright concerns or immediate issues when reading and parsing the data it provides. However, some unnecessary information contained in a GeoNames dataset (such as \emph{geonameid}, \emph{feature class} and  \emph{dem}) will need to be removed. The format of the data should also be modified (from a tab separated list to a JavaScript array) when used with a prototype. These steps are necessary so the visualisations can read the data efficiently and hence reduce the loading time for the user. Other datasets can be obtained from Earthdata~\footnote{\bibentry{nasa2000data}}, but will require further investigation regarding how to extract the information from the available databases.
+			Following the use of fake data, each prototype will have real datasets applied to them. By using the same data for both prototypes, their differences in computational requirements and scalability can be compared and analysed. GeoNames~\footnote{\bibentry{wick2005geonames}} is a geographical database that stores population data for a significant number of cities and their respective latitude and longitude coordinates. This database falls under a creative commons attribution license and will be used for both visualisations because there are no copyright concerns or immediate issues when reading and parsing the data it provides. However, some unnecessary information contained in a GeoNames dataset (such as \emph{geonameid}, \emph{feature class} and  \emph{dem}) will need to be removed. The format of the data should also be modified (from a tab separated list to a JavaScript array) when used with a prototype. These steps are necessary so the visualisations can read the data efficiently and hence reduce the loading time for the user. Other datasets can be obtained from Earthdata~\footnote{\bibentry{nasa2000data}}, but will require further investigation regarding how to extract the information from the available databases.
 
 			Once real data has been applied to both prototypes, the visualisations will be integrated into a live system for the teaching analytics component of the final year project. The amount of touch gestures that particular system components receive and the progress made by students, groups and tutorials will need to be collected and stored in the database. This data can be visualised to aid teachers in analysing ongoing student progress.
 		
@@ -465,7 +465,7 @@
 				\label{fig:performance_test}
 			\end{figure}
 			
-			Lines are incredibly difficult to draw in WebGL \footnote{\bibentry{deslauriers2015lines}} and was the first challenge when attempting to develop this visualisation. There are two main methods of rendering a line using the Three.js library: 
+			Lines are incredibly difficult to draw in WebGL~\footnote{\bibentry{deslauriers2015lines}} and was the first challenge when attempting to develop this visualisation. There are two main methods of rendering a line using the Three.js library: 
 			
 			\begin{description}
 				\item[Line Object:] The default thickness of the line is too thin to highlight intersections with alpha blending. To resolve this, the \emph{lineWidth} property should be used. However, it is not supported in Windows which limits the availability of the system.
