@@ -3,12 +3,11 @@
  */
 define(function (require) {
 
+	'use strict';
+
 	var THREE = require('threejs');
 	var Viewport = require('Viewport');
-
-	require('orbitcontrols');
-
-	'use strict';
+	var Controls = require('controls/Mouse');
 
 	var canvas;
 	var viewport = new Viewport();
@@ -61,7 +60,10 @@ define(function (require) {
 		}
 		// Check if orbit controls are enabled.
 		if (options.controls) {
-			this.controls = new THREE.OrbitControls(this.camera, element);
+			require(['orbitcontrols'], function () {
+				//this.controls = new THREE.OrbitControls(this.camera, element);
+				this.controls = new Controls(this.camera, element);
+			}.bind(this));
 		}
 	};
 
@@ -250,7 +252,7 @@ define(function (require) {
 	Canvas.prototype.render = function () {
 		requestAnimationFrame(this.render.bind(this));
 		this.resize();
-		if (this.controls) {
+		if (this.controls && this.controls.update) {
 			this.controls.update();
 		}
 		this.renderer.render(this.scene, this.camera);
