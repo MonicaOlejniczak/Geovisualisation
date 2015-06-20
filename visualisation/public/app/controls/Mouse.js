@@ -21,6 +21,9 @@ define(function (require) {
 		this.camera = camera;
 		this.element = element;
 		this.epsilon = 1e-4;
+		this.minCameraHeight = 1;
+		this.minPolarAngle = this.epsilon;
+		this.maxPolarAngle = Math.PI * 0.45 - this.epsilon;
 		// Add the origin vector.
 		this.origin = new THREE.Vector3();
 		// Add the pan and rotate start.
@@ -28,7 +31,7 @@ define(function (require) {
 		this.rotateStart = new THREE.Vector2();
 		// Add a zoom factor and rotation speed.
 		this.zoomFactor = 0.05;
-		this.rotateSpeed = 25;
+		this.rotateSpeed = 1;
 		// Add the event listeners to the element.
 		this._addEventListeners(element);
 	};
@@ -57,7 +60,15 @@ define(function (require) {
 	 * @private
 	 */
 	Mouse.prototype._zoom = function (value) {
+		// Clone the original camera position.
+		var position = this.camera.position.clone();
+		// Apply the translation.
 		this.camera.translateZ(-value);
+		// Check if the y position of the camera is below the minimum camera height and restore the original position.
+		if (this.camera.position.y < this.minCameraHeight) {
+			this.camera.position.copy(position);
+			this.camera.position.setY(this.minCameraHeight);
+		}
 	};
 
 	/**
@@ -79,6 +90,7 @@ define(function (require) {
 		// Apply the position to the camera and update the origin value.
 		this.camera.translateX(position.x);
 		this.camera.translateY(position.y);
+		this.camera.position.setY(Math.max(this.minCameraHeight, this.camera.position.y));
 		this.origin.add(this.camera.position.clone().sub(cameraPosition));
 	};
 
@@ -89,27 +101,26 @@ define(function (require) {
 	 * @private
 	 */
 	Mouse.prototype._rotate = function (delta) {
-		// Store the rotate position.
-		var position = new THREE.Vector2(
-			-2 * Math.PI * delta.x / this._viewport.getWidth() * this.rotateSpeed,
-			-2 * Math.PI * delta.y / this._viewport.getHeight() * this.rotateSpeed
-		);
-		// Apply the translation for the camera on a 360 degree angle.
-		this.camera.translateX(position.x);
-		this.camera.translateY(position.y);
+		// Get the position offset of the camera from the current origin.
+		var position = this.camera.position.clone().sub(this.origin);
+		// Get the radius of the spherical coordinate by applying sqrt(x^2 + y^2 + z^2) of the position.
+		var radius = position.length();
+		// Calculate the theta and phil delta angles i.e. the angle that the user has moved the camera on rotation.
+		var thetaDelta = -2 * Math.PI * delta.x / this._viewport.getWidth() * this.rotateSpeed;
+		var phiDelta = -2 * Math.PI * delta.y / this._viewport.getHeight() * this.rotateSpeed;
+		// Calculate the theta and phi angles by getting the angle from the z-axis around the y-axis (azimuth - theta) and from the y-axis (polar - phi)
+		var theta = thetaDelta + Math.atan2(position.x, position.z);
+		var phi = phiDelta + Math.atan2(Math.sqrt(position.x * position.x + position.z * position.z), position.y);
+		// Clamp the elevation angle so it is between its minimum and maximum polar angle boundary.
+		phi = Math.min(this.maxPolarAngle, Math.max(this.minPolarAngle, phi));
+		// Apply the position to the camera using spherical coordinates - https://en.wikipedia.org/wiki/Spherical_coordinate_system.
+		this.camera.position.copy(this.origin).add(new THREE.Vector3(
+			radius * Math.sin(phi) * Math.sin(theta),
+			radius * Math.cos(phi),
+			radius * Math.sin(phi) * Math.cos(theta)
+		));
 		// Ensure the camera is facing the origin.
 		this.camera.lookAt(this.origin);
-	};
-
-	/**
-	 * Clamp the position between the specified bounds so that the position never reaches beyond +-90 degrees.
-	 *
-	 * @param position The value of the current position.
-	 * @private
-	 */
-	Mouse.prototype._clampPosition = function (position) {
-		position.x = Math.min(Math.PI * 0.5 - this.epsilon, Math.max(-Math.PI * 0.5 + this.epsilon, position.x));
-		position.y = Math.min(Math.PI * 0.5 - this.epsilon, Math.max(-Math.PI * 0.5 + this.epsilon, position.y));
 	};
 
 	/**
