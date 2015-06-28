@@ -6,6 +6,7 @@ define(function (require) {
 	'use strict';
 
 	var $ = require('jquery');
+	var THREE = require('threejs');
 	var SceneRenderer = require('SceneRenderer');
 
 	/**
@@ -39,6 +40,18 @@ define(function (require) {
 				callback.call(this, data);
 			}.bind(this));
 		}
+	};
+
+	/**
+	 * Converts a coordinate into a vector with the correct 3D space.
+	 *
+	 * @param x The x-coordinate being transformed.
+	 * @param y The y-coordinate being transformed
+	 * @param z The z-coordinate being transformed
+	 * @returns {*[]}
+	 */
+	Visualisation.prototype.transform = function (x, y, z) {
+		return [x, z, y];
 	};
 
 	return Visualisation;

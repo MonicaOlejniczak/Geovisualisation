@@ -27,12 +27,13 @@ define(function (require) {
 			},
 			mouseControls: true
 		});
+		// Set the width and height of the geometry.
+		this.width = 1;
+		this.height = 1;
+		// Obtain the scene.
 		var scene = this.getScene();
-		var camera = this.getCamera();
 		// Make the camera look at the scene.
-		camera.lookAt(scene.position);
-		// Add a base colour.
-		this.color = new THREE.Color(0x376dc7);
+		this.getCamera().lookAt(scene.position);
 		// Add a light to the scene.
 		scene.add(LightHelper.createPointLight({
 			position: new THREE.Vector3(0, 10, 0)
@@ -51,53 +52,52 @@ define(function (require) {
 	 * @param data The data being processed.
 	 */
 	HeatMap.prototype.processData = function (data) {
-		// Iterates through every series.
+		var scene = this.getScene();
+		var target = scene.position;
+		var points = new THREE.Mesh();
+		// Iterates through each point.
 		for (var i = 0, len = data.length; i < len; i++) {
-			// Processes the series on the current iteration.
-			this.processSeries(data[i]);
+			// Processes the current point in the data.
+			points.add(this.processPoint(target, data[i]));
 		}
+		scene.add(points);
 	};
 
 	/**
-	 * Processes the series data by iterating through each set of its points.
+	 * Processes the point data.
 	 *
-	 * @param series The series data being processed.
+	 * @param target The target position for the point to look at.
+	 * @param point The point being processed.
 	 */
-	HeatMap.prototype.processSeries = function (series) {
-		var points = [];
-		// Iterate through the series.
-		for (var i = 0, len = series.length; i < len; i++) {
-			// Retrieve the point from the series.
-			var point = series[i];
-			// Add the point to the vertices of the geometry.
-			points.push(this.convertPosition(point));
-		}
-		// Create the curve using the points obtained from the series.
-		var curve = new THREE.SplineCurve3(points);
-		// Create the tube geometry and material.
-		var geometry = new THREE.TubeGeometry(curve, 50, 0.1, 8, false);
-		var material = new THREE.MeshLambertMaterial({
-			color: this.color
+	HeatMap.prototype.processPoint = function (target, point) {
+		// Obtain the magnitude of the point.
+		var magnitude = point[2];
+		// Create the geometry and material.
+		var geometry = this.createGeometry(magnitude);
+		var material = new THREE.MeshBasicMaterial({
+			color: Color.generate()
 		});
-		// Apply alpha blending to the material.
-		material.opacity = 0.95;
-		material.transparent = true;
-		material.blending = THREE.AdditiveBlending;
-		// Create the mesh and add it to the scene.
+		// Transform the position into the correct coordinates and create the mesh.
+		var position = this.transform(point[0], point[1], magnitude);
 		var mesh = new THREE.Mesh(geometry, material);
-		//var wireframe = new THREE.WireframeHelper(mesh, 0xffffff);
-		this.getScene().add(mesh);
-		//this.scene.add(wireframe);
+		// Rotate the mesh so it is looking at the target vector.
+		mesh.lookAt(target);
+		// Set the position of the mesh and adjust its y-position so that it is above the ground.
+		mesh.position.set(position[0], position[1], position[2]);
+		mesh.position.setY(Math.abs(mesh.position.y) * 0.5);
+		// Return the mesh that was created.
+		return mesh;
 	};
 
 	/**
-	 * Converts a point into a vector with the correct 3D space.
+	 * Creates and returns the geometry using its transformed coordinates.
 	 *
-	 * @param point The point being converted.
-	 * @returns {THREE.Vector3} The converted vector.
+	 * @param magnitude The magnitude of the geometry.
+	 * @returns {THREE.BoxGeometry}
 	 */
-	HeatMap.prototype.convertPosition = function (point) {
-		return new THREE.Vector3(point[0], 0.01, -point[1]);
+	HeatMap.prototype.createGeometry = function (magnitude) {
+		var transform = this.transform(this.width, this.height, magnitude);
+		return new THREE.BoxGeometry(transform[0], transform[1], transform[2]);
 	};
 
 	return HeatMap;

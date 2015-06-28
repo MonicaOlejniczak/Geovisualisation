@@ -90,14 +90,29 @@ define(function (require) {
 		}
 	};
 
+	/**
+	 * An accessor method that retrieves the scene.
+	 *
+	 * @returns {THREE.Scene|*}
+	 */
 	SceneRenderer.prototype.getScene = function () {
 		return this._scene;
 	};
 
+	/**
+	 * An accessor method that retrieves the camera.
+	 *
+	 * @returns {THREE.PerspectiveCamera|*}
+	 */
 	SceneRenderer.prototype.getCamera = function () {
 		return this._camera;
 	};
 
+	/**
+	 * An accessor method that retrieves the canvas.
+	 *
+	 * @returns {*}
+	 */
 	SceneRenderer.prototype.getCanvas = function () {
 		return this._canvas;
 	};
