@@ -16,14 +16,16 @@ define(function (require) {
 	 * @param element The element that will be bound to the mouse events.
 	 * @constructor
 	 */
-	var Mouse = function (camera, element) {
-		this._viewport = new Viewport();
-		this.camera = camera;
-		this.element = element;
+	function Mouse (camera, element) {
+		// Store the viewport, camera and element.
+		this._viewport = Viewport;
+		this._camera = camera;
+		this._element = element;
+		// Assign the boundary values.
 		this.epsilon = 1e-4;
 		this.minCameraHeight = 1;
-		this.minPolarAngle = this.epsilon;
-		this.maxPolarAngle = Math.PI * 0.45 - this.epsilon;
+		this.minPolarAngle = 0;
+		this.maxPolarAngle = Math.PI * 0.45;
 		// Add the origin vector.
 		this.origin = new THREE.Vector3();
 		// Add the pan and rotate start.
@@ -34,7 +36,7 @@ define(function (require) {
 		this.rotateSpeed = 1;
 		// Add the event listeners to the element.
 		this._addEventListeners(element);
-	};
+	}
 
 	Mouse.prototype.constructor = Mouse;
 
@@ -61,13 +63,13 @@ define(function (require) {
 	 */
 	Mouse.prototype._zoom = function (value) {
 		// Clone the original camera position.
-		var position = this.camera.position.clone();
+		var position = this._camera.position.clone();
 		// Apply the translation.
-		this.camera.translateZ(-value);
-		// Check if the y position of the camera is below the minimum camera height and restore the original position.
-		if (this.camera.position.y < this.minCameraHeight) {
-			this.camera.position.copy(position);
-			this.camera.position.setY(this.minCameraHeight);
+		this._camera.translateZ(-value);
+		// Check if the y position of the camera is outside of its bounds and restore the original position.
+		if (this._camera.position.y < this.minCameraHeight) {
+			this._camera.position.copy(position);
+			this._camera.position.setY(this.minCameraHeight);
 		}
 	};
 
@@ -79,19 +81,19 @@ define(function (require) {
 	 */
 	Mouse.prototype._pan = function (delta) {
 		// Clone the position of the camera.
-		var cameraPosition = this.camera.position.clone();
+		var cameraPosition = this._camera.position.clone();
 		// Obtain the distance of the camera to the origin and multiply it by the top half of the camera field of view.
-		var distance = cameraPosition.length() * Math.tan(THREE.Math.degToRad(this.camera.fov * 0.5));
+		var distance = cameraPosition.length() * Math.tan(THREE.Math.degToRad(this._camera.fov * 0.5));
 		// Store the pan position using the screen height.
 		var position = new THREE.Vector2(
 			-2 * delta.x * distance / this._viewport.getHeight(),
 			2 * delta.y * distance / this._viewport.getHeight()
 		);
 		// Apply the position to the camera and update the origin value.
-		this.camera.translateX(position.x);
-		this.camera.translateY(position.y);
-		this.camera.position.setY(Math.max(this.minCameraHeight, this.camera.position.y));
-		this.origin.add(this.camera.position.clone().sub(cameraPosition));
+		this._camera.translateX(position.x);
+		this._camera.translateY(position.y);
+		this._camera.position.setY(Math.max(this.minCameraHeight, this._camera.position.y));
+		this.origin.add(this._camera.position.clone().sub(cameraPosition));
 	};
 
 	/**
@@ -102,7 +104,7 @@ define(function (require) {
 	 */
 	Mouse.prototype._rotate = function (delta) {
 		// Get the position offset of the camera from the current origin.
-		var position = this.camera.position.clone().sub(this.origin);
+		var position = this._camera.position.clone().sub(this.origin);
 		// Get the radius of the spherical coordinate by applying sqrt(x^2 + y^2 + z^2) of the position.
 		var radius = position.length();
 		// Calculate the theta and phil delta angles i.e. the angle that the user has moved the camera on rotation.
@@ -112,15 +114,15 @@ define(function (require) {
 		var theta = thetaDelta + Math.atan2(position.x, position.z);
 		var phi = phiDelta + Math.atan2(Math.sqrt(position.x * position.x + position.z * position.z), position.y);
 		// Clamp the elevation angle so it is between its minimum and maximum polar angle boundary.
-		phi = Math.min(this.maxPolarAngle, Math.max(this.minPolarAngle, phi));
+		phi = Math.min(this.maxPolarAngle - this.epsilon, Math.max(this.minPolarAngle + this.epsilon, phi));
 		// Apply the position to the camera using spherical coordinates - https://en.wikipedia.org/wiki/Spherical_coordinate_system.
-		this.camera.position.copy(this.origin).add(new THREE.Vector3(
+		this._camera.position.copy(this.origin).add(new THREE.Vector3(
 			radius * Math.sin(phi) * Math.sin(theta),
 			radius * Math.cos(phi),
 			radius * Math.sin(phi) * Math.cos(theta)
 		));
 		// Ensure the camera is facing the origin.
-		this.camera.lookAt(this.origin);
+		this._camera.lookAt(this.origin);
 	};
 
 	/**
@@ -145,14 +147,14 @@ define(function (require) {
 		switch (event.which) {
 			case 1:
 				this.panStart.set(event.clientX, event.clientY);
-				$(this.element).on({
+				$(this._element).on({
 					'mousemove.pan': this._onPan.bind(this),
 					'mouseup.pan': this._onReleasePan.bind(this)
 				});
 				break;
 			case 3:
 				this.rotateStart.set(event.clientX, event.clientY);
-				$(this.element).on({
+				$(this._element).on({
 					'mousemove.rotate': this._onRotate.bind(this),
 					'mouseup.rotate': this._onReleaseRotate.bind(this)
 				});
@@ -183,7 +185,7 @@ define(function (require) {
 	 * @private
 	 */
 	Mouse.prototype._onReleasePan = function (event) {
-		$(this.element).off('mousemove.pan mouseup.pan');
+		$(this._element).off('mousemove.pan mouseup.pan');
 	};
 
 	/**
@@ -194,12 +196,11 @@ define(function (require) {
 	 */
 	Mouse.prototype._onRotate = function (event) {
 		// Get the x and y screen coordinates.
-		var x = event.clientX;
-		var y = event.clientY;
+		var coordinates = new THREE.Vector2(event.clientX, event.clientY);
 		// Call the rotate function with the x and y deltas.
-		this._rotate(new THREE.Vector2(x - this.rotateStart.x, y - this.rotateStart.y));
+		this._rotate(new THREE.Vector2(coordinates.x - this.rotateStart.x, coordinates.y - this.rotateStart.y));
 		// Update the rotate start to the current screen coordinates.
-		this.rotateStart.set(x, y);
+		this.rotateStart.copy(coordinates);
 	};
 
 	/**
@@ -209,7 +210,7 @@ define(function (require) {
 	 * @private
 	 */
 	Mouse.prototype._onReleaseRotate = function (event) {
-		$(this.element).off('mousemove.rotate mouseup.rotate');
+		$(this._element).off('mousemove.rotate mouseup.rotate');
 	};
 
 	/**

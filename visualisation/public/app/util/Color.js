@@ -1,16 +1,18 @@
 /**
  * @author Monica Olejniczak
  */
-define(['threejs'], function (THREE) {
+define(function (require) {
 
 	'use strict';
+
+	var THREE = require('threejs');
 
 	/**
 	 * Initialises the color class.
 	 *
 	 * @constructor
 	 */
-	var Color = function () {};
+	function Color () {}
 
 	Color.prototype.constructor = Color;
 

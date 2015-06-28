@@ -1,18 +1,18 @@
 /**
  * @author Monica Olejniczak
  */
-define(['jquery'], function ($) {
+define(function (require) {
 
 	'use strict';
+
+	var $ = require('jquery');
 
 	/**
 	 * Initialises the viewport.
 	 *
 	 * @constructor
 	 */
-	var Viewport = function () {
-
-	};
+	function Viewport () {}
 
 	Viewport.prototype.constructor = Viewport;
 
@@ -21,7 +21,7 @@ define(['jquery'], function ($) {
 	 *
 	 * @returns {*|jQuery} The width of the viewport.
 	 */
-	Viewport.prototype.getWidth = function () {
+	Viewport.getWidth = function () {
 		return $(window).width();
 	};
 
@@ -30,7 +30,7 @@ define(['jquery'], function ($) {
 	 *
 	 * @returns {*|jQuery} The height of the viewport.
 	 */
-	Viewport.prototype.getHeight = function () {
+	Viewport.getHeight = function () {
 		return $(window).height();
 	};
 

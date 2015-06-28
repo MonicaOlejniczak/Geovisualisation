@@ -22,8 +22,8 @@
 	});
 
 	// Start the main app logic.
-	requirejs(['jquery', 'view/visualisation'], function ($, Visualisation) {
-		var visualisation = new Visualisation($('#visualisation'));
+	requirejs(['jquery', 'view/HeatMap'], function ($, HeatMap) {
+		var heatMap = new HeatMap($('#visualisation'));
 	});
 
 }());
