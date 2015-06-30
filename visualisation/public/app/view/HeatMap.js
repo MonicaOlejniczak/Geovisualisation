@@ -9,6 +9,7 @@ define(function (require) {
 	var Visualisation = require('view/Visualisation');
 	var LightHelper = require('helper/Light');
 	var Color = require('util/Color');
+	var GradientShader = require('shader/Gradient');
 
 	/**
 	 * Initialises the visualisation.
@@ -28,8 +29,9 @@ define(function (require) {
 			mouseControls: true
 		});
 		// Set the width and height of the geometry.
-		this.width = 1;
-		this.height = 1;
+		this.width = this.height = 1;
+		this.vertexShader = GradientShader.vertex;
+		this.fragmentShader = GradientShader.fragment;
 		// Obtain the scene.
 		var scene = this.getScene();
 		// Make the camera look at the scene.
@@ -74,14 +76,25 @@ define(function (require) {
 		var magnitude = point[2];
 		// Create the geometry and material.
 		var geometry = this.createGeometry(magnitude);
-		var material = new THREE.MeshBasicMaterial({
-			color: Color.generate()
+
+		var material = new THREE.ShaderMaterial({
+			uniforms: {
+				uMin: {type: 'f', value: 0},
+				uMax: {type: 'f', value: 50},
+				uMagnitude: {type: 'f', value: magnitude},
+				uTopColor: {type: 'c', value: new THREE.Color(0xff0000)},
+				uMiddleColor: {type: 'c', value: new THREE.Color(0xff00ff)},
+				uBottomColor: {type: 'c', value: new THREE.Color(0x00ff00)}
+			},
+			vertexShader: this.vertexShader,
+			fragmentShader: this.fragmentShader
 		});
 		// Transform the position into the correct coordinates and create the mesh.
 		var position = this.transform(point[0], point[1], magnitude);
 		var mesh = new THREE.Mesh(geometry, material);
 		// Rotate the mesh so it is looking at the target vector.
 		mesh.lookAt(target);
+		//mesh.rotateX(Math.PI * 0.5);
 		// Set the position of the mesh and adjust its y-position so that it is above the ground.
 		mesh.position.set(position[0], position[1], position[2]);
 		mesh.position.setY(Math.abs(mesh.position.y) * 0.5);
@@ -98,6 +111,17 @@ define(function (require) {
 	HeatMap.prototype.createGeometry = function (magnitude) {
 		var transform = this.transform(this.width, this.height, magnitude);
 		return new THREE.BoxGeometry(transform[0], transform[1], transform[2]);
+	};
+
+	HeatMap.prototype.applyVertices = function (geometry) {
+		var faces = geometry.faces;
+		for (var i = 0, len = faces.length; i < len; i++) {
+			var face = faces[i];
+			for (var j = 0; j < 3; j++) {
+				face.vertexColors[j] = new THREE.Color(0xffff00);
+			}
+		}
+		geometry.colorsNeedUpdate = true;
 	};
 
 	return HeatMap;
