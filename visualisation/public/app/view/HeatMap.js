@@ -28,12 +28,14 @@ define(function (require) {
 		// Set the colors to be used with the points.
 		this.colors = {
 			low: new THREE.Color(0x00ff00),
-			medium: new THREE.Color(0xffff00),
-			high: new THREE.Color(0xff0000),
+			medium: new THREE.Color(0x52c5e5),
+			high: new THREE.Color(0xff0000)
 		};
 		// Set the vertex and fragment shaders.
 		this.vertexShader = VertexShader;
 		this.fragmentShader = FragmentShader;
+		// Initialise the min and max of the data.
+		this.min = this.max = 0;
 		// Obtain the scene.
 		var scene = this.getScene();
 		// Make the camera look at the scene.
@@ -51,41 +53,76 @@ define(function (require) {
 	HeatMap.prototype.constructor = HeatMap;
 
 	/**
-	 * Processes the data that contains the series information.
+	 * Processes the data that contains the point information.
 	 *
 	 * @param data The data being processed.
 	 */
 	HeatMap.prototype.processData = function (data) {
-		var scene = this.getScene();
-		var target = scene.position;
-		var points = new THREE.Mesh();
-		var colors = this.colors;
-		// Iterates through each point.
+		var points = [];
+		// Iterates through the data.
 		for (var i = 0, len = data.length; i < len; i++) {
-			// Processes the current point in the data.
-			points.add(this.processPoint(target, data[i], colors));
+			// Obtain the current point and pre-process it.
+			var point = data[i];
+			points.push(point, this.preProcessPoint(point));
 		}
-		scene.add(points);
+		this.processPoints(points);
 	};
 
 	/**
-	 * Processes the point data.
+	 * Pre-processes the point data by obtaining the min and max bounds of the data.
 	 *
-	 * @param target The target position for the point to look at.
-	 * @param point The point being processed.
-	 * @param colors The colors being used with the point.
+	 * @param point The point being pre-processed.
+	 * @returns {THREE.BoxGeometry}
 	 */
-	HeatMap.prototype.processPoint = function (target, point, colors) {
-		// Obtain the magnitude of the point.
-		var magnitude = point[2];
+	HeatMap.prototype.preProcessPoint = function (point) {
 		// Create the geometry and compute its bounding box.
-		var geometry = this.createGeometry(magnitude);
+		var geometry = this.createGeometry(point[2]);
 		geometry.computeBoundingBox();
+		// Obtain the bounding box of the geometry and set the min and max values.
+		var boundingBox = geometry.boundingBox;
+		this.min = Math.min(this.min, boundingBox.min.y);
+		this.max = Math.max(this.max, boundingBox.max.y);
+		return geometry;
+	};
+
+	/**
+	 * Processed the points data by creating the point meshes and adding them to the scene.
+	 *
+	 * @param points The points being processed.
+	 */
+	HeatMap.prototype.processPoints = function (points) {
+		// Retrieve the scene and set the target to its position.
+		var scene = this.getScene();
+		var target = scene.position;
+		// Get the colors being used with the point and create a mesh to add the points to.
+		var colors = this.colors;
+		var mesh = new THREE.Mesh();
+		// Iterate through each point.
+		for (var i = 0, len = points.length; i < len; i+=2) {
+			// Processes the current point in the data.
+			mesh.add(this.processPoint(points[i], points[i + 1], target, colors));
+		}
+		// Add every point to the scene.
+		scene.add(mesh);
+	};
+
+	/**
+	 * Processes a point by creating a mesh and applying transforms to set its position.
+	 *
+	 * @param point The original data point.
+	 * @param geometry The geometry that was created from pre-processing.
+	 * @param target The target position for the point to look at.
+	 * @param colors The colors being used with the point.
+	 * @returns {THREE.Mesh}
+	 */
+	HeatMap.prototype.processPoint = function (point, geometry, target, colors) {
+		// Obtain the magnitude from the point.
+		var magnitude =  point[2];
 		// Create the shader material with the specified uniforms and shaders.
 		var material = new THREE.ShaderMaterial({
 			uniforms: {
-				uMin: {type: 'f', value: 0},
-				uMax: {type: 'f', value: 25},
+				uMin: {type: 'f', value: this.min},
+				uMax: {type: 'f', value: this.max},
 				uMagnitude: {type: 'f', value: magnitude},
 				uLowColor: {type: 'c', value: colors.low},
 				uMediumColor: {type: 'c', value: colors.medium},
@@ -101,7 +138,7 @@ define(function (require) {
 		// Rotate the mesh so it is looking at the target vector.
 		mesh.lookAt(target);
 		// Set the position of the mesh and adjust its y-position so that it is above the ground.
-		mesh.position.set(position[0], position[1], position[2]);
+		mesh.position.set(position.x, position.y, position.z);
 		mesh.position.setY(Math.abs(mesh.position.y) * 0.5);
 		// Return the mesh that was created.
 		return mesh;
@@ -115,7 +152,7 @@ define(function (require) {
 	 */
 	HeatMap.prototype.createGeometry = function (magnitude) {
 		var transform = this.transform(this.width, this.height, magnitude);
-		return new THREE.BoxGeometry(transform[0], transform[1], transform[2]);
+		return new THREE.BoxGeometry(transform.x, transform.y, transform.z);
 	};
 
 	return HeatMap;

@@ -11,9 +11,9 @@ uniform vec3 uBasePosition;
 varying vec3 vPosition;
 
 void main() {
-	float midPoint = abs(uMax - uMin) * 0.5;
+	float colorStop = abs(uMax - uMin) * 0.01;
 	float y = vPosition.y;
-	vec3 color = mix(uLowColor, uMediumColor, smoothstep(uMin, midPoint, y));
-	color = mix(color, uHighColor, smoothstep(midPoint, uMax, y));
+	vec3 color = mix(uLowColor, uMediumColor, smoothstep(uMin, colorStop, y));
+	color = mix(color, uHighColor, smoothstep(colorStop, uMax, y));
 	gl_FragColor = vec4(color, 1.0);
 }

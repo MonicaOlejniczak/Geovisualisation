@@ -48,12 +48,19 @@ define(function (require) {
 	 * @param x The x-coordinate being transformed.
 	 * @param y The y-coordinate being transformed
 	 * @param z The z-coordinate being transformed
-	 * @returns {*[]}
+	 * @returns {THREE.Vector3}
 	 */
 	Visualisation.prototype.transform = function (x, y, z) {
-		return [x, z, y];
+		return new THREE.Vector3(x, z, y);
 	};
 
+	/**
+	 * Updates the value for a uniform on a material given its name.
+	 *
+	 * @param name The name of the uniform.
+	 * @param value The new value of the uniform.
+	 * @param material The material that contains the uniform.
+	 */
 	Visualisation.prototype.updateUniform = function (name, value, material) {
 		material.uniforms[name].value = value;
 		material.needsUpdate = true;
