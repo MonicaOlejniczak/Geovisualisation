@@ -25,7 +25,7 @@ define(function () {
 			data.push([x, y, z]);
 		}
 		// Return the generated data.
-		return data;
+		return [[0, 0, 25]];
 	};
 
 });

@@ -54,6 +54,11 @@ define(function (require) {
 		return [x, z, y];
 	};
 
+	Visualisation.prototype.updateUniform = function (name, value, material) {
+		material.uniforms[name].value = value;
+		material.needsUpdate = true;
+	};
+
 	return Visualisation;
 
 });
