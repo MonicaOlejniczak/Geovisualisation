@@ -9,8 +9,10 @@ define(function (require) {
 	var Visualisation = require('view/Visualisation');
 	var LightHelper = require('helper/Light');
 	var Color = require('util/Color');
-	var VertexShader = require('text!shader/gradient/Gradient.vert');
-	var FragmentShader = require('text!shader/gradient/Gradient.frag');
+	var BasicVertexShader = require('text!shader/basic/Basic.vert');
+	var BasicFragmentShader = require('text!shader/basic/Basic.frag');
+	var GradientVertexShader = require('text!shader/gradient/Gradient.vert');
+	var GradientFragmentShader = require('text!shader/gradient/Gradient.frag');
 
 	/**
 	 * Initialises the visualisation.
@@ -27,23 +29,20 @@ define(function (require) {
 		this.width = this.height = 1;
 		// Set the colors to be used with the points.
 		this.colors = {
-			low: new THREE.Color(0x00ff00),
-			medium: new THREE.Color(0x52c5e5),
-			high: new THREE.Color(0xff0000)
+			low: new THREE.Color(0xffe900),
+			medium: new THREE.Color(0xff8c00),
+			high: new THREE.Color(0xb51212)
 		};
 		// Set the vertex and fragment shaders.
-		this.vertexShader = VertexShader;
-		this.fragmentShader = FragmentShader;
+		this.vertexShader = GradientVertexShader;
+		this.fragmentShader = GradientFragmentShader;
 		// Initialise the min and max of the data.
 		this.min = this.max = 0;
 		// Obtain the scene.
 		var scene = this.getScene();
 		// Make the camera look at the scene.
 		this.getCamera().lookAt(scene.position);
-		// Add a light to the scene.
-		scene.add(LightHelper.createPointLight({
-			position: new THREE.Vector3(0, 10, 0)
-		}));
+		this._addLights(scene);
 		// Load the data from the test file and render the scene.
 		this.load('app/data/generate.js', this.processData);
 		this.render();
@@ -53,54 +52,82 @@ define(function (require) {
 	HeatMap.prototype.constructor = HeatMap;
 
 	/**
+	 * Creates and adds lights to the scene.
+	 *
+	 * @param scene The scene that will have lights added.
+	 * @private
+	 */
+	HeatMap.prototype._addLights = function (scene) {
+		scene.add(LightHelper.createPointLight({
+			position: new THREE.Vector3(0, 10, 0)
+		}));
+	};
+
+	/**
 	 * Processes the data that contains the point information.
 	 *
 	 * @param data The data being processed.
 	 */
 	HeatMap.prototype.processData = function (data) {
 		var points = [];
+		var geometry = [];
 		// Iterates through the data.
 		for (var i = 0, len = data.length; i < len; i++) {
 			// Obtain the current point and pre-process it.
 			var point = data[i];
-			points.push(point, this.preProcessPoint(point));
+			points.push(point);
+			geometry.push(this._preprocessPoint(point));
 		}
-		this.processPoints(points);
+		this._processPoints(points, geometry);
 	};
 
 	/**
-	 * Pre-processes the point data by obtaining the min and max bounds of the data.
+	 * Preprocesses the point data by obtaining the min and max bounds of the data.
 	 *
 	 * @param point The point being pre-processed.
 	 * @returns {THREE.BoxGeometry}
+	 * @private
 	 */
-	HeatMap.prototype.preProcessPoint = function (point) {
+	HeatMap.prototype._preprocessPoint = function (point) {
 		// Create the geometry and compute its bounding box.
-		var geometry = this.createGeometry(point[2]);
+		var geometry = this._createGeometry(point[2]);
 		geometry.computeBoundingBox();
 		// Obtain the bounding box of the geometry and set the min and max values.
 		var boundingBox = geometry.boundingBox;
-		this.min = Math.min(this.min, boundingBox.min.y);
 		this.max = Math.max(this.max, boundingBox.max.y);
 		return geometry;
 	};
 
 	/**
-	 * Processed the points data by creating the point meshes and adding them to the scene.
+	 * Creates and returns the geometry using its transformed coordinates.
+	 *
+	 * @param magnitude The magnitude of the geometry.
+	 * @returns {THREE.BoxGeometry}
+	 * @private
+	 */
+	HeatMap.prototype._createGeometry = function (magnitude) {
+		var transform = this.transform(this.width, this.height, magnitude);
+		return new THREE.BoxGeometry(transform.x, transform.y, transform.z);
+	};
+
+	/**
+	 * Processes the preprocessed points data by creating the point meshes and adding them to the scene.
 	 *
 	 * @param points The points being processed.
+	 * @param geometry The geometry associated with the points.
+	 * @private
 	 */
-	HeatMap.prototype.processPoints = function (points) {
+	HeatMap.prototype._processPoints = function (points, geometry) {
 		// Retrieve the scene and set the target to its position.
 		var scene = this.getScene();
 		var target = scene.position;
 		// Get the colors being used with the point and create a mesh to add the points to.
 		var colors = this.colors;
 		var mesh = new THREE.Mesh();
-		// Iterate through each point.
-		for (var i = 0, len = points.length; i < len; i+=2) {
-			// Processes the current point in the data.
-			mesh.add(this.processPoint(points[i], points[i + 1], target, colors));
+		// Iterate through each point and associated geometry.
+		for (var i = 0, len = points.length; i < len; i++) {
+			// Process the current point in the data.
+			mesh.add(this._processPoint(points[i], geometry[i], target, colors));
 		}
 		// Add every point to the scene.
 		scene.add(mesh);
@@ -114,20 +141,22 @@ define(function (require) {
 	 * @param target The target position for the point to look at.
 	 * @param colors The colors being used with the point.
 	 * @returns {THREE.Mesh}
+	 * @private
 	 */
-	HeatMap.prototype.processPoint = function (point, geometry, target, colors) {
+	HeatMap.prototype._processPoint = function (point, geometry, target, colors) {
 		// Obtain the magnitude from the point.
-		var magnitude =  point[2];
+		var magnitude =  Math.abs(point[2]);
 		// Create the shader material with the specified uniforms and shaders.
 		var material = new THREE.ShaderMaterial({
 			uniforms: {
+				uMagnitude: {type: 'f', value: magnitude},
 				uMin: {type: 'f', value: this.min},
 				uMax: {type: 'f', value: this.max},
-				uMagnitude: {type: 'f', value: magnitude},
+				uMinRange: {type: 'f', value: 0.25},
+				uMaxRange: {type: 'f', value: 0.5},
 				uLowColor: {type: 'c', value: colors.low},
 				uMediumColor: {type: 'c', value: colors.medium},
-				uHighColor: {type: 'c', value: colors.high},
-				uBasePosition: {type: 'v3', value: geometry.boundingBox.min}
+				uHighColor: {type: 'c', value: colors.high}
 			},
 			vertexShader: this.vertexShader,
 			fragmentShader: this.fragmentShader
@@ -142,17 +171,6 @@ define(function (require) {
 		mesh.position.setY(Math.abs(mesh.position.y) * 0.5);
 		// Return the mesh that was created.
 		return mesh;
-	};
-
-	/**
-	 * Creates and returns the geometry using its transformed coordinates.
-	 *
-	 * @param magnitude The magnitude of the geometry.
-	 * @returns {THREE.BoxGeometry}
-	 */
-	HeatMap.prototype.createGeometry = function (magnitude) {
-		var transform = this.transform(this.width, this.height, magnitude);
-		return new THREE.BoxGeometry(transform.x, transform.y, transform.z);
 	};
 
 	return HeatMap;
