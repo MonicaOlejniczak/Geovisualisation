@@ -149,11 +149,15 @@ define(function (require) {
 		// Create the shader material with the specified uniforms and shaders.
 		var material = new THREE.ShaderMaterial({
 			uniforms: {
-				uMagnitude: {type: 'f', value: magnitude},
 				uMin: {type: 'f', value: this.min},
 				uMax: {type: 'f', value: this.max},
+				// Basic shader uniforms.
+				uMagnitude: {type: 'f', value: magnitude},
 				uMinRange: {type: 'f', value: 0.25},
 				uMaxRange: {type: 'f', value: 0.5},
+				uSaturation: {type: 'f', value: 1.0},
+				uLightness: {type: 'f', value: 1.0},
+				// Gradient shader uniforms.
 				uLowColor: {type: 'c', value: colors.low},
 				uMediumColor: {type: 'c', value: colors.medium},
 				uHighColor: {type: 'c', value: colors.high}
