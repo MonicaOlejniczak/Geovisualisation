@@ -33,16 +33,28 @@ define(function (require) {
 			medium: new THREE.Color(0xff8c00),
 			high: new THREE.Color(0xb51212)
 		};
+		// Set the texture details.
+		this.ground = {
+			level: 0,
+			source: 'assets/images/world.jpg',
+			height: 10,
+			size: 250
+		};
 		// Set the vertex and fragment shaders.
-		this.vertexShader = GradientVertexShader;
-		this.fragmentShader = GradientFragmentShader;
+		this._vertexShader = GradientVertexShader;
+		this._fragmentShader = GradientFragmentShader;
+		//this._vertexShader = BasicVertexShader;
+		//this._fragmentShader = BasicFragmentShader;
 		// Initialise the min and max of the data.
 		this.min = this.max = 0;
 		// Obtain the scene.
 		var scene = this.getScene();
 		// Make the camera look at the scene.
 		this.getCamera().lookAt(scene.position);
-		this._addLights(scene);
+		// Create the lights and ground, then add them to the scene.
+		var lights = this._createLights();
+		var ground = this._createGround(this.ground);
+		scene.add(lights, ground);
 		// Load the data from the test file and render the scene.
 		this.load('app/data/generate.js', this.processData);
 		this.render();
@@ -54,13 +66,72 @@ define(function (require) {
 	/**
 	 * Creates and adds lights to the scene.
 	 *
-	 * @param scene The scene that will have lights added.
 	 * @private
 	 */
-	HeatMap.prototype._addLights = function (scene) {
-		scene.add(LightHelper.createPointLight({
+	HeatMap.prototype._createLights = function () {
+		return LightHelper.createPointLight({
 			position: new THREE.Vector3(0, 10, 0)
-		}));
+		});
+	};
+
+	/**
+	 * Creates the ground for the scene.
+	 *
+	 * @param ground The object that contains details about the ground.
+	 * @private
+	 */
+	HeatMap.prototype._createGround = function (ground) {
+		// Create a mesh that can be passed into the map.
+		var mesh = new THREE.Mesh();
+		// Create the ground geometry with its final height and a scalable width and depth.
+		var geometry = new THREE.BoxGeometry(1, ground.height, 1);
+		// Create the map and use it for the material.
+		var map = this._createMap(mesh, ground);
+		var material = new THREE.MeshBasicMaterial({
+			map: map
+		});
+		// Apply the geometry and material to the mesh.
+		mesh.geometry = geometry;
+		mesh.material = material;
+		// Compute the geometry bound box to calculate the ground level from the geometry.
+		geometry.computeBoundingBox();
+		ground.level = geometry.boundingBox.max.y;
+		// Return the ground mesh.
+		return mesh;
+	};
+
+	/**
+	 * Creates a map texture to be used with the ground.
+	 *
+	 * @param mesh The ground mesh.
+	 * @param ground The object that contains details about the ground.
+	 * @returns {*}
+	 * @private
+	 */
+	HeatMap.prototype._createMap = function (mesh, ground) {
+		// Load the texture using the source file stored in the ground instance variable.
+		var map = THREE.ImageUtils.loadTexture(ground.source, THREE.UVMapping, this._onTextureLoad.bind(this, mesh, ground));
+		// Set the min and mag filter to linear for textures that are not a power of 2.
+		map.minFilter = THREE.LinearFilter;
+		map.magFilter = THREE.LinearFilter;
+		// Return the texture.
+		return map;
+	};
+
+	/**
+	 * This function is triggered when the texture for the ground has loaded. It obtains the aspect ratio of the image
+	 * through the loaded texture and scales the mesh used with the ground so that it is proportional to the image.
+	 *
+	 * @param mesh The ground mesh.
+	 * @param ground The object that contains details about the ground.
+	 * @param texture The texture that was loaded.
+	 * @private
+	 */
+	HeatMap.prototype._onTextureLoad = function (mesh, ground, texture) {
+		var image = texture.image;
+		var aspectRatio = image.width / image.height;
+		var size = ground.size;
+		mesh.scale.set(size * aspectRatio, 1, size);
 	};
 
 	/**
@@ -73,7 +144,7 @@ define(function (require) {
 		var geometry = [];
 		// Iterates through the data.
 		for (var i = 0, len = data.length; i < len; i++) {
-			// Obtain the current point and pre-process it.
+			// Obtain the current point and preprocess it.
 			var point = data[i];
 			points.push(point);
 			geometry.push(this._preprocessPoint(point));
@@ -121,13 +192,15 @@ define(function (require) {
 		// Retrieve the scene and set the target to its position.
 		var scene = this.getScene();
 		var target = scene.position;
+		// Retrieve the ground level.
+		var groundLevel = this.ground.level;
 		// Get the colors being used with the point and create a mesh to add the points to.
 		var colors = this.colors;
 		var mesh = new THREE.Mesh();
 		// Iterate through each point and associated geometry.
 		for (var i = 0, len = points.length; i < len; i++) {
 			// Process the current point in the data.
-			mesh.add(this._processPoint(points[i], geometry[i], target, colors));
+			mesh.add(this._processPoint(points[i], geometry[i], target, colors, groundLevel));
 		}
 		// Add every point to the scene.
 		scene.add(mesh);
@@ -140,10 +213,11 @@ define(function (require) {
 	 * @param geometry The geometry that was created from pre-processing.
 	 * @param target The target position for the point to look at.
 	 * @param colors The colors being used with the point.
+	 * @param groundLevel The value that constitutes the ground level where the point can be drawn.
 	 * @returns {THREE.Mesh}
 	 * @private
 	 */
-	HeatMap.prototype._processPoint = function (point, geometry, target, colors) {
+	HeatMap.prototype._processPoint = function (point, geometry, target, colors, groundLevel) {
 		// Obtain the magnitude from the point.
 		var magnitude =  Math.abs(point[2]);
 		// Create the shader material with the specified uniforms and shaders.
@@ -153,7 +227,7 @@ define(function (require) {
 				uMax: {type: 'f', value: this.max},
 				// Basic shader uniforms.
 				uMagnitude: {type: 'f', value: magnitude},
-				uMinRange: {type: 'f', value: 0.25},
+				uMinRange: {type: 'f', value: 0.15},
 				uMaxRange: {type: 'f', value: 0.5},
 				uSaturation: {type: 'f', value: 1.0},
 				uLightness: {type: 'f', value: 1.0},
@@ -162,8 +236,8 @@ define(function (require) {
 				uMediumColor: {type: 'c', value: colors.medium},
 				uHighColor: {type: 'c', value: colors.high}
 			},
-			vertexShader: this.vertexShader,
-			fragmentShader: this.fragmentShader
+			vertexShader: this._vertexShader,
+			fragmentShader: this._fragmentShader
 		});
 		// Transform the position into the correct coordinates and create the mesh.
 		var position = this.transform(point[0], point[1], magnitude);
@@ -172,7 +246,7 @@ define(function (require) {
 		mesh.lookAt(target);
 		// Set the position of the mesh and adjust its y-position so that it is above the ground.
 		mesh.position.set(position.x, position.y, position.z);
-		mesh.position.setY(Math.abs(mesh.position.y) * 0.5);
+		mesh.position.setY(Math.abs(mesh.position.y) * 0.5 + groundLevel);
 		// Return the mesh that was created.
 		return mesh;
 	};

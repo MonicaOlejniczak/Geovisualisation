@@ -32,7 +32,7 @@ define(function (require) {
 		if (url.split('\.')[1] === 'js') {
 			// Require the javascript file and use its data
 			require([url], function (generateData) {
-				callback.call(this, generateData(100, 50));
+				callback.call(this, generateData(25, 100, 100));
 			}.bind(this));
 		} else {
 			// Make an asynchronous ajax request to retrieve the data from the specified url.
