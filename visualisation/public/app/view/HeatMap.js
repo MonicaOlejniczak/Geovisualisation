@@ -19,6 +19,7 @@ define(function (require) {
 	 * @constructor
 	 */
 	function HeatMap (canvas) {
+		// Call the super class.
 		Visualisation.call(this, canvas.get(0), {
 			camera: {position: new THREE.Vector3(0, 100, 200)},
 			mouseControls: true

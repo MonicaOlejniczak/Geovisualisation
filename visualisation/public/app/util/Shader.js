@@ -15,6 +15,7 @@ define(function (require) {
 	 */
 	function Shader (path, options) {
 		return new Promise(function (resolve) {
+			this.loading = 0;
 			this.basePath = 'text!shader/';
 			this.material = new THREE.Material();
 			this.uniforms = options && options.uniforms || {};
@@ -51,25 +52,45 @@ define(function (require) {
 		return new Promise(function (resolve) {
 			require([shaderPath], function (shader) {
 				this[name] = shader;
-				var includes = shader.match(/#include[\t ]+"([^"]+)"/g) || [];
-				if (includes.length > 0) {
-					var loading = 0;
-					for (var i = 0, len = includes.length; i < len; i++) {
-						loading++;
-						var include = includes[i];
-						var path = include.match(/(?!#include[\t ]+")[\w+/]+.h(?=")/)[0];
-						require([this.basePath + path], function (loaded, include, loadedShader) {
-							this[name] = this[name].replace(include, loadedShader);
-							if ((--loading) == 0) {
-								resolve();
-							}
-						}.bind(this, loading, include));
-					}
-				} else {
-					resolve();
-				}
+				this._loadIncludes(shader, name, resolve);
 			}.bind(this));
 		}.bind(this));
+	};
+
+	/**
+	 * Loads all includes contained within the specified shader.
+	 *
+	 * @param shader The shader that will have its includes loaded.
+	 * @param name The name of the shader.
+	 * @param resolve The resolve function for the current promise.
+	 * @private
+	 */
+	Shader.prototype._loadIncludes = function (shader, name, resolve) {
+		// Retrieve the include text in the shader given the regex.
+		var includes = shader.match(/#include[\t ]+"([^"]+)"/g) || [];
+		// Check if any includes exist.
+		if (includes.length > 0) {
+			// Iterate through each include.
+			for (var i = 0, len = includes.length; i < len; i++) {
+				// Increase how many shaders are still loading and retrieve the path to the shader.
+				this.loading++;
+				var include = includes[i];
+				var path = include.match(/(?!#include[\t ]+")[\w+/]+.h(?=")/)[0];
+				// Load the shader given the path.
+				require([this.basePath + path], function (include, loadedShader) {
+					// Load any includes that are a part of the loaded shader.
+					this._loadIncludes(loadedShader, name, resolve);
+					// Replace the include line with the shader that was loaded.
+					this[name] = this[name].replace(include, loadedShader);
+					// Decrement how many shaders are loading and check if loading has finished.
+					if ((--this.loading) == 0) {
+						resolve();
+					}
+				}.bind(this, include));
+			}
+		} else {
+			resolve();
+		}
 	};
 
 	/**
