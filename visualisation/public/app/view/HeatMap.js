@@ -8,13 +8,9 @@ define(function (require) {
 	var THREE = require('threejs');
 	var Visualisation = require('view/Visualisation');
 	var LightHelper = require('helper/Light');
+	var Shader = require('util/Shader');
+
 	var Color = require('util/Color');
-	var BasicVertexShader = require('text!shader/basic/Basic.vert');
-	var BasicFragmentShader = require('text!shader/basic/Basic.frag');
-	var GradientVertexShader = require('text!shader/gradient/Gradient.vert');
-	var GradientFragmentShader = require('text!shader/gradient/Gradient.frag');
-	var EarthVertexShader = require('text!shader/earth/Earth.vert');
-	var EarthFragmentShader = require('text!shader/earth/Earth.frag');
 
 	/**
 	 * Initialises the visualisation.
@@ -27,6 +23,23 @@ define(function (require) {
 			camera: {position: new THREE.Vector3(0, 100, 200)},
 			mouseControls: true
 		});
+		// Initialise the default values and setup the scene.
+		this._init();
+		this._setupScene(this.getScene());
+		// Load the data from the test file and render the scene.
+		this.load('app/data/generate.js', this.processData);
+		this.render();
+	}
+
+	HeatMap.prototype = Object.create(Visualisation.prototype);
+	HeatMap.prototype.constructor = HeatMap;
+
+	/**
+	 * Initialises the default values for the visualisation.
+	 *
+	 * @private
+	 */
+	HeatMap.prototype._init = function () {
 		// Set the width and height of the geometry.
 		this.width = this.height = 0.5;
 		// Set the colors to be used with the points.
@@ -42,28 +55,26 @@ define(function (require) {
 			size: 250,
 			color: new THREE.Color(0x222222)
 		};
-		// Set the vertex and fragment shaders.
-		this._vertexShader = GradientVertexShader;
-		this._fragmentShader = GradientFragmentShader;
-		//this._vertexShader = BasicVertexShader;
-		//this._fragmentShader = BasicFragmentShader;
+		// Set the shader path.
+		this._shaderPath = 'gradient/Gradient';
 		// Initialise the min and max of the data.
 		this.min = this.max = 0;
-		// Obtain the scene.
-		var scene = this.getScene();
+	};
+
+	/**
+	 * Sets up the scene by adding the lights and ground.
+	 *
+	 * @param scene The THREE.js scene.
+	 * @private
+	 */
+	HeatMap.prototype._setupScene = function (scene) {
 		// Make the camera look at the scene.
 		this.getCamera().lookAt(scene.position);
 		// Create the lights and ground, then add them to the scene.
 		var lights = this._createLights();
 		var ground = this._createGround(this.ground);
 		scene.add(lights, ground);
-		// Load the data from the test file and render the scene.
-		this.load('app/data/generate.js', this.processData);
-		this.render();
-	}
-
-	HeatMap.prototype = Object.create(Visualisation.prototype);
-	HeatMap.prototype.constructor = HeatMap;
+	};
 
 	/**
 	 * Creates and adds lights to the scene.
@@ -87,7 +98,8 @@ define(function (require) {
 		var mesh = new THREE.Mesh();
 		// Create the texture and use it for the mesh material.
 		var texture = this._createTexture(mesh, ground);
-		mesh.material = new THREE.ShaderMaterial({
+		// Create the shader and add the material to the mesh.
+		new Shader('earth/Earth', {
 			uniforms: {
 				uTexture: {type: 't', value: texture},
 				uColor: {type: 'c', value: ground.color},
@@ -97,14 +109,11 @@ define(function (require) {
 				uValue: {type: 'f', value: 1.0},
 				uRedShift: {type: 'f', value: 0.0},
 				uGreenShift: {type: 'f', value: 0.0},
-				uBlueShift: {type: 'f', value: 100.0}
-			},
-			vertexShader: EarthVertexShader,
-			fragmentShader: EarthFragmentShader
-		});
-		//mesh.material = new THREE.MeshBasicMaterial({
-		//	map: texture
-		//});
+				uBlueShift: {type: 'f', value: 50.0}
+			}
+		}).then(function (material) {
+			mesh.material = material;
+		}.bind(this));
 		// Return the ground mesh.
 		return mesh;
 	};
@@ -207,52 +216,51 @@ define(function (require) {
 		var groundLevel = this.ground.height;
 		// Get the colors being used with the point and create a mesh to add the points to.
 		var colors = this.colors;
-		var mesh = new THREE.Mesh();
-		// Iterate through each point and associated geometry.
-		for (var i = 0, len = points.length; i < len; i++) {
-			// Process the current point in the data.
-			mesh.add(this._processPoint(points[i], geometry[i], target, colors, groundLevel));
-		}
+		var parent = new THREE.Mesh();
+		// Load the shader before iterating through each point.
+		new Shader(this._shaderPath).then(function (material) {
+			// Iterate through each point and associated geometry.
+			for (var i = 0, len = points.length; i < len; i++) {
+				var mesh = new THREE.Mesh(geometry[i], material);
+				// Process the current point in the data.
+				parent.add(this._processPoint(points[i], mesh, target, colors, groundLevel));
+			}
+		}.bind(this));
 		// Add every point to the scene.
-		scene.add(mesh);
+		scene.add(parent);
 	};
 
 	/**
 	 * Processes a point by creating a mesh and applying transforms to set its position.
 	 *
 	 * @param point The original data point.
-	 * @param geometry The geometry that was created from pre-processing.
+	 * @param mesh The mesh that was created from pre-processing.
 	 * @param target The target position for the point to look at.
 	 * @param colors The colors being used with the point.
 	 * @param groundLevel The value that constitutes the ground level where the point can be drawn.
 	 * @returns {THREE.Mesh}
 	 * @private
 	 */
-	HeatMap.prototype._processPoint = function (point, geometry, target, colors, groundLevel) {
+	HeatMap.prototype._processPoint = function (point, mesh, target, colors, groundLevel) {
 		// Obtain the magnitude from the point.
 		var magnitude =  Math.abs(point[2]);
-		// Create the shader material with the specified uniforms and shaders.
-		var material = new THREE.ShaderMaterial({
-			uniforms: {
-				uMin: {type: 'f', value: this.min},
-				uMax: {type: 'f', value: this.max},
-				// Basic shader uniforms.
-				uMagnitude: {type: 'f', value: magnitude},
-				uMinRange: {type: 'f', value: 0.15},
-				uMaxRange: {type: 'f', value: 0.5},
-				uSaturation: {type: 'f', value: 1.0},
-				uLightness: {type: 'f', value: 1.0},
-				// Gradient shader uniforms.
-				uLowColor: {type: 'c', value: colors.low},
-				uMediumColor: {type: 'c', value: colors.medium},
-				uHighColor: {type: 'c', value: colors.high}
-			},
-			vertexShader: this._vertexShader,
-			fragmentShader: this._fragmentShader
-		});
-		// Transform the position into the correct coordinates and create the mesh.
+		// Update the uniforms of the material.
+		mesh.material.uniforms = {
+			uMin: {type: 'f', value: this.min},
+			uMax: {type: 'f', value: this.max},
+			// Basic shader uniforms.
+			uMagnitude: {type: 'f', value: magnitude},
+			uMinRange: {type: 'f', value: 0.15},
+			uMaxRange: {type: 'f', value: 0.5},
+			uSaturation: {type: 'f', value: 1.0},
+			uLightness: {type: 'f', value: 1.0},
+			// Gradient shader uniforms.
+			uLowColor: {type: 'c', value: colors.low},
+			uMediumColor: {type: 'c', value: colors.medium},
+			uHighColor: {type: 'c', value: colors.high}
+		};
+		// Transform the position into the correct coordinates.
 		var position = this.transform(point[0], point[1], magnitude);
-		var mesh = new THREE.Mesh(geometry, material);
 		// Rotate the mesh so it is looking at the target vector.
 		mesh.lookAt(target);
 		// Set the position of the mesh and adjust its y-position so that it is above the ground.

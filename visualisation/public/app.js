@@ -11,9 +11,10 @@
 		// Specify the paths.
 		paths: {
 			jquery: '../bower_components/jquery/dist/jquery',
+			text: '../bower_components/text/text',
 			threejs: '../bower_components/threejs/build/three',
 			orbitcontrols: '../bower_components/threejs/build/orbit-controls',
-			text: '../bower_components/text/text'
+			bluebird: '../bower_components/bluebird/js/browser/bluebird'
 		},
 		shim: {
 			'threejs': {
@@ -23,7 +24,7 @@
 	});
 
 	// Start the main app logic.
-	requirejs(['jquery', 'view/HeatMap'], function ($, HeatMap) {
+	requirejs(['jquery', 'bluebird', 'view/HeatMap'], function ($, Bluebird, HeatMap) {
 		var heatMap = new HeatMap($('#visualisation'));
 	});
 
