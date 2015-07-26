@@ -13,6 +13,8 @@ define(function (require) {
 	var BasicFragmentShader = require('text!shader/basic/Basic.frag');
 	var GradientVertexShader = require('text!shader/gradient/Gradient.vert');
 	var GradientFragmentShader = require('text!shader/gradient/Gradient.frag');
+	var EarthVertexShader = require('text!shader/earth/Earth.vert');
+	var EarthFragmentShader = require('text!shader/earth/Earth.frag');
 
 	/**
 	 * Initialises the visualisation.
@@ -22,11 +24,11 @@ define(function (require) {
 	 */
 	function HeatMap (canvas) {
 		Visualisation.call(this, canvas.get(0), {
-			camera: {position: new THREE.Vector3(0, 10, 30)},
+			camera: {position: new THREE.Vector3(0, 100, 200)},
 			mouseControls: true
 		});
 		// Set the width and height of the geometry.
-		this.width = this.height = 1;
+		this.width = this.height = 0.5;
 		// Set the colors to be used with the points.
 		this.colors = {
 			low: new THREE.Color(0xffe900),
@@ -35,10 +37,10 @@ define(function (require) {
 		};
 		// Set the texture details.
 		this.ground = {
-			level: 0,
-			source: 'assets/images/world.jpg',
+			source: 'assets/images/earth.jpg',
 			height: 10,
-			size: 250
+			size: 250,
+			color: new THREE.Color(0x222222)
 		};
 		// Set the vertex and fragment shaders.
 		this._vertexShader = GradientVertexShader;
@@ -83,32 +85,39 @@ define(function (require) {
 	HeatMap.prototype._createGround = function (ground) {
 		// Create a mesh that can be passed into the map.
 		var mesh = new THREE.Mesh();
-		// Create the ground geometry with its final height and a scalable width and depth.
-		var geometry = new THREE.BoxGeometry(1, ground.height, 1);
-		// Create the map and use it for the material.
-		var map = this._createMap(mesh, ground);
-		var material = new THREE.MeshBasicMaterial({
-			map: map
+		// Create the texture and use it for the mesh material.
+		var texture = this._createTexture(mesh, ground);
+		mesh.material = new THREE.ShaderMaterial({
+			uniforms: {
+				uTexture: {type: 't', value: texture},
+				uColor: {type: 'c', value: ground.color},
+				uSurfacePosition: {type: 'f', value: ground.height * 0.5},
+				uHue: {type: 'f', value: 1.0},
+				uSaturation: {type: 'f', value: 1.0},
+				uValue: {type: 'f', value: 1.0},
+				uRedShift: {type: 'f', value: 0.0},
+				uGreenShift: {type: 'f', value: 0.0},
+				uBlueShift: {type: 'f', value: 100.0}
+			},
+			vertexShader: EarthVertexShader,
+			fragmentShader: EarthFragmentShader
 		});
-		// Apply the geometry and material to the mesh.
-		mesh.geometry = geometry;
-		mesh.material = material;
-		// Compute the geometry bound box to calculate the ground level from the geometry.
-		geometry.computeBoundingBox();
-		ground.level = geometry.boundingBox.max.y;
+		//mesh.material = new THREE.MeshBasicMaterial({
+		//	map: texture
+		//});
 		// Return the ground mesh.
 		return mesh;
 	};
 
 	/**
-	 * Creates a map texture to be used with the ground.
+	 * Creates a texture to be used with the ground.
 	 *
 	 * @param mesh The ground mesh.
 	 * @param ground The object that contains details about the ground.
 	 * @returns {*}
 	 * @private
 	 */
-	HeatMap.prototype._createMap = function (mesh, ground) {
+	HeatMap.prototype._createTexture = function (mesh, ground) {
 		// Load the texture using the source file stored in the ground instance variable.
 		var map = THREE.ImageUtils.loadTexture(ground.source, THREE.UVMapping, this._onTextureLoad.bind(this, mesh, ground));
 		// Set the min and mag filter to linear for textures that are not a power of 2.
@@ -120,7 +129,8 @@ define(function (require) {
 
 	/**
 	 * This function is triggered when the texture for the ground has loaded. It obtains the aspect ratio of the image
-	 * through the loaded texture and scales the mesh used with the ground so that it is proportional to the image.
+	 * through the loaded texture and replaces the mesh used with the ground so that it is proportional to the image.
+	 * The position of the mesh is then adjusted so the base of the geometry is on the ground.
 	 *
 	 * @param mesh The ground mesh.
 	 * @param ground The object that contains details about the ground.
@@ -131,7 +141,8 @@ define(function (require) {
 		var image = texture.image;
 		var aspectRatio = image.width / image.height;
 		var size = ground.size;
-		mesh.scale.set(size * aspectRatio, 1, size);
+		mesh.geometry = new THREE.BoxGeometry(size * aspectRatio, ground.height, size);
+		mesh.position.setY(ground.height * 0.5);
 	};
 
 	/**
@@ -193,7 +204,7 @@ define(function (require) {
 		var scene = this.getScene();
 		var target = scene.position;
 		// Retrieve the ground level.
-		var groundLevel = this.ground.level;
+		var groundLevel = this.ground.height;
 		// Get the colors being used with the point and create a mesh to add the points to.
 		var colors = this.colors;
 		var mesh = new THREE.Mesh();

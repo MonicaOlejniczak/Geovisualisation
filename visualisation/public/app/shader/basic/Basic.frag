@@ -15,13 +15,12 @@ vec3 hsv2rgb(vec3 color) {
     return color.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), color.y);
 }
 
-float convertRange(float originalStart, float originalEnd, float newStart, float newEnd, float value) {
-	float ratio = (newEnd - newStart) / (originalEnd - originalStart);
-	float newValue = newStart + ((value - newStart) * ratio);
-    return clamp(newValue, newStart, newEnd);
+float convertRange(vec2 origin, vec2 target, float value) {
+    float ratio = (target.y - target.x) / (origin.y - origin.x);
+    return (value - origin.x) * ratio + target.x;
 }
 
 void main() {
-	vec3 color = hsv2rgb(vec3(convertRange(uMin, uMax, uMinRange, uMaxRange, uMagnitude), uSaturation, uLightness));
+	vec3 color = hsv2rgb(vec3(convertRange(vec2(uMin, uMax), vec2(uMinRange, uMaxRange), uMagnitude), uSaturation, uLightness));
 	gl_FragColor = vec4(color, 1.0);
 }
