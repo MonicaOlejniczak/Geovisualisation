@@ -1,4 +1,4 @@
-#include "util/Convert.h"
+#include "util/Effects.h"
 
 uniform sampler2D uTexture;
 uniform vec3 uColor;
@@ -21,24 +21,8 @@ void main() {
 	} else {
 
 	    vec3 originalColor = texture2D(uTexture, vUv).rgb;
-
-	    vec2 originalColorRange = vec2(-100.0, 100.0);
-	    vec2 rgbColorRange = vec2(0.0, 255.0);
-	    vec2 finalColorRange = vec2(0.0, 1.0);
-
-	    float redShift = convertRange(originalColorRange, rgbColorRange, uRedShift);
-	    float greenShift = convertRange(originalColorRange, rgbColorRange, uGreenShift);
-	    float blueShift = convertRange(originalColorRange, rgbColorRange, uBlueShift);
-
-	    vec3 colorShift = vec3(redShift, greenShift, blueShift);
-	    if (redShift == blueShift && blueShift == greenShift) {
-	        colorShift = vec3(1.0, 1.0, 1.0) * rgbColorRange.y;
-	    }
-
-	    vec3 colorBalance = colorShift / rgbColorRange.y;
-        vec3 color = rgb2hsv(colorBalance * originalColor);
-    	// Preserve value
-    	color = hsv2rgb(vec3(color.r * uHue, color.g * uSaturation * 0.9, rgb2value(originalColor) * 1.2));
+	    vec3 colorShift = vec3(uRedShift, uGreenShift, uBlueShift);
+	    vec3 color = colorBalance(originalColor, colorShift);
 
 		gl_FragColor = vec4(color, 1.0);
 	}

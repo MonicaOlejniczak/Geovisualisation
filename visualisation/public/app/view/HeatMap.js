@@ -107,10 +107,10 @@ define(function (require) {
 				uSurfacePosition: {type: 'f', value: ground.height * 0.5},
 				uHue: {type: 'f', value: 1.0},
 				uSaturation: {type: 'f', value: 1.0},
-				uValue: {type: 'f', value: 1.0},
-				uRedShift: {type: 'f', value: 0.0},
-				uGreenShift: {type: 'f', value: 0.0},
-				uBlueShift: {type: 'f', value: 50.0}
+				uValue: {type: 'f', value: 0.5},
+				uRedShift: {type: 'f', value: -100.0},
+				uGreenShift: {type: 'f', value: -50.0},
+				uBlueShift: {type: 'f', value: 0.0}
 			}
 		}).then(function (material) {
 			mesh.material = material;
