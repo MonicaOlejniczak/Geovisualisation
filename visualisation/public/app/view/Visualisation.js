@@ -43,18 +43,6 @@ define(function (require) {
 	};
 
 	/**
-	 * Converts a coordinate into a vector with the correct 3D space.
-	 *
-	 * @param x The x-coordinate being transformed.
-	 * @param y The y-coordinate being transformed
-	 * @param z The z-coordinate being transformed
-	 * @returns {THREE.Vector3}
-	 */
-	Visualisation.prototype.transform = function (x, y, z) {
-		return new THREE.Vector3(x, z, y);
-	};
-
-	/**
 	 * Updates the value for a uniform on a material given its name.
 	 *
 	 * @param name The name of the uniform.

@@ -19,7 +19,6 @@ void main() {
 	if (vPosition.y < uSurfacePosition) {
 		gl_FragColor = vec4(uColor, 1.0);
 	} else {
-
 	    vec3 originalColor = texture2D(uTexture, vUv).rgb;
 	    vec3 colorShift = vec3(uRedShift, uGreenShift, uBlueShift);
 	    vec3 color = colorBalance(originalColor, colorShift);

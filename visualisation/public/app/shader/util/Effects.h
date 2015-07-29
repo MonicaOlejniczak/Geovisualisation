@@ -26,7 +26,7 @@ vec3 colorBalance(vec3 originalColor, vec3 colorShift) {
     const float scale = 0.7;
 
     float midtones = clamp((value - b) / a + 0.5, 0.0, 1.0) * clamp((value + b - 1.0) / -a + 0.5, 0.0, 1.0) * scale;
-    vec3 colorBalance = (colorShift / rgbColorRange.y);
+    vec3 colorBalance = clamp(colorShift / rgbColorRange.y, 0.0, 1.0);
 	vec3 color = hsv2rgb(vec3(rgb2hsv((colorBalance * midtones) + originalColor).rg, value));
 
     return color;

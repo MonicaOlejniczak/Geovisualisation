@@ -13,19 +13,26 @@
 			jquery: '../bower_components/jquery/dist/jquery',
 			text: '../bower_components/text/text',
 			threejs: '../bower_components/threejs/build/three',
-			orbitcontrols: '../bower_components/threejs/build/orbit-controls',
-			bluebird: '../bower_components/bluebird/js/browser/bluebird'
+			orbitcontrols: '../bower_components/threejs/build/orbit-controls'
 		},
 		shim: {
-			'threejs': {
-				exports: 'THREE'
-			}
+			threejs: {exports: 'THREE'}
 		}
 	});
 
 	// Start the main app logic.
-	requirejs(['jquery', 'bluebird', 'view/HeatMap'], function ($, Bluebird, HeatMap) {
+	requirejs(['jquery', 'view/HeatMap'], function ($, HeatMap) {
+		var gui = new dat.GUI();
 		var heatMap = new HeatMap($('#visualisation'));
+		$(heatMap.surface).on({
+			load: function (event, material) {
+				var uniforms = material.uniforms;
+				gui.add(uniforms.uRedShift, 'value', -100, 100).name('Red');
+				gui.add(uniforms.uGreenShift, 'value', -100, 100).name('Green');
+				gui.add(uniforms.uBlueShift, 'value', -100, 100).name('Blue');
+			}
+		});
+
 	});
 
 }());

@@ -14,8 +14,6 @@ define(function (require) {
 	 */
 	function Color () {}
 
-	Color.prototype.constructor = Color;
-
 	/**
 	 * Generates a random colour, blended with a particular colour.
 	 *
