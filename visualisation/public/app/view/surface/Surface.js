@@ -16,12 +16,11 @@ define(function (require) {
 	 */
 	function Surface (geometry) {
 		this._baseDirectory = 'assets/images/earth/';
-		this.source = this._baseDirectory + 'earth-dark.png';
+		this.source = this._baseDirectory + 'earth-dark2.png';
 		this.size = 250;
 		this.color = new THREE.Color(0x222222);
 		this.aspectRatio = 1;
 		this.colorBound = new THREE.Vector2(-100, 100);
-		this._geometry = geometry;
 		this.mesh = new THREE.Mesh();
 		this.mesh.add(this._createMesh(geometry));
 	}

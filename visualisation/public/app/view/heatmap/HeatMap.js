@@ -8,7 +8,7 @@ define(function (require) {
 	var THREE = require('threejs');
 
 	var SceneRenderer = require('SceneRenderer');
-	var FlatSurface = require('view/surface/FlatSurface');
+	var Skybox = require('view/skybox/Skybox');
 	var Points = require('view/points/Points');
 
 	var Data = require('util/Data');
@@ -25,9 +25,11 @@ define(function (require) {
 	 */
 	function HeatMap (canvas, surface, projection, options) {
 		var renderer = new SceneRenderer(canvas.get(0), options);
+		var skybox = new Skybox();
 		// Setup the scene.
 		var scene = renderer.getScene();
-		this._setupScene(scene, renderer.getCamera(), surface.mesh);
+		this._setupScene(scene, renderer.getCamera(), surface.mesh, skybox.mesh);
+		this.skybox = skybox;
 		this.surface = surface;
 		this.points = new Points();
 		// Load the data from the test file and render the scene.
@@ -43,15 +45,16 @@ define(function (require) {
 	 * @param scene The THREE.js scene.
 	 * @param camera The perspective camera in the scene.
 	 * @param surface The surface of the heat map.
+	 * @param skybox
 	 * @private
 	 */
-	HeatMap.prototype._setupScene = function (scene, camera, surface) {
+	HeatMap.prototype._setupScene = function (scene, camera, surface, skybox) {
 		// Make the camera look at the scene.
 		camera.lookAt(scene.position);
 		// Create the lighting and get the surface mesh.
 		var lights = this._createLights();
 		// Create the lights and add it to the scene.
-		scene.add(lights, surface);
+		scene.add(lights, surface, skybox);
 	};
 
 	/**

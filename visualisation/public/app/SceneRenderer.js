@@ -23,7 +23,7 @@ define(function (require) {
 		// Initialise the scene.
 		var scene = this._scene = new THREE.Scene();
 		// Initialise the camera.
-		var camera = this._camera = new THREE.PerspectiveCamera(45, element.width / element.height, 0.1, 2000);
+		var camera = this._camera = new THREE.PerspectiveCamera(45, element.width / element.height, 0.1, 5000);
 		// Get the camera options.
 		var cameraOptions = options.camera;
 		// Check if the camera options exist.

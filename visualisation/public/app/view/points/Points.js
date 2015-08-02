@@ -41,7 +41,7 @@ define(function (require) {
 		};
 
 		// Set the shader path.
-		this._shaderPath = options.shaderPath || 'gradient/Gradient';
+		this._shaderPath = options.shaderPath || 'basic/Basic';
 
 	}
 
