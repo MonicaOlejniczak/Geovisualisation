@@ -22,7 +22,7 @@ define(function (require) {
 		this.radius = radius || this.size;
 		this._atmosphere = {
 			source: 'atmosphere/Atmosphere',
-			color: new THREE.Color(0x3178a6)
+			color: new THREE.Color(0x08376b)
 		};
 		$(this).on('load', this._onLoad.bind(this));
 	}
@@ -65,6 +65,7 @@ define(function (require) {
 		// Load the material with the texture.
 		var material = new THREE.MeshBasicMaterial({
 			map: texture,
+			opacity: 0.8,
 			transparent: true
 		});
 		// Create the mesh with the geometry and material.
@@ -73,6 +74,7 @@ define(function (require) {
 		var scale = 1.005;
 		mesh.scale.set(scale, scale, scale);
 		object.add(mesh);
+		$(this).trigger('clouds', mesh);
 	};
 
 	/**
@@ -98,6 +100,7 @@ define(function (require) {
 			var scale = this.radius * 1.175;
 			mesh.scale.set(scale, scale, scale);
 			object.add(mesh);
+			$(this).trigger('atmosphere', mesh);
 		}.bind(this));
 	};
 

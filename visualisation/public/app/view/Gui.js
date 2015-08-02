@@ -39,10 +39,10 @@ define(function (require) {
 	 */
 	Gui.prototype._configureSurface = function (gui, visualisation) {
 		var surface = visualisation.surface;
+		// Create a folder for the surface colour.
+		var folder = gui.addFolder('Surface');
 		$(surface).on({
 			load: function (event, material) {
-				// Create a folder for the surface colour.
-				var surfaceColour = gui.addFolder('Surface color');
 				// Get the colour bound and its min and max values.
 				var colourBound = surface.colorBound;
 				var min = colourBound.x;
@@ -50,10 +50,17 @@ define(function (require) {
 				// Get the material uniforms.
 				var uniforms = material.uniforms;
 				// Add the colour shfit values.
-				surfaceColour.add(uniforms.uRedShift, 'value').min(min).max(max).name('Red');
-				surfaceColour.add(uniforms.uGreenShift, 'value').min(min).max(max).name('Green');
-				surfaceColour.add(uniforms.uBlueShift, 'value').min(min).max(max).name('Blue');
-			}
+				folder.add(uniforms.uRedShift, 'value').min(min).max(max).name('Red');
+				folder.add(uniforms.uGreenShift, 'value').min(min).max(max).name('Green');
+				folder.add(uniforms.uBlueShift, 'value').min(min).max(max).name('Blue');
+			},
+			clouds: function (event, clouds) {
+				folder.add(clouds.material, 'opacity').min(0).max(1).name('Clouds');
+			},
+			atmosphere: function (event, atmosphere) {
+				var uniforms = atmosphere.material.uniforms;
+				folder.addColor(uniforms.uColor, 'value').name('Atmosphere').onChange(this._onAtmosphere.bind(this, atmosphere));
+			}.bind(this)
 		});
 	};
 
@@ -78,7 +85,7 @@ define(function (require) {
 	 */
 	Gui.prototype._configureBasicShader = function (gui, points) {
 		// Create a folder for the basic shader.
-		var basic = gui.addFolder('Basic configuration');
+		var folder = gui.addFolder('Basic configuration');
 		// Get the color range.
 		var colorRange = points.colorRange;
 		// Get the min and max bounds of the color range.
@@ -88,10 +95,10 @@ define(function (require) {
 		// Get the range of colors available.
 		var range = colorRange.range;
 		// Add the minimum and maximum widgets to the folder.
-		basic.add(range, 'x').min(min).max(max).name('Minimum');
-		basic.add(range, 'y').min(min).max(max).name('Maximum');
+		folder.add(range, 'x').min(min).max(max).name('Minimum');
+		folder.add(range, 'y').min(min).max(max).name('Maximum');
 		// Open the folder.
-		basic.open();
+		folder.open();
 	};
 
 	/**
@@ -128,7 +135,12 @@ define(function (require) {
 		$(objects).each(function (index, object) {
 			var material = object.mesh.material;
 			material.uniforms[key].value = color;
-		});
+		}, this);
+	};
+
+	Gui.prototype._onAtmosphere = function (atmosphere, color) {
+		var material = atmosphere.material;
+		material.uniforms['uColor'].value = this._convertColor(color);
 	};
 
 	/**
@@ -173,15 +185,15 @@ define(function (require) {
 	 */
 	Gui.prototype._configureGradientShader = function (gui, points) {
 		// Create a folder for the gradient shader.
-		var gradient = gui.addFolder('Gradient configuration');
+		var folder = gui.addFolder('Gradient configuration');
 		// Get the available colors.
 		var colors = points.colors;
 		// Add the colours with callback functions.
-		gradient.addColor(colors, 'low').name('Low').onChange(this._onLowColor.bind(this, points));
-		gradient.addColor(colors, 'medium').name('Medium').onChange(this._onMediumColor.bind(this, points));
-		gradient.addColor(colors, 'high').name('High').onChange(this._onHighColor.bind(this, points));
+		folder.addColor(colors, 'low').name('Low').onChange(this._onLowColor.bind(this, points));
+		folder.addColor(colors, 'medium').name('Medium').onChange(this._onMediumColor.bind(this, points));
+		folder.addColor(colors, 'high').name('High').onChange(this._onHighColor.bind(this, points));
 		// Open the folder.
-		gradient.open();
+		folder.open();
 	};
 
 	return Gui;

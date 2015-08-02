@@ -16,7 +16,7 @@ define(function (require) {
 	 */
 	function Surface (geometry) {
 		this._baseDirectory = 'assets/images/earth/';
-		this.source = this._baseDirectory + 'earth.png';
+		this.source = this._baseDirectory + 'earth-dark.png';
 		this.size = 250;
 		this.color = new THREE.Color(0x222222);
 		this.aspectRatio = 1;
