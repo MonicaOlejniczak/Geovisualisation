@@ -2,16 +2,14 @@
 
 uniform float uMagnitude;
 
-uniform float uMin;
-uniform float uMax;
-
-uniform float uMinRange;
-uniform float uMaxRange;
+uniform vec2 uBound;
+uniform vec2 uColorRange;
 
 uniform float uSaturation;
 uniform float uLightness;
 
 void main() {
-	vec3 color = hsv2rgb(vec3(convertRange(vec2(uMin, uMax), vec2(uMinRange, uMaxRange), uMagnitude), uSaturation, uLightness));
+	float value = clamp(convertRange(uBound, uColorRange, uMagnitude), 0.0, 1.0);
+	vec3 color = hsv2rgb(vec3(value, uSaturation, uLightness));
 	gl_FragColor = vec4(color, 1.0);
 }

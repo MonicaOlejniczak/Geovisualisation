@@ -55,21 +55,17 @@ define(function (require) {
 	 *
 	 * @param material The new material for the point.
 	 * @param colors The colours used with the material.
-	 * @param min The global min value of all points.
-	 * @param max The global max value of all points.
+	 * @param bound The global min and max values of all points.
+	 * @param colorRange The minimum and maximum HSV colour range for the point.
 	 */
-	Point.prototype.updateMaterial = function (material, colors, min, max) {
-		// Obtain the mesh and update its material.
-		var mesh = this.mesh;
-		mesh.material = material;
+	Point.prototype.updateMaterial = function (material, colors, bound, colorRange) {
+		material = material.clone();
 		// Update the uniforms of the material.
-		mesh.material.uniforms = {
-			uMin: {type: 'f', value: min},
-			uMax: {type: 'f', value: max},
+		material.uniforms = {
+			uBound: {type: 'v2', value: bound},
 			// Basic shader uniforms.
 			uMagnitude: {type: 'f', value: this.magnitude},
-			uMinRange: {type: 'f', value: 0.15},
-			uMaxRange: {type: 'f', value: 0.5},
+			uColorRange: {type: 'v2', value: colorRange},
 			uSaturation: {type: 'f', value: 1.0},
 			uLightness: {type: 'f', value: 1.0},
 			// Gradient shader uniforms.
@@ -77,6 +73,8 @@ define(function (require) {
 			uMediumColor: {type: 'c', value: colors.medium},
 			uHighColor: {type: 'c', value: colors.high}
 		};
+		// Obtain the mesh and update its material.
+		this.mesh.material = material;
 	};
 
 	/**

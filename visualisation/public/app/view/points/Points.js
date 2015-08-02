@@ -24,11 +24,17 @@ define(function (require) {
 		this._min = this._max = 0;
 
 		// Set the width and height of the points.
-		this._width = options.width || 0.5;
-		this._height = options.height || 0.5;
+		this._width = options.width || 2;
+		this._height = options.height || 2;
+
+		// Set the min and max HSV colour range.
+		this.colorRange = {
+			bound: new THREE.Vector2(0, 1),
+			range: new THREE.Vector2(0.15, 0.6)
+		};
 
 		// Set the colors to be used with the points.
-		this._colors = {
+		this.colors = {
 			low: new THREE.Color(0xffe900),
 			medium: new THREE.Color(0xff8c00),
 			high: new THREE.Color(0xb51212)
@@ -66,16 +72,16 @@ define(function (require) {
 	Points.prototype.update = function (target, projection) {
 		var parent = new THREE.Mesh();
 		var points = this._points;
-		var colors = this._colors;
-		var min = this._min;
-		var max = this._max;
+		var colors = this.colors;
+		var bound = new THREE.Vector2(this._min, this._max);
+		var colorRange = this.colorRange.range;
 		// Load the shader before iterating through each point.
 		new Shader(this._shaderPath).then(function (material) {
 			// Iterate through each point.
 			for (var i = 0, len = points.length; i < len; i++) {
 				var point = points[i];
 				// Update the material and position of the point.
-				point.updateMaterial(material, colors, min, max);
+				point.updateMaterial(material, colors, bound, colorRange);
 				point.updatePosition(target, projection);
 				// Add the point to the parent mesh.
 				parent.add(point.mesh);

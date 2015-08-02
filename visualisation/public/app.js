@@ -21,18 +21,9 @@
 	});
 
 	// Start the main app logic.
-	requirejs(['jquery', 'view/heatmap/RoundHeatMap'], function ($, FlatHeatMap) {
-		var gui = new dat.GUI();
+	requirejs(['jquery', 'view/heatmap/RoundHeatMap', 'view/Gui'], function ($, FlatHeatMap, Gui) {
 		var heatMap = new FlatHeatMap($('#visualisation'));
-		$(heatMap.surface).on({
-			load: function (event, material) {
-				var uniforms = material.uniforms;
-				gui.add(uniforms.uRedShift, 'value', -100, 100).name('Red');
-				gui.add(uniforms.uGreenShift, 'value', -100, 100).name('Green');
-				gui.add(uniforms.uBlueShift, 'value', -100, 100).name('Blue');
-			}
-		});
-
+		var gui = new Gui(heatMap);
 	});
 
 }());

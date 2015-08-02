@@ -40,6 +40,11 @@ define(function (require) {
 		);
 	};
 
+	Convert.convertRange = function (origin, target, value) {
+		var ratio = (target.y - target.x) / (origin.y - origin.x);
+		return (value - origin.x) * ratio + target.x;
+	};
+
 	/**
 	 * Calculates the texture coordinates for the geometry. This function has the option of replacing the geometry's
 	 * current texture coordinates.

@@ -29,6 +29,7 @@ define(function (require) {
 		var scene = renderer.getScene();
 		this._setupScene(scene, renderer.getCamera(), surface.mesh);
 		this.surface = surface;
+		this.points = new Points();
 		// Load the data from the test file and render the scene.
 		Data.load('app/data/generate.js', this.processData.bind(this, scene, projection));
 		renderer.render();
@@ -73,7 +74,7 @@ define(function (require) {
 	 */
 	HeatMap.prototype.processData = function (scene, projection, data) {
 		projection = projection || function () {};
-		var points = new Points();
+		var points = this.points;
 		// Iterates through the data and add the points.
 		for (var i = 0, len = data.length; i < len; i++) {
 			points.addPoint(data[i]);

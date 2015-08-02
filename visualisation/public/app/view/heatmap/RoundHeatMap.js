@@ -21,7 +21,7 @@ define(function (require) {
 		var surface = new RoundSurface();
 		var projection = new Projection(Projection.spherical, {radius: surface.radius});
 		HeatMap.call(this, canvas, surface, projection, {
-			camera: {position: new THREE.Vector3(0, 100, 200)},
+			camera: {position: new THREE.Vector3(0, 100, 800)},
 			mouseControls: true
 		});
 	}

@@ -16,9 +16,10 @@ define(function (require) {
 	 * @constructor
 	 */
 	function RoundSurface (radius) {
-		Surface.call(this, new THREE.SphereGeometry(1, 32, 32));
-		this.radius = radius || this.size * 0.25;
+		Surface.call(this, new THREE.SphereGeometry(1, 40, 30));
+		//this.radius = radius || this.size * 0.25;
 		this.clouds = this._baseDirectory + 'clouds.png';
+		this.radius = radius || this.size;
 		this._atmosphere = {
 			source: 'atmosphere/Atmosphere',
 			color: new THREE.Color(0x3178a6)
@@ -38,7 +39,7 @@ define(function (require) {
 	RoundSurface.prototype._onLoad = function () {
 		var mesh = this.mesh;
 		var surface = mesh.children[0];
-		var geometry = this._geometry;
+		var geometry = surface.geometry;
 		// Scale the surface to its radius.
 		surface.scale.set(this.radius, this.radius, this.radius);
 		// Update the surface position uniform for the surface material.
@@ -59,6 +60,8 @@ define(function (require) {
 	RoundSurface.prototype._addClouds = function (object, geometry) {
 		// Load the cloud texture
 		var texture = THREE.ImageUtils.loadTexture(this.clouds);
+		texture.minFilter = THREE.LinearFilter;
+		texture.magFilter = THREE.LinearFilter;
 		// Load the material with the texture.
 		var material = new THREE.MeshBasicMaterial({
 			map: texture,
@@ -67,7 +70,7 @@ define(function (require) {
 		// Create the mesh with the geometry and material.
 		var mesh = new THREE.Mesh(geometry, material);
 		// Scale the mesh to prevent z-fighting.
-		var scale = 1.01;
+		var scale = 1.005;
 		mesh.scale.set(scale, scale, scale);
 		object.add(mesh);
 	};
@@ -92,7 +95,7 @@ define(function (require) {
 			material.transparent = true;
 			var mesh = new THREE.Mesh(geometry, material);
 			// Scale the mesh to prevent z-fighting and add it to the object.
-			var scale = this.radius * 1.15;
+			var scale = this.radius * 1.175;
 			mesh.scale.set(scale, scale, scale);
 			object.add(mesh);
 		}.bind(this));
