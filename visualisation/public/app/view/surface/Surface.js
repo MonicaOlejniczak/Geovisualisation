@@ -6,7 +6,7 @@ define(function (require) {
 	'use strict';
 
 	var THREE = require('threejs');
-	var Shader = require('util/Shader');
+	var Shader = require('helper/Shader');
 
 	/**
 	 * Initialises the surface.
@@ -15,11 +15,15 @@ define(function (require) {
 	 * @constructor
 	 */
 	function Surface (geometry) {
-		this.source = 'assets/images/earth.jpg';
+		this._baseDirectory = 'assets/images/earth/';
+		this.source = this._baseDirectory + 'earth.jpg';
+
 		this.size = 250;
 		this.color = new THREE.Color(0x222222);
 		this.aspectRatio = 1;
-		this.mesh = this._createMesh(geometry);
+		this._geometry = geometry;
+		this.mesh = new THREE.Mesh();
+		this.mesh.add(this._createMesh(geometry));
 	}
 
 	Surface.prototype.constructor = Surface;
@@ -65,12 +69,12 @@ define(function (require) {
 	 */
 	Surface.prototype._createTexture = function (mesh) {
 		// Load the texture using the source file stored in the ground instance variable.
-		var map = THREE.ImageUtils.loadTexture(this.source, THREE.UVMapping, this._onTextureLoad.bind(this, mesh));
+		var texture = THREE.ImageUtils.loadTexture(this.source, THREE.UVMapping, this._onTextureLoad.bind(this, mesh));
 		// Set the min and mag filter to linear for textures that are not a power of 2.
-		map.minFilter = THREE.LinearFilter;
-		map.magFilter = THREE.LinearFilter;
+		texture.minFilter = THREE.LinearFilter;
+		texture.magFilter = THREE.LinearFilter;
 		// Return the texture.
-		return map;
+		return texture;
 	};
 
 	/**

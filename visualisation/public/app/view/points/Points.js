@@ -7,7 +7,7 @@ define(function (require) {
 
 	var THREE = require('threejs');
 	var Point = require('view/points/point/Point');
-	var Shader = require('util/Shader');
+	var Shader = require('helper/Shader');
 
 	/**
 	 * Initialises the points.
@@ -60,10 +60,10 @@ define(function (require) {
 	 * Updates each point with the correct material and position.
 	 *
 	 * @param target The target vector for the point to look at.
-	 * @param offset The offset y-position value for the point.
+	 * @param [projection] The projection function for the point.
 	 * @returns {THREE.Mesh}
 	 */
-	Points.prototype.update = function (target, offset) {
+	Points.prototype.update = function (target, projection) {
 		var parent = new THREE.Mesh();
 		var points = this._points;
 		var colors = this._colors;
@@ -76,7 +76,7 @@ define(function (require) {
 				var point = points[i];
 				// Update the material and position of the point.
 				point.updateMaterial(material, colors, min, max);
-				point.updatePosition(target, offset);
+				point.updatePosition(target, projection);
 				// Add the point to the parent mesh.
 				parent.add(point.mesh);
 			}

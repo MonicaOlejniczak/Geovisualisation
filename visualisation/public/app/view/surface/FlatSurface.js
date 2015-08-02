@@ -31,12 +31,13 @@ define(function (require) {
 	 */
 	FlatSurface.prototype._onLoad = function () {
 		var mesh = this.mesh;
+		var surface = mesh.children[0];
 		// Scale the size of the mesh to match the aspect ratio of the image.
 		mesh.scale.set(this.size * this.aspectRatio, this.height, this.size);
 		// Set the position of the mesh so that it is below the data points.
 		mesh.position.setY(this.height * 0.5);
 		// Update the surface position uniform for the surface material.
-		mesh.material.uniforms['uSurfacePosition'] = {type: 'f', value: mesh.geometry.heightSegments * 0.5};
+		surface.material.uniforms['uSurfacePosition'] = {type: 'f', value: surface.geometry.heightSegments * 0.5};
 	};
 
 	return FlatSurface;

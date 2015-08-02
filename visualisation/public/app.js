@@ -21,9 +21,9 @@
 	});
 
 	// Start the main app logic.
-	requirejs(['jquery', 'view/HeatMap'], function ($, HeatMap) {
+	requirejs(['jquery', 'view/heatmap/RoundHeatMap'], function ($, FlatHeatMap) {
 		var gui = new dat.GUI();
-		var heatMap = new HeatMap($('#visualisation'));
+		var heatMap = new FlatHeatMap($('#visualisation'));
 		$(heatMap.surface).on({
 			load: function (event, material) {
 				var uniforms = material.uniforms;

@@ -7,8 +7,6 @@ define(function (require) {
 
 	function Light () {}
 
-	Light.prototype.constructor = Light;
-
 	/**
 	 * Creates and returns a directional light given the options.
 	 *

@@ -9,6 +9,8 @@ define(function (require) {
 	var THREE = require('threejs');
 	var Viewport = require('Viewport');
 
+	var Convert = require('util/Convert');
+
 	/**
 	 * Initialises the mouse controls.
 	 *
@@ -22,7 +24,7 @@ define(function (require) {
 		this._camera = camera;
 		this._element = element;
 		// Assign the boundary values.
-		this.epsilon = 1e-4;
+		this._epsilon = 1e-4;
 		this.minCameraHeight = 1;
 		this.minPolarAngle = 0;
 		this.maxPolarAngle = Math.PI * 0.45;
@@ -114,13 +116,9 @@ define(function (require) {
 		var theta = thetaDelta + Math.atan2(position.x, position.z);
 		var phi = phiDelta + Math.atan2(Math.sqrt(position.x * position.x + position.z * position.z), position.y);
 		// Clamp the elevation angle so it is between its minimum and maximum polar angle boundary.
-		phi = Math.min(this.maxPolarAngle - this.epsilon, Math.max(this.minPolarAngle + this.epsilon, phi));
-		// Apply the position to the camera using spherical coordinates - https://en.wikipedia.org/wiki/Spherical_coordinate_system.
-		this._camera.position.copy(this.origin).add(new THREE.Vector3(
-			radius * Math.sin(phi) * Math.sin(theta),
-			radius * Math.cos(phi),
-			radius * Math.sin(phi) * Math.cos(theta)
-		));
+		phi = Math.min(this.maxPolarAngle - this._epsilon, Math.max(this.minPolarAngle + this._epsilon, phi));
+		// Apply the position to the camera.
+		this._camera.position.copy(this.origin).add(Convert.sphericalToCartesian(radius, theta, phi));
 		// Ensure the camera is facing the origin.
 		this._camera.lookAt(this.origin);
 	};

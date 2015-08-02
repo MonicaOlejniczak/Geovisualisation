@@ -28,6 +28,7 @@ define(function (require) {
 		// Create the geometry and compute its bounding box.
 		var transform = Convert.transform(this.width, this.height, this.magnitude);
 		var geometry = new THREE.BoxGeometry(transform.x, transform.y, transform.z);
+		geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, this.magnitude * 0.5, 0));
 		geometry.computeBoundingBox();
 
 		// Obtain the bounding box of the geometry and set the min and max values.
@@ -83,15 +84,17 @@ define(function (require) {
 	 * the position and y-position of the mesh so that it is above the offset.
 	 *
 	 * @param target The target vector to look at.
-	 * @param offset The offset y-value.
+	 * @param [projection] The projection callback function.
 	 */
-	Point.prototype.updatePosition = function (target, offset) {
-		var mesh = this.mesh;
+	Point.prototype.updatePosition = function (target, projection) {
+		var point = this.mesh;
 		var position = this.position;
 
-		mesh.lookAt(target);
-		mesh.position.set(position.x, position.y, position.z);
-		mesh.position.setY(Math.abs(mesh.position.y) * 0.5 + offset);
+		point.position.set(position.x, position.y, position.z);
+		if (projection) {
+			projection.project.call(projection, point, target);
+		}
+
 	};
 
 	return Point;
