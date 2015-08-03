@@ -18,7 +18,11 @@ define(function (require) {
 		if (url.split('\.')[1] === 'js') {
 			// Require the javascript file and use its data
 			require([url], function (generateData) {
-				callback.call(this, generateData(100, 200, 200));
+				var x = new THREE.Vector2(-200, 200);
+				var y = new THREE.Vector2(-100, 100);
+				var z = new THREE.Vector2(0, 100);
+				var bound = new THREE.Vector3(x, y, z);
+				callback.call(this, generateData(100, bound));
 			}.bind(this));
 		} else {
 			// Make an asynchronous ajax request to retrieve the data from the specified url.

@@ -21,6 +21,7 @@
 	});
 
 	// Start the main app logic.
+	//requirejs(['jquery', 'view/heatmap/FlatHeatMap', 'view/Gui'], function ($, FlatHeatMap, Gui) {
 	requirejs(['jquery', 'view/heatmap/RoundHeatMap', 'view/Gui'], function ($, FlatHeatMap, Gui) {
 		var heatMap = new FlatHeatMap($('#visualisation'));
 		var gui = new Gui(heatMap);
