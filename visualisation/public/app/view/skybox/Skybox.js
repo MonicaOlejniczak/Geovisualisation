@@ -11,28 +11,43 @@ define(function (require) {
 	/**
 	 * Initialises the skybox.
 	 *
+	 * @param camera The main camera.
 	 * @constructor
 	 */
-	function Skybox () {
-		this._baseDirectory = 'assets/images/skybox/';
+	function Skybox (camera) {
+		this._baseDirectory = 'assets/images/skybox/space/';
+		this._fileExtension = '.png';
 
-		var map = THREE.ImageUtils.loadTextureCube([
-			this._baseDirectory + '1.jpg',
-			this._baseDirectory + '1.jpg',
-			this._baseDirectory + '1.jpg',
-			this._baseDirectory + '1.jpg',
-			this._baseDirectory + '1.jpg',
-			this._baseDirectory + '1.jpg'
-		]);
+		var urls = [
+			this._baseDirectory + 'right' + this._fileExtension, // pos x
+			this._baseDirectory + 'left' + this._fileExtension, // neg x
+			this._baseDirectory + 'top' + this._fileExtension, // pos y
+			this._baseDirectory + 'bottom' + this._fileExtension, // neg y
+			this._baseDirectory + 'back' + this._fileExtension, // pos z
+			this._baseDirectory + 'front' + this._fileExtension // neg z
+		];
 
-		var size = 2500;
-		var geometry = new THREE.BoxGeometry(size, size, size);
-		var material = new THREE.MeshBasicMaterial({
-			envMap: map,
-			side: THREE.BackSide
-		});
+		var materials = [];
+		for (var i = 0, len = urls.length; i < len; i++) {
+			var texture = THREE.ImageUtils.loadTexture(urls[i]);
+			materials.push(new THREE.MeshBasicMaterial({
+				side: THREE.BackSide,
+				map: texture
+			}));
+		}
+
+		var size = this.size = 5000;
+		var geometry = new THREE.BoxGeometry(1, 1, 1);
+		var material = new THREE.MeshFaceMaterial(materials);
 		this.mesh = new THREE.Mesh(geometry, material);
+		this.mesh.scale.set(size, size, size);
+		this.mesh.rotateX(Math.PI * 0.5);
+		this.mesh.position.copy(camera.position);
 	}
+
+	Skybox.prototype.updatePosition = function (position) {
+		this.mesh.position.copy(position);
+	};
 
 	Skybox.prototype.constructor = Skybox;
 

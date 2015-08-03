@@ -61,7 +61,7 @@ define(function (require) {
 		}
 		// Check if the mouse controls are enabled.
 		if (options.mouseControls) {
-			new MouseControls(camera, element);
+			this.controls = new MouseControls(camera, element);
 		}
 	}
 
@@ -79,9 +79,6 @@ define(function (require) {
 		var height = Viewport.getHeight();
 		// Check if the current size differs from the previous.
 		if (canvas.width != width || canvas.height != height) {
-			// Make the canvas the same size.
-			canvas.width = width;
-			canvas.height = height;
 			// Update the camera aspect ratio, fov and the renderer size to match the new size.
 			camera.aspect = width / height;
 			camera.fov = (360 / Math.PI) * Math.atan(this._tanFOV * (height / this._viewportHeight));

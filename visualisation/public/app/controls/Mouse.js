@@ -73,6 +73,7 @@ define(function (require) {
 			this._camera.position.copy(position);
 			this._camera.position.setY(this.minCameraHeight);
 		}
+		$(this).trigger('zoom', this._camera.position);
 	};
 
 	/**
@@ -96,6 +97,7 @@ define(function (require) {
 		this._camera.translateY(position.y);
 		this._camera.position.setY(Math.max(this.minCameraHeight, this._camera.position.y));
 		this.origin.add(this._camera.position.clone().sub(cameraPosition));
+		$(this).trigger('pan', this._camera.position);
 	};
 
 	/**
@@ -121,6 +123,7 @@ define(function (require) {
 		this._camera.position.copy(this.origin).add(Convert.sphericalToCartesian(radius, theta, phi));
 		// Ensure the camera is facing the origin.
 		this._camera.lookAt(this.origin);
+		$(this).trigger('rotate', this._camera.position);
 	};
 
 	/**

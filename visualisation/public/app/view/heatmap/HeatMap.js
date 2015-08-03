@@ -25,11 +25,16 @@ define(function (require) {
 	 */
 	function HeatMap (canvas, surface, projection, options) {
 		var renderer = new SceneRenderer(canvas.get(0), options);
-		var skybox = new Skybox();
-		// Setup the scene.
 		var scene = renderer.getScene();
+		var skybox = new Skybox(renderer.getCamera());
+		// Add the renderer events.
+		$(renderer.controls).on({
+			zoom: this._onZoom.bind(this, skybox),
+			pan: this._onPan.bind(this, skybox),
+			rotate: this._onRotate.bind(this, skybox)
+		});
+		// Setup the scene.
 		this._setupScene(scene, renderer.getCamera(), surface.mesh, skybox.mesh);
-		this.skybox = skybox;
 		this.surface = surface;
 		this.points = new Points();
 		// Load the data from the test file and render the scene.
@@ -38,6 +43,18 @@ define(function (require) {
 	}
 
 	HeatMap.prototype.constructor = HeatMap;
+
+	HeatMap.prototype._onRotate = function (skybox, event, position) {
+		skybox.updatePosition(position);
+	};
+
+	HeatMap.prototype._onZoom = function (skybox, event, position) {
+		skybox.updatePosition(position);
+	};
+
+	HeatMap.prototype._onPan = function (skybox, event, position) {
+		skybox.updatePosition(position);
+	};
 
 	/**
 	 * Sets up the scene by adding the lights and ground.
