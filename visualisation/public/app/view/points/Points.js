@@ -40,8 +40,14 @@ define(function (require) {
 			high: new THREE.Color(0xb51212)
 		};
 
+		this.Mode = {
+			BASIC: 0,
+			GRADIENT: 1
+		};
+		this.mode = this.Mode.BASIC;
+
 		// Set the shader path.
-		this._shaderPath = options.shaderPath || 'basic/Basic';
+		this._shaderPath = options.shaderPath || 'data/hybrid/Hybrid';
 
 	}
 
@@ -72,6 +78,7 @@ define(function (require) {
 	Points.prototype.update = function (target, projection) {
 		var parent = new THREE.Mesh();
 		var points = this._points;
+		var mode = this.mode;
 		var colors = this.colors;
 		var bound = new THREE.Vector2(this._min, this._max);
 		var colorRange = this.colorRange.range;
@@ -81,7 +88,7 @@ define(function (require) {
 			for (var i = 0, len = points.length; i < len; i++) {
 				var point = points[i];
 				// Update the material and position of the point.
-				point.updateMaterial(material, colors, bound, colorRange);
+				point.updateMaterial(material, mode, colors, bound, colorRange);
 				point.updatePosition(target, projection);
 				// Add the point to the parent mesh.
 				parent.add(point.mesh);

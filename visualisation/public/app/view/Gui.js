@@ -65,6 +65,18 @@ define(function (require) {
 	};
 
 	/**
+	 * An event that triggers when the user selects a new atmosphere colour.
+	 *
+	 * @param atmosphere The atmosphere object.
+	 * @param color The new colour of the atmosphere.
+	 * @private
+	 */
+	Gui.prototype._onAtmosphere = function (atmosphere, color) {
+		var material = atmosphere.material;
+		material.uniforms['uColor'].value = this._convertColor(color);
+	};
+
+	/**
 	 * Configures the points.
 	 *
 	 * @param gui The GUI controls.
@@ -72,8 +84,13 @@ define(function (require) {
 	 * @private
 	 */
 	Gui.prototype._configurePoints = function (gui, points) {
+		gui.add(points, 'mode', points.Mode).name('Mode').onChange(this._onMode.bind(this, points));
 		this._configureBasicShader(gui, points);
 		this._configureGradientShader(gui, points);
+	};
+
+	Gui.prototype._onMode = function (points, value) {
+		this._configurePointUniforms(points, 'uMode', value);
 	};
 
 	/**
@@ -123,24 +140,19 @@ define(function (require) {
 	/**
 	 * Configures a color given the objects, color and uniform key.
 	 *
-	 * @param objects The list of objects that contain a mesh.
-	 * @param color The new colour of the objects.
+	 * @param points The list of points.
 	 * @param key The key for the material uniform.
+	 * @param value The new value of the material uniform.
 	 * @private
 	 */
-	Gui.prototype._configureColor = function (objects, color, key) {
-		// Convert the colour to a THREE.js colour.
-		color = this._convertColor(color);
-		// Iterate through each object and update their shader material uniform.
-		$(objects).each(function (index, object) {
-			var material = object.mesh.material;
-			material.uniforms[key].value = color;
-		}, this);
-	};
-
-	Gui.prototype._onAtmosphere = function (atmosphere, color) {
-		var material = atmosphere.material;
-		material.uniforms['uColor'].value = this._convertColor(color);
+	Gui.prototype._configurePointUniforms = function (points, key, value) {
+		points = points._points;
+		// Iterate through each point and update their shader material uniform.
+		for (var i = 0, len = points.length; i < len; i++) {
+			var point = points[i];
+			var material = point.mesh.material;
+			material.uniforms[key].value = value;
+		}
 	};
 
 	/**
@@ -151,7 +163,8 @@ define(function (require) {
 	 * @private
 	 */
 	Gui.prototype._onLowColor = function (points, color) {
-		this._configureColor(points._points, color, 'uLowColor');
+		color = this._convertColor(color);
+		this._configurePointUniforms(points, 'uLowColor', color);
 	};
 
 	/**
@@ -162,7 +175,8 @@ define(function (require) {
 	 * @private
 	 */
 	Gui.prototype._onMediumColor = function (points, color) {
-		this._configureColor(points._points, color, 'uMediumColor');
+		color = this._convertColor(color);
+		this._configurePointUniforms(points, 'uMediumColor', color);
 	};
 
 	/**
@@ -173,7 +187,8 @@ define(function (require) {
 	 * @private
 	 */
 	Gui.prototype._onHighColor = function (points, color) {
-		this._configureColor(points._points, color, 'uHighColor');
+		color = this._convertColor(color);
+		this._configurePointUniforms(points, 'uHighColor', color);
 	};
 
 	/**

@@ -54,14 +54,17 @@ define(function (require) {
 	 * Updates the material and the associated uniforms of the point;
 	 *
 	 * @param material The new material for the point.
+	 * @param mode The shader to use for displaying the data.
 	 * @param colors The colours used with the material.
 	 * @param bound The global min and max values of all points.
 	 * @param colorRange The minimum and maximum HSV colour range for the point.
 	 */
-	Point.prototype.updateMaterial = function (material, colors, bound, colorRange) {
+	Point.prototype.updateMaterial = function (material, mode, colors, bound, colorRange) {
 		material = material.clone();
 		// Update the uniforms of the material.
 		material.uniforms = {
+			uMode: {type: 'i', value: mode},
+			// Shared uniforms.
 			uBound: {type: 'v2', value: bound},
 			// Basic shader uniforms.
 			uMagnitude: {type: 'f', value: this.magnitude},
