@@ -19,7 +19,7 @@ define(function (require) {
 		Surface.call(this, new THREE.SphereGeometry(1, 40, 30));
 		//this.radius = radius || this.size * 0.25;
 		this.clouds = this._baseDirectory + 'clouds.png';
-		this.radius = radius || this.size;
+		this.radius = radius || this.size * 0.5;
 		this._atmosphere = {
 			source: 'atmosphere/Atmosphere',
 			color: new THREE.Color(0x08376b)
@@ -60,8 +60,8 @@ define(function (require) {
 	RoundSurface.prototype._addClouds = function (object, geometry) {
 		// Load the cloud texture
 		var texture = THREE.ImageUtils.loadTexture(this.clouds);
-		texture.minFilter = THREE.LinearFilter;
-		texture.magFilter = THREE.LinearFilter;
+		texture.minFilter = THREE.NearestMipMapLinearFilter;
+		texture.magFilter = THREE.NearestMipMapLinearFilter;
 		// Load the material with the texture.
 		var material = new THREE.MeshBasicMaterial({
 			map: texture,

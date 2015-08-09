@@ -1,0 +1,5 @@
+#!/bin/sh
+
+node node_modules\intern\bin\intern-client config=tests/intern
+
+#http://localhost:63342/Visualisation/node_modules/intern/client.html?config=tests/intern

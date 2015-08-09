@@ -81,7 +81,7 @@ define(function (require) {
 	 */
 	HeatMap.prototype._createLights = function () {
 		return LightHelper.createPointLight({
-			position: new THREE.Vector3(0, 10, 0)
+			position: new THREE.Vector3(0, 100, 300)
 		});
 	};
 

@@ -24,8 +24,8 @@ define(function (require) {
 		this._min = this._max = 0;
 
 		// Set the width and height of the points.
-		this._width = options.width || 2;
-		this._height = options.height || 2;
+		this._width = options.width || 1;
+		this._height = options.height || 1;
 
 		// Set the min and max HSV colour range.
 		this.colorRange = {

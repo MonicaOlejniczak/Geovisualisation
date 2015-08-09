@@ -21,15 +21,25 @@ define(function (require) {
 	 * @returns {THREE.Color}
 	 */
 	Color.generate = function (blend) {
-		var red = Math.random();
-		var green = Math.random();
-		var blue = Math.random();
+		var color = new THREE.Color(Math.random(), Math.random(), Math.random());
 		if (blend != null) {
-			red = (red + blend.r) * 0.5;
-			green = (green + blend.g) * 0.5;
-			blue = (blue + blend.b) * 0.5;
+			color = Color.blend(color, blend);
 		}
-		return new THREE.Color(red, green, blue);
+		return color;
+	};
+
+	/**
+	 * Blends a colour with another.
+	 *
+	 * @param color The colour to be blended.
+	 * @param blend The colour to blend with the original colour.
+	 * @returns {*}
+	 */
+	Color.blend = function (color, blend) {
+		color.r = (color.r + blend.r) * 0.5;
+		color.g = (color.g + blend.g) * 0.5;
+		color.b = (color.b + blend.b) * 0.5;
+		return color;
 	};
 
 	/**

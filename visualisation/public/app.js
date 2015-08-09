@@ -12,8 +12,7 @@
 		paths: {
 			jquery: '../bower_components/jquery/dist/jquery',
 			text: '../bower_components/text/text',
-			threejs: '../bower_components/threejs/build/three',
-			orbitcontrols: '../bower_components/threejs/build/orbit-controls'
+			threejs: '../bower_components/threejs/build/three'
 		},
 		shim: {
 			threejs: {exports: 'THREE'}
