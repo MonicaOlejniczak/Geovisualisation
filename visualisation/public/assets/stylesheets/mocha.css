@@ -1,0 +1,44 @@
+#mocha {
+  font-family: 'Open sans', 'sans-serif';
+}
+#mocha #mocha-report {
+  border: 1px #dedede solid;
+}
+#mocha #mocha-report .suite {
+  margin: 0;
+}
+#mocha #mocha-report .suite h1 {
+  background-color: #87cbcc;
+  font-weight: bold;
+  padding: 0.5em;
+  margin: 0;
+}
+#mocha #mocha-report .suite .test {
+  margin: 0;
+}
+#mocha #mocha-report .suite .test::before,
+#mocha #mocha-report .suite .test h2 {
+  padding: 0.5em 0;
+}
+#mocha #mocha-report .suite .test.pass::before,
+#mocha #mocha-report .suite .test.fail::before {
+  width: 50px;
+  text-align: center;
+}
+#mocha #mocha-report .suite .test.pass::before {
+  content: '✔';
+  background-color: #c5efc6;
+  border-right: 1px #81db83 solid;
+}
+#mocha #mocha-report .suite .test.fail::before {
+  content: '✖';
+  background-color: #fbc2c9;
+  border-right: 1px #f78d99 solid;
+}
+#mocha #mocha-report .suite .suite {
+  border: 1px #87cbcc solid;
+  margin: 1em;
+}
+#mocha #mocha-report .suite .suite h1 {
+  background-color: #c3e5e5;
+}

@@ -1,0 +1,120 @@
+#mocha {
+
+	@border: 1px #dedede solid;
+
+	font-family: 'Open sans', 'sans-serif';
+
+	//#mocha-stats {
+	//
+	//	@background-color: #fefefe;
+	//	@height: 80px;
+	//
+	//	position: inherit;
+	//	display: block;
+	//	height: @height;
+	//	margin: 0 auto 3em auto;
+	//
+	//	@li-margin: 0.1em;
+	//
+	//	li {
+	//
+	//		width: (100% / 4.1) - (@li-margin * 3);
+	//		height: 100%;
+	//		margin: 0;
+	//		padding: 0;
+	//
+	//		&.passes, &.failures, &.duration {
+	//			background: @background-color;
+	//			font-size: 2em;
+	//			text-align: center;
+	//			line-height: @height;
+	//			border: @border;
+	//		}
+	//
+	//		&.failures, &.duration {
+	//			margin-left: @li-margin;
+	//		}
+	//
+	//		&.progress {
+	//
+	//			text-align: center;
+	//
+	//			canvas {
+	//				width: inherit;
+	//				height: inherit;
+	//			}
+	//
+	//		}
+	//
+	//	}
+	//
+	//}
+
+	#mocha-report {
+
+		@success-background-color: #c5efc6;
+		@success-color: #81db83;
+
+		@fail-background-color: #fbc2c9;
+		@fail-color: #f78d99;
+
+		border: @border;
+
+		.suite {
+
+			@heading-background-color: #87cbcc;
+			@heading-child-background-color: #c3e5e5;
+			@child-border: 1px @heading-background-color solid;
+
+			margin: 0;
+
+			h1 {
+				background-color: @heading-background-color;
+				font-weight: bold;
+				padding: 0.5em;
+				margin: 0;
+			}
+
+			.test {
+
+				margin: 0;
+
+				&::before, h2 {
+					padding: 0.5em 0;
+				}
+
+				&.pass::before, &.fail::before {
+					width: 50px;
+					text-align: center;
+				}
+
+				&.pass::before {
+					content: '✔';
+					background-color: @success-background-color;
+					border-right: 1px @success-color solid;
+				}
+
+				&.fail::before {
+					content: '✖';
+					background-color: @fail-background-color;
+					border-right: 1px @fail-color solid;
+				}
+
+			}
+
+			.suite {
+
+				border: @child-border;
+				margin: 1em;
+
+				h1 {
+					background-color: @heading-child-background-color;
+				}
+
+			}
+
+		}
+
+	}
+
+}
