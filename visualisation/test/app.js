@@ -25,7 +25,9 @@
 	mocha.setup('bdd');
 
 	require([
-		'test/unit/ColorTest'
+		'test/unit/util/ColorTest',
+		'test/unit/util/ConvertTest',
+		'test/unit/helper/LightTest'
 	], function () {
 		mocha.run();
 	});

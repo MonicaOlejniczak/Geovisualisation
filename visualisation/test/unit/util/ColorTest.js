@@ -11,28 +11,12 @@ define(function (require) {
 
 		var color;
 
-		after(function () {
-
-			expect(color).to.be.an.instanceof(THREE.Color);
-
-			expect(color.r).to.be.within(0, 1);
-			expect(color.g).to.be.within(0, 1);
-			expect(color.b).to.be.within(0, 1);
-
-		});
-
 		describe('the generate method', function () {
 
 			var generate;
 
-			after(function () {
-
-				expect(generate).to.be.an.instanceof(THREE.Color);
-
-				expect(color.r).to.not.equal(generate.r);
-				expect(color.g).to.not.equal(generate.g);
-				expect(color.b).to.not.equal(generate.b);
-
+			afterEach(function () {
+				expect(color).to.not.eql(generate);
 			});
 
 			it('should generate a random color', function () {
@@ -46,17 +30,11 @@ define(function (require) {
 
 			var blend;
 
-			after(function () {
-
-				expect(blend).to.be.an.instanceof(THREE.Color);
+			afterEach(function () {
 
 				expect(color.r).to.be.closeTo(blend.r, 0.1);
 				expect(color.g).to.be.closeTo(blend.g, 0.1);
 				expect(color.b).to.be.closeTo(blend.b, 0.1);
-
-				expect(blend.r).to.be.within(0, 1);
-				expect(blend.g).to.be.within(0, 1);
-				expect(blend.b).to.be.within(0, 1);
 
 			});
 
@@ -86,18 +64,8 @@ define(function (require) {
 
 			var luminance;
 
-			after(function () {
-
-				expect(luminance).to.be.an.instanceof(THREE.Color);
-
-				expect(color.r).to.equal(luminance.r);
-				expect(color.g).to.equal(luminance.g);
-				expect(color.b).to.equal(luminance.b);
-
-				expect(luminance.r).to.be.within(0, 1);
-				expect(luminance.g).to.be.within(0, 1);
-				expect(luminance.b).to.be.within(0, 1);
-
+			afterEach(function () {
+				expect(color).to.eql(luminance);
 			});
 
 			it('should not change the colour when the luminance is 0', function () {
@@ -105,12 +73,12 @@ define(function (require) {
 				luminance = new THREE.Color(0xffffff);
 			});
 
-			it('should darken a color', function () {
+			it('should darken a colour', function () {
 				color = Color.luminance(new THREE.Color(0xffffff), -1);
 				luminance = new THREE.Color(0x000000);
 			});
 
-			it('should lighten a color', function () {
+			it('should lighten a colour', function () {
 				color = Color.luminance(new THREE.Color(0x000000), 1);
 				luminance = new THREE.Color(0xffffff);
 			});

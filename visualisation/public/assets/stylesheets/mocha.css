@@ -1,15 +1,36 @@
 #mocha {
   font-family: 'Open sans', 'sans-serif';
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+#mocha #mocha-stats {
+  position: inherit;
+  display: block;
+  height: 30px;
+  margin: 0 auto 3em auto;
+}
+#mocha #mocha-stats li {
+  float: right;
+  padding: 0;
+}
+#mocha #mocha-stats li.passes,
+#mocha #mocha-stats li.failures,
+#mocha #mocha-stats li.duration {
+  margin-top: 1em;
 }
 #mocha #mocha-report {
   border: 1px #dedede solid;
+  border-radius: 0.25em;
 }
 #mocha #mocha-report .suite {
+  border-radius: 0.25em;
   margin: 0;
 }
 #mocha #mocha-report .suite h1 {
   background-color: #87cbcc;
   font-weight: bold;
+  border-top-left-radius: 0.25em;
+  border-top-right-radius: 0.25em;
   padding: 0.5em;
   margin: 0;
 }

@@ -1,35 +1,40 @@
 #mocha {
 
 	@border: 1px #dedede solid;
+	@margin: 1em;
 
 	font-family: 'Open sans', 'sans-serif';
+	margin-top: @margin;
+	margin-bottom: @margin;
 
-	//#mocha-stats {
+	#mocha-stats {
 	//
 	//	@background-color: #fefefe;
-	//	@height: 80px;
-	//
-	//	position: inherit;
-	//	display: block;
-	//	height: @height;
-	//	margin: 0 auto 3em auto;
+		@height: 30px;
+
+		position: inherit;
+		display: block;
+		height: @height;
+		margin: 0 auto 3em auto;
 	//
 	//	@li-margin: 0.1em;
 	//
-	//	li {
+		li {
 	//
 	//		width: (100% / 4.1) - (@li-margin * 3);
 	//		height: 100%;
 	//		margin: 0;
-	//		padding: 0;
-	//
-	//		&.passes, &.failures, &.duration {
+			float: right;
+			padding: 0;
+
+			&.passes, &.failures, &.duration {
 	//			background: @background-color;
 	//			font-size: 2em;
 	//			text-align: center;
 	//			line-height: @height;
 	//			border: @border;
-	//		}
+				margin-top: 1em;
+			}
 	//
 	//		&.failures, &.duration {
 	//			margin-left: @li-margin;
@@ -45,12 +50,14 @@
 	//			}
 	//
 	//		}
-	//
-	//	}
-	//
-	//}
+
+		}
+
+	}
 
 	#mocha-report {
+
+		@border-radius: 0.25em;
 
 		@success-background-color: #c5efc6;
 		@success-color: #81db83;
@@ -59,6 +66,7 @@
 		@fail-color: #f78d99;
 
 		border: @border;
+		border-radius: @border-radius;
 
 		.suite {
 
@@ -66,11 +74,14 @@
 			@heading-child-background-color: #c3e5e5;
 			@child-border: 1px @heading-background-color solid;
 
+			border-radius: @border-radius;
 			margin: 0;
 
 			h1 {
 				background-color: @heading-background-color;
 				font-weight: bold;
+				border-top-left-radius: @border-radius;
+				border-top-right-radius: @border-radius;
 				padding: 0.5em;
 				margin: 0;
 			}

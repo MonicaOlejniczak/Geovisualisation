@@ -22,7 +22,7 @@ define(function (require) {
 	};
 
 	/**
-	 * Converts a spherical coordinates to cartesian.
+	 * Converts spherical coordinates to cartesian.
 	 *
 	 * @param radius The radial distance.
 	 * @param theta The azimuthal angle.
@@ -40,6 +40,14 @@ define(function (require) {
 		);
 	};
 
+	/**
+	 * Converts a value from one range to another.
+	 *
+	 * @param origin The origin range.
+	 * @param target The target range.
+	 * @param value The value in the origin range.
+	 * @returns {*}
+	 */
 	Convert.convertRange = function (origin, target, value) {
 		var ratio = (target.y - target.x) / (origin.y - origin.x);
 		return (value - origin.x) * ratio + target.x;
