@@ -83,7 +83,8 @@ define(function (require) {
 		var bound = new THREE.Vector2(this._min, this._max);
 		var colorRange = this.colorRange.range;
 		// Load the shader before iterating through each point.
-		new Shader(this._shaderPath).then(function (material) {
+		new Shader(this._shaderPath).load().then(function (shader) {
+			var material = shader.material;
 			// Iterate through each point.
 			for (var i = 0, len = points.length; i < len; i++) {
 				var point = points[i];

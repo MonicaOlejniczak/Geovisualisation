@@ -38,8 +38,8 @@ define(function (require) {
 		var mesh = new THREE.Mesh();
 		// Create the texture and use it for the mesh material.
 		var texture = this._createTexture(mesh);
-		// Create the shader and add the geometry and material to the mesh.
-		new Shader('earth/Earth', {
+		// Create the shader.
+		var shader = new Shader('earth/Earth', {
 			uniforms: {
 				uTexture: {type: 't', value: texture},
 				uColor: {type: 'c', value: this.color},
@@ -50,11 +50,14 @@ define(function (require) {
 				uGreenShift: {type: 'f', value: -50.0},
 				uBlueShift: {type: 'f', value: 0.0}
 			}
-		}).then(function (material) {
-				mesh.geometry = geometry;
-				mesh.material = material;
-				$(this).trigger('load', material);
-			}.bind(this));
+		});
+		// Load the shader and add the geometry and material to the mesh.
+		shader.load().then(function (shader) {
+			var material = shader.material;
+			mesh.geometry = geometry;
+			mesh.material = material;
+			$(this).trigger('load', material);
+		}.bind(this));
 		// Return the surface mesh.
 		return mesh;
 	};

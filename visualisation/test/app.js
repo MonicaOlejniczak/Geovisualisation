@@ -13,6 +13,7 @@
 			app: '.',
 			test: '../../test',
 			chai: '../bower_components/chai/chai',
+			chaiAsPromised: '../bower_components/chai-as-promised/lib/chai-as-promised',
 			jquery: '../bower_components/jquery/dist/jquery',
 			text: '../bower_components/text/text',
 			threejs: '../bower_components/threejs/build/three'
@@ -24,12 +25,19 @@
 
 	mocha.setup('bdd');
 
-	require([
-		'test/unit/util/ColorTest',
-		'test/unit/util/ConvertTest',
-		'test/unit/helper/LightTest'
-	], function () {
-		mocha.run();
+	require(['chai', 'chaiAsPromised'], function (chai, chaiAsPromised) {
+
+		chai.use(chaiAsPromised);
+
+		require([
+			'test/unit/helper/LightTest',
+			'test/unit/helper/ShaderTest',
+			'test/unit/util/ColorTest',
+			'test/unit/util/ConvertTest'
+		], function () {
+			mocha.run();
+		});
+
 	});
 
 }());

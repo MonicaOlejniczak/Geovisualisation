@@ -26,11 +26,13 @@
   border-radius: 0.25em;
   margin: 0;
 }
+#mocha #mocha-report .suite:first-child h1 {
+  border-top-left-radius: 0.25em;
+  border-top-right-radius: 0.25em;
+}
 #mocha #mocha-report .suite h1 {
   background-color: #87cbcc;
   font-weight: bold;
-  border-top-left-radius: 0.25em;
-  border-top-right-radius: 0.25em;
   padding: 0.5em;
   margin: 0;
 }

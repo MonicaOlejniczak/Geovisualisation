@@ -87,11 +87,13 @@ define(function (require) {
 	RoundSurface.prototype._addAtmosphere = function (object, geometry) {
 		var atmosphere = this._atmosphere;
 		// Load the atmosphere shader.
-		new Shader(atmosphere.source, {
+		var shader = new Shader(atmosphere.source, {
 			uniforms: {
 				uColor: {type: 'c', value: atmosphere.color}
 			}
-		}).then(function (material) {
+		});
+		shader.load().then(function (shader) {
+			var material = shader.material;
 			// Update the material options and the mesh material.
 			material.side = THREE.BackSide;
 			material.transparent = true;
