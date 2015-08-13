@@ -10,13 +10,15 @@
 		baseUrl: '../public/app',
 		// Specify the paths.
 		paths: {
-			app: '.',
-			test: '../../test',
-			chai: '../bower_components/chai/chai',
-			chaiAsPromised: '../bower_components/chai-as-promised/lib/chai-as-promised',
-			jquery: '../bower_components/jquery/dist/jquery',
-			text: '../bower_components/text/text',
-			threejs: '../bower_components/threejs/build/three'
+			'app': '.',
+			'test': '../../test',
+			'chai': '../bower_components/chai/chai',
+			'chaiAsPromised': '../bower_components/chai-as-promised/lib/chai-as-promised',
+			'sinon': '../bower_components/sinon/lib/sinon',
+			'sinon-chai': '../bower_components/sinon-chai/lib/sinon-chai',
+			'jquery': '../bower_components/jquery/dist/jquery',
+			'text': '../bower_components/text/text',
+			'threejs': '../bower_components/threejs/build/three'
 		},
 		shim: {
 			threejs: {exports: 'THREE'}
@@ -25,15 +27,17 @@
 
 	mocha.setup('bdd');
 
-	require(['chai', 'chaiAsPromised'], function (chai, chaiAsPromised) {
+	require(['chai', 'chaiAsPromised', 'sinon', 'sinon-chai'], function (chai, chaiAsPromised, sinon, sinonChai) {
 
 		chai.use(chaiAsPromised);
+		chai.use(sinonChai);
 
 		require([
 			'test/unit/helper/LightTest',
 			'test/unit/helper/ShaderTest',
 			'test/unit/util/ColorTest',
-			'test/unit/util/ConvertTest'
+			'test/unit/util/ConvertTest',
+			'test/unit/util/PromisesTest'
 		], function () {
 			mocha.run();
 		});
