@@ -5,6 +5,8 @@ define(function (require) {
 
 	'use strict';
 
+	var Promises = require('util/Promises');
+
 	/**
 	 * Constructs a shader by loading
 	 *
@@ -27,15 +29,14 @@ define(function (require) {
 	}
 
 	/**
+	 * Loads the initialised shader.
 	 *
 	 * @returns {Promise}
 	 */
 	Shader.prototype.load = function () {
-		return new Promise(function (resolve) {
-			this._loadShaders().then(function () {
-				this._createMaterial(this.uniforms, this.vertex, this.fragment);
-				resolve(this);
-			}.bind(this));
+		return this._loadShaders().then(function () {
+			this._createMaterial(this.uniforms, this.vertex, this.fragment);
+			return Promise.resolve(this);
 		}.bind(this));
 	};
 
@@ -72,12 +73,21 @@ define(function (require) {
 	 * @private
 	 */
 	Shader.prototype._loadShader = function (name, shaderPath) {
-		return new Promise(function (resolve) {
-			require([shaderPath], function (shader) {
-				this[name] = shader;
-				this._resolveIncludes(shader, name, resolve);
-			}.bind(this));
+		return Promises.requirePromise(shaderPath).then(function (shader) {
+			this[name] = shader;
+			return this._resolveIncludes(shader, name);
 		}.bind(this));
+	};
+
+	/**
+	 * Gets the includes from some shader text.
+	 *
+	 * @param shader The shader text.
+	 * @returns {*|Array} The array of includes.
+	 * @private
+	 */
+	Shader.prototype._getIncludes = function (shader) {
+		return shader.match(/#include[\t ]+"([^"]+)"/g) || [];
 	};
 
 	/**
@@ -85,18 +95,17 @@ define(function (require) {
 	 *
 	 * @param shader The shader that will have its includes loaded.
 	 * @param name The name of the shader.
-	 * @param resolve The resolve function.
 	 * @returns {Promise}
 	 * @private
 	 */
-	Shader.prototype._resolveIncludes = function (shader, name, resolve) {
+	Shader.prototype._resolveIncludes = function (shader, name) {
 		// Retrieve the include text in the shader given the regex.
-		var includes = shader.match(/#include[\t ]+"([^"]+)"/g) || [];
+		var includes = this._getIncludes(shader);
 		// Check if any includes exist.
 		if (includes.length > 0) {
-			return this._loadIncludes(includes, name, resolve);
+			return this._loadIncludes(includes, name);
 		} else {
-			resolve(this[name]);
+			return Promise.resolve(this[name]);
 		}
 	};
 
@@ -105,11 +114,11 @@ define(function (require) {
 	 *
 	 * @param includes The includes required by the shader.
 	 * @param name The name of the shader.
-	 * @param resolve The resolve function.
 	 * @returns {Promise}
 	 * @private
 	 */
-	Shader.prototype._loadIncludes = function (includes, name, resolve) {
+	Shader.prototype._loadIncludes = function (includes, name) {
+		var promises = [];
 		// Iterate through each include.
 		for (var i = 0, len = includes.length; i < len; i++) {
 			// Increase how many shaders are still loading and retrieve the path to the shader.
@@ -119,17 +128,20 @@ define(function (require) {
 			// Get the shader path.
 			var shaderPath = this._getPath(path);
 			// Load the shader given the path.
-			require([shaderPath], function (include, loadedShader) {
-				// Resolve any includes that are a part of the loaded shader.
-				this._resolveIncludes(loadedShader, name, resolve);
+			promises.push(Promises.requirePromise(shaderPath).then(function (include, shader) {
 				// Replace the include line with the shader that was loaded.
-				this[name] = this[name].replace(include, loadedShader);
-				// Decrement how many shaders are loading and check if loading has finished.
-				if ((--this.loading) == 0) {
-					resolve(this[name]);
-				}
-			}.bind(this, include));
+				this[name] = this[name].replace(include, shader);
+				// Resolve any includes that are a part of the loaded shader.
+				return this._resolveIncludes(shader, name).then(function () {
+					 //Decrement how many shaders are loading and check if loading has finished.
+					if ((--this.loading) == 0) {
+						console.log(1);
+						return Promise.resolve(this[name]);
+					}
+				}.bind(this));
+			}.bind(this, include)));
 		}
+		return Promise.all(promises);
 	};
 
 	/**
