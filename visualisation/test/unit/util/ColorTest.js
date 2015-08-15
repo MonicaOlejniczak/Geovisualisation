@@ -5,7 +5,7 @@ define(function (require) {
 	var expect = require('chai').expect;
 
 	var THREE = require('threejs');
-	var Color = require('app/util/Color');
+	var Color = require('util/Color');
 
 	describe('the Color module', function () {
 

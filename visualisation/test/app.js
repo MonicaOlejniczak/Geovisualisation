@@ -10,7 +10,6 @@
 		baseUrl: '../public/app',
 		// Specify the paths.
 		paths: {
-			'app': '.',
 			'test': '../../test',
 			'chai': '../bower_components/chai/chai',
 			'chaiAsPromised': '../bower_components/chai-as-promised/lib/chai-as-promised',
@@ -37,7 +36,8 @@
 			'test/unit/helper/ShaderTest',
 			'test/unit/util/ColorTest',
 			'test/unit/util/ConvertTest',
-			'test/unit/util/PromisesTest'
+			'test/unit/util/PromisesTest',
+			'test/unit/view/points/PointsTest'
 		], function () {
 			mocha.run();
 		});

@@ -5,7 +5,7 @@ define(function (require) {
 	var expect = require('chai').expect;
 
 	var THREE = require('threejs');
-	var Convert = require('app/util/Convert');
+	var Convert = require('util/Convert');
 
 	describe('the Convert module', function () {
 

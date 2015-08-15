@@ -6,7 +6,7 @@ define(function (require) {
 	var sinon = require('sinon');
 
 	var THREE = require('threejs');
-	var Shader = require('app/helper/Shader');
+	var Shader = require('helper/Shader');
 
 	var BasicVertexShader = require('text!test/mock/Shader/basic/Basic.vert');
 	var BasicFragmentShader = require('text!test/mock/Shader/basic/Basic.frag');
@@ -75,12 +75,12 @@ define(function (require) {
 			});
 
 			it('should retrieve the default path', function () {
-				expect(shader._getPath()).to.equal('text!' + basePath + path);
+				expect(shader.getPath()).to.equal('text!' + basePath + path);
 			});
 
 			it('should retrieve a passed in path', function () {
 				path = 'new path';
-				expect(shader._getPath(path)).to.equal('text!' + basePath + path);
+				expect(shader.getPath(path)).to.equal('text!' + basePath + path);
 			});
 
 		});
@@ -110,11 +110,11 @@ define(function (require) {
 				args = {
 					vertex: {
 						name: 'vertex',
-						path: shader._getPath() + '.vert'
+						path: shader.getPath() + '.vert'
 					},
 					fragment: {
 						name: 'fragment',
-						path: shader._getPath() + '.frag'
+						path: shader.getPath() + '.frag'
 					}
 				};
 			});

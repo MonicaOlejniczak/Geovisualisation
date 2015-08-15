@@ -5,7 +5,7 @@ define(function (require) {
 	var expect = require('chai').expect;
 
 	var THREE = require('threejs');
-	var Light = require('app/helper/Light');
+	var Light = require('helper/Light');
 
 	describe('the Light module', function () {
 

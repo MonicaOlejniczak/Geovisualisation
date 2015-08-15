@@ -5,7 +5,7 @@ define(function (require) {
 	var expect = require('chai').expect;
 	var sinon = require('sinon');
 
-	var Promises = require('app/util/Promises');
+	var Promises = require('util/Promises');
 	var RequirePromise = require('test/mock/promise/Require');
 
 	describe('the Promises module', function () {

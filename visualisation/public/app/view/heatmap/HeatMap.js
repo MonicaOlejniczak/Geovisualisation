@@ -94,13 +94,14 @@ define(function (require) {
 	 */
 	HeatMap.prototype.processData = function (scene, projection, data) {
 		projection = projection || function () {};
+		projection.target = scene.position;
 		var points = this.points;
 		// Iterates through the data and add the points.
 		for (var i = 0, len = data.length; i < len; i++) {
 			points.addPoint(data[i]);
 		}
 		// Add the updated points to the scene.
-		scene.add(points.update(scene.position, projection));
+		scene.add(points.update(projection));
 	};
 
 	return HeatMap;

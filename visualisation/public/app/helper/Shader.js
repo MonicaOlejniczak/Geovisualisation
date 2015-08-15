@@ -45,9 +45,8 @@ define(function (require) {
 	 *
 	 * @param [path] The path to the shader.
 	 * @returns {string}
-	 * @private
 	 */
-	Shader.prototype._getPath = function (path) {
+	Shader.prototype.getPath = function (path) {
 		return 'text!' + this.basePath + (path || this.path);
 	};
 
@@ -57,7 +56,7 @@ define(function (require) {
 	 * @private
 	 */
 	Shader.prototype._loadShaders = function () {
-		var shaderPath = this._getPath();
+		var shaderPath = this.getPath();
 		return Promise.all([
 			this._loadShader('vertex', shaderPath + '.vert'),
 			this._loadShader('fragment', shaderPath + '.frag')
@@ -114,7 +113,7 @@ define(function (require) {
 	 *
 	 * @param includes The includes required by the shader.
 	 * @param name The name of the shader.
-	 * @returns {Promise}
+	 //* @returns {Promise}
 	 * @private
 	 */
 	Shader.prototype._loadIncludes = function (includes, name) {
@@ -126,20 +125,19 @@ define(function (require) {
 			var include = includes[i];
 			var path = include.match(/(?!#include[\t ]+")[\w+/]+.h(?=")/)[0];
 			// Get the shader path.
-			var shaderPath = this._getPath(path);
+			var shaderPath = this.getPath(path);
 			// Load the shader given the path.
-			promises.push(Promises.requirePromise(shaderPath).then(function (include, shader) {
+			promises.push(Promises.requirePromise(shaderPath).then(function (shader) {
 				// Replace the include line with the shader that was loaded.
 				this[name] = this[name].replace(include, shader);
 				// Resolve any includes that are a part of the loaded shader.
 				return this._resolveIncludes(shader, name).then(function () {
 					 //Decrement how many shaders are loading and check if loading has finished.
 					if ((--this.loading) == 0) {
-						console.log(1);
 						return Promise.resolve(this[name]);
 					}
 				}.bind(this));
-			}.bind(this, include)));
+			}.bind(this)));
 		}
 		return Promise.all(promises);
 	};

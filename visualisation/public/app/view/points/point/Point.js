@@ -37,13 +37,6 @@ define(function (require) {
 		this.min = boundingBox.min.y;
 		this.max = boundingBox.max.y;
 
-		// Set the colors to be used with the points.
-		this.colors = {
-			low: new THREE.Color(0xffe900),
-			medium: new THREE.Color(0xff8c00),
-			high: new THREE.Color(0xb51212)
-		};
-
 		// Set the mesh.
 		this.mesh = new THREE.Mesh(geometry, new THREE.Material());
 	}
@@ -84,16 +77,15 @@ define(function (require) {
 	 * This method updates the position of the point by rotating the mesh to look at the target vector. It then sets
 	 * the position and y-position of the mesh so that it is above the offset.
 	 *
-	 * @param target The target vector to look at.
 	 * @param [projection] The projection callback function.
 	 */
-	Point.prototype.updatePosition = function (target, projection) {
+	Point.prototype.updatePosition = function (projection) {
 		var point = this.mesh;
 		var position = this.position;
 
 		point.position.set(position.x, position.y, position.z);
 		if (projection) {
-			projection.project.call(projection, point, target);
+			projection.project.call(projection, point);
 		}
 
 	};
