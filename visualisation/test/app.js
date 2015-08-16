@@ -39,7 +39,8 @@
 			'test/unit/util/ProjectionTest',
 			'test/unit/util/PromisesTest',
 			'test/unit/view/points/PointsTest',
-			'test/unit/view/points/point/PointTest'
+			'test/unit/view/points/point/PointTest',
+			//'test/unit/SceneRendererTest'
 		], function () {
 			mocha.run();
 		});

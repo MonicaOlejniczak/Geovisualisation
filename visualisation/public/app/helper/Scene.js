@@ -14,6 +14,8 @@ define(function (require) {
 	 * @returns {THREE.GridHelper} The grid helper object.
 	 */
 	Scene.createGrid = function (options) {
+		// Ensure the options exist.
+		options = options || {};
 		// Obtain the size, step and color from the options or use the default values.
 		var size = options.size || 100;
 		var step = options.step || 1;

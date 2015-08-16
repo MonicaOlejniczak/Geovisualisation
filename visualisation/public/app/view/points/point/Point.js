@@ -18,6 +18,7 @@ define(function (require) {
 	 * @constructor
 	 */
 	function Point (point, width, height, projection) {
+
 		THREE.Mesh.call(this);
 		// Set the transformed position data.
 		var position = Convert.transform(point[0], point[1], point[2]);

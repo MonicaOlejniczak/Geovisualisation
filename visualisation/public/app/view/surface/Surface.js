@@ -68,7 +68,7 @@ define(function (require) {
 	 */
 	Surface.prototype._createTexture = function () {
 		// Load the texture using the source file stored in the ground instance variable.
-		var texture = THREE.ImageUtils.loadTexture(this.source, THREE.UVMapping, this._onTextureLoad.bind(this));
+		var texture = THREE.ImageUtils.loadTexture(this.source, THREE.UVMapping, this.onTextureLoad.bind(this));
 		// Set the min and mag filter to linear for textures that are not a power of 2.
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
@@ -81,9 +81,8 @@ define(function (require) {
 	 * through the loaded texture.
 	 *
 	 * @param texture The texture that was loaded.
-	 * @private
 	 */
-	Surface.prototype._onTextureLoad = function (texture) {
+	Surface.prototype.onTextureLoad = function (texture) {
 		var image = texture.image;
 		this.aspectRatio = image.width / image.height;
 	};

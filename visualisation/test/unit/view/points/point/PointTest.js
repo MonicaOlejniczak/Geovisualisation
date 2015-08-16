@@ -21,7 +21,16 @@ define(function (require) {
 
 		beforeEach(function () {
 			data = [1, 2, 3];
-			point = new Point(data, 1, 1);
+		});
+
+		describe('the constructor', function () {
+
+			it('should call the update position method', function () {
+				var stub = sinon.spy(Point.prototype, 'updatePosition');
+				point = new Point(data, 1, 1);
+				expect(stub).to.have.been.calledOnce;
+			});
+
 		});
 
 		describe('the update position method', function () {
@@ -29,6 +38,7 @@ define(function (require) {
 			var position;
 
 			beforeEach(function () {
+				point = new Point(data, 1, 1);
 				position = new THREE.Vector3(1, 1, 1);
 			});
 
@@ -51,6 +61,7 @@ define(function (require) {
 			var material, options;
 
 			beforeEach(function () {
+				point = new Point(data, 1, 1);
 				material = new THREE.ShaderMaterial({
 					vertex: VertexShader,
 					fragment: FragmentShader

@@ -15,10 +15,11 @@ define(function (require) {
 	 * Initialises the scene renderer.
 	 *
 	 * @param element The HTML canvas.
-	 * @param options Configuration options for the scene renderer.
+	 * @param [options] Configuration options for the scene renderer.
 	 * @constructor
 	 */
 	function SceneRenderer (element, options) {
+		options = options || {};
 		// Set the canvas to the element.
 		var canvas = this._canvas = element;
 		// Initialise the scene.
@@ -32,14 +33,12 @@ define(function (require) {
 			// Get the camera position from the camera options and check if it exists.
 			var cameraPosition = cameraOptions.position;
 			if (cameraPosition) {
-				// Set the camera position.
-				camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+				camera.position.copy(cameraPosition);
 			}
 			// Get the up vector from the camera options and check if it exists.
 			var cameraUp = cameraOptions.up;
 			if (cameraUp) {
-				// Set the up vector of the camera.
-				camera.up.set(cameraUp.x, cameraUp.y, cameraUp.z);
+				camera.up.copy(cameraUp);
 			}
 		}
 		// Save the viewport height and tan field of view values for resizing.
@@ -75,23 +74,33 @@ define(function (require) {
 	}
 
 	/**
-	 * A method called on each render. This method updates the camera aspect ratio and the renderer display size.
+	 * A method called on each render that checks if a resize needs to be applied.
 	 */
 	SceneRenderer.prototype.resize = function () {
 		// Retrieve the canvas and the camera.
 		var canvas = this.getCanvas();
-		var camera = this.getCamera();
 		// Lookup the size the browser is displaying the canvas.
 		var width = Viewport.getWidth();
 		var height = Viewport.getHeight();
-		// Check if the current size differs from the previous.
+		// Check if a resize needs to be applied.
 		if (canvas.width != width || canvas.height != height) {
-			// Update the camera aspect ratio, fov and the renderer size to match the new size.
-			camera.aspect = width / height;
-			camera.fov = (360 / Math.PI) * Math.atan(this._tanFOV * (height / this._viewportHeight));
-			camera.updateProjectionMatrix();
-			this.renderer.setSize(width, height);
+			this._resize(width, height);
 		}
+	};
+
+	/**
+	 * An internal resize method that resizes the renderer and updates the camera aspect ratio and field of view.
+	 *
+	 * @param width The width of the viewport.
+	 * @param height The height of the viewport.
+	 * @private
+	 */
+	SceneRenderer.prototype._resize = function (width, height) {
+		var camera = this.getCamera();
+		camera.aspect = width / height;
+		camera.fov = (360 / Math.PI) * Math.atan(this._tanFOV * (height / this._viewportHeight));
+		camera.updateProjectionMatrix();
+		this.renderer.setSize(width, height);
 	};
 
 	/**
