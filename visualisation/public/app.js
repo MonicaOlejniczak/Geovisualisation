@@ -20,9 +20,11 @@
 	});
 
 	// Start the main app logic.
-	//requirejs(['jquery', 'view/heatmap/FlatHeatMap', 'view/Gui'], function ($, FlatHeatMap, Gui) {
-	requirejs(['jquery', 'view/heatmap/RoundHeatMap', 'view/Gui'], function ($, FlatHeatMap, Gui) {
-		var heatMap = new FlatHeatMap($('#visualisation'));
+	//requirejs(['jquery', 'view/heatmap/FlatHeatMap', 'view/Gui'], function ($, FlatHeatMap, Information, Gui) {
+	requirejs(['jquery', 'view/heatmap/RoundHeatMap', 'view/points/information/Information', 'view/Gui'], function ($, FlatHeatMap, Information, Gui) {
+		var canvas = $('#visualisation');
+		var heatMap = new FlatHeatMap(canvas);
+		var information = new Information(canvas, heatMap.renderer.raycaster);
 		var gui = new Gui(heatMap);
 	});
 

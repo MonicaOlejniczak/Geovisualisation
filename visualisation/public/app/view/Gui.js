@@ -43,7 +43,8 @@ define(function (require) {
 		// Create a folder for the surface colour.
 		var folder = gui.addFolder('Surface');
 		$(surface).on({
-			load: function (event, material) {
+			load: function (event) {
+				var material = surface.material;
 				// Get the colour bound and its min and max values.
 				var colourBound = surface.colorBound;
 				var min = colourBound.x;
@@ -151,7 +152,7 @@ define(function (require) {
 		// Iterate through each point and update their shader material uniform.
 		for (var i = 0, len = points.length; i < len; i++) {
 			var point = points[i];
-			var material = point.mesh.material;
+			var material = point.material;
 			material.uniforms[key].value = value;
 		}
 	};

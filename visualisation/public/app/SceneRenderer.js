@@ -20,7 +20,7 @@ define(function (require) {
 	 */
 	function SceneRenderer (element, options) {
 		// Set the canvas to the element.
-		this._canvas = element;
+		var canvas = this._canvas = element;
 		// Initialise the scene.
 		var scene = this._scene = new THREE.Scene();
 		// Initialise the camera.
@@ -65,11 +65,14 @@ define(function (require) {
 			this.controls = new MouseControls(camera, element);
 		}
 
-		this.raycaster = null;
+		// Check if raycasting is enabled.
+		var raycaster = options.raycaster;
+		if (raycaster) {
+			var parent = raycaster.parent || scene;
+			this.raycaster = new Raycaster(canvas, camera, parent);
+		}
 
 	}
-
-	SceneRenderer.prototype.constructor = SceneRenderer;
 
 	/**
 	 * A method called on each render. This method updates the camera aspect ratio and the renderer display size.
@@ -116,15 +119,6 @@ define(function (require) {
 	 */
 	SceneRenderer.prototype.getCanvas = function () {
 		return this._canvas;
-	};
-
-	/**
-	 * Creates a raycaster with the specified parent to be used for picking.
-	 *
-	 * @param parent The parent object.
-	 */
-	SceneRenderer.prototype.createRaycaster = function (parent) {
-		this.raycaster = new Raycaster(this.getCanvas(), this.getCamera(), parent);
 	};
 
 	/**

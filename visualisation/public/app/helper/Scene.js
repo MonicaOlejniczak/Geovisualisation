@@ -7,8 +7,6 @@ define(function (require) {
 
 	function Scene () {}
 
-	Scene.prototype.constructor = Scene;
-
 	/**
 	 * Creates and returns a grid.
 	 *

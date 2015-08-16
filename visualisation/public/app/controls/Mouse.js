@@ -40,8 +40,6 @@ define(function (require) {
 		this.addEventListeners(element);
 	}
 
-	Mouse.prototype.constructor = Mouse;
-
 	/**
 	 * Adds event listeners to the element.
 	 *

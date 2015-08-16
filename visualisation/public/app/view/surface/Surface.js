@@ -15,16 +15,19 @@ define(function (require) {
 	 * @constructor
 	 */
 	function Surface (geometry) {
+
+		THREE.Mesh.call(this);
+
 		this._baseDirectory = 'assets/images/earth/';
 		this.source = this._baseDirectory + 'earth.png';
 		this.size = 250;
 		this.color = new THREE.Color(0x222222);
 		this.aspectRatio = 1;
 		this.colorBound = new THREE.Vector2(-100, 100);
-		this.mesh = new THREE.Mesh();
-		this.mesh.add(this._createMesh(geometry));
+		this._createMesh(geometry);
 	}
 
+	Surface.prototype = Object.create(THREE.Mesh.prototype);
 	Surface.prototype.constructor = Surface;
 
 	/**
@@ -34,10 +37,8 @@ define(function (require) {
 	 * @private
 	 */
 	Surface.prototype._createMesh = function (geometry) {
-		// Create a mesh that can be passed into the map.
-		var mesh = new THREE.Mesh();
 		// Create the texture and use it for the mesh material.
-		var texture = this._createTexture(mesh);
+		var texture = this._createTexture();
 		// Create the shader.
 		var shader = new Shader('earth/Earth', {
 			uniforms: {
@@ -53,25 +54,21 @@ define(function (require) {
 		});
 		// Load the shader and add the geometry and material to the mesh.
 		shader.load().then(function (shader) {
-			var material = shader.material;
-			mesh.geometry = geometry;
-			mesh.material = material;
-			$(this).trigger('load', material);
+			this.geometry = geometry;
+			this.material = shader.material;
+			$(this).trigger('load');
 		}.bind(this));
-		// Return the surface mesh.
-		return mesh;
 	};
 
 	/**
 	 * Creates a texture to be used with the surface.
 	 *
-	 * @param mesh The surface mesh.
 	 * @returns {*}
 	 * @private
 	 */
-	Surface.prototype._createTexture = function (mesh) {
+	Surface.prototype._createTexture = function () {
 		// Load the texture using the source file stored in the ground instance variable.
-		var texture = THREE.ImageUtils.loadTexture(this.source, THREE.UVMapping, this._onTextureLoad.bind(this, mesh));
+		var texture = THREE.ImageUtils.loadTexture(this.source, THREE.UVMapping, this._onTextureLoad.bind(this));
 		// Set the min and mag filter to linear for textures that are not a power of 2.
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
@@ -83,11 +80,10 @@ define(function (require) {
 	 * This function is triggered when the texture for the surface has loaded. It obtains the aspect ratio of the image
 	 * through the loaded texture.
 	 *
-	 * @param mesh The surface mesh.
 	 * @param texture The texture that was loaded.
 	 * @private
 	 */
-	Surface.prototype._onTextureLoad = function (mesh, texture) {
+	Surface.prototype._onTextureLoad = function (texture) {
 		var image = texture.image;
 		this.aspectRatio = image.width / image.height;
 	};

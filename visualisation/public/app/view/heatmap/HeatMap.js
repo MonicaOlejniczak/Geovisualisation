@@ -24,10 +24,11 @@ define(function (require) {
 	 * @constructor
 	 */
 	function HeatMap (canvas, surface, projection, options) {
+		this.points = new Points();
+		options['raycaster'] = {parent: this.points};
 		this.renderer = new SceneRenderer(canvas.get(0), options);
 		this.skybox = new Skybox(this.renderer.getCamera());
 		this.surface = surface;
-		this.points = new Points();
 		var scene = this.renderer.getScene();
 		// Setup the scene.
 		this._setupScene(scene);
@@ -37,8 +38,6 @@ define(function (require) {
 		Data.load('app/data/generate.js', this.processData.bind(this, scene, projection));
 		this.renderer.render();
 	}
-
-	HeatMap.prototype.constructor = HeatMap;
 
 	/**
 	 * Adds event listeners for the heat map.
@@ -77,7 +76,7 @@ define(function (require) {
 		// Create the lighting and get the surface mesh.
 		var lights = this._createLights();
 		// Create the lights and add it to the scene.
-		scene.add(lights, this.surface.mesh, this.skybox);
+		scene.add(lights, this.surface, this.skybox);
 	};
 
 	/**
@@ -107,7 +106,6 @@ define(function (require) {
 			points.addPoint(data[i]);
 		}
 		points.update(projection);
-		this.renderer.createRaycaster(points);
 		scene.add(points);
 	};
 

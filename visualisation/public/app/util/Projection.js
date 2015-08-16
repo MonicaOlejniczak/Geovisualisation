@@ -16,8 +16,6 @@ define(function (require) {
 		this.radius = options.radius || 1;
 	}
 
-	Projection.prototype.constructor = Projection;
-
 	/**
 	 * Applies the projection function on the instance.
 	 */

@@ -23,10 +23,9 @@ define(function (require) {
 		this.camera = camera;
 		this.parent = parent;
 		this._mouse = new THREE.Vector2();
+		this._coordinates = new THREE.Vector2();
 		$(element).on('mousemove', this.onMouseMove.bind(this));
 	}
-
-	Raycaster.prototype.constructor = Raycaster;
 
 	/**
 	 * An event triggered when the mouse moves on the element. It calculates the mouse position in normalised device
@@ -35,7 +34,8 @@ define(function (require) {
 	 * @param event The jQuery mousemove event.
 	 */
 	Raycaster.prototype.onMouseMove = function (event) {
-		this._mouse.set(
+		this._mouse.set(event.clientX, event.clientY);
+		this._coordinates.set(
 			(event.clientX / Viewport.getWidth()) * 2 - 1,
 			-(event.clientY / Viewport.getHeight()) * 2 + 1
 		);
@@ -45,12 +45,9 @@ define(function (require) {
 	 * The update method called on each render frame.
 	 */
 	Raycaster.prototype.update = function () {
-		this.raycaster.setFromCamera(this._mouse, this.camera);
+		this.raycaster.setFromCamera(this._coordinates, this.camera);
 		var intersects = this.raycaster.intersectObjects(this.parent.children);
-		intersects.forEach(function (intersect) {
-			debugger;
-			console.log(intersect);
-		});
+		$(this).trigger('raycast', [this._mouse, intersects]);
 	};
 
 	return Raycaster;
