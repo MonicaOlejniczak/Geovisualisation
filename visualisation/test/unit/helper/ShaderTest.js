@@ -27,12 +27,12 @@ define(function (require) {
 
 		describe('the constructor', function () {
 
-			it('should be able to set a base path', function () {
+			it('should set the base path when specified', function () {
 				shader = new Shader(path, {basePath: basePath});
 				expect(shader).to.have.property('basePath', basePath);
 			});
 
-			it('should be able to set uniforms', function () {
+			it('should set the uniforms when specified', function () {
 				var uniforms = {uTest: {type: 'i', value: 1}};
 				shader = new Shader(path, {basePath: basePath, uniforms: uniforms});
 				expect(shader).to.have.property('uniforms', uniforms);

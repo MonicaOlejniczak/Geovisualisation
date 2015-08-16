@@ -44,6 +44,23 @@ define(function (require) {
 	Point.prototype.constructor = Point;
 
 	/**
+	 * This method updates the position of the point by rotating the mesh to look at the target vector. It then sets
+	 * the position and y-position of the mesh so that it is above the offset.
+	 *
+	 * @param [projection] The projection callback function.
+	 */
+	Point.prototype.updatePosition = function (projection) {
+		var point = this.mesh;
+		var position = this.position;
+
+		point.position.set(position.x, position.y, position.z);
+		if (projection) {
+			projection.project.call(projection, point);
+		}
+
+	};
+
+	/**
 	 * Updates the material and the associated uniforms of the point;
 	 *
 	 * @param material The new material for the point.
@@ -71,23 +88,6 @@ define(function (require) {
 		};
 		// Obtain the mesh and update its material.
 		this.mesh.material = material;
-	};
-
-	/**
-	 * This method updates the position of the point by rotating the mesh to look at the target vector. It then sets
-	 * the position and y-position of the mesh so that it is above the offset.
-	 *
-	 * @param [projection] The projection callback function.
-	 */
-	Point.prototype.updatePosition = function (projection) {
-		var point = this.mesh;
-		var position = this.position;
-
-		point.position.set(position.x, position.y, position.z);
-		if (projection) {
-			projection.project.call(projection, point);
-		}
-
 	};
 
 	return Point;

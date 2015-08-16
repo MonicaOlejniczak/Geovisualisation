@@ -18,15 +18,33 @@ define(function (require) {
 
 	Projection.prototype.constructor = Projection;
 
+	/**
+	 * Applies the projection function on the instance.
+	 */
 	Projection.prototype.project = function () {
 		this.projection.apply(this, arguments);
 	};
 
+	/**
+	 * Applies a standard projection to an object that translates its position by the specified offset.
+	 *
+	 * @param object The object being translated.
+	 * @param offset The offset to translate by.
+	 */
 	Projection.standard = function (object, offset) {
 		offset = offset || this.offset;
 		object.position.setY(offset);
 	};
 
+	/**
+	 * Applies a spherical projection to an object given a target vector, radius and spherical coordinate angles.
+	 *
+	 * @param object The object being projected.
+	 * @param target The target vector for the object to look at.
+	 * @param radius The radial distance.
+	 * @param theta The azimuthal angle.
+	 * @param phi The polar angle.
+	 */
 	Projection.spherical = function (object, target, radius, theta, phi) {
 		target = target || this.target;
 		radius = radius || this.radius;

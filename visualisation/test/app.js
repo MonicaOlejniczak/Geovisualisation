@@ -36,8 +36,10 @@
 			'test/unit/helper/ShaderTest',
 			'test/unit/util/ColorTest',
 			'test/unit/util/ConvertTest',
+			'test/unit/util/ProjectionTest',
 			'test/unit/util/PromisesTest',
-			'test/unit/view/points/PointsTest'
+			'test/unit/view/points/PointsTest',
+			'test/unit/view/points/point/PointTest'
 		], function () {
 			mocha.run();
 		});
