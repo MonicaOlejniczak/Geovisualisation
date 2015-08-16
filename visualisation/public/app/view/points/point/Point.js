@@ -17,8 +17,10 @@ define(function (require) {
 	 * @constructor
 	 */
 	function Point (point, width, height) {
+		THREE.Mesh.call(this);
 		// Set the transformed position data.
-		var position = this.position = Convert.transform(point[0], point[1], point[2]);
+		var position = Convert.transform(point[0], point[1], point[2]);
+		this.position.copy(position);
 
 		// Set the width, height and the magnitude of the point.
 		this.width = width;
@@ -30,6 +32,8 @@ define(function (require) {
 		var geometry = new THREE.BoxGeometry(transform.x, transform.y, transform.z);
 		geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, this.magnitude * 0.5, 0));
 		geometry.computeBoundingBox();
+		// Set the geometry.
+		this.geometry = geometry;
 
 		// Obtain the bounding box of the geometry and set the min and max values.
 		var boundingBox = geometry.boundingBox;
@@ -37,10 +41,9 @@ define(function (require) {
 		this.min = boundingBox.min.y;
 		this.max = boundingBox.max.y;
 
-		// Set the mesh.
-		this.mesh = new THREE.Mesh(geometry, new THREE.Material());
 	}
 
+	Point.prototype = Object.create(THREE.Mesh.prototype);
 	Point.prototype.constructor = Point;
 
 	/**
@@ -50,14 +53,9 @@ define(function (require) {
 	 * @param [projection] The projection callback function.
 	 */
 	Point.prototype.updatePosition = function (projection) {
-		var point = this.mesh;
-		var position = this.position;
-
-		point.position.set(position.x, position.y, position.z);
 		if (projection) {
-			projection.project.call(projection, point);
+			projection.project.call(projection, this);
 		}
-
 	};
 
 	/**
@@ -87,7 +85,7 @@ define(function (require) {
 			uHighColor: {type: 'c', value: colors.high}
 		};
 		// Obtain the mesh and update its material.
-		this.mesh.material = material;
+		this.material = material;
 	};
 
 	return Point;

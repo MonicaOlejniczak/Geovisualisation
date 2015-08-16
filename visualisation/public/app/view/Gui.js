@@ -27,7 +27,8 @@ define(function (require) {
 	 */
 	Gui.prototype.configure = function (gui, visualisation) {
 		this._configureSurface(gui, visualisation);
-		this._configurePoints(gui, visualisation.points);
+		this._configurePoints(gui, visualisation.points)
+		gui.close();
 	};
 
 	/**

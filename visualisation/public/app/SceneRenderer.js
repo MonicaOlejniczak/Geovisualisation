@@ -8,6 +8,7 @@ define(function (require) {
 	var THREE = require('threejs');
 	var Viewport = require('Viewport');
 	var MouseControls = require('controls/Mouse');
+	var Raycaster = require('controls/Raycaster');
 	var SceneHelper = require('helper/Scene');
 
 	/**
@@ -63,6 +64,9 @@ define(function (require) {
 		if (options.mouseControls) {
 			this.controls = new MouseControls(camera, element);
 		}
+
+		this.raycaster = null;
+
 	}
 
 	SceneRenderer.prototype.constructor = SceneRenderer;
@@ -115,11 +119,23 @@ define(function (require) {
 	};
 
 	/**
+	 * Creates a raycaster with the specified parent to be used for picking.
+	 *
+	 * @param parent The parent object.
+	 */
+	SceneRenderer.prototype.createRaycaster = function (parent) {
+		this.raycaster = new Raycaster(this.getCanvas(), this.getCamera(), parent);
+	};
+
+	/**
 	 * The rendering function that updates the canvas.
 	 */
 	SceneRenderer.prototype.render = function () {
 		requestAnimationFrame(this.render.bind(this));
 		this.resize();
+		if (this.raycaster) {
+			this.raycaster.update();
+		}
 		this.renderer.render(this.getScene(), this.getCamera());
 	};
 

@@ -55,19 +55,19 @@ define(function (require) {
 
 			it('should add a point to the points array of the type Point', function () {
 				points.addPoint(data);
-				expect(points.getPoints()[0]).to.be.an.instanceOf(Point);
+				expect(points._points[0]).to.be.an.instanceOf(Point);
 			});
 
 			it('should add a point to the points array', function () {
 				points.addPoint(data);
-				expect(points.getPoints()).to.have.length(1);
+				expect(points._points).to.have.length(1);
 			});
 
 			it('should add multiple points to the points array', function () {
 				for (var i = 0, len = length; i < len; i++) {
 					points.addPoint(data);
 				}
-				expect(points.getPoints()).to.have.length(length);
+				expect(points._points).to.have.length(length);
 			});
 
 			it('should set the global max given multiple points', function () {
@@ -79,17 +79,13 @@ define(function (require) {
 
 		});
 
-		describe('the update method', function () {
+		//describe('the update method', function () {
 
-			var stub;
+			//var stub;
 
-			beforeEach(function () {
-				stub = sinon.stub(points, '_updatePoints');
-			});
-
-			it('should return a mesh', function () {
-				expect(points.update()).to.be.an.instanceOf(THREE.Mesh);
-			});
+			//beforeEach(function () {
+			//	stub = sinon.stub(points, '_updatePoints');
+			//});
 
 			// TODO
 			//it('should call the update points method', function () {
@@ -97,11 +93,11 @@ define(function (require) {
 			//	expect(stub).to.eventually.be.calledOnce;
 			//});
 
-		});
+		//});
 
 		describe('the update points method', function () {
 
-			var stub, parent, length;
+			var stub, length;
 
 			beforeEach(function () {
 
@@ -109,14 +105,12 @@ define(function (require) {
 					return new Point([1, 1, 1]);
 				});
 
-				parent = new THREE.Mesh();
-
 				length = 10;
 				for (var i = 0, len = length; i < len; i++) {
 					points.addPoint([i, i, i]);
 				}
 
-				points._updatePoints(parent);
+				points._updatePoints();
 
 			});
 
@@ -124,8 +118,8 @@ define(function (require) {
 				expect(stub).to.have.callCount(length);
 			});
 
-			it('should have a parent with the same amount of children as there are points', function () {
-				expect(parent.children).to.have.length(length);
+			it('should have the same amount of children as there are points', function () {
+				expect(points.children).to.have.length(length);
 			});
 
 		});

@@ -15,6 +15,8 @@ define(function (require) {
 	 * @constructor
 	 */
 	function Skybox (camera) {
+		THREE.Mesh.call(this);
+
 		this._baseDirectory = 'assets/images/skybox/space/';
 		this._fileExtension = '.png';
 
@@ -37,19 +39,25 @@ define(function (require) {
 		}
 
 		var size = this.size = 5000;
-		var geometry = new THREE.BoxGeometry(1, 1, 1);
-		var material = new THREE.MeshFaceMaterial(materials);
-		this.mesh = new THREE.Mesh(geometry, material);
-		this.mesh.scale.set(size, size, size);
-		this.mesh.rotateX(Math.PI * 0.5);
-		this.mesh.position.copy(camera.position);
+		this.geometry = new THREE.BoxGeometry(1, 1, 1);
+		this.material = new THREE.MeshFaceMaterial(materials);
+
+		this.scale.set(size, size, size);
+		this.rotateX(Math.PI * 0.5);
+		this.position.copy(camera.position);
 	}
 
-	Skybox.prototype.updatePosition = function (position) {
-		this.mesh.position.copy(position);
-	};
-
+	Skybox.prototype = Object.create(THREE.Mesh.prototype);
 	Skybox.prototype.constructor = Skybox;
+
+	/**
+	 * Updates the position of the skybox.
+	 *
+	 * @param position The new position of the skybox.
+	 */
+	Skybox.prototype.updatePosition = function (position) {
+		this.position.copy(position);
+	};
 
 	return Skybox;
 

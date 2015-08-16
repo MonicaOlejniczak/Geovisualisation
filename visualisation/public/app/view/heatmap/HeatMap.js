@@ -24,54 +24,60 @@ define(function (require) {
 	 * @constructor
 	 */
 	function HeatMap (canvas, surface, projection, options) {
-		var renderer = new SceneRenderer(canvas.get(0), options);
-		var scene = renderer.getScene();
-		var skybox = new Skybox(renderer.getCamera());
-		// Add the renderer events.
-		$(renderer.controls).on({
-			zoom: this._onZoom.bind(this, skybox),
-			pan: this._onPan.bind(this, skybox),
-			rotate: this._onRotate.bind(this, skybox)
-		});
-		// Setup the scene.
-		this._setupScene(scene, renderer.getCamera(), surface.mesh, skybox.mesh);
+		this.renderer = new SceneRenderer(canvas.get(0), options);
+		this.skybox = new Skybox(this.renderer.getCamera());
 		this.surface = surface;
 		this.points = new Points();
+		var scene = this.renderer.getScene();
+		// Setup the scene.
+		this._setupScene(scene);
+		// Add the event listeners.
+		this.addEventListeners(this.renderer);
 		// Load the data from the test file and render the scene.
 		Data.load('app/data/generate.js', this.processData.bind(this, scene, projection));
-		renderer.render();
+		this.renderer.render();
 	}
 
 	HeatMap.prototype.constructor = HeatMap;
 
-	HeatMap.prototype._onRotate = function (skybox, event, position) {
-		skybox.updatePosition(position);
+	/**
+	 * Adds event listeners for the heat map.
+	 *
+	 * @param renderer The scene renderer.
+	 */
+	HeatMap.prototype.addEventListeners = function (renderer) {
+		if (renderer.controls) {
+			$(renderer.controls).on({
+				zoom: this.onControls.bind(this),
+				pan: this.onControls.bind(this),
+				rotate: this.onControls.bind(this)
+			});
+		}
 	};
 
-	HeatMap.prototype._onZoom = function (skybox, event, position) {
-		skybox.updatePosition(position);
-	};
-
-	HeatMap.prototype._onPan = function (skybox, event, position) {
-		skybox.updatePosition(position);
+	/**
+	 * An event triggered when the controls are being used.
+	 *
+	 * @param event The jQuery event.
+	 * @param position The position of the camera.
+	 */
+	HeatMap.prototype.onControls = function (event, position) {
+		this.skybox.updatePosition(position);
 	};
 
 	/**
 	 * Sets up the scene by adding the lights and ground.
 	 *
 	 * @param scene The THREE.js scene.
-	 * @param camera The perspective camera in the scene.
-	 * @param surface The surface of the heat map.
-	 * @param skybox
 	 * @private
 	 */
-	HeatMap.prototype._setupScene = function (scene, camera, surface, skybox) {
+	HeatMap.prototype._setupScene = function (scene) {
 		// Make the camera look at the scene.
-		camera.lookAt(scene.position);
+		this.renderer.getCamera().lookAt(scene.position);
 		// Create the lighting and get the surface mesh.
 		var lights = this._createLights();
 		// Create the lights and add it to the scene.
-		scene.add(lights, surface, skybox);
+		scene.add(lights, this.surface.mesh, this.skybox);
 	};
 
 	/**
@@ -100,8 +106,9 @@ define(function (require) {
 		for (var i = 0, len = data.length; i < len; i++) {
 			points.addPoint(data[i]);
 		}
-		// Add the updated points to the scene.
-		scene.add(points.update(projection));
+		points.update(projection);
+		this.renderer.createRaycaster(points);
+		scene.add(points);
 	};
 
 	return HeatMap;

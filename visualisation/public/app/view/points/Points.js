@@ -16,11 +16,14 @@ define(function (require) {
 	 */
 	function Points (options) {
 
+		THREE.Mesh.call(this);
+
 		// Ensure the options exist.
 		options = options || {};
 
-		// Initalise the list of points and the global min and max values.
 		this._points = [];
+
+		// Initalise the global min and max values.
 		this._min = this._max = 0;
 
 		// Set the width and height of the points.
@@ -52,6 +55,7 @@ define(function (require) {
 
 	}
 
+	Points.prototype = Object.create(THREE.Mesh.prototype);
 	Points.prototype.constructor = Points;
 
 	/**
@@ -60,7 +64,7 @@ define(function (require) {
 	 * @returns {Array}
 	 */
 	Points.prototype.getPoints = function () {
-		return this._points;
+		return this.children;
 	};
 
 	/**
@@ -106,7 +110,7 @@ define(function (require) {
 		var point = new Point(data, this.width, this.height);
 		this._max = Math.max(this.getMax(), point.max);
 		// Add the point to the list.
-		this.getPoints().push(point);
+		this._points.push(point);
 		return point;
 	};
 
@@ -114,34 +118,28 @@ define(function (require) {
 	 * Updates each point with the correct material and position.
 	 *
 	 * @param [projection] The projection function for the point.
-	 * @returns {THREE.Mesh}
 	 */
 	Points.prototype.update = function (projection) {
-		var parent = new THREE.Mesh();
 		// Load the shader before updating the points.
 		new Shader(this.shaderPath).load().then(function (shader) {
-			this._updatePoints(parent, projection, shader.material);
+			this._updatePoints(projection, shader.material);
 		}.bind(this));
-		return parent;
 	};
 
 	/**
 	 * Updates the points given a parent mesh, projection and material.
 	 *
-	 * @param parent The parent mesh to add the points to.
 	 * @param projection The projection that will be applied to the point.
 	 * @param material The updated material for the point.
-	 * @returns {Array}
 	 * @private
 	 */
-	Points.prototype._updatePoints = function (parent, projection, material) {
-		var points = this.getPoints();
+	Points.prototype._updatePoints = function (projection, material) {
+		var points = this._points;
 		var options = this.getOptions();
 		for (var i = 0, len = points.length; i < len; i++) {
 			var point = this._updatePoint(points[i], projection, material, options);
-			parent.add(point.mesh);
+			this.add(point);
 		}
-		return points;
 	};
 
 	/**

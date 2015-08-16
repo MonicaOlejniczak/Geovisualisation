@@ -21,8 +21,8 @@ define(function (require) {
 	function Mouse (camera, element) {
 		// Store the viewport, camera and element.
 		this._viewport = Viewport;
-		this._camera = camera;
-		this._element = element;
+		this.camera = camera;
+		this.element = element;
 		// Assign the boundary values.
 		this._epsilon = 1e-4;
 		this.minCameraHeight = 1;
@@ -37,7 +37,7 @@ define(function (require) {
 		this.zoomFactor = 0.05;
 		this.rotateSpeed = 1;
 		// Add the event listeners to the element.
-		this._addEventListeners(element);
+		this.addEventListeners(element);
 	}
 
 	Mouse.prototype.constructor = Mouse;
@@ -46,13 +46,12 @@ define(function (require) {
 	 * Adds event listeners to the element.
 	 *
 	 * @param element The element that will be bound to the mouse events.
-	 * @private
 	 */
-	Mouse.prototype._addEventListeners = function (element) {
+	Mouse.prototype.addEventListeners = function (element) {
 		$(element).on({
-			contextmenu: this._onContextMenu.bind(this),
-			mousedown: this._onMouseDown.bind(this),
-			wheel: this._onMouseWheel.bind(this)
+			contextmenu: this.onContextMenu.bind(this),
+			mousedown: this.onMouseDown.bind(this),
+			wheel: this.onMouseWheel.bind(this)
 		});
 	};
 
@@ -65,15 +64,15 @@ define(function (require) {
 	 */
 	Mouse.prototype._zoom = function (value) {
 		// Clone the original camera position.
-		var position = this._camera.position.clone();
+		var position = this.camera.position.clone();
 		// Apply the translation.
-		this._camera.translateZ(-value);
+		this.camera.translateZ(-value);
 		// Check if the y position of the camera is outside of its bounds and restore the original position.
-		if (this._camera.position.y < this.minCameraHeight) {
-			this._camera.position.copy(position);
-			this._camera.position.setY(this.minCameraHeight);
+		if (this.camera.position.y < this.minCameraHeight) {
+			this.camera.position.copy(position);
+			this.camera.position.setY(this.minCameraHeight);
 		}
-		$(this).trigger('zoom', this._camera.position);
+		$(this).trigger('zoom', this.camera.position);
 	};
 
 	/**
@@ -84,20 +83,20 @@ define(function (require) {
 	 */
 	Mouse.prototype._pan = function (delta) {
 		// Clone the position of the camera.
-		var cameraPosition = this._camera.position.clone();
+		var cameraPosition = this.camera.position.clone();
 		// Obtain the distance of the camera to the origin and multiply it by the top half of the camera field of view.
-		var distance = cameraPosition.length() * Math.tan(THREE.Math.degToRad(this._camera.fov * 0.5));
+		var distance = cameraPosition.length() * Math.tan(THREE.Math.degToRad(this.camera.fov * 0.5));
 		// Store the pan position using the screen height.
 		var position = new THREE.Vector2(
 			-2 * delta.x * distance / this._viewport.getHeight(),
 			2 * delta.y * distance / this._viewport.getHeight()
 		);
 		// Apply the position to the camera and update the origin value.
-		this._camera.translateX(position.x);
-		this._camera.translateY(position.y);
-		this._camera.position.setY(Math.max(this.minCameraHeight, this._camera.position.y));
-		this.origin.add(this._camera.position.clone().sub(cameraPosition));
-		$(this).trigger('pan', this._camera.position);
+		this.camera.translateX(position.x);
+		this.camera.translateY(position.y);
+		this.camera.position.setY(Math.max(this.minCameraHeight, this.camera.position.y));
+		this.origin.add(this.camera.position.clone().sub(cameraPosition));
+		$(this).trigger('pan', this.camera.position);
 	};
 
 	/**
@@ -108,7 +107,7 @@ define(function (require) {
 	 */
 	Mouse.prototype._rotate = function (delta) {
 		// Get the position offset of the camera from the current origin.
-		var position = this._camera.position.clone().sub(this.origin);
+		var position = this.camera.position.clone().sub(this.origin);
 		// Get the radius of the spherical coordinate by applying sqrt(x^2 + y^2 + z^2) of the position.
 		var radius = position.length();
 		// Calculate the theta and phil delta angles i.e. the angle that the user has moved the camera on rotation.
@@ -120,19 +119,18 @@ define(function (require) {
 		// Clamp the elevation angle so it is between its minimum and maximum polar angle boundary.
 		phi = Math.min(this.maxPolarAngle - this._epsilon, Math.max(this.minPolarAngle + this._epsilon, phi));
 		// Apply the position to the camera.
-		this._camera.position.copy(this.origin).add(Convert.sphericalToCartesian(radius, theta, phi));
+		this.camera.position.copy(this.origin).add(Convert.sphericalToCartesian(radius, theta, phi));
 		// Ensure the camera is facing the origin.
-		this._camera.lookAt(this.origin);
-		$(this).trigger('rotate', this._camera.position);
+		this.camera.lookAt(this.origin);
+		$(this).trigger('rotate', this.camera.position);
 	};
 
 	/**
 	 * An event that is triggered when the user releases a right mouse button click.
 	 *
 	 * @param event The jQuery contextmenu event.
-	 * @private
 	 */
-	Mouse.prototype._onContextMenu = function (event) {
+	Mouse.prototype.onContextMenu = function (event) {
 		event.preventDefault();
 		return false;
 	};
@@ -142,22 +140,21 @@ define(function (require) {
 	 * browser and calls either the pan or rotate functions.
 	 *
 	 * @param event The jQuery mousedown event.
-	 * @private
 	 */
-	Mouse.prototype._onMouseDown = function (event) {
+	Mouse.prototype.onMouseDown = function (event) {
 		switch (event.which) {
 			case 1:
 				this.panStart.set(event.clientX, event.clientY);
-				$(this._element).on({
-					'mousemove.pan': this._onPan.bind(this),
-					'mouseup.pan': this._onReleasePan.bind(this)
+				$(this.element).on({
+					'mousemove.pan': this.onPan.bind(this),
+					'mouseup.pan': this.onReleasePan.bind(this)
 				});
 				break;
 			case 3:
 				this.rotateStart.set(event.clientX, event.clientY);
-				$(this._element).on({
-					'mousemove.rotate': this._onRotate.bind(this),
-					'mouseup.rotate': this._onReleaseRotate.bind(this)
+				$(this.element).on({
+					'mousemove.rotate': this.onRotate.bind(this),
+					'mouseup.rotate': this.onReleaseRotate.bind(this)
 				});
 				break;
 		}
@@ -167,9 +164,8 @@ define(function (require) {
 	 * An event triggered when the user begins to pan.
 	 *
 	 * @param event The jQuery mousemove event registered after a left mouseclick.
-	 * @private
 	 */
-	Mouse.prototype._onPan = function (event) {
+	Mouse.prototype.onPan = function (event) {
 		// Get the x and y screen coordinates.
 		var x = event.clientX;
 		var y = event.clientY;
@@ -183,19 +179,17 @@ define(function (require) {
 	 * Removes the panning events when the pan button is released.
 	 *
 	 * @param event The jQuery mouseup event registered after a left mouseclick.
-	 * @private
 	 */
-	Mouse.prototype._onReleasePan = function (event) {
-		$(this._element).off('mousemove.pan mouseup.pan');
+	Mouse.prototype.onReleasePan = function (event) {
+		$(this.element).off('mousemove.pan mouseup.pan');
 	};
 
 	/**
 	 * An event triggered when the user begins to rotate.
 	 *
 	 * @param event The jQuery mousemove event registered after a right mouseclick.
-	 * @private
 	 */
-	Mouse.prototype._onRotate = function (event) {
+	Mouse.prototype.onRotate = function (event) {
 		// Get the x and y screen coordinates.
 		var coordinates = new THREE.Vector2(event.clientX, event.clientY);
 		// Call the rotate function with the x and y deltas.
@@ -208,10 +202,9 @@ define(function (require) {
 	 * Remove the rotate events when the rotate mouse button is released.
 	 *
 	 * @param event The jQuery mouseup event registered after a right mouseclick.
-	 * @private
 	 */
-	Mouse.prototype._onReleaseRotate = function (event) {
-		$(this._element).off('mousemove.rotate mouseup.rotate');
+	Mouse.prototype.onReleaseRotate = function (event) {
+		$(this.element).off('mousemove.rotate mouseup.rotate');
 	};
 
 	/**
@@ -219,9 +212,8 @@ define(function (require) {
 	 * the browser and calls the zoom function.
 	 *
 	 * @param event The jQuery wheel event.
-	 * @private
 	 */
-	Mouse.prototype._onMouseWheel = function (event) {
+	Mouse.prototype.onMouseWheel = function (event) {
 		event.preventDefault();
 		var originalEvent = event.originalEvent;
 		this._zoom((originalEvent.wheelDeltaY || originalEvent.detail) * this.zoomFactor);
