@@ -100,14 +100,28 @@ define(function (require) {
 	};
 
 	/**
+	 * Adds a list of points to the class and then updates the uniforms.
+	 *
+	 * @param points The array of points to add.
+	 * @param projection The projection instance.
+	 */
+	Points.prototype.addPoints = function (points, projection) {
+		points.forEach(function (point) {
+			this.addPoint(point, projection);
+		}, this);
+		this.update();
+	};
+
+	/**
 	 * Adds a point to the list and calculate the new max value.
 	 *
 	 * @param data The point data used to create the point.
+	 * @param [projection] The point projection instance.
 	 * @returns {Point}
 	 */
-	Points.prototype.addPoint = function (data) {
+	Points.prototype.addPoint = function (data, projection) {
 		// Create the point and adjust the min and max value of the points.
-		var point = new Point(data, this.width, this.height);
+		var point = new Point(data, this.width, this.height, projection);
 		this._max = Math.max(this.getMax(), point.max);
 		// Add the point to the list.
 		this._points.push(point);
@@ -115,29 +129,26 @@ define(function (require) {
 	};
 
 	/**
-	 * Updates each point with the correct material and position.
-	 *
-	 * @param [projection] The projection function for the point.
+	 * Updates each point with the correct material.
 	 */
-	Points.prototype.update = function (projection) {
+	Points.prototype.update = function () {
 		// Load the shader before updating the points.
 		new Shader(this.shaderPath).load().then(function (shader) {
-			this._updatePoints(projection, shader.material);
+			this._updatePoints(shader.material);
 		}.bind(this));
 	};
 
 	/**
 	 * Updates the points given a parent mesh, projection and material.
 	 *
-	 * @param projection The projection that will be applied to the point.
 	 * @param material The updated material for the point.
 	 * @private
 	 */
-	Points.prototype._updatePoints = function (projection, material) {
+	Points.prototype._updatePoints = function (material) {
 		var points = this._points;
 		var options = this.getOptions();
 		for (var i = 0, len = points.length; i < len; i++) {
-			var point = this._updatePoint(points[i], projection, material, options);
+			var point = this._updatePoint(points[i], material, options);
 			this.add(point);
 		}
 	};
@@ -146,15 +157,13 @@ define(function (require) {
 	 * Updates the point given its projection, material and options.
 	 *
 	 * @param point The point being updated.
-	 * @param projection The projection that will be applied to the point.
 	 * @param material The updated material for the point.
 	 * @param options The material options for the shader.
 	 * @returns {Point}
 	 * @private
 	 */
-	Points.prototype._updatePoint = function (point, projection, material, options) {
+	Points.prototype._updatePoint = function (point, material, options) {
 		options = options || {};
-		point.updatePosition(projection);
 		point.updateMaterial(material, options.mode, options.colors, options.bound, options.colorRange);
 		return point;
 	};

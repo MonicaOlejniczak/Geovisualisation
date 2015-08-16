@@ -19,9 +19,9 @@ define(function () {
 		// Iterate through the series up to 10 times to generate the points.
 		for (var j = 0, len = n; j < len; j++) {
 			// Generate a random x and y value between the bounds.
-			var x = Math.random() * (xBound.y - xBound.x) + xBound.x;
-			var y = Math.random() * (yBound.y - yBound.x) + yBound.x;
-			var z = Math.random() * (zBound.y - zBound.x) + zBound.x;
+			var x = (Math.random() * (xBound.y - xBound.x) + xBound.x).toFixed(2);
+			var y = (Math.random() * (yBound.y - yBound.x) + yBound.x).toFixed(2);
+			var z = (Math.random() * (zBound.y - zBound.x) + zBound.x).toFixed(2);
 			// Add the data to the array.
 			data.push([x, y, z]);
 		}

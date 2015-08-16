@@ -14,13 +14,13 @@ define(function (require) {
 	 * @param point The point data.
 	 * @param width The width of the point.
 	 * @param height The height of the point.
+	 * @param [projection] The projection for the point.
 	 * @constructor
 	 */
-	function Point (point, width, height) {
+	function Point (point, width, height, projection) {
 		THREE.Mesh.call(this);
 		// Set the transformed position data.
 		var position = Convert.transform(point[0], point[1], point[2]);
-		this.position.copy(position);
 
 		// Set the width, height and the magnitude of the point.
 		this.width = width;
@@ -41,18 +41,21 @@ define(function (require) {
 		this.min = boundingBox.min.y;
 		this.max = boundingBox.max.y;
 
+		this.updatePosition(position, projection);
+
 	}
 
 	Point.prototype = Object.create(THREE.Mesh.prototype);
 	Point.prototype.constructor = Point;
 
 	/**
-	 * This method updates the position of the point by rotating the mesh to look at the target vector. It then sets
-	 * the position and y-position of the mesh so that it is above the offset.
+	 * Updates the position of the point and applied a projection if it exists.
 	 *
-	 * @param [projection] The projection callback function.
+	 * @param position The new position for the point.
+	 * @param [projection] The projection instance.
 	 */
-	Point.prototype.updatePosition = function (projection) {
+	Point.prototype.updatePosition = function (position, projection) {
+		this.position.copy(position);
 		if (projection) {
 			projection.project.call(projection, this);
 		}

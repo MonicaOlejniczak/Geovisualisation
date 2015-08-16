@@ -101,11 +101,7 @@ define(function (require) {
 		projection = projection || function () {};
 		projection.target = scene.position;
 		var points = this.points;
-		// Iterates through the data and add the points.
-		for (var i = 0, len = data.length; i < len; i++) {
-			points.addPoint(data[i]);
-		}
-		points.update(projection);
+		points.addPoints(data, projection);
 		scene.add(points);
 	};
 
