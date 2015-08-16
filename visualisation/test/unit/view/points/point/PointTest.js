@@ -26,15 +26,21 @@ define(function (require) {
 
 		describe('the update position method', function () {
 
-			it('should update the position to equal the transformed point data', function () {
-				point.updatePosition();
-				expect(point.position).to.eql(Convert.transform(data[0], data[1], data[2]));
+			var position;
+
+			beforeEach(function () {
+				position = new THREE.Vector3(1, 1, 1);
+			});
+
+			it('should update the position of the point', function () {
+				point.updatePosition(position);
+				expect(point.position).to.eql(position);
 			});
 
 			it('should call the project method on a projection when it is passed in', function () {
 				var projection = new Projection(Projection.standard);
 				var stub = sinon.stub(projection, 'project');
-				point.updatePosition(projection);
+				point.updatePosition(position, projection);
 				expect(stub).to.have.been.calledOnce;
 			});
 

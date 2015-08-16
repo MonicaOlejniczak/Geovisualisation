@@ -134,11 +134,6 @@ define(function (require) {
 				materialStub = sinon.stub(point, 'updateMaterial');
 			});
 
-			it('should call the update position method', function () {
-				points._updatePoint(point);
-				expect(positionStub).to.have.been.calledOnce;
-			});
-
 			it('should call the update material method', function () {
 				points._updatePoint(point);
 				expect(materialStub).to.have.been.calledOnce;

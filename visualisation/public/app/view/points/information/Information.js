@@ -42,7 +42,11 @@ define(function (require) {
 		intersects = intersects || [];
 		this._toggleClasses(intersects);
 		intersects.forEach(function (intersect) {
-			this._updateInformation(coordinates, intersect.object);
+			var object = intersect.object;
+			// Only update the information if the object is is a point.
+			if (object instanceof Point) {
+				this._updateInformation(coordinates, object);
+			}
 		}, this);
 	};
 
@@ -66,13 +70,11 @@ define(function (require) {
 	 * @private
 	 */
 	Information.prototype._updateInformation = function (coordinates, object) {
-		if (object instanceof Point) {
-			this.$el.html(this.template(object))
-				.css({
-					left: coordinates.x,
-					top: coordinates.y
-				});
-		}
+		this.$el.html(this.template(object))
+			.css({
+				left: coordinates.x,
+				top: coordinates.y
+			});
 	};
 
 	return Information;
