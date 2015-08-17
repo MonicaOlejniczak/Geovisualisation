@@ -24,19 +24,20 @@ define(function (require) {
 		this.color = new THREE.Color(0x222222);
 		this.aspectRatio = 1;
 		this.colorBound = new THREE.Vector2(-100, 100);
-		this._createMesh(geometry);
+		this.load(geometry);
+
 	}
 
 	Surface.prototype = Object.create(THREE.Mesh.prototype);
 	Surface.prototype.constructor = Surface;
 
 	/**
-	 * Creates the surface for the scene.
+	 * Loads the surface for the scene.
 	 *
 	 * @param geometry The geometry that defines the surface being created.
 	 * @private
 	 */
-	Surface.prototype._createMesh = function (geometry) {
+	Surface.prototype.load = function (geometry) {
 		// Create the texture and use it for the mesh material.
 		var texture = this._createTexture();
 		// Create the shader.
@@ -56,7 +57,7 @@ define(function (require) {
 		shader.load().then(function (shader) {
 			this.geometry = geometry;
 			this.material = shader.material;
-			$(this).trigger('load');
+			$(this).trigger('ready');
 		}.bind(this));
 	};
 

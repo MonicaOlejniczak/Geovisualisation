@@ -6,11 +6,9 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "chai": "^3.2.0",
     "compression": "1.0.7",
     "express": "4.4.3",
-    "mocha": "^2.2.5",
-    "requirejs": "^2.1.20",
+    "gulp": "^3.9.0",
     "serve-favicon": "2.0.1",
     "socket.io": "1.0.5"
   }

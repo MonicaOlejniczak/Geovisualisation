@@ -17,7 +17,7 @@ define(function (require) {
 	function FlatSurface (height) {
 		Surface.call(this, new THREE.BoxGeometry(1, 1, 1));
 		this.height = height || 10;
-		$(this).on('load', this.onLoad.bind(this));
+		$(this).on('ready', this.onReady.bind(this));
 	}
 
 	FlatSurface.prototype = Object.create(Surface.prototype);
@@ -27,7 +27,7 @@ define(function (require) {
 	 * A method that is triggered when the surface super class has been loaded. This method adjusts the mesh so that
 	 * it is of the correct scale, position and contains the appropriate surface position uniform.
 	 */
-	FlatSurface.prototype.onLoad = function () {
+	FlatSurface.prototype.onReady = function () {
 		// Scale the size of the mesh to match the aspect ratio of the image.
 		this.scale.set(this.size * this.aspectRatio, this.height, this.size);
 		// Set the position of the mesh so that it is below the data points.

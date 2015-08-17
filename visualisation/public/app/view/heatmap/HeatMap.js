@@ -24,9 +24,8 @@ define(function (require) {
 	 * @constructor
 	 */
 	function HeatMap (canvas, surface, projection, options) {
-		this.points = new Points();
-		options['raycaster'] = {parent: this.points};
 		this.renderer = new SceneRenderer(canvas.get(0), options);
+		this.points = new Points(options);
 		this.skybox = new Skybox(this.renderer.getCamera());
 		this.surface = surface;
 		var scene = this.renderer.getScene();

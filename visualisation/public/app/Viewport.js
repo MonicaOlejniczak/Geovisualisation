@@ -6,6 +6,7 @@ define(function (require) {
 	'use strict';
 
 	var $ = require('jquery');
+	var $el = $('#content');
 
 	/**
 	 * Initialises the viewport.
@@ -16,13 +17,17 @@ define(function (require) {
 
 	Viewport.prototype.constructor = Viewport;
 
+	Viewport.getOffset = function () {
+		return $el.offset();
+	};
+
 	/**
 	 * A function that returns the width of the viewport.
 	 *
 	 * @returns {*|jQuery} The width of the viewport.
 	 */
 	Viewport.getWidth = function () {
-		return $(window).width();
+		return $el.width();
 	};
 
 	/**
@@ -31,7 +36,7 @@ define(function (require) {
 	 * @returns {*|jQuery} The height of the viewport.
 	 */
 	Viewport.getHeight = function () {
-		return $(window).height();
+		return $el.height();
 	};
 
 	return Viewport;

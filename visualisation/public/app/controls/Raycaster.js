@@ -34,10 +34,11 @@ define(function (require) {
 	 * @param event The jQuery mousemove event.
 	 */
 	Raycaster.prototype.onMouseMove = function (event) {
+		var offset = Viewport.getOffset();
 		this._mouse.set(event.clientX, event.clientY);
 		this._coordinates.set(
-			(event.clientX / Viewport.getWidth()) * 2 - 1,
-			-(event.clientY / Viewport.getHeight()) * 2 + 1
+			((event.clientX - offset.left) / Viewport.getWidth()) * 2 - 1,
+			-((event.clientY - offset.top) / Viewport.getHeight()) * 2 + 1
 		);
 	};
 

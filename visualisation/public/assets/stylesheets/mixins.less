@@ -1,0 +1,89 @@
+.vendor(@property; @value) {
+	-webkit-@{property}: @value;
+	-moz-@{property}: @value;
+	-o-@{property}: @value;
+	-khtml-@{property}: @value;
+	@{property}: @value;
+}
+
+.calculate(@value) {
+	.vendor(calc, @value);
+}
+
+.border-radius (@radius: 1em) {
+	.vendor(border-radius, @radius);
+}
+
+.box-shadow (@h-shadow: 0px; @v-shadow: 0px; @blur: 0px; @spread: 0px; @color: rgba(0.5, 0.5, 0.5, 0.5)) {
+	.vendor(box-shadow, @arguments);
+}
+
+.drop-shadow (@x: 0; @y: 1px; @blur: 2px; @spread: 0; @alpha: 0.25) {
+	.vendor(box-shadow, @x @y @blur @spread rgba(0, 0, 0, @alpha));
+}
+
+.inner-shadow (@x: 0; @y: 1px; @blur: 2px; @spread: 0; @alpha: 0.25) {
+	.vendor(box-shadow, inset @x @y @blur @spread rgba(0, 0, 0, @alpha));
+}
+
+.box-sizing (@type: border-box) {
+	.vendor(box-sizing, @type);
+}
+
+.opacity (@opacity: 0.5) {
+	.vendor(opacity, @opacity);
+}
+
+.gradient (@startColor: #eee; @endColor: white) {
+	background-color: @startColor;
+	background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+	background: -webkit-linear-gradient(top, @startColor, @endColor);
+	background: -moz-linear-gradient(top, @startColor, @endColor);
+	background: -ms-linear-gradient(top, @startColor, @endColor);
+	background: -o-linear-gradient(top, @startColor, @endColor);
+}
+
+.horizontal-gradient (@startColor: #eee; @endColor: white) {
+	background-color: @startColor;
+	background-image: -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+	background-image: -webkit-linear-gradient(left, @startColor, @endColor);
+	background-image: -moz-linear-gradient(left, @startColor, @endColor);
+	background-image: -ms-linear-gradient(left, @startColor, @endColor);
+	background-image: -o-linear-gradient(left, @startColor, @endColor);
+}
+
+.animation (@name; @duration: 300ms; @delay: 0; @ease: ease) {
+	.vendor(animation, @arguments);
+}
+
+.transition (@property: all; @delay: 1s; @timing-function: linear) {
+	.vendor(transition, @arguments);
+}
+
+.scale (@factor) {
+	.vendor(transform, scale(@factor));
+}
+
+.rotate (@deg) {
+	.vendor(transform, rotate(@deg));
+}
+
+.skew (@deg, @deg2) {
+	.vendor(transform, skew(@deg, @deg2));
+}
+
+.translate (@x; @y:0) {
+	.vendor(transform, translate(@x, @y));
+}
+
+.translate3d (@x; @y: 0; @z: 0) {
+	.vendor(transform, translate3d(@x, @y, @z));
+}
+
+.perspective (@value: 1000) {
+	.vendor(perspective, @value);
+}
+
+.transform-origin (@x:center; @y:center) {
+	.vendor(transform-origin, @x @y);
+}

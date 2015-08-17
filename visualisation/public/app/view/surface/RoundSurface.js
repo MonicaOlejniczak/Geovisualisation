@@ -24,7 +24,7 @@ define(function (require) {
 			source: 'atmosphere/Atmosphere',
 			color: new THREE.Color(0x08376b)
 		};
-		$(this).on('load', this.onLoad.bind(this));
+		$(this).on('ready', this.onReady.bind(this));
 	}
 
 	RoundSurface.prototype = Object.create(Surface.prototype);
@@ -36,7 +36,7 @@ define(function (require) {
 	 *
 	 * @private
 	 */
-	RoundSurface.prototype.onLoad = function () {
+	RoundSurface.prototype.onReady = function () {
 		var geometry = this.geometry;
 		// Scale the surface to its radius.
 		this.scale.set(this.radius, this.radius, this.radius);

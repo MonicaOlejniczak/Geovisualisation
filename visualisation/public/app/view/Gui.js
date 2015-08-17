@@ -43,7 +43,7 @@ define(function (require) {
 		// Create a folder for the surface colour.
 		var folder = gui.addFolder('Surface');
 		$(surface).on({
-			load: function (event) {
+			ready: function (event) {
 				var material = surface.material;
 				// Get the colour bound and its min and max values.
 				var colourBound = surface.colorBound;

@@ -11,10 +11,14 @@ define(function (require) {
 	var Point = require('view/points/point/Point');
 	var Display = require('text!view/points/information/Information.hbs');
 
-	function Information (renderer) {
+	function Information (renderer, points) {
+		// Set the raycaster on the renderer.
+		renderer.setRaycaster(points);
+		// Set the canvas and element.
 		this.$canvas = $(renderer.getCanvas());
 		this.$el = $('#information');
-		this.template = Handlebars.compile(Display);
+		// Configure the template and add the event listeners.
+		this._configureTemplate();
 		this.addEventListeners(renderer);
 	}
 
@@ -24,10 +28,44 @@ define(function (require) {
 	 * @param renderer The WebGL renderer.
 	 */
 	Information.prototype.addEventListeners = function (renderer) {
-		var raycaster = renderer.raycaster;
-		if (raycaster) {
-			$(raycaster).on('raycast', this.onRaycast.bind(this));
-		}
+		$(renderer.raycaster).on('raycast', this.onRaycast.bind(this));
+	};
+
+	/**
+	 * Confifures the Handlebars template by registering helpers and compiling the template.
+	 *
+	 * @private
+	 */
+	Information.prototype._configureTemplate = function () {
+		Handlebars.registerHelper('formatPosition', this._formatPosition.bind(this));
+		this.template = Handlebars.compile(Display);
+	};
+
+	/**
+	 * The function that formats the position.
+	 *
+	 * @param position The position being formatted.
+	 * @returns {string} The formatted position.
+	 * @private
+	 */
+	Information.prototype._formatPosition = function (position) {
+		var precision = 2;
+		return '[' +
+			this._formatNumber(position.x, precision) + ', ' +
+			this._formatNumber(position.y, precision) + ', ' +
+			this._formatNumber(position.z, precision) + ']';
+	};
+
+	/**
+	 * Formats a number to a particular precision.
+	 *
+	 * @param value The number being formatted.
+	 * @param precision The precision being used.
+	 * @returns {string|*}
+	 * @private
+	 */
+	Information.prototype._formatNumber = function (value, precision) {
+		return value.toFixed(precision);
 	};
 
 	/**

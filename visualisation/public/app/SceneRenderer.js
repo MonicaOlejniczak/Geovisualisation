@@ -98,7 +98,7 @@ define(function (require) {
 	SceneRenderer.prototype._resize = function (width, height) {
 		var camera = this.getCamera();
 		camera.aspect = width / height;
-		camera.fov = (360 / Math.PI) * Math.atan(this._tanFOV * (height / this._viewportHeight));
+		//camera.fov = (360 / Math.PI) * Math.atan(this._tanFOV * (height / this._viewportHeight));
 		camera.updateProjectionMatrix();
 		this.renderer.setSize(width, height);
 	};
@@ -128,6 +128,16 @@ define(function (require) {
 	 */
 	SceneRenderer.prototype.getCanvas = function () {
 		return this._canvas;
+	};
+
+	/**
+	 * Sets the raycaster for the scene.
+	 *
+	 * @param parent The parent element to check for intersections.
+	 */
+	SceneRenderer.prototype.setRaycaster = function (parent) {
+		parent = parent || this.getScene();
+		this.raycaster = new Raycaster(this.getCanvas(), this.getCamera(), parent);
 	};
 
 	/**

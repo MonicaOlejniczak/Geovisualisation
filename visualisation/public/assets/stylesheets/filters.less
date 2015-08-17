@@ -1,0 +1,42 @@
+#filters {
+
+	margin: 1em;
+
+	.slider {
+
+		@color: #18e1c2;
+
+		background-color: #c8c8c8;
+		border: 0;
+
+		&.noUi-connect {
+			background: @color;
+			box-shadow: none;
+		}
+
+		&.noUi-horizontal {
+			height: 2px;
+			border-radius: 2px;
+		}
+
+		.noUi-handle {
+
+			width: 12px;
+			height: 12px;
+			left: -10px;
+			top: -5px;
+			background: @color;
+			border: 0;
+			border-radius: 100%;
+			box-shadow: none;
+
+			&::before, &::after {
+				display: none;
+			}
+
+		}
+
+	}
+
+}
+
