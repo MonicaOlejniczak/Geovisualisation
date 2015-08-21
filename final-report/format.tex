@@ -1,0 +1,74 @@
+\linespread{1.25}
+
+\usepackage[left=30mm,top=35mm,right=30mm,bottom=35mm,headheight=30pt]{geometry}
+
+% Enforce UTF8 encoding
+\usepackage[utf8]{inputenc}
+
+% % Colours
+\usepackage[dvipsnames]{xcolor}
+
+% Header and footer
+\usepackage{scrlayer-scrpage}
+\ohead{SENG4800B - Individual final report \\ \today}
+\cfoot{\pagemark}
+
+% Document title and author
+\title{Exploring 3D Geovisualisation Techniques and their Applications with Large Datasets using HTML5 and WebGL}
+\author{Monica Olejniczak}
+
+% Other information
+\newcommand{\supervisor}{Shamus Smith}
+\newcommand{\degree}{Bachelor of Engineering (Honours) (Software)}
+\newcommand{\school}{School of Electrical Engineering and Computer Science}
+\newcommand{\university}{University of Newcastle}
+\newcommand{\country}{Australia}
+\newcommand{\institute}{\school\\\university, \country}
+
+% http://tex.stackexchange.com/questions/198830/section-title-with-runin-and-koma-class
+
+% Abstract
+\usepackage{abstract}
+\setlength{\absleftindent}{0pt}
+\setlength{\absrightindent}{0pt}
+\renewcommand{\absnamepos}{flushleft}
+\renewcommand{\abstractnamefont}{\normalfont\Large\bfseries}
+
+% Links
+\usepackage{hyperref}
+
+% Todo notes
+\usepackage{todonotes}
+\presetkeys{todonotes}{inline}{}
+
+% Tables
+\usepackage{booktabs}
+\usepackage{tabularx}
+\renewcommand{\arraystretch}{1.5}
+\setlength{\textfloatsep}{0.1em}
+
+% Figures
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage[font=scriptsize]{subcaption}
+
+\newcommand{\subfigcaptionskip}{\vspace{-10pt}}
+
+% Additional
+\usepackage{float}
+\usepackage{spreadtab}
+\usepackage{etoolbox}
+\usepackage{setspace}
+
+% References
+\usepackage[backend=bibtex,style=authoryear]{biblatex}
+\addbibresource{references.bib}
+\renewcommand*{\bibfont}{\small}
+\DeclareBibliographyCategory{exclude}
+\newcommand{\bibentry}[1]{
+	\addtocategory{exclude}{#1}
+	\fullcite{#1}
+}
+
+% Appendices
+\usepackage[toc,page]{appendix}

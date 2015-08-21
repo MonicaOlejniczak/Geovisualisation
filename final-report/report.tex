@@ -1,0 +1,55 @@
+\documentclass[
+	fontsize=11pt,
+	parskip=half
+]{scrreprt}
+
+\input{format}
+
+\begin{document}
+
+	\input{title}
+	\input{abstract}
+
+	\newpage
+	\tableofcontents
+	\newpage
+	
+	\chapter{Introduction} {
+	\label{ch:introduction}
+		\input{chapters/introduction}
+	}
+	
+	\chapter{Design} {
+	\label{ch:design}
+		\input{chapters/design}	
+	}
+	
+	\chapter{Implementation} {
+	\label{ch:implementation}
+		\input{chapters/implementation}
+	}
+
+	\chapter{Testing} {
+	\label{ch:testing}
+		\input{chapters/testing}
+	}
+
+	\chapter{Evaluation} {
+	\label{ch:evaluation}
+		\input{chapters/evaluation}
+	}
+
+	\chapter{Results} {
+	\label{ch:results}
+		\input{chapters/results}
+	}
+
+	\chapter{Conclusion} {
+	\label{ch:conclusion}
+		\input{chapters/conclusion}
+	}
+	
+	\renewcommand{\bibname}{References}
+	\printbibliography[notcategory=exclude]
+	
+\end{document}
