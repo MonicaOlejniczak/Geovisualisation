@@ -1,22 +1,39 @@
 \documentclass[
+	paper=A4,
+    titlepage=true,
 	fontsize=11pt,
 	parskip=half
 ]{scrreprt}
+
+% Document title and author
+\title{Exploring 3D Geovisualisation Techniques and their Applications with Large Datasets using HTML5 and WebGL}
+\author{Monica Olejniczak}
+
+% Other information
+\newcommand{\supervisor}{Shamus Smith}
+\newcommand{\degree}{Bachelor of Engineering (Honours) (Software)}
+\newcommand{\school}{School of Electrical Engineering and Computer Science}
+\newcommand{\university}{University of Newcastle}
+\newcommand{\country}{Australia}
+\newcommand{\institute}{\school\\\university, \country}
 
 \input{format}
 
 \begin{document}
 
-	\input{title}
-	\input{abstract}
+	\input{frontmatter}
 
-	\newpage
-	\tableofcontents
-	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
 	
 	\chapter{Introduction} {
 	\label{ch:introduction}
 		\input{chapters/introduction}
+	}
+
+	\chapter{Literature review} {
+	\label{ch:literature_review}
+		\input{chapters/literature}
 	}
 	
 	\chapter{Design} {

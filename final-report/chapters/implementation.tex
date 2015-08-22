@@ -1,25 +1,69 @@
-\section{Technologies} {
-\label{sec:technologies}
+The development of these visualisations will involve using the established \href{http://threejs.org/docs/#Reference/Extras.Geometries/BoxGeometry}{BoxGeometry} and NURBS surface that are available in Three.js. The \href{http://threejs.org/examples/webgl_geometry_nurbs.html}{NURBS example}, as displayed in Appendix~\ref{app:nurbs}, proves that it is possible to render a smooth 3D surface. This can be applied to represent a heat map and if there lie difficulties in implementing this, then a simpler representation can be modelled.
 
-	The tools and libraries that will be used for the development environment of this project have been outlined in Table~\ref{tab:dependencies}. Each technology has been chosen due to the fact that they are popular, easy to use, well documented, maintained and have been used in the past.
+\section{Software configuration management} {
 
-	\begin{table}[H]
-	\caption{The list of project dependencies for the development environment.}
-	\label{tab:dependencies}
-	\begin{tabularx}{\textwidth}{@{}XX@{}}
-		\toprule
-		\textbf{Dependency} & \textbf{Description} \\
-		\midrule
-		Git & Version control \\
-		BitBucket & Source code host \\
-		SourceTree & Git client \\
-		Node.js & Runtime environment \\
-		Three.js & WebGL abstraction library \\
-		RequireJS & Dependency injection library \\
-		Intern & Test runner \\
-		Chai & Assertion library \\
-		\bottomrule
-	\end{tabularx}
-	\end{table}
+	\emph{Git} is a distributed revision control system that has been used throughout the course of this project. Its primary function is to manage changes in the source code, but also to maintain any associated documentation for this project. The key advantages of using this system are as follows:
+
+	\begin{itemize}
+		\item Emphasis on speed and scale.
+			\begin{itemize}
+				\item Can support thousands of contributors.
+			\end{itemize}
+		\item Provides great flexibility towards workflows.
+		\item Low storage requirements.
+		\item It is decentralised.
+			\begin{itemize}
+				\item Promotes offline work because everybody has their own repository.
+			\end{itemize}
+	\end{itemize}
+
+	It is important to note that a decentralised system is superior to other revision control systems, in that changes can be saved locally and then later be added to the remote repository. On the other hand, a centralised system such as Subversion, requires users to physically copy their changes in code when the network location is out of reach.
+
+	While this project is being implemented by a single developer, it is essential to consider future work and the possibility of having more contributors. By using Git as a means of revision control, this should not become an issue due to its sheer scalability.
+
+	% \emph{BitBucket}, a source code host, and \emph{Source Tree}, a popular Git client have been used in parallel to Git.
+
+}
+
+\section{Libraries} {
+	
+	\subsection{Runtime environment} {
+	
+		Node.js
+
+	}
+
+	\subsection{WebGL abstraction library} {
+		
+		Three.js
+
+		It will primarily use Three.js~\footnote{\bibentry{cabello2010three}}, a JavaScript library that abstracts WebGL, as a tool for creating 3D visualisations. 
+
+	}
+
+	\subsection{Dependency injection library} {
+		
+		RequireJS
+
+	}
+
+}
+
+\section{Features} {
+	
+	\subsection{Navigation} {
+
+
+	}
+
+	\subsection{Filtering} {
+
+	}
+
+	\subsection{Data display} {
+
+		\todo{justify handlebars/templating}
+
+	}
 
 }
