@@ -1,5 +1,3 @@
-This project will be developed in a web environment to ensure the creation of a platform independent system.
-
 \todo{Purpose of the chapter
  Structure of the chapter
  Central themes of the chapter}
@@ -27,7 +25,9 @@ This project will be developed in a web environment to ensure the creation of a 
 \section{Methodology} {
 \label{sec:methodology}
 
-	A rapid application development (RAD) approach will be undertaken when developing this project. This methodology focuses on iterative development and the rapid construction of prototypes, instead of investing significant amounts of time into planning. RAD enables the software to be written quickly through the reuse of software components and engaging in less formal reviews. This process also performs unit, integration and system testing at the end of each construction phase. 
+	A rapid application development (RAD) approach was undertaken when developing this project. This methodology focuses on iterative development and the rapid construction of prototypes, instead of investing significant amounts of time into planning. RAD enables the software to be written quickly through the reuse of software components and engaging in less formal reviews. This process also performs unit, integration and system testing at the end of each construction phase.
+
+	\todo{insert diagram}
 
 	In this project, each visualisation can be thought of as a single prototype, where parts of the first prototype can be reused for the second visualisation. Testing should be performed during the course of the project, but particularly when a major component of a prototype has been developed, such as data filtering.
 
@@ -48,13 +48,13 @@ This project will be developed in a web environment to ensure the creation of a 
 \section{Dataset} {
 \label{sec:dataset}
 
-	\todo{convert to past tense and make datasets solid}
+	% \todo{convert to past tense and make datasets solid}
 
-	As discussed in Section~\ref{sec:deliverables}, the visualisations will begin with generated data so development can begin immediately. Using generated data brings control over the size of the dataset applied to a prototype and enables the scalability of each visualisation can be tested. 
+	% As discussed in Section~\ref{sec:deliverables}, the visualisations began with generated data so development could begin immediately. Using generated data brings control over the size of the dataset applied to a prototype and enables the scalability of each visualisation can be tested. 
 
-	Following the use of fake data, each prototype will have real datasets applied to them. By using the same data for both prototypes, their differences in computational requirements and scalability can be compared and analysed. GeoNames~\footnote{\bibentry{wick2005geonames}} is a geographical database that stores population data for a significant number of cities and their respective latitude and longitude coordinates. This database falls under a creative commons attribution license and will be used for both visualisations because there are no copyright concerns or immediate issues when reading and parsing the data it provides. However, some unnecessary information contained in a GeoNames dataset (such as \emph{geonameid}, \emph{feature class} and  \emph{dem}) will need to be removed. The format of the data should also be modified (from a tab separated list to a JavaScript array) when used with a prototype. These steps are necessary so the visualisations can read the data efficiently and hence reduce the loading time for the user. Other datasets can be obtained from Earthdata~\footnote{\bibentry{nasa2000data}}, but will require further investigation regarding how to extract the information from the available databases.
+	% Following the use of fake data, each prototype had real datasets applied to them. By using the same data for both prototypes, their differences in computational requirements and scalability could be compared and analysed. GeoNames~\footnote{\bibentry{wick2005geonames}} is a geographical database that stores population data for a significant number of cities and their respective latitude and longitude coordinates. This database falls under a creative commons attribution license and will be used for both visualisations because there are no copyright concerns or immediate issues when reading and parsing the data it provides. However, some unnecessary information contained in a GeoNames dataset (such as \emph{geonameid}, \emph{feature class} and  \emph{dem}) will need to be removed. The format of the data should also be modified (from a tab separated list to a JavaScript array) when used with a prototype. These steps are necessary so the visualisations can read the data efficiently and hence reduce the loading time for the user. Other datasets can be obtained from Earthdata~\footnote{\bibentry{nasa2000data}}, but will require further investigation regarding how to extract the information from the available databases.
 
-	Once real data has been applied to both prototypes, the visualisations will be integrated into a live system for the teaching analytics component of the final year project. The amount of touch gestures that particular system components receive and the progress made by students, groups and tutorials will need to be collected and stored in the database. This data can be visualised to aid teachers in analysing ongoing student progress.
+	% Once real data has been applied to both prototypes, the visualisations will be integrated into a live system for the teaching analytics component of the final year project. The amount of touch gestures that particular system components receive and the progress made by students, groups and tutorials will need to be collected and stored in the database. This data can be visualised to aid teachers in analysing ongoing student progress.
 
 	\subsection{Structure} {
 	\label{sec:dataset_structure}
@@ -84,12 +84,5 @@ This project will be developed in a web environment to ensure the creation of a 
 		design patterns
 
 		architecture diagram}
-
-}
-
-\section{Testing} {
-\label{sec:testing}
-
-	\todo{bdd, testing design and unit design}
 
 }

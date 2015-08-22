@@ -1,4 +1,104 @@
-Talk about mocha test runner.
+\todo{Purpose of the chapter
+ Structure of the chapter
+ Central themes of the chapter}
+
+\section{Purpose} {
+\label{sec:testing_purpose}
+
+	% The purpose of testing is to ensure that the project successfully implements prescribed requirements and that as many defects/omissions as possible are detected and rectified as early as possible in the software development lifecycle.
+
+	Testing ensures 
+
+	% 	http://www.righthandtech.com/software-testing.php
+% http://istqbexamcertification.com/what-is-the-software-testing-objectives-and-purpose/
+	% Software testing is performed to verify that the completed software package functions according to the expectations defined by the requirements/specifications. The overall objective to not to find every software bug that exists, but to uncover situations that could negatively impact the customer, usability and/or maintainability.
+	% From the module level to the application level, this article defines the different types of testing. Depending upon the purpose for testing and the software requirements/specs, a combination of testing methodologies is applied. One of the most overlooked areas of testing is regression testing and fault tolerant testing.
+
+}
+
+\section{Method} {
+\label{sec:testing_method}
+
+	This project has utilised the behavioural specifications from behaviour-driven development (BDD), while maintaining a Rapid Application Development approach throughout development. This method of testing couples the advantages of RAD development, discussed in Section~\ref{sec:methodology} with the BDD approach outlined in Section~\ref{sec:behaviour_driven_development} below.
+
+}
+
+\section{Behaviour-driven development} {
+\label{sec:behaviour_driven_development}
+
+	Behaviour-driven development is an agile software development technique that focuses on obtaining a clear understanding of the desired software behaviour~\parencite{rice2014bdd}. It utilises an ubiquitous language, which is shared by software developers and management teams to extract and gather requirements, specifications and documentation~\parencite{bellware2015bdd, evans2004domain}. An important aspect of BDD is that the tests are highly granular, which enables programmers to determine points of failure more easily. Furthermore, BDD tests the system requirements and outputs the results in a natural human-readable format.
+
+	\subsection{Behavioural specifications} {
+
+		narrative stuff
+
+% 		Following this fundamental choice, a second choice made by BDD relates to how the desired behavior should be specified. In this area BDD chooses to use a semi-formal format for behavioral specification which is borrowed from user story specifications from the field of object-oriented analysis and design. BDD specifies that business analysts and developers should collaborate in this area and should specify behavior in terms of user stories, which are each explicitly written down in a dedicated document.[10][11] Each user story should, in some way, follow the following structure:[2][11]
+
+% Title: The story should have a clear, explicit title.
+% Narrative
+% A short, introductory section that specifies
+% who (which business or project role) is the driver or primary stakeholder of the story (the actor who derives business benefit from the story)
+% what effect the stakeholder wants the story to have
+% what business value the stakeholder will derive from this effect
+% Acceptance criteria or scenarios
+% a description of each specific case of the narrative. Such a scenario has the following structure:
+% It starts by specifying the initial condition that is assumed to be true at the beginning of the scenario. This may consist of a single clause, or several.
+% It then states which event triggers the start of the scenario.
+% Finally, it states the expected outcome, in one or more clauses.
+% BDD does not have any formal requirements for exactly how these user stories must be written down, but it does insist that each team using BDD come up with a simple, standardized format for writing down the user stories which includes the elements listed above.[2][11] However, in 2007 Dan North suggested a template for a textual format which has found wide following in different BDD software tools.[11] A very brief example of this format might look like this:
+
+	}
+
+}
+
+\section{Types} {
+\label{sec:testing_types}
+
+	This project has undertaken the following types of testing:
+
+	\begin{description}
+		\item[Unit testing:] Validates the smallest components of a system, ensuring it handles known inputs and outputs correctly~\parencite{atlassian2015testing}.
+			\begin{itemize}
+				\item Unit tests should verify that the application works under expected, boundary, and negative cases.
+			\end{itemize}
+		% \item[System testing:] Verifies that a completely integrated system meets its requirements~\parencite{geraci1991ieee}.
+		\item[Performance testing:] Determines the reliability, responsiveness, scalability, stability and throughput of a system under a particular workload~\parencite{microsoft2015performance}.
+	\end{description}
+
+}
+
+\section{Design} {
+\label{sec:testing_design}
+
+	% http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/
+
+	% http://www.codeproject.com/Articles/5772/Advanced-Unit-Test-Part-V-Unit-Test-Patterns#Pass/Fail Patterns2
+
+	% http://stackoverflow.com/questions/3840125/useful-design-patterns-for-unit-testing-tdd
+
+	% http://programmers.stackexchange.com/questions/153410/what-are-the-design-principles-that-promote-testable-code-designing-testable-c
+	
+}
+
+\section{Environment} {
+\label{sec:testing_environment}
+
+	The libraries used for the testing environment of this project have been outlined in Table~\ref{tab:testing_environment}.
+
+	\input{tables/testing_environment}
+
+}
+
+\section{Test runner} {
+	
+	Talk about mocha test runner and intern
+
+% 	The intern (https://theintern.github.io/) test runner will be used along with the Chai assertion framework (http://chaijs.com/). This provides a familiar syntax as each test is written in AMD format. These allow for automated testing of both individual modules (unit tests) and simulating user clicks (functional tests) using selenium (http://www.seleniumhq.org/) with ChromeDriver (https://sites.google.com/a/chromium.org/chromedriver/).
+% The intern also has support for running functional tests in a distributed manner across multiple machines on different operating systems via SauceLabs (https://saucelabs.com). This allows for further scalability in the future if the project is targeted to multiple systems.
+% For mocking objects, SinonJS will be used (http://sinonjs.org/) alongside SquireJS (https://github.com/iammerrick/Squire.js/). Sinon-Chai will be used as well to integrate with the Chai assertions (https://github.com/domenic/sinon-chai).
+
+
+}
 
 \section{Unit testing} {
 
@@ -15,6 +115,11 @@ Talk about mocha test runner.
 	\subsection{Sinon} {
 
 	}
+
+}
+
+\section{Code coverage} {
+	
 
 }
 

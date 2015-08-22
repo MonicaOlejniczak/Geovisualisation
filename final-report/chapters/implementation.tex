@@ -1,4 +1,15 @@
-The development of these visualisations will involve using the established \href{http://threejs.org/docs/#Reference/Extras.Geometries/BoxGeometry}{BoxGeometry} and NURBS surface that are available in Three.js. The \href{http://threejs.org/examples/webgl_geometry_nurbs.html}{NURBS example}, as displayed in Appendix~\ref{app:nurbs}, proves that it is possible to render a smooth 3D surface. This can be applied to represent a heat map and if there lie difficulties in implementing this, then a simpler representation can be modelled.
+\todo{Purpose of the chapter
+ Structure of the chapter
+ Central themes of the chapter}
+
+\section{Development environment} {
+\label{sec:development_environment}
+
+	The tools and libraries used for the development environment of this project have been outlined in Table~\ref{tab:development_environment}.
+
+	\input{tables/development_environment}
+
+}
 
 \section{Software configuration management} {
 
@@ -27,23 +38,23 @@ The development of these visualisations will involve using the established \href
 
 \section{Libraries} {
 	
-	\subsection{Runtime environment} {
+	\subsection{Node.js} {
 	
-		Node.js
+		Runtime environment
 
 	}
 
-	\subsection{WebGL abstraction library} {
+	\subsection{Three.js} {
 		
-		Three.js
+		WebGL abstraction library
 
 		It will primarily use Three.js~\footnote{\bibentry{cabello2010three}}, a JavaScript library that abstracts WebGL, as a tool for creating 3D visualisations. 
 
 	}
 
-	\subsection{Dependency injection library} {
+	\subsection{RequireJS} {
 		
-		RequireJS
+		Dependency injection library
 
 	}
 
@@ -61,6 +72,8 @@ The development of these visualisations will involve using the established \href
 	}
 
 	\subsection{Data display} {
+
+		% The development of these visualisations will involve using the established \href{http://threejs.org/docs/#Reference/Extras.Geometries/BoxGeometry}{BoxGeometry} and NURBS surface that are available in Three.js. The \href{http://threejs.org/examples/webgl_geometry_nurbs.html}{NURBS example}, as displayed in Appendix~\ref{app:nurbs}, proves that it is possible to render a smooth 3D surface. This can be applied to represent a heat map and if there lie difficulties in implementing this, then a simpler representation can be modelled.
 
 		\todo{justify handlebars/templating}
 
