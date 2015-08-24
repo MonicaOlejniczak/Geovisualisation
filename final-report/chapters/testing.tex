@@ -1,57 +1,57 @@
-\todo{Purpose of the chapter
- Structure of the chapter
- Central themes of the chapter}
+This chapter delves into the testing used for this project, including design and implementation specific details.
+
+First, the purpose and method of testing are explored, followed by an overview of this method. The types of tests that have been undertaken in this project, and their design, are then illustrated. Finally, the testing environment is outlined, including details on the testing framework and how testing was performed.
 
 \section{Purpose} {
 \label{sec:testing_purpose}
 
-	% The purpose of testing is to ensure that the project successfully implements prescribed requirements and that as many defects/omissions as possible are detected and rectified as early as possible in the software development lifecycle.
-
-	Testing ensures 
-
-	% 	http://www.righthandtech.com/software-testing.php
-% http://istqbexamcertification.com/what-is-the-software-testing-objectives-and-purpose/
-	% Software testing is performed to verify that the completed software package functions according to the expectations defined by the requirements/specifications. The overall objective to not to find every software bug that exists, but to uncover situations that could negatively impact the customer, usability and/or maintainability.
-	% From the module level to the application level, this article defines the different types of testing. Depending upon the purpose for testing and the software requirements/specs, a combination of testing methodologies is applied. One of the most overlooked areas of testing is regression testing and fault tolerant testing.
+	Software testing is performed to verify that a system successfully satisfies and implements the previously established user requirements. Another critical role of software testing is to locate and prevent defects created during the software development cycle. Ultimately, testing aims to provide information about the level of quality in a system, so developers can deliver a high quality product~\parencite{istqb2015testing}.
 
 }
 
 \section{Method} {
 \label{sec:testing_method}
 
-	This project has utilised the behavioural specifications from behaviour-driven development (BDD), while maintaining a Rapid Application Development approach throughout development. This method of testing couples the advantages of RAD development, discussed in Section~\ref{sec:methodology} with the BDD approach outlined in Section~\ref{sec:behaviour_driven_development} below.
+	This project has utilised the behavioural specifications, detailed in Section~\ref{sec:behavioural_specifications}, from behaviour-driven development (BDD), while maintaining a Rapid Application Development approach throughout development. This method of testing couples the advantages of RAD development, discussed in Section~\ref{sec:methodology} with the BDD approach outlined in Section~\ref{sec:behaviour_driven_development} below.
 
-}
+	\subsection{Behaviour-driven development} {
+	\label{sec:behaviour_driven_development}
 
-\section{Behaviour-driven development} {
-\label{sec:behaviour_driven_development}
+		Behaviour-driven development is an agile software development technique that focuses on obtaining a clear understanding of the desired software behaviour~\parencite{rice2014bdd}. It utilises an ubiquitous language, which is shared by software developers and management teams to extract and gather requirements, specifications and documentation~\parencite{bellware2015bdd, evans2004domain}. An important aspect of BDD is that the tests are highly granular, which enables programmers to determine points of failure more easily. Furthermore, BDD tests the system requirements, outputs the results in a natural human-readable format and provides living, up-to-date documentation of each system component.
 
-	Behaviour-driven development is an agile software development technique that focuses on obtaining a clear understanding of the desired software behaviour~\parencite{rice2014bdd}. It utilises an ubiquitous language, which is shared by software developers and management teams to extract and gather requirements, specifications and documentation~\parencite{bellware2015bdd, evans2004domain}. An important aspect of BDD is that the tests are highly granular, which enables programmers to determine points of failure more easily. Furthermore, BDD tests the system requirements and outputs the results in a natural human-readable format.
+	}
 
 	\subsection{Behavioural specifications} {
+	\label{sec:behavioural_specifications}
 
-		narrative stuff
+		BDD specifies behaviour through \emph{user stories}, which define the scope and acceptance criteria of the feature being tested~\parencite{north2007story}. A story template should contain all of the elements contained in the following template:
 
-% 		Following this fundamental choice, a second choice made by BDD relates to how the desired behavior should be specified. In this area BDD chooses to use a semi-formal format for behavioral specification which is borrowed from user story specifications from the field of object-oriented analysis and design. BDD specifies that business analysts and developers should collaborate in this area and should specify behavior in terms of user stories, which are each explicitly written down in a dedicated document.[10][11] Each user story should, in some way, follow the following structure:[2][11]
+		\begin{verbatim}
+			Title: a clear, explicit title describing the story
+ 
+			Narrative:
+			As a [role]
+			I want [feature]
+			So that [benefit]
+			 
+			Acceptance criteria: presented as scenarios
+			 
+			Scenario 1: Title
 
-% Title: The story should have a clear, explicit title.
-% Narrative
-% A short, introductory section that specifies
-% who (which business or project role) is the driver or primary stakeholder of the story (the actor who derives business benefit from the story)
-% what effect the stakeholder wants the story to have
-% what business value the stakeholder will derive from this effect
-% Acceptance criteria or scenarios
-% a description of each specific case of the narrative. Such a scenario has the following structure:
-% It starts by specifying the initial condition that is assumed to be true at the beginning of the scenario. This may consist of a single clause, or several.
-% It then states which event triggers the start of the scenario.
-% Finally, it states the expected outcome, in one or more clauses.
-% BDD does not have any formal requirements for exactly how these user stories must be written down, but it does insist that each team using BDD come up with a simple, standardized format for writing down the user stories which includes the elements listed above.[2][11] However, in 2007 Dan North suggested a template for a textual format which has found wide following in different BDD software tools.[11] A very brief example of this format might look like this:
+			Given [context]
+			  And [some more context]
+			When  [event]
+			Then  [outcome]
+			  And [another outcome]
+
+	  		Scenario 2: ...
+		\end{verbatim}
 
 	}
 
 }
 
-\section{Types} {
+\section{Testing types} {
 \label{sec:testing_types}
 
 	This project has undertaken the following types of testing:
@@ -65,10 +65,16 @@
 		\item[Performance testing:] Determines the reliability, responsiveness, scalability, stability and throughput of a system under a particular workload~\parencite{microsoft2015performance}.
 	\end{description}
 
+	\todo{evaluate why I'm using these types}
+
+	These tests have been performed 
+
 }
 
-\section{Design} {
-\label{sec:testing_design}
+\section{Test design} {
+\label{sec:test_design}
+
+	\todo{???}
 
 	% http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/
 
@@ -89,14 +95,33 @@
 
 }
 
-\section{Test runner} {
-	
-	Talk about mocha test runner and intern
+\section{Testing framework} {
+\label{sec:testing_framework}
+
+	A testing framework is an execution environment for automated tests. They are responsible for defining a format to express expectations, test execution and reporting the results. Testing frameworks are application independent, easy to expand, maintain and are designed to help organise test suites to improve the efficiency of testing~\parencite{ghanakota2012testing}.
+
+	\subsection{Choosing a testing framework} {
+	\label{sec:choosing_a_testing_framework}
+
+		There are many popular JavaScript testing frameworks available such as Intern, Jasmine, Mocha and QUnit which have been assessed below.
+
+		\emph{Intern} has a very simple setup and great user interface, supports functional testing, but does not natively support code-coverage in the browser. It was difficult to locate a code coverage library that could be integrated with Intern since it was released in \href{https://github.com/theintern}{2013} and has less overall support.
+
+		\emph{Jasmine} is often recommended and regarded as the most popular JS unit testing framework~\parencite{feldman2014testing}. It has a simple setup, built-in assertions, is well supported, can adapt to other assertion libraries and performs code coverage when used with Istanbul. Jasmine also has an elegant, descriptive syntax that adheres to the BDD paradigm. However, its asynchronous testing support could be improved greatly, which is problematic for this particular project because asynchronous loading is used extensively.
+
+		\emph{Mocha} proved to have a very simple setup, is highly extensible, very flexible, has good reporting and a BDD syntax that resembles Jasmine. It allows the use of any assertion library, enabling users to choose their preferred BDD style and offers great asynchronous testing and promise support. Mocha can also be integrated easily with Blanket, a code coverage tool.
+
+		\emph{QUnit} was immediately discarded since it does not support the BDD paradigm, and instead utilised TDD.
+
+		Of these testing frameworks, \emph{Mocha} was chosen simply because of its fantastic asynchronous testing support and flexibility in choosing an assertion library and BDD style.
+
+	}
+
+	\todo{ui}
 
 % 	The intern (https://theintern.github.io/) test runner will be used along with the Chai assertion framework (http://chaijs.com/). This provides a familiar syntax as each test is written in AMD format. These allow for automated testing of both individual modules (unit tests) and simulating user clicks (functional tests) using selenium (http://www.seleniumhq.org/) with ChromeDriver (https://sites.google.com/a/chromium.org/chromedriver/).
 % The intern also has support for running functional tests in a distributed manner across multiple machines on different operating systems via SauceLabs (https://saucelabs.com). This allows for further scalability in the future if the project is targeted to multiple systems.
 % For mocking objects, SinonJS will be used (http://sinonjs.org/) alongside SquireJS (https://github.com/iammerrick/Squire.js/). Sinon-Chai will be used as well to integrate with the Chai assertions (https://github.com/domenic/sinon-chai).
-
 
 }
 
