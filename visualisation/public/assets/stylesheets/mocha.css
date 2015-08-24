@@ -1,26 +1,28 @@
+body {
+  background: #f5f5f5;
+}
 #mocha {
   font-family: 'Open sans', 'sans-serif';
   margin-top: 1em;
   margin-bottom: 1em;
 }
 #mocha #mocha-stats {
-  position: inherit;
+  width: 100%;
   display: block;
-  height: 30px;
-  margin: 0 auto 3em auto;
+  top: 0;
+  right: 0;
+  background: #fefefe;
+  border-bottom: 1px #87cbcc solid;
+  padding: 1em 40px;
 }
 #mocha #mocha-stats li {
   float: right;
-  padding: 0;
-}
-#mocha #mocha-stats li.passes,
-#mocha #mocha-stats li.failures,
-#mocha #mocha-stats li.duration {
-  margin-top: 1em;
 }
 #mocha #mocha-report {
-  border: 1px #dedede solid;
+  background: white;
+  border: 1px #87cbcc solid;
   border-radius: 0.25em;
+  margin-top: 5em;
 }
 #mocha #mocha-report .suite {
   border-radius: 0.25em;

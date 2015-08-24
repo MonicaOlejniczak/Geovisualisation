@@ -105,19 +105,21 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 		There are many popular JavaScript testing frameworks available such as Intern, Jasmine, Mocha and QUnit which have been assessed below.
 
-		\emph{Intern} has a very simple setup and great user interface, supports functional testing, but does not natively support code-coverage in the browser. It was difficult to locate a code coverage library that could be integrated with Intern since it was released in \href{https://github.com/theintern}{2013} and has less overall support.
+		\emph{Intern} supports functional testing, has a very simple setup and great user interface which has been highlighted in Figure~\ref{fig:intern}. It was difficult to locate a code coverage library that could be integrated with Intern, since it was released in \href{https://github.com/theintern}{2013} and has less overall support. When testing out this framework, it was extremely difficult to run custom configurations before test execution, since configurations were not particularly flexible. This also meant that it was challenging to run tests with the correct RequireJS dependencies, since Intern uses the Dojo AMD loader by default.
+
+		\input{figures/intern}
 
 		\emph{Jasmine} is often recommended and regarded as the most popular JS unit testing framework~\parencite{feldman2014testing}. It has a simple setup, built-in assertions, is well supported, can adapt to other assertion libraries and performs code coverage when used with Istanbul. Jasmine also has an elegant, descriptive syntax that adheres to the BDD paradigm. However, its asynchronous testing support could be improved greatly, which is problematic for this particular project because asynchronous loading is used extensively.
 
-		\emph{Mocha} proved to have a very simple setup, is highly extensible, very flexible, has good reporting and a BDD syntax that resembles Jasmine. It allows the use of any assertion library, enabling users to choose their preferred BDD style and offers great asynchronous testing and promise support. Mocha can also be integrated easily with Blanket, a code coverage tool.
+		\emph{Mocha} proved to have a very simple setup, is highly extensible, very flexible, has good reporting and a BDD syntax that resembles Jasmine. It allows the use of any assertion library, enabling users to choose their preferred BDD style and offers great asynchronous testing and promise support. Mocha can also be integrated easily with Blanket, a code coverage tool. One issue with Mocha is that it has an overly simple and plain user interface, sometimes making it difficult to determine which tests have passed or failed.
 
 		\emph{QUnit} was immediately discarded since it does not support the BDD paradigm, and instead utilised TDD.
 
-		Of these testing frameworks, \emph{Mocha} was chosen simply because of its fantastic asynchronous testing support and flexibility in choosing an assertion library and BDD style.
+		Of these testing frameworks, \emph{Mocha} was chosen simply because of its fantastic asynchronous testing support and flexibility in choosing an assertion library and BDD style. Its user interface was transformed using customised CSS, which has been demonstrated in Figure~\ref{fig:mocha}, so the tests become more readable.
+
+		\input{figures/mocha}
 
 	}
-
-	\todo{ui}
 
 % 	The intern (https://theintern.github.io/) test runner will be used along with the Chai assertion framework (http://chaijs.com/). This provides a familiar syntax as each test is written in AMD format. These allow for automated testing of both individual modules (unit tests) and simulating user clicks (functional tests) using selenium (http://www.seleniumhq.org/) with ChromeDriver (https://sites.google.com/a/chromium.org/chromedriver/).
 % The intern also has support for running functional tests in a distributed manner across multiple machines on different operating systems via SauceLabs (https://saucelabs.com). This allows for further scalability in the future if the project is targeted to multiple systems.

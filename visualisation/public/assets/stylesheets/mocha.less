@@ -1,6 +1,10 @@
+body {
+	background: #f5f5f5;
+}
+
 #mocha {
 
-	@border: 1px #dedede solid;
+	@border-color: #87cbcc;
 	@margin: 1em;
 
 	font-family: 'Open sans', 'sans-serif';
@@ -8,48 +12,54 @@
 	margin-bottom: @margin;
 
 	#mocha-stats {
-	//
-	//	@background-color: #fefefe;
-		@height: 30px;
 
-		position: inherit;
+		@background-color: #fefefe;
+		@height: 50px;
+
+		//position: inherit;
+		width: 100%;
 		display: block;
-		height: @height;
-		margin: 0 auto 3em auto;
-	//
-	//	@li-margin: 0.1em;
-	//
+		top: 0;
+		right: 0;
+		//height: @height;
+		background: @background-color;
+		border-bottom: 1px @border-color solid;
+		padding: 1em 40px;
+		//margin: 0 auto 3em auto;
+
+		@li-margin: 0.1em;
+
 		li {
-	//
-	//		width: (100% / 4.1) - (@li-margin * 3);
-	//		height: 100%;
-	//		margin: 0;
+
+			//width: (100% / 4.1) - (@li-margin * 3);
+			//height: 100%;
+			//margin: 0;
 			float: right;
-			padding: 0;
+			//padding: 0;
 
 			&.passes, &.failures, &.duration {
-	//			background: @background-color;
-	//			font-size: 2em;
-	//			text-align: center;
-	//			line-height: @height;
-	//			border: @border;
-				margin-top: 1em;
+				//background: @background-color;
+				//font-size: 2em;
+				//text-align: center;
+				//line-height: @height;
+				//border: @border;
+				//margin-top: 1em;
 			}
-	//
-	//		&.failures, &.duration {
-	//			margin-left: @li-margin;
-	//		}
-	//
-	//		&.progress {
-	//
-	//			text-align: center;
-	//
-	//			canvas {
-	//				width: inherit;
-	//				height: inherit;
-	//			}
-	//
-	//		}
+
+			&.failures, &.duration {
+				//margin-left: @li-margin;
+			}
+
+			&.progress {
+
+				//text-align: center;
+
+				canvas {
+					//width: inherit;
+					//height: inherit;
+				}
+
+			}
 
 		}
 
@@ -57,6 +67,8 @@
 
 	#mocha-report {
 
+		@background: white;
+		@border: 1px @border-color solid;
 		@border-radius: 0.25em;
 
 		@success-background-color: #c5efc6;
@@ -65,12 +77,14 @@
 		@fail-background-color: #fbc2c9;
 		@fail-color: #f78d99;
 
+		background: @background;
 		border: @border;
 		border-radius: @border-radius;
+		margin-top: 5em;
 
 		.suite {
 
-			@heading-background-color: #87cbcc;
+			@heading-background-color: @border-color;
 			@heading-child-background-color: #c3e5e5;
 			@child-border: 1px @heading-background-color solid;
 

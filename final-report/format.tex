@@ -45,11 +45,19 @@
 \usepackage{caption}
 \usepackage[font=scriptsize]{subcaption}
 
+\newcommand{\bordercolor}{black!40}
+\newcommand{\figureborder}[1]{
+	\begin{mdframed}[linecolor=\bordercolor,innertopmargin=0,innerrightmargin=0,innerbottommargin=0,innerleftmargin=0]
+		#1
+	\end{mdframed}
+}
+
 % Additional
 \usepackage{float}
 \usepackage{spreadtab}
 \usepackage{etoolbox}
 \usepackage{setspace}
+\usepackage{mdframed}
 
 % References
 \usepackage[backend=bibtex,style=authoryear]{biblatex}
