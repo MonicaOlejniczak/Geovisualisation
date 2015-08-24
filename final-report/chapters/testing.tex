@@ -113,49 +113,52 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 		\emph{Mocha} proved to have a very simple setup, is highly extensible, very flexible, has good reporting and a BDD syntax that resembles Jasmine. It allows the use of any assertion library, enabling users to choose their preferred BDD style and offers great asynchronous testing and promise support. Mocha can also be integrated easily with Blanket, a code coverage tool. One issue with Mocha is that it has an overly simple and plain user interface, sometimes making it difficult to determine which tests have passed or failed.
 
-		\emph{QUnit} was immediately discarded since it does not support the BDD paradigm, and instead utilised TDD.
+		\emph{QUnit} was immediately discarded since it does not support the BDD paradigm, and instead utilises TDD.
 
-		Of these testing frameworks, \emph{Mocha} was chosen simply because of its fantastic asynchronous testing support and flexibility in choosing an assertion library and BDD style. Its user interface was transformed using customised CSS, which has been demonstrated in Figure~\ref{fig:mocha}, so the tests become more readable.
+		From these testing frameworks, \emph{Mocha} was chosen simply because of its fantastic asynchronous testing support and flexibility in choosing an assertion library and BDD style. Its user interface was transformed using customised CSS, which has been demonstrated in Figure~\ref{fig:mocha}, so the tests become more readable.
 
 		\input{figures/mocha}
 
 	}
 
-% 	The intern (https://theintern.github.io/) test runner will be used along with the Chai assertion framework (http://chaijs.com/). This provides a familiar syntax as each test is written in AMD format. These allow for automated testing of both individual modules (unit tests) and simulating user clicks (functional tests) using selenium (http://www.seleniumhq.org/) with ChromeDriver (https://sites.google.com/a/chromium.org/chromedriver/).
-% The intern also has support for running functional tests in a distributed manner across multiple machines on different operating systems via SauceLabs (https://saucelabs.com). This allows for further scalability in the future if the project is targeted to multiple systems.
-% For mocking objects, SinonJS will be used (http://sinonjs.org/) alongside SquireJS (https://github.com/iammerrick/Squire.js/). Sinon-Chai will be used as well to integrate with the Chai assertions (https://github.com/domenic/sinon-chai).
-
 }
 
 \section{Unit testing} {
 
-	Introduce setup.
+	\todo{Introduce setup - chai, chai as promised and sinon chai.}
 
-	\subsection{Chai} {
-
-	}
-
-	\subsection{Chai as promised} {
-	
-	}
-
-	\subsection{Sinon} {
-
-	}
+	\todo{test suites}
 
 }
 
 \section{Code coverage} {
-	
+
+	Code coverage is the measurement of how many lines of code are executed while automated tests are running, making it a useful tool for finding untested code. Take the following snippet of code as an example:
+
+	\begin{lstlisting}
+		if (condition) {
+			// True condition - first branch
+		} else {
+			// False condition - second branch
+		}
+	\end{lstlisting}
+
+	If the \texttt{condition} is always \texttt{true}, then the second branch will never execute. Therefore, the unit test does not cover the false branch and this will be displayed in the results of a code coverage. Tests would ideally cover \textgreater80\% for a single test suite.
+
+	\href{http://blanketjs.org/}{Blanket.js} was used in this project as a code coverage tool because it seamlessly integrates with Jasmine, Mocha and QUnit. Blanket injects the code coverage results at the bottom of the HTML page, which has been demonstrated in Figure~\ref{fig:blanket}.
+
+	\input{figures/blanket}
+
+	A result from the code coverage can be expanded to reveal more information. It displays the entire file, including line numbers, and highlights the lines of code that were not covered under the tests that were executed. This behaviour can be identified in Figure~\ref{fig:code_coverage}, which demonstrates a method that was not tested.
+
+	\input{figures/code_coverage}
+
+	Code coverage was evaluated after the creation of each test suite. When a test suite was analysed, more tests would be written in an attempt to improve the overall code coverage. This process was repeated until an acceptable amount of code coverage was reached.
 
 }
 
 \section{Performance testing} {
 
-	Introduce setup.
-	
-	\section{Selenium} {
-
-	}
+	\todo{Introduce setup - selenium}
 
 }

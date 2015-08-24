@@ -59,6 +59,20 @@
 \usepackage{setspace}
 \usepackage{mdframed}
 
+\usepackage{listings}
+\definecolor{comment}{RGB}{98,151,85}
+\definecolor{keyword}{RGB}{203,119,47}
+\definecolor{string}{RGB}{98,151,85}
+
+\lstset{
+	language=Java,
+	tabsize=4,
+	basicstyle=\footnotesize,
+	commentstyle=\color{comment},
+	keywordstyle=\color{keyword},
+	stringstyle=\color{string}
+}
+
 % References
 \usepackage[backend=bibtex,style=authoryear]{biblatex}
 \addbibresource{references.bib}

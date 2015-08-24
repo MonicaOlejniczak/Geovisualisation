@@ -113,7 +113,7 @@ define(function (require) {
 	 *
 	 * @param includes The includes required by the shader.
 	 * @param name The name of the shader.
-	 //* @returns {Promise}
+	 * @returns {Promise}
 	 * @private
 	 */
 	Shader.prototype._loadIncludes = function (includes, name) {
@@ -132,7 +132,7 @@ define(function (require) {
 				this[name] = this[name].replace(include, shader);
 				// Resolve any includes that are a part of the loaded shader.
 				return this._resolveIncludes(shader, name).then(function () {
-					 //Decrement how many shaders are loading and check if loading has finished.
+					 // Decrement how many shaders are loading and check if loading has finished.
 					if ((--this.loading) == 0) {
 						return Promise.resolve(this[name]);
 					}
