@@ -1,0 +1,30 @@
+\newcommand{\mochasize}{\scriptsize}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+        \begin{lstlisting}[basicstyle=\mochasize]
+			doSomethingAsync()
+				.then(function (result) {
+        			result.should.equal('foo');
+        			done();
+    			}
+			);
+		\end{lstlisting}
+        \caption{Callback}
+        \label{fig:mocha_callback}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.5\textwidth}
+		\begin{lstlisting}[basicstyle=\mochasize]
+			return doSomethingAsync()
+				.then(function (result) {
+					// Return the result from the promise.
+        			return result.should.equal('foo');
+    			}
+			);
+		\end{lstlisting}
+        \caption{Promise}
+        \label{fig:mocha_promise}
+    \end{subfigure}
+	\caption[Mocha asynchronous code]{Mocha asynchronous code.}
+	\label{fig:mocha_asynchronous_code}
+\end{figure}

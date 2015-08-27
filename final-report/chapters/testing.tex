@@ -5,7 +5,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 \section{Purpose} {
 \label{sec:testing_purpose}
 
-	Software testing is performed to verify that a system successfully satisfies and implements the previously established user requirements. Another critical role of software testing is to locate and prevent defects created during the software development cycle. Ultimately, testing aims to provide information about the level of quality in a system, so developers can deliver a high quality product~\parencite{istqb2015testing}.
+	Software testing is performed to verify that a system successfully satisfies and implements the previously established user requirements. Another critical role of software testing is to locate and prevent defects created during the software development cycle. Ultimately, testing aims to provide information about the level of quality in a system, so developers can deliver a high quality product~\footnote{\bibentry{istqb2015testing}}.
 
 }
 
@@ -17,14 +17,14 @@ First, the purpose and method of testing are explored, followed by an overview o
 	\subsection{Behaviour-driven development} {
 	\label{sec:behaviour_driven_development}
 
-		Behaviour-driven development is an agile software development technique that focuses on obtaining a clear understanding of the desired software behaviour~\parencite{rice2014bdd}. It utilises an ubiquitous language, which is shared by software developers and management teams to extract and gather requirements, specifications and documentation~\parencite{bellware2015bdd, evans2004domain}. An important aspect of BDD is that the tests are highly granular, which enables programmers to determine points of failure more easily. Furthermore, BDD tests the system requirements, outputs the results in a natural human-readable format and provides living, up-to-date documentation of each system component.
+		Behaviour-driven development is an agile software development technique that focuses on obtaining a clear understanding of the desired software behaviour~\footnote{\bibentry{rice2014bdd}}. It utilises an ubiquitous language, which is shared by software developers and management teams to extract and gather requirements, specifications and documentation~\footnote{\bibentry{bellware2015bdd}}\footnote{\bibentry{evans2004domain}}. An important aspect of BDD is that the tests are highly granular, which enables programmers to determine points of failure more easily. Furthermore, BDD tests the system requirements, outputs the results in a natural human-readable format and provides living, up-to-date documentation of each system component.
 
 	}
 
 	\subsection{Behavioural specifications} {
 	\label{sec:behavioural_specifications}
 
-		BDD specifies behaviour through \emph{user stories}, which define the scope and acceptance criteria of the feature being tested~\parencite{north2007story}. A story template should contain all of the elements contained in the following template:
+		BDD specifies behaviour through \emph{user stories}, which define the scope and acceptance criteria of the feature being tested~\footnote{\bibentry{north2007story}}. A story template should contain all of the elements contained in the following template:
 
 		\begin{verbatim}
 			Title: a clear, explicit title describing the story
@@ -57,12 +57,12 @@ First, the purpose and method of testing are explored, followed by an overview o
 	This project has undertaken the following types of testing:
 
 	\begin{description}
-		\item[Unit testing:] Validates the smallest components of a system, ensuring it handles known inputs and outputs correctly~\parencite{atlassian2015testing}.
+		\item[Unit testing:] Validates the smallest components of a system, ensuring it handles known inputs and outputs correctly~\footnote{\bibentry{atlassian2015testing}}.
 			\begin{itemize}
 				\item Unit tests should verify that the application works under expected, boundary, and negative cases.
 			\end{itemize}
 		% \item[System testing:] Verifies that a completely integrated system meets its requirements~\parencite{geraci1991ieee}.
-		\item[Performance testing:] Determines the reliability, responsiveness, scalability, stability and throughput of a system under a particular workload~\parencite{microsoft2015performance}.
+		\item[Performance testing:] Determines the reliability, responsiveness, scalability, stability and throughput of a system under a particular workload~\footnote{\bibentry{microsoft2015performance}}.
 	\end{description}
 
 	\todo{evaluate why I'm using these types}
@@ -98,18 +98,18 @@ First, the purpose and method of testing are explored, followed by an overview o
 \section{Testing framework} {
 \label{sec:testing_framework}
 
-	A testing framework is an execution environment for automated tests. They are responsible for defining a format to express expectations, test execution and reporting the results. Testing frameworks are application independent, easy to expand, maintain and are designed to help organise test suites to improve the efficiency of testing~\parencite{ghanakota2012testing}.
+	A testing framework is an execution environment for automated tests. They are responsible for defining a format to express expectations, test execution and reporting the results. Testing frameworks are application independent, easy to expand, maintain and are designed to help organise test suites to improve the efficiency of testing~\footnote{\bibentry{ghanakota2012testing}}.
 
 	\subsection{Choosing a testing framework} {
 	\label{sec:choosing_a_testing_framework}
 
 		There are many popular JavaScript testing frameworks available such as Intern, Jasmine, Mocha and QUnit which have been assessed below.
 
-		\emph{Intern} supports functional testing, has a very simple setup and great user interface which has been highlighted in Figure~\ref{fig:intern}. It was difficult to locate a code coverage library that could be integrated with Intern, since it was released in \href{https://github.com/theintern}{2013} and has less overall support. When testing out this framework, it was extremely difficult to run custom configurations before test execution, since configurations were not particularly flexible. This also meant that it was challenging to run tests with the correct RequireJS dependencies, since Intern uses the Dojo AMD loader by default.
+		\emph{Intern} supports functional testing, has a very simple setup and great user interface which has been highlighted in Figure~\ref{fig:intern}. It became challenging to locate a code coverage library that could be integrated with Intern, since it was released in \href{https://github.com/theintern}{2013} and has less overall support. When testing out this framework, it was extremely difficult to run custom configurations before test execution, since configurations were not particularly flexible. This also meant that it was challenging to run tests with the correct RequireJS dependencies, since Intern uses the Dojo AMD loader by default.
 
 		\input{figures/intern}
 
-		\emph{Jasmine} is often recommended and regarded as the most popular JS unit testing framework~\parencite{feldman2014testing}. It has a simple setup, built-in assertions, is well supported, can adapt to other assertion libraries and performs code coverage when used with Istanbul. Jasmine also has an elegant, descriptive syntax that adheres to the BDD paradigm. However, its asynchronous testing support could be improved greatly, which is problematic for this particular project because asynchronous loading is used extensively.
+		\emph{Jasmine} is often recommended and regarded as the most popular JS unit testing framework~\footnote{\bibentry{feldman2014testing}}. It has a simple setup, built-in assertions, is well supported, can adapt to other assertion libraries and performs code coverage when used with Istanbul. Jasmine also has an elegant, descriptive syntax that adheres to the BDD paradigm. However, its asynchronous testing support could be improved greatly, which is problematic for this particular project because asynchronous loading is used extensively.
 
 		\emph{Mocha} proved to have a very simple setup, is highly extensible, very flexible, has good reporting and a BDD syntax that resembles Jasmine. It allows the use of any assertion library, enabling users to choose their preferred BDD style and offers great asynchronous testing and promise support. Mocha can also be integrated easily with Blanket, a code coverage tool. One issue with Mocha is that it has an overly simple and plain user interface, sometimes making it difficult to determine which tests have passed or failed.
 
@@ -123,15 +123,46 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 }
 
+\section{Assertions} {
+\label{sec:assertions}
+
+	\emph{Chai} assertions were used with the Mocha testing framework, as they offer great flexibility. Users are able to choose their preferred BDD style, which has been illustrated in Figure~\ref{fig:chai_assertions}.
+
+	\input{figures/chai_assertions}
+
+	The \emph{should} style adheres to BDD and its behavioural specifications. However, this style extends \texttt{Object.prototype} which is generally considered bad practice. This style is not compatible in all browsers and results in scenarios where a test can fail~\footnote{\bibentry{luer2015assertion}}. Instead, the \emph{expect} style was used because it is compatible across all browsers and utilises chainable, natural language assertions. This style closely resembles BDD specifications, unlike the \emph{assert} style.
+
+	\subsection{Asynchronous support} {
+	\label{sec:testing_asynchronous_support}
+
+		Mocha provides a way to test asynchronous code through the \texttt{done} callback or by returning a \texttt{Promise}~\footnote{\bibentry{holowaychuk2011mocha}}, which has been presented in Figure~\ref{fig:mocha_asynchronous_code}. Promises are used extensively when loading shaders, so it was important to have a clean way of testing asynchronous code. 
+
+		\input{figures/mocha_asynchronous_code}
+
+		However, this method of testing asynchronous code could be improved by using the \emph{Chai as Promised} plugin for Chai. This plugin extends Chai with a fluent language for asserting facts about promises~\footnote{\bibentry{denicola2012chaiaspromised}}. An example of this improvement has been illustrated in Figure~\ref{fig:chai_as_promised}, which transforms the assertion seen in Figure~\ref{fig:mocha_asynchronous_code} down to one line.
+
+		\input{figures/chai_as_promised}
+
+	}
+
+	\subsection{Spies, stubs and mocks} {
+	\label{sec:testing_spy_stub_mock_support}
+
+		Mocha is not equipped with spies, stubs or mocks~\footnote{\bibentry{holowaychuk2011mocha}} and instead recommend using \emph{Sinon.JS}, a popular library designed for this purpose. Similarly to Section~\ref{sec:testing_asynchronous_support}, a plugin called \emph{Sinon-Chai} provides a set of custom assertions for using the Sinon.JS spy, stub, and mocking framework with the Chai assertion library~\footnote{\bibentry{denicola2012sinonchai}}.
+
+	}
+
+}
+
 \section{Unit testing} {
+\label{sec:unit_testing}
 
-	\todo{Introduce setup - chai, chai as promised and sinon chai.}
-
-	\todo{test suites}
+	\todo{test suites, general structure through mocha docs}
 
 }
 
 \section{Code coverage} {
+\label{sec:code_coverage}
 
 	Code coverage is the measurement of how many lines of code are executed while automated tests are running, making it a useful tool for finding untested code. Take the following snippet of code as an example:
 
@@ -158,6 +189,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 }
 
 \section{Performance testing} {
+\label{sec:performance_testing}
 
 	\todo{Introduce setup - selenium}
 

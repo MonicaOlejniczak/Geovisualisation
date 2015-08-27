@@ -16,13 +16,19 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Intern}}{18}{figure.caption.19}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Intern}}{19}{figure.caption.19}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Mocha}}{19}{figure.caption.20}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Mocha}}{20}{figure.caption.20}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Blanket}}{20}{figure.caption.23}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Chai assertions}}{20}{figure.caption.21}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Code coverage}}{21}{figure.caption.24}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Mocha asynchronous code}}{21}{figure.caption.22}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Chai as Promised}}{21}{figure.caption.23}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Blanket}}{22}{figure.caption.25}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Code coverage}}{23}{figure.caption.26}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 

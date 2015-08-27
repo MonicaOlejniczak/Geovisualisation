@@ -60,11 +60,14 @@
 \usepackage{mdframed}
 
 \usepackage{listings}
+\usepackage{lstautogobble}
+
 \definecolor{comment}{RGB}{98,151,85}
 \definecolor{keyword}{RGB}{203,119,47}
 \definecolor{string}{RGB}{98,151,85}
 
 \lstset{
+	autogobble,
 	language=Java,
 	tabsize=4,
 	basicstyle=\footnotesize,
@@ -82,6 +85,10 @@
 	\addtocategory{exclude}{#1}
 	\fullcite{#1}
 }
+
+% Continue footnotes after chapters
+\usepackage{chngcntr}
+\counterwithout{footnote}{chapter}
 
 % Appendices
 \usepackage[toc,page]{appendix}
