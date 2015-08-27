@@ -107,7 +107,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 		\emph{Intern} supports functional testing, has a very simple setup and great user interface which has been highlighted in Figure~\ref{fig:intern}. It became challenging to locate a code coverage library that could be integrated with Intern, since it was released in \href{https://github.com/theintern}{2013} and has less overall support. When testing out this framework, it was extremely difficult to run custom configurations before test execution, since configurations were not particularly flexible. This also meant that it was challenging to run tests with the correct RequireJS dependencies, since Intern uses the Dojo AMD loader by default.
 
-		\input{figures/intern}
+		\input{figures/testing/intern}
 
 		\emph{Jasmine} is often recommended and regarded as the most popular JS unit testing framework~\footnote{\bibentry{feldman2014testing}}. It has a simple setup, built-in assertions, is well supported, can adapt to other assertion libraries and performs code coverage when used with Istanbul. Jasmine also has an elegant, descriptive syntax that adheres to the BDD paradigm. However, its asynchronous testing support could be improved greatly, which is problematic for this particular project because asynchronous loading is used extensively.
 
@@ -117,7 +117,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 		From these testing frameworks, \emph{Mocha} was chosen simply because of its fantastic asynchronous testing support and flexibility in choosing an assertion library and BDD style. Its user interface was transformed using customised CSS, which has been demonstrated in Figure~\ref{fig:mocha}, so the tests become more readable.
 
-		\input{figures/mocha}
+		\input{figures/testing/mocha}
 
 	}
 
@@ -128,7 +128,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 	\emph{Chai} assertions were used with the Mocha testing framework, as they offer great flexibility. Users are able to choose their preferred BDD style, which has been illustrated in Figure~\ref{fig:chai_assertions}.
 
-	\input{figures/chai_assertions}
+	\input{figures/testing/chai_assertions}
 
 	The \emph{should} style adheres to BDD and its behavioural specifications. However, this style extends \texttt{Object.prototype} which is generally considered bad practice. This style is not compatible in all browsers and results in scenarios where a test can fail~\footnote{\bibentry{luer2015assertion}}. Instead, the \emph{expect} style was used because it is compatible across all browsers and utilises chainable, natural language assertions. This style closely resembles BDD specifications, unlike the \emph{assert} style.
 
@@ -137,11 +137,11 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 		Mocha provides a way to test asynchronous code through the \texttt{done} callback or by returning a \texttt{Promise}~\footnote{\bibentry{holowaychuk2011mocha}}, which has been presented in Figure~\ref{fig:mocha_asynchronous_code}. Promises are used extensively when loading shaders, so it was important to have a clean way of testing asynchronous code. 
 
-		\input{figures/mocha_asynchronous_code}
+		\input{figures/testing/mocha_asynchronous_code}
 
 		However, this method of testing asynchronous code could be improved by using the \emph{Chai as Promised} plugin for Chai. This plugin extends Chai with a fluent language for asserting facts about promises~\footnote{\bibentry{denicola2012chaiaspromised}}. An example of this improvement has been illustrated in Figure~\ref{fig:chai_as_promised}, which transforms the assertion seen in Figure~\ref{fig:mocha_asynchronous_code} down to one line.
 
-		\input{figures/chai_as_promised}
+		\input{figures/testing/chai_as_promised}
 
 	}
 
@@ -154,10 +154,68 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 }
 
-\section{Unit testing} {
-\label{sec:unit_testing}
+\section{General structure} {
+\label{sec:testing_structure}
 
-	\todo{test suites, general structure through mocha docs}
+	In Mocha, the \texttt{describe} keyword is a way to group tests together, while each \texttt{it} clause represents a single test case. A simple example of a test suite has been shown in Figure~\ref{fig:mocha_example}.
+
+	\input{figures/testing/mocha_example}
+
+}
+
+\section{Hooks} {
+\label{sec:testing_hooks}
+
+	Mocha provides \texttt{before}, \texttt{after}, \texttt{beforeEach} and \texttt{afterEach} hooks, which are described in Figure~\ref{fig:mocha_hooks}. These hooks can be used to set up preconditions or to perform test clean up~\footnote{\bibentry{holowaychuk2011mocha}}.
+
+	\input{figures/testing/mocha_hooks}
+
+	Typically, \texttt{beforeEach} and \texttt{afterEach} hooks were used when running tests to:
+
+	\begin{itemize}
+		\item Initialize shared variables.
+		\item Create spies or stubs for methods that were called in each test suite.
+		\item Perform common assertions after initialising a test case.
+		\item Reset stubs or other data.
+	\end{itemize}
+
+}
+
+\section{Style} {
+\label{sec:testing_style}
+
+	The style used throughout the Mocha documentation resembles Figure~\ref{fig:mocha_example} where the following is true:
+
+	\begin{itemize}
+		\item The top level \texttt{describe} represents the class name.
+		\item Any proceeding \texttt{describe} clauses represent the method name in the form of \texttt{\#methodName()}.
+		\item Each sentence in a test case may or may not be preceeded by \emph{should}.
+	\end{itemize}
+
+	This style was therefore found to be quite inconsistent and does not output the results in a human-readable format. Instead, the following style was developed and used when developing tests:
+
+	\begin{itemize}
+		\item The top level \texttt{describe} represents the name of the AMD module and reads as \texttt{the ModuleName module}.
+			\begin{itemize}
+				\item Preceeding the module name with the word \texttt{the} adheres the behavioural specifications by following a fluid sentence structure.
+			\end{itemize}
+		\item Any proceeding \texttt{describe} clauses represent the method name in the form of \texttt{methodName method}.
+			\begin{itemize}
+				\item Adding \texttt{method} to the end of each title makes the test case more human-readable.
+			\end{itemize}
+		\item Each sentence in a test case is preceeded by \emph{should}.
+	\end{itemize}
+
+	An example of this style has been demonstrated in Figure~\ref{fig:testing_style}.
+
+	\input{figures/testing/testing_style}
+
+}
+
+\section{Example} {
+\label{sec:testing_examples}
+
+	\input{code/testing/example}
 
 }
 
@@ -166,23 +224,17 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 	Code coverage is the measurement of how many lines of code are executed while automated tests are running, making it a useful tool for finding untested code. Take the following snippet of code as an example:
 
-	\begin{lstlisting}
-		if (condition) {
-			// True condition - first branch
-		} else {
-			// False condition - second branch
-		}
-	\end{lstlisting}
+	\input{code/testing/code_coverage}
 
 	If the \texttt{condition} is always \texttt{true}, then the second branch will never execute. Therefore, the unit test does not cover the false branch and this will be displayed in the results of a code coverage. Tests would ideally cover \textgreater80\% for a single test suite.
 
 	\href{http://blanketjs.org/}{Blanket.js} was used in this project as a code coverage tool because it seamlessly integrates with Jasmine, Mocha and QUnit. Blanket injects the code coverage results at the bottom of the HTML page, which has been demonstrated in Figure~\ref{fig:blanket}.
 
-	\input{figures/blanket}
+	\input{figures/testing/blanket}
 
 	A result from the code coverage can be expanded to reveal more information. It displays the entire file, including line numbers, and highlights the lines of code that were not covered under the tests that were executed. This behaviour can be identified in Figure~\ref{fig:code_coverage}, which demonstrates a method that was not tested.
 
-	\input{figures/code_coverage}
+	\input{figures/testing/code_coverage}
 
 	Code coverage was evaluated after the creation of each test suite. When a test suite was analysed, more tests would be written in an attempt to improve the overall code coverage. This process was repeated until an acceptable amount of code coverage was reached.
 

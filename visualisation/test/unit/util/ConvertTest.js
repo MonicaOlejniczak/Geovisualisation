@@ -33,7 +33,7 @@ define(function (require) {
 
 		});
 
-		describe('the convertRange method', function () {
+		describe('convertRange method', function () {
 
 			it('should convert a value from a smaller positive range to a larger positive range', function () {
 

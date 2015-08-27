@@ -22,7 +22,7 @@ define(function (require) {
 			}
 		});
 
-		describe('the constructor', function () {
+		describe('constructor', function () {
 
 			it('should set the projection', function () {
 				expect(new Projection(projection).projection).to.equal(projection);
@@ -52,7 +52,7 @@ define(function (require) {
 
 		});
 
-		describe('the project method', function () {
+		describe('project method', function () {
 
 			var stub;
 
@@ -74,7 +74,7 @@ define(function (require) {
 
 		});
 
-		describe('the standard projection method', function () {
+		describe('standard projection method', function () {
 
 			var object, offset, position;
 

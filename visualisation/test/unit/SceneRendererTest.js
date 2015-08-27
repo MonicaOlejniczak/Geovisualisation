@@ -22,7 +22,7 @@ define(function (require) {
 			canvas = $('<canvas>').get(0);
 		});
 
-		describe('the constructor', function () {
+		describe('constructor', function () {
 
 			it('should set the canvas', function () {
 				sceneRenderer = new SceneRenderer(canvas);
@@ -85,7 +85,7 @@ define(function (require) {
 
 		});
 
-		describe('the resize method', function () {
+		describe('resize method', function () {
 
 			var stub;
 
@@ -125,7 +125,7 @@ define(function (require) {
 
 		});
 
-		describe('the internal resize method', function () {
+		describe('internal resize method', function () {
 
 			var width, height;
 
@@ -142,7 +142,7 @@ define(function (require) {
 
 		});
 
-		describe('the render method', function () {
+		describe('render method', function () {
 
 			var animationFrame, raycast;
 

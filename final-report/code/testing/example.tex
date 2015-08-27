@@ -1,0 +1,35 @@
+\begin{lstlisting}
+	describe('the Projection module', function () {
+
+		var projection, options;
+
+		beforeEach(function () {
+			projection = Projection.standard;
+			options = {
+				target: new THREE.Vector3(1, 1, 1),
+				offset: 10,
+				radius: 10
+			}
+		});
+
+		describe('constructor', function () { /* ... */ });
+
+		describe('project method', function () {
+
+			var stub;
+
+			it('should call the projection method', function () {
+				projection = new Projection(projection);
+				stub = sinon.stub(projection, 'projection');
+				projection.project();
+				expect(stub).to.have.been.calledOnce;
+			});
+
+			// ...
+
+		});
+
+		// ...
+
+	});
+\end{lstlisting}

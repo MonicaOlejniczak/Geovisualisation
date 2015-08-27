@@ -23,7 +23,7 @@ define(function (require) {
 			data = [1, 2, 3];
 		});
 
-		describe('the constructor', function () {
+		describe('constructor', function () {
 
 			it('should call the update position method', function () {
 				var stub = sinon.spy(Point.prototype, 'updatePosition');
@@ -33,7 +33,7 @@ define(function (require) {
 
 		});
 
-		describe('the update position method', function () {
+		describe('update position method', function () {
 
 			var position;
 
@@ -47,7 +47,14 @@ define(function (require) {
 				expect(point.position).to.eql(position);
 			});
 
-			it('should call the project method on a projection when it is passed in', function () {
+			it('should not call the project method when a projection has not been passed in', function () {
+				var projection = new Projection(Projection.standard);
+				var stub = sinon.stub(projection, 'project');
+				point.updatePosition(position);
+				expect(stub).to.not.have.been.called;
+			});
+
+			it('should call the project method when a projection has been passed in', function () {
 				var projection = new Projection(Projection.standard);
 				var stub = sinon.stub(projection, 'project');
 				point.updatePosition(position, projection);
@@ -56,7 +63,7 @@ define(function (require) {
 
 		});
 
-		describe('the update material method', function () {
+		describe('update material method', function () {
 
 			var material, options;
 

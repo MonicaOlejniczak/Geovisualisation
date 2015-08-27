@@ -18,7 +18,7 @@ define(function (require) {
 			points = new Points();
 		});
 
-		describe('the constructor', function () {
+		describe('constructor', function () {
 
 			it('should set the width of the points when specified', function () {
 				var width = 2.5;
@@ -40,7 +40,7 @@ define(function (require) {
 
 		});
 
-		describe('the add point method', function () {
+		describe('add point method', function () {
 
 			var data, length;
 
@@ -79,7 +79,7 @@ define(function (require) {
 
 		});
 
-		//describe('the update method', function () {
+		//describe('update method', function () {
 
 			//var stub;
 
@@ -95,7 +95,7 @@ define(function (require) {
 
 		//});
 
-		describe('the update points method', function () {
+		describe('update points method', function () {
 
 			var stub, length;
 
@@ -124,7 +124,7 @@ define(function (require) {
 
 		});
 
-		describe('the update point method', function () {
+		describe('update point method', function () {
 
 			var point, positionStub, materialStub;
 

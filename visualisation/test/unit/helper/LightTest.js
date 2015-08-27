@@ -11,7 +11,7 @@ define(function (require) {
 
 		var light;
 
-		describe('the create directional light method', function () {
+		describe('create directional light method', function () {
 
 			var directionalLight;
 			var currentOptions, options;
@@ -80,7 +80,7 @@ define(function (require) {
 
 		});
 
-		describe('the create point light method', function () {
+		describe('create point light method', function () {
 
 			var pointLight;
 			var currentOptions, options;

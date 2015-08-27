@@ -25,7 +25,7 @@ define(function (require) {
 			path = 'basic/Basic';
 		});
 
-		describe('the constructor', function () {
+		describe('constructor', function () {
 
 			it('should set the base path when specified', function () {
 				shader = new Shader(path, {basePath: basePath});
@@ -40,7 +40,7 @@ define(function (require) {
 
 		});
 
-		describe('the load method', function () {
+		describe('load method', function () {
 
 			beforeEach(function () {
 				shader = new Shader(path, {basePath: basePath});
@@ -68,7 +68,7 @@ define(function (require) {
 
 		});
 
-		describe('the get path method', function () {
+		describe('get path method', function () {
 
 			beforeEach(function () {
 				shader = new Shader(path, {basePath: basePath});
@@ -85,7 +85,7 @@ define(function (require) {
 
 		});
 
-		describe('the load shaders method', function () {
+		describe('load shaders method', function () {
 
 			beforeEach(function () {
 				shader = new Shader(path, {basePath: basePath});
@@ -101,7 +101,7 @@ define(function (require) {
 
 		});
 
-		describe('the load shader method', function () {
+		describe('load shader method', function () {
 
 			var args;
 
@@ -144,7 +144,7 @@ define(function (require) {
 
 		});
 
-		describe('the get includes method', function () {
+		describe('get includes method', function () {
 
 			var includes, result;
 
@@ -177,7 +177,7 @@ define(function (require) {
 
 		});
 
-		describe('the resolve includes method', function () {
+		describe('resolve includes method', function () {
 
 			var stub;
 
@@ -217,7 +217,7 @@ define(function (require) {
 		//
 		//});
 
-		describe('the create material method', function () {
+		describe('create material method', function () {
 
 			var uniforms, vertexShader, fragmentShader;
 

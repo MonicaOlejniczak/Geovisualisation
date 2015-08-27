@@ -3,6 +3,7 @@ define(function (require) {
 	'use strict';
 
 	var expect = require('chai').expect;
+	var sinon = require('sinon');
 
 	var THREE = require('threejs');
 	var Color = require('util/Color');
@@ -11,22 +12,23 @@ define(function (require) {
 
 		var color;
 
-		describe('the generate method', function () {
-
-			var generate;
-
-			afterEach(function () {
-				expect(color).to.not.eql(generate);
-			});
+		describe('generate method', function () {
 
 			it('should generate a random color', function () {
 				color = Color.generate();
-				generate = Color.generate();
+				expect(color).to.not.eql(Color.generate());
+			});
+
+			it('should call the blend method when the blend color is specified', function () {
+				var stub = sinon.stub(Color, 'blend');
+				color = Color.generate(new THREE.Color());
+				expect(stub).to.have.been.calledOnce;
+				stub.restore();
 			});
 
 		});
 
-		describe('the blend method', function () {
+		describe('blend method', function () {
 
 			var blend;
 
@@ -60,7 +62,7 @@ define(function (require) {
 
 		});
 
-		describe('the luminance method', function () {
+		describe('luminance method', function () {
 
 			var luminance;
 

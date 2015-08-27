@@ -10,7 +10,7 @@ define(function (require) {
 
 	describe('the Promises module', function () {
 
-		describe('the require promise method', function () {
+		describe('require promise method', function () {
 
 			var path;
 

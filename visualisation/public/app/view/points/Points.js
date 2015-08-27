@@ -68,7 +68,7 @@ define(function (require) {
 	};
 
 	/**
-	 * An accessor method that return the minimum value in all the points.
+	 * An accessor method that returns the global minimum value of all points.
 	 *
 	 * @returns {number|*}
 	 */
@@ -77,7 +77,7 @@ define(function (require) {
 	};
 
 	/**
-	 * An accessor method that return the maximum value in all the points.
+	 * An accessor method that returns the global maximum value of all points.
 	 *
 	 * @returns {number|*}
 	 */
