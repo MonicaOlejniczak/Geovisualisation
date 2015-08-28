@@ -11,10 +11,17 @@ body {
 
 #mocha {
 
-	@heading-background-color: @border-color;
-	@heading-child-background-color: @info-color;
-	@background: @default-color;
-	@border-color: @primary-color;
+	@heading-bg: @brand-primary;
+	@heading-color: @h1-color;
+
+	@heading-child-bg: @brand-info;
+
+	@report-bg: @brand-default;
+
+	@replay-bg: @brand-primary;
+	@replay-color: @brand-default;
+
+	@border-color: @heading-bg;
 	@margin: 1em;
 
 	font-family: 'RobotoDraft', 'Open sans', 'sans-serif';
@@ -26,51 +33,18 @@ body {
 		@background-color: #fefefe;
 		@height: 50px;
 
-		//position: inherit;
 		width: 100%;
 		display: block;
 		top: 0;
 		right: 0;
-		//height: @height;
 		background: @background-color;
 		border-bottom: 1px @border-color solid;
 		padding: 1em 40px;
-		//margin: 0 auto 3em auto;
 
 		@li-margin: 0.1em;
 
 		li {
-
-			//width: (100% / 4.1) - (@li-margin * 3);
-			//height: 100%;
-			//margin: 0;
 			float: right;
-			//padding: 0;
-
-			&.passes, &.failures, &.duration {
-				//background: @background-color;
-				//font-size: 2em;
-				//text-align: center;
-				//line-height: @height;
-				//border: @border;
-				//margin-top: 1em;
-			}
-
-			&.failures, &.duration {
-				//margin-left: @li-margin;
-			}
-
-			&.progress {
-
-				//text-align: center;
-
-				canvas {
-					//width: inherit;
-					//height: inherit;
-				}
-
-			}
-
 		}
 
 	}
@@ -80,14 +54,14 @@ body {
 		@border: 1px @border-color solid;
 		@border-radius: 0.25em;
 
-		background: @background;
+		background: @report-bg;
 		border: @border;
 		border-radius: @border-radius;
 		margin-top: 5em;
 
 		.suite {
 
-			@child-border: 1px @heading-background-color solid;
+			@child-border: 1px @heading-bg solid;
 
 			border-radius: @border-radius;
 			margin: 0;
@@ -98,14 +72,14 @@ body {
 			}
 
 			h1 {
-				background-color: @heading-background-color;
-				color: @default-color;
+				background-color: @heading-bg;
+				color: @heading-color;
 				font-weight: normal;
 				padding: 0.5em;
 				margin: 0;
 
 				&:hover {
-					background-color: lighten(@heading-background-color, 5%);
+					background-color: lighten(@heading-bg, 5%);
 					cursor: pointer;
 				}
 
@@ -124,7 +98,7 @@ body {
 					.duration {
 						display: block;
 						float: right;
-						color: @font-color;
+						color: @text-color;
 						margin-right: 3em;
 						.vendor(box-shadow, none);
 					}
@@ -132,12 +106,12 @@ body {
 					a.replay {
 						right: 5px;
 						top: 6px;
-						background: @primary-color;
-						color: @default-color;
+						background: @replay-bg;
+						color: @replay-color;
 					}
 
 					&:hover {
-						color: @heading-child-background-color;
+						color: @heading-child-bg;
 						.transition(color, 300ms);
 					}
 
@@ -155,12 +129,12 @@ body {
 
 				&.pass::before {
 					content: '✔';
-					color: @success-color;
+					color: @brand-success;
 				}
 
 				&.fail::before {
 					content: '✖';
-					background-color: @danger-color;
+					color: @brand-danger;
 				}
 
 			}
@@ -172,10 +146,10 @@ body {
 
 				h1 {
 
-					background-color: @heading-child-background-color;
+					background-color: @heading-child-bg;
 
 					&:hover {
-						background: lighten(@heading-child-background-color, 2.5%);
+						background: lighten(@heading-child-bg, 2.5%);
 					}
 
 				}

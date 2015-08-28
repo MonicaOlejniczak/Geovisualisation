@@ -29,8 +29,8 @@ define(function (require) {
 	 * @param visualisation The visualisation associated with the GUI controls.
 	 */
 	Gui.prototype.configure = function (gui, visualisation) {
-		this._configureSurface(gui, visualisation);
-		this._configurePoints(gui, visualisation.points);
+		this.configurePoints(gui, visualisation.points);
+		this.configureSurface(gui, visualisation);
 	};
 
 	/**
@@ -38,9 +38,8 @@ define(function (require) {
 	 *
 	 * @param gui The GUI controls.
 	 * @param visualisation The visualisation associated with the GUI controls.
-	 * @private
 	 */
-	Gui.prototype._configureSurface = function (gui, visualisation) {
+	Gui.prototype.configureSurface = function (gui, visualisation) {
 		var surface = visualisation.surface;
 		// Create a folder for the surface colour.
 		var folder = gui.addFolder('Surface');
@@ -63,7 +62,7 @@ define(function (require) {
 			},
 			atmosphere: function (event, atmosphere) {
 				var uniforms = atmosphere.material.uniforms;
-				folder.addColor(uniforms.uColor, 'value').name('Atmosphere').onChange(this._onAtmosphere.bind(this, atmosphere));
+				folder.addColor(uniforms.uColor, 'value').name('Atmosphere').onChange(this.onAtmosphere.bind(this, atmosphere));
 			}.bind(this)
 		});
 	};
@@ -73,9 +72,8 @@ define(function (require) {
 	 *
 	 * @param atmosphere The atmosphere object.
 	 * @param color The new colour of the atmosphere.
-	 * @private
 	 */
-	Gui.prototype._onAtmosphere = function (atmosphere, color) {
+	Gui.prototype.onAtmosphere = function (atmosphere, color) {
 		var material = atmosphere.material;
 		material.uniforms['uColor'].value = this._convertColor(color);
 	};
@@ -85,16 +83,55 @@ define(function (require) {
 	 *
 	 * @param gui The GUI controls.
 	 * @param points The points associated with the visualisation.
-	 * @private
 	 */
-	Gui.prototype._configurePoints = function (gui, points) {
-		gui.add(points, 'mode', points.Mode).name('Mode').onChange(this._onMode.bind(this, points));
-		this._configureBasicShader(gui, points);
-		this._configureGradientShader(gui, points);
+	Gui.prototype.configurePoints = function (gui, points) {
+		var folder = gui.addFolder('Data points');
+		var mode = folder.add(points, 'mode', points.Mode).name('Mode');
+
+		var basicShader = this.configureBasicShader(folder, points);
+		var gradientShader = this.configureGradientShader(folder, points);
+
+		$(basicShader.domElement).find('.title').hide();
+		$(gradientShader.domElement).find('.title').hide();
+
+		this.configureMode(points, basicShader, gradientShader, points.mode);
+
+		mode.onChange(this.onMode.bind(this, points, basicShader, gradientShader));
 	};
 
-	Gui.prototype._onMode = function (points, value) {
-		this._configurePointUniforms(points, 'uMode', value);
+	/**
+	 * Configures the mode.
+	 *
+	 * @param points The points associated with the visualisation.
+	 * @param basicShader The basic shader folderv.
+	 * @param gradientShader The gradient shader folder.
+	 * @param value The value of mode.
+	 */
+	Gui.prototype.onMode = function (points, basicShader, gradientShader, value) {
+		this.configureMode(points, basicShader, gradientShader, value);
+		this.configurePointUniforms(points, 'uMode', value);
+	};
+
+	/**
+	 * Configures the display of the basic and gradient shader folders based on the value of the mode.
+	 *
+	 * @param points The points associated with the visualisation.
+	 * @param basicShader The basic shader folder.
+	 * @param gradientShader The gradient shader folder.
+	 * @param value The value of mode.
+	 */
+	Gui.prototype.configureMode = function (points, basicShader, gradientShader, value) {
+		value = parseInt(value, 10);
+		// Checks if the value of the mode is basic.
+		if (value === points.Mode.BASIC) {
+			// Open the basic shader folder and close the gradient shader.
+			basicShader.open();
+			gradientShader.close();
+		} else {
+			// Close the basic shader folder and open the gradient shader.
+			basicShader.close();
+			gradientShader.open();
+		}
 	};
 
 	/**
@@ -102,9 +139,9 @@ define(function (require) {
 	 *
 	 * @param gui The GUI controls.
 	 * @param points The points associated with the visualisation.
-	 * @private
+	 * @returns {*|dat.gui.GUI}
 	 */
-	Gui.prototype._configureBasicShader = function (gui, points) {
+	Gui.prototype.configureBasicShader = function (gui, points) {
 		// Create a folder for the basic shader.
 		var folder = gui.addFolder('Basic configuration');
 		// Get the color range.
@@ -118,8 +155,7 @@ define(function (require) {
 		// Add the minimum and maximum widgets to the folder.
 		folder.add(range, 'x').min(min).max(max).name('Minimum');
 		folder.add(range, 'y').min(min).max(max).name('Maximum');
-		// Open the folder.
-		folder.open();
+		return folder;
 	};
 
 	/**
@@ -127,9 +163,8 @@ define(function (require) {
 	 *
 	 * @param color The colour being converted.
 	 * @returns {THREE.Color} The converted colour.
-	 * @private
 	 */
-	Gui.prototype._convertColor = function (color) {
+	Gui.prototype.convertColor = function (color) {
 		// Set the origin and target vectors for the colour ranges.
 		var origin = new THREE.Vector2(0, 255);
 		var target = new THREE.Vector2(0, 1);
@@ -147,9 +182,8 @@ define(function (require) {
 	 * @param points The list of points.
 	 * @param key The key for the material uniform.
 	 * @param value The new value of the material uniform.
-	 * @private
 	 */
-	Gui.prototype._configurePointUniforms = function (points, key, value) {
+	Gui.prototype.configurePointUniforms = function (points, key, value) {
 		points = points._points;
 		// Iterate through each point and update their shader material uniform.
 		for (var i = 0, len = points.length; i < len; i++) {
@@ -164,11 +198,10 @@ define(function (require) {
 	 *
 	 * @param points The points associated with the colour change.
 	 * @param color The new colour of the objects.
-	 * @private
 	 */
-	Gui.prototype._onLowColor = function (points, color) {
-		color = this._convertColor(color);
-		this._configurePointUniforms(points, 'uLowColor', color);
+	Gui.prototype.onLowColor = function (points, color) {
+		color = this.convertColor(color);
+		this.configurePointUniforms(points, 'uLowColor', color);
 	};
 
 	/**
@@ -176,11 +209,10 @@ define(function (require) {
 	 *
 	 * @param points The points associated with the colour change.
 	 * @param color The new colour of the objects.
-	 * @private
 	 */
-	Gui.prototype._onMediumColor = function (points, color) {
-		color = this._convertColor(color);
-		this._configurePointUniforms(points, 'uMediumColor', color);
+	Gui.prototype.onMediumColor = function (points, color) {
+		color = this.convertColor(color);
+		this.configurePointUniforms(points, 'uMediumColor', color);
 	};
 
 	/**
@@ -188,11 +220,10 @@ define(function (require) {
 	 *
 	 * @param points The points associated with the colour change.
 	 * @param color The new colour of the objects.
-	 * @private
 	 */
-	Gui.prototype._onHighColor = function (points, color) {
-		color = this._convertColor(color);
-		this._configurePointUniforms(points, 'uHighColor', color);
+	Gui.prototype.onHighColor = function (points, color) {
+		color = this.convertColor(color);
+		this.configurePointUniforms(points, 'uHighColor', color);
 	};
 
 	/**
@@ -200,19 +231,18 @@ define(function (require) {
 	 *
 	 * @param gui The GUI controls.
 	 * @param points The points associated with the visualisation.
-	 * @private
+	 * @returns {*|dat.gui.GUI}
 	 */
-	Gui.prototype._configureGradientShader = function (gui, points) {
+	Gui.prototype.configureGradientShader = function (gui, points) {
 		// Create a folder for the gradient shader.
 		var folder = gui.addFolder('Gradient configuration');
 		// Get the available colors.
 		var colors = points.colors;
 		// Add the colours with callback functions.
-		folder.addColor(colors, 'low').name('Low').onChange(this._onLowColor.bind(this, points));
-		folder.addColor(colors, 'medium').name('Medium').onChange(this._onMediumColor.bind(this, points));
-		folder.addColor(colors, 'high').name('High').onChange(this._onHighColor.bind(this, points));
-		// Open the folder.
-		folder.open();
+		folder.addColor(colors, 'low').name('Low').onChange(this.onLowColor.bind(this, points));
+		folder.addColor(colors, 'medium').name('Medium').onChange(this.onMediumColor.bind(this, points));
+		folder.addColor(colors, 'high').name('High').onChange(this.onHighColor.bind(this, points));
+		return folder;
 	};
 
 	return Gui;

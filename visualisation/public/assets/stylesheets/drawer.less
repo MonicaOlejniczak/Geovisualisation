@@ -2,7 +2,7 @@
 @import "mixins";
 
 @width: 300px;
-@background: @default-color;
+@background: @brand-default;
 @time: 500ms;
 
 #drawer-toggle-label {
@@ -69,6 +69,8 @@
 
 #drawer {
 
+	@alpha: 0.2;
+
 	position: fixed;
 	left: -@width;
 	top: 0;
@@ -77,7 +79,17 @@
 	background: @background;
 	overflow-x: hidden;
 	overflow-y: auto;
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, @alpha),0 1px 6px 0 rgba(0, 0, 0, @alpha);
 	.transition(left, @time, ease-in-out);
+
+	h1 {
+		font-family: 'RobotoDraft', 'Open sans', 'sans-serif';
+		font-weight: normal;
+		background-color: @brand-primary;
+		color: @h1-color;
+		padding: 1em;
+		margin: 0;
+	}
 
 	ul {
 		list-style: none;

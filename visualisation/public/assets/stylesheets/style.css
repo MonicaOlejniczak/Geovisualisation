@@ -1,103 +1,3 @@
-.dg {
-  width: 100% !important;
-  font: 1em 'RobotoDraft', 'Open sans', 'sans-serif' !important;
-  text-shadow: none !important;
-}
-.dg .closed li.title {
-  background-image: url('../svg/expand_more.svg') !important;
-}
-.dg li {
-  width: inherit !important;
-  border-left: 0 !important;
-  padding: 0 !important;
-  text-indent: 8px;
-}
-.dg li.title {
-  background-color: #33b5e5 !important;
-  background-image: url('../svg/expand_less.svg') !important;
-  background-position: top right !important;
-  color: #ffffff !important;
-  font-weight: bold;
-  border-bottom: 0 !important;
-}
-.dg .cr.number {
-  border-left: 0 !important;
-}
-.dg li:not(.title) {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  border-bottom: 0 !important;
-}
-.dg .c input {
-  background: #e6e6e6 !important;
-  color: #000000 !important;
-  text-shadow: none !important;
-}
-.dg .c select {
-  border: 0;
-  font-family: inherit;
-  cursor: pointer;
-}
-.dg .c select option {
-  font-family: inherit;
-}
-.dg .c .selector {
-  width: initial !important;
-  background-color: #ffffff !important;
-}
-.dg .c .selector .saturation-field,
-.dg .c .selector .hue-field {
-  border: 1px #e6e6e6 solid !important;
-}
-.dg .c .slider {
-  background: #e6e6e6 !important;
-}
-.dg .c .slider .slider-fg {
-  background: #18e1c2;
-}
-.dg .c .slider:hover {
-  background: #f2f2f2 !important;
-}
-.dg .c .slider:hover .slider-fg {
-  background: #41ebd1 !important;
-}
-.dg .close-button {
-  display: none;
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  font-weight: bold;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-#filters .filters {
-  margin: 1em 0;
-}
-#filters .slider {
-  background-color: #c8c8c8;
-  border: 0;
-}
-#filters .slider.noUi-connect {
-  background: #18e1c2;
-  box-shadow: none;
-}
-#filters .slider.noUi-horizontal {
-  height: 2px;
-  border-radius: 2px;
-}
-#filters .slider .noUi-handle {
-  width: 12px;
-  height: 12px;
-  left: -10px;
-  top: -5px;
-  background: #18e1c2;
-  border: 0;
-  border-radius: 100%;
-  box-shadow: none;
-}
-#filters .slider .noUi-handle::before,
-#filters .slider .noUi-handle::after {
-  display: none;
-}
 #drawer-toggle-label {
   display: block;
   position: fixed;
@@ -157,11 +57,20 @@
   background: #ffffff;
   overflow-x: hidden;
   overflow-y: auto;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2), 0 1px 6px 0 rgba(0, 0, 0, 0.2);
   -webkit-transition: left 500ms ease-in-out;
   -moz-transition: left 500ms ease-in-out;
   -o-transition: left 500ms ease-in-out;
   -khtml-transition: left 500ms ease-in-out;
   transition: left 500ms ease-in-out;
+}
+#drawer h1 {
+  font-family: 'RobotoDraft', 'Open sans', 'sans-serif';
+  font-weight: normal;
+  background-color: #0494aa;
+  color: #ffffff;
+  padding: 1em;
+  margin: 0;
 }
 #drawer ul {
   list-style: none;
@@ -177,6 +86,134 @@
   color: #fff;
   text-decoration: none;
   text-align: center;
+}
+#filters .filters {
+  margin: 1em 0;
+}
+#filters .slider {
+  background-color: #c8c8c8;
+  border: 0;
+}
+#filters .slider.noUi-connect {
+  background: #18e1c2;
+  box-shadow: none;
+}
+#filters .slider.noUi-horizontal {
+  height: 2px;
+  border-radius: 2px;
+}
+#filters .slider .noUi-handle {
+  width: 12px;
+  height: 12px;
+  left: -10px;
+  top: -5px;
+  background: #18e1c2;
+  border: 0;
+  border-radius: 100%;
+  box-shadow: none;
+}
+#filters .slider .noUi-handle::before,
+#filters .slider .noUi-handle::after {
+  display: none;
+}
+.dg.main {
+  width: 100% !important;
+  font: 1em 'RobotoDraft', 'Open sans', 'sans-serif' !important;
+}
+.dg.main .folder {
+  border-bottom: 1px #eeeeee solid;
+  padding: 0 !important;
+}
+.dg.main .folder:last-child {
+  border-bottom: 1px #eeeeee solid !important;
+}
+.dg.main .folder .cr {
+  padding-left: 15px !important;
+}
+.dg.main .folder .closed li.title {
+  background-color: transparent !important;
+  background-image: url('../svg/expand_more.svg') !important;
+  border-bottom: 0 !important;
+}
+.dg.main .dg {
+  text-shadow: none !important;
+}
+.dg.main .dg li {
+  width: inherit !important;
+  border-left: 0 !important;
+  padding: 0 !important;
+  text-indent: 8px;
+}
+.dg.main .dg li .property-name {
+  font-weight: bold;
+}
+.dg.main .dg li.title {
+  background-color: transparent !important;
+  background-image: url('../svg/expand_less.svg') !important;
+  background-position: 1.5em center !important;
+  color: #333333 !important;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-indent: 4em;
+  border-bottom: 1px #eeeeee solid !important;
+  padding: 1em !important;
+  -webkit-transition: background-color 500ms linear;
+  -moz-transition: background-color 500ms linear;
+  -o-transition: background-color 500ms linear;
+  -khtml-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+.dg.main .dg li.title:hover {
+  background-color: #eeeeee !important;
+}
+.dg.main .dg .cr {
+  border-left: 0 !important;
+}
+.dg.main .dg li:not(.title) {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-bottom: 0 !important;
+}
+.dg.main .dg .c input {
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-family: inherit;
+  font-weight: normal !important;
+  text-align: left !important;
+  text-shadow: none !important;
+}
+.dg.main .dg .c select {
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+.dg.main .dg .c select option {
+  font-family: inherit;
+}
+.dg.main .dg .c .selector {
+  width: initial !important;
+  background-color: #ffffff !important;
+}
+.dg.main .dg .c .selector .saturation-field,
+.dg.main .dg .c .selector .hue-field {
+  border: 1px #eeeeee solid !important;
+}
+.dg.main .dg .c .slider {
+  background: #eeeeee !important;
+}
+.dg.main .dg .c .slider .slider-fg {
+  background: #18e1c2;
+}
+.dg.main .dg .c .slider:hover .slider-fg {
+  background: #41ebd1 !important;
+}
+.dg.main .close-button {
+  display: none;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  font-weight: bold;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 html,
 body {
@@ -201,11 +238,15 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  background-color: #333;
-  color: #fff;
+  background-color: #ffffff;
+  color: #000000;
   border-radius: 0.15em;
   padding: 0.5em;
   margin: 1em;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2), 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+}
+#information strong {
+  color: #0494aa;
 }
 main {
   width: 100%;
@@ -215,12 +256,4 @@ main canvas {
   display: block;
   width: inherit;
   height: inherit;
-}
-h1 {
-  font-family: 'RobotoDraft', 'Open sans', 'sans-serif';
-  font-weight: normal;
-  background-color: #0494aa;
-  color: #ffffff;
-  padding: 0.5em;
-  margin: 0;
 }

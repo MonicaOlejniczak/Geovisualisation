@@ -74,7 +74,7 @@ body {
   color: #ffffff;
 }
 #mocha #mocha-report .suite .test h2:hover {
-  color: #33b5e5;
+  color: #03a9f4;
   -webkit-transition: color 300ms linear;
   -moz-transition: color 300ms linear;
   -o-transition: color 300ms linear;
@@ -97,15 +97,15 @@ body {
 }
 #mocha #mocha-report .suite .test.fail::before {
   content: '✖';
-  background-color: #f44336;
+  color: #f44336;
 }
 #mocha #mocha-report .suite .suite {
   border: 1px #0494aa solid;
   margin: 1em;
 }
 #mocha #mocha-report .suite .suite h1 {
-  background-color: #33b5e5;
+  background-color: #03a9f4;
 }
 #mocha #mocha-report .suite .suite h1:hover {
-  background: #3eb9e6;
+  background: #08b0fc;
 }

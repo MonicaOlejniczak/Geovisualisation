@@ -1,7 +1,7 @@
 @import "theme";
-@import "gui";
-@import "filters";
 @import "drawer";
+@import "filters";
+@import "configuration";
 
 html, body {
 	width: 100%;
@@ -26,14 +26,23 @@ body {
 }
 
 #information {
+
+	@alpha: 0.2;
+
 	position: absolute;
 	left: 0;
 	top: 0;
-	background-color: #333;
-	color: #fff;
+	background-color: @brand-default;
+	color: @text-color;
 	border-radius: 0.15em;
 	padding: 0.5em;
 	margin: 1em;
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, @alpha),0 1px 6px 0 rgba(0, 0, 0, @alpha);
+
+	strong {
+		color: @brand-primary;
+	}
+
 }
 
 main {
@@ -46,13 +55,4 @@ main {
 		width: inherit;
 		height: inherit;
 	}
-}
-
-h1 {
-	font-family: 'RobotoDraft', 'Open sans', 'sans-serif';
-	font-weight: normal;
-	background-color: @primary-color;
-	color: @default-color;
-	padding: 0.5em;
-	margin: 0;
 }
