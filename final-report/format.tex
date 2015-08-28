@@ -1,50 +1,49 @@
 \usepackage[left=30mm,top=35mm,right=30mm,bottom=35mm,headheight=30pt]{geometry}
 
-% Line spacing
+%%% Line spacing
 \usepackage{setspace}
 \onehalfspacing
 
-% Enforce UTF8 encoding
+%%% Enforce UTF8 encoding
 \usepackage[utf8]{inputenc}
 
-% Colours
+%%% Colors
 \usepackage[dvipsnames]{xcolor}
 
-% Header and footer
+%%% Header and footer
 \usepackage{scrlayer-scrpage}
 \ohead{SENG4800B - Individual Final Report}
 \cfoot{\pagemark}
 
 % http://tex.stackexchange.com/questions/198830/section-title-with-runin-and-koma-class
 
-% Abstract
+%%% Abstract
 \usepackage{abstract}
 \setlength{\absleftindent}{0pt}
 \setlength{\absrightindent}{0pt}
 \renewcommand{\absnamepos}{flushleft}
 \renewcommand{\abstractnamefont}{\normalfont\Large\bfseries}
 
-% Sections
+%%% Sections
 % \usepackage{titlesec}
 % \setcounter{secnumdepth}{4}
 
-% Links
-\usepackage{hyperref}
-
-% Todo notes
-\usepackage{todonotes}
-\presetkeys{todonotes}{inline}{}
-
-% Tables
-\usepackage{booktabs}
-\usepackage{tabularx}
-\renewcommand{\arraystretch}{1.5}
-
-% Figures
+%%% Tables and figures
 \usepackage{wrapfig}
 \usepackage{caption}
+% Set default font size
 \usepackage[font=scriptsize]{subcaption}
 
+%%% Tables
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+% Table vertical spacing
+\renewcommand{\arraystretch}{1.5}
+% Add caption spacing
+\captionsetup[table]{belowskip=12pt}
+
+%%% Figures
 \newcommand{\bordercolor}{black!40}
 \newcommand{\figureborder}[1]{
 	\begin{mdframed}[linecolor=\bordercolor,innertopmargin=0,innerrightmargin=0,innerbottommargin=0,innerleftmargin=0]
@@ -52,20 +51,18 @@
 	\end{mdframed}
 }
 
-% Additional
-\usepackage{float}
-\usepackage{spreadtab}
-\usepackage{etoolbox}
-\usepackage{setspace}
-\usepackage{mdframed}
-
+%%% Code
 \usepackage{listings}
+
+% Begin at indentation of environment setup
 \usepackage{lstautogobble}
 
+% Define code colors
 \definecolor{comment}{RGB}{98,151,85}
 \definecolor{keyword}{RGB}{203,119,47}
 \definecolor{string}{RGB}{98,151,85}
 
+% Default code settings
 \lstset{
 	autogobble,
 	language=Java,
@@ -78,10 +75,14 @@
 	otherkeywords={var,function}
 }
 
-% References
+%%% References
 \usepackage[backend=bibtex,style=authoryear]{biblatex}
 \addbibresource{references.bib}
+
+% Change font size
 \renewcommand*{\bibfont}{\small}
+
+% Add exclude category with a bibentry command
 \DeclareBibliographyCategory{exclude}
 \newcommand{\bibentry}[1]{
 	\addtocategory{exclude}{#1}
@@ -92,5 +93,20 @@
 \usepackage{chngcntr}
 \counterwithout{footnote}{chapter}
 
-% Appendices
+%%% Appendices
 \usepackage[toc,page]{appendix}
+
+%%% Additional
+
+% Links
+\usepackage{hyperref}
+
+% Floats
+\usepackage{float}
+
+% Frames around images
+\usepackage{mdframed}
+
+% Todo notes
+\usepackage{todonotes}
+\presetkeys{todonotes}{inline}{}

@@ -27,6 +27,7 @@
     "blanket": "~1.1.7",
     "chai-as-promised": "~5.1.0",
     "handlebars": "~3.0.3",
-    "nouislider": "~8.0.2"
+    "nouislider": "~8.0.2",
+    "robotodraft": "~1.1.0"
   }
 }

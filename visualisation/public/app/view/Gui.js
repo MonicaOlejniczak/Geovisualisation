@@ -16,7 +16,10 @@ define(function (require) {
 	 * @constructor
 	 */
 	function Gui (visualisation) {
-		this.configure(new dat.GUI(), visualisation);
+		var gui = new dat.GUI({autoPlace: false});
+
+		$('#configuration').append(gui.domElement);
+		this.configure(gui, visualisation);
 	}
 
 	/**
@@ -27,8 +30,7 @@ define(function (require) {
 	 */
 	Gui.prototype.configure = function (gui, visualisation) {
 		this._configureSurface(gui, visualisation);
-		this._configurePoints(gui, visualisation.points)
-		gui.close();
+		this._configurePoints(gui, visualisation.points);
 	};
 
 	/**

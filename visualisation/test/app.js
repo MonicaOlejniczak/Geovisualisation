@@ -33,7 +33,7 @@
 
 		require([
 			'test/unit/helper/LightTest',
-			//'test/unit/helper/ShaderTest',
+			'test/unit/helper/ShaderTest',
 			'test/unit/util/ColorTest',
 			'test/unit/util/ConvertTest',
 			'test/unit/util/ProjectionTest',

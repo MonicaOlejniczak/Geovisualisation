@@ -1,0 +1,103 @@
+@import "theme";
+@import "mixins";
+
+.dg {
+
+	@widget-background: darken(@default-color, 10%);
+
+	width: 100% !important;
+	font: 1em 'RobotoDraft', 'Open sans', 'sans-serif' !important;
+	text-shadow: none !important;
+
+	.closed li.title {
+		background-image: url('../svg/expand_more.svg') !important;
+	}
+
+	li {
+		width: inherit !important;
+		border-left: 0 !important;
+		padding: 0 !important;
+		text-indent: 8px;
+	}
+
+	li.title {
+		background-color: @info-color !important;
+		background-image: url('../svg/expand_less.svg') !important;
+		background-position: top right !important;
+		color: @default-color !important;
+		font-weight: bold;
+		border-bottom: 0 !important;
+
+	}
+
+	.cr.number {
+		border-left: 0 !important;
+	}
+
+	li:not(.title) {
+		background-color: @default-color !important;
+		color: @font-color !important;
+		border-bottom: 0 !important;
+	}
+
+	.c {
+
+		input {
+			background: @widget-background !important;
+			color: @font-color !important;
+			text-shadow: none !important;
+		}
+
+		select {
+
+			border: 0;
+			font-family: inherit;
+			cursor: pointer;
+
+			option {
+				font-family: inherit;
+			}
+
+		}
+
+		.selector {
+			width: initial !important;
+			background-color: @default-color !important;
+
+			.saturation-field, .hue-field {
+				border: 1px @widget-background solid !important;
+			}
+
+		}
+
+		.slider {
+
+			background: @widget-background !important;
+
+			.slider-fg {
+				background: @widget-color;
+			}
+
+			&:hover {
+
+				background: lighten(@widget-background, 5%) !important;
+
+				.slider-fg {
+					background: lighten(@widget-color, 10%) !important;
+				}
+
+			}
+		}
+
+	}
+
+	.close-button {
+		display: none;
+		background-color: @default-color !important;
+		color: @font-color !important;
+		font-weight: bold;
+		border-bottom-left-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
+
+}

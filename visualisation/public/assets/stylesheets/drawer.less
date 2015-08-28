@@ -1,7 +1,8 @@
+@import "theme";
 @import "mixins";
 
 @width: 300px;
-@background: #042437;
+@background: @default-color;
 @time: 500ms;
 
 #drawer-toggle-label {
@@ -76,7 +77,6 @@
 	background: @background;
 	overflow-x: hidden;
 	overflow-y: auto;
-	padding-top: 50px;
 	.transition(left, @time, ease-in-out);
 
 	ul {

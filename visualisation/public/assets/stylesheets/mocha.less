@@ -1,13 +1,23 @@
+@import "theme";
+@import "mixins";
+
+* {
+	.transition(background-color, 500ms);
+}
+
 body {
 	background: #f5f5f5;
 }
 
 #mocha {
 
-	@border-color: #87cbcc;
+	@heading-background-color: @border-color;
+	@heading-child-background-color: @info-color;
+	@background: @default-color;
+	@border-color: @primary-color;
 	@margin: 1em;
 
-	font-family: 'Open sans', 'sans-serif';
+	font-family: 'RobotoDraft', 'Open sans', 'sans-serif';
 	margin-top: @margin;
 	margin-bottom: @margin;
 
@@ -67,15 +77,8 @@ body {
 
 	#mocha-report {
 
-		@background: white;
 		@border: 1px @border-color solid;
 		@border-radius: 0.25em;
-
-		@success-background-color: #c5efc6;
-		@success-color: #81db83;
-
-		@fail-background-color: #fbc2c9;
-		@fail-color: #f78d99;
 
 		background: @background;
 		border: @border;
@@ -84,8 +87,6 @@ body {
 
 		.suite {
 
-			@heading-background-color: @border-color;
-			@heading-child-background-color: #c3e5e5;
 			@child-border: 1px @heading-background-color solid;
 
 			border-radius: @border-radius;
@@ -98,14 +99,49 @@ body {
 
 			h1 {
 				background-color: @heading-background-color;
-				font-weight: bold;
+				color: @default-color;
+				font-weight: normal;
 				padding: 0.5em;
 				margin: 0;
+
+				&:hover {
+					background-color: lighten(@heading-background-color, 5%);
+					cursor: pointer;
+				}
+
+				& a:hover {
+					text-decoration: none;
+				}
+
 			}
 
 			.test {
 
 				margin: 0;
+
+				h2 {
+
+					.duration {
+						display: block;
+						float: right;
+						color: @font-color;
+						margin-right: 3em;
+						.vendor(box-shadow, none);
+					}
+
+					a.replay {
+						right: 5px;
+						top: 6px;
+						background: @primary-color;
+						color: @default-color;
+					}
+
+					&:hover {
+						color: @heading-child-background-color;
+						.transition(color, 300ms);
+					}
+
+				}
 
 				&::before, h2 {
 					padding: 0.5em 0;
@@ -113,19 +149,18 @@ body {
 
 				&.pass::before, &.fail::before {
 					width: 50px;
+					background-color: whitesmoke;
 					text-align: center;
 				}
 
 				&.pass::before {
 					content: '✔';
-					background-color: @success-background-color;
-					border-right: 1px @success-color solid;
+					color: @success-color;
 				}
 
 				&.fail::before {
 					content: '✖';
-					background-color: @fail-background-color;
-					border-right: 1px @fail-color solid;
+					background-color: @danger-color;
 				}
 
 			}
@@ -136,7 +171,13 @@ body {
 				margin: 1em;
 
 				h1 {
+
 					background-color: @heading-child-background-color;
+
+					&:hover {
+						background: lighten(@heading-child-background-color, 2.5%);
+					}
+
 				}
 
 			}

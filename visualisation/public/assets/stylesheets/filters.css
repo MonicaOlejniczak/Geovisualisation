@@ -1,5 +1,5 @@
-#filters {
-  margin: 1em;
+#filters .filters {
+  margin: 1em 0;
 }
 #filters .slider {
   background-color: #c8c8c8;
