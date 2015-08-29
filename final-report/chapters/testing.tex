@@ -189,7 +189,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 	\begin{itemize}
 		\item The top level \texttt{describe} represents the class name.
 		\item Any proceeding \texttt{describe} clauses represent the method name in the form of \texttt{\#methodName()}.
-		\item Each sentence in a test case may or may not be preceeded by \emph{should}.
+		\item Each sentence in a test case may or may not be preceeded by \texttt{should}.
 	\end{itemize}
 
 	This style was therefore found to be quite inconsistent and does not output the results in a human-readable format. Instead, the following style was developed and used when developing tests:
@@ -197,13 +197,13 @@ First, the purpose and method of testing are explored, followed by an overview o
 	\begin{itemize}
 		\item The top level \texttt{describe} represents the name of the AMD module and reads as \texttt{the ModuleName module}.
 			\begin{itemize}
-				\item Preceeding the module name with the word \texttt{the} adheres the behavioural specifications by following a fluid sentence structure.
+				\item Preceeding the module name with the word \texttt{the} adheres to the behavioural specifications, by following a fluid sentence structure.
 			\end{itemize}
 		\item Any proceeding \texttt{describe} clauses represent the method name in the form of \texttt{methodName method}.
 			\begin{itemize}
 				\item Adding \texttt{method} to the end of each title makes the test case more human-readable.
 			\end{itemize}
-		\item Each sentence in a test case is preceeded by \emph{should}.
+		\item Each sentence in a test case is preceeded by \texttt{should}.
 	\end{itemize}
 
 	An example of this style has been demonstrated in Figure~\ref{fig:testing_style}.

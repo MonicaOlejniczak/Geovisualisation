@@ -1,4 +1,4 @@
-@import "theme";
+@import "slider";
 
 #filters {
 
@@ -8,34 +8,38 @@
 
 	.slider {
 
-		@color: @brand-widget;
-
-		background-color: #c8c8c8;
+		background-color: @slider-bg;
 		border: 0;
 
 		&.noUi-connect {
-			background: @color;
+			background: @slider-progress-bg;
 			box-shadow: none;
 		}
 
 		&.noUi-horizontal {
-			height: 2px;
-			border-radius: 2px;
+			height: @slider-height;
+			border-radius: @slider-height;
 		}
 
-		.noUi-handle {
+		.noUi-origin {
 
-			width: 12px;
-			height: 12px;
-			left: -10px;
-			top: -5px;
-			background: @color;
-			border: 0;
-			border-radius: 100%;
-			box-shadow: none;
+			background-color: @slider-bg;
 
-			&::before, &::after {
-				display: none;
+			.noUi-handle {
+
+				width: 12px;
+				height: 12px;
+				left: -10px;
+				top: -5px;
+				background: @slider-progress-bg;
+				border: 0;
+				border-radius: 100%;
+				box-shadow: none;
+
+				&::before, &::after {
+					display: none;
+				}
+
 			}
 
 		}

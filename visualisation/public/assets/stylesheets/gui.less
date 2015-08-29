@@ -1,5 +1,6 @@
 @import "theme";
 @import "mixins";
+@import "slider";
 
 .dg.main {
 
@@ -16,19 +17,19 @@
 
 	@input-bg: @brand-default;
 
-	@slider-bg: @gray-lighter;
-	@slider-progress-bg: @brand-widget;
+	@divider: 1px @gray-lighter solid;
 
 	width: 100% !important;
 	font: 1em 'RobotoDraft', 'Open sans', 'sans-serif' !important;
 
 	.folder {
 
-		border-bottom: 1px @gray-lighter solid;
+		border-left: 0 !important;
+		border-bottom: @divider;
 		padding: 0 !important;
 
 		&:last-child {
-			border-bottom: 1px @gray-lighter solid !important;
+			border-bottom: @divider !important;
 		}
 
 		.cr {
@@ -71,7 +72,7 @@
 			font-size: 1.1em;
 			font-weight: bold;
 			text-indent: 4em;
-			border-bottom: 1px @gray-lighter solid !important;
+			border-bottom: @divider !important;
 			padding: 1em !important;
 			.transition(background-color, 500ms);
 
@@ -127,9 +128,24 @@
 			.slider {
 
 				background: @slider-bg !important;
+				height: @slider-height;
+				margin-top: 12px;
 
 				.slider-fg {
+
 					background: @slider-progress-bg;
+
+					&:after {
+						content: '';
+						float: right;
+						width: @slider-handle-size;
+						height: @slider-handle-size;
+						background: @slider-progress-bg;
+						border-radius: 100%;
+						margin-top: -5px;
+						.translate(5px, 0);
+					}
+
 				}
 
 				&:hover {

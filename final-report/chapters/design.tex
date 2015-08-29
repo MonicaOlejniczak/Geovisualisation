@@ -48,7 +48,7 @@
 \section{Dataset} {
 \label{sec:dataset}
 
-	% \todo{convert to past tense and make datasets solid}
+	\todo{convert stuff from interim to past tense and make datasets solid}
 
 	% As discussed in Section~\ref{sec:deliverables}, the visualisations began with generated data so development could begin immediately. Using generated data brings control over the size of the dataset applied to a prototype and enables the scalability of each visualisation can be tested. 
 
@@ -61,7 +61,7 @@
 
 		\todo{mention flat vs metadata, performance issues}
 
-		The data for the visualisations can easily be represented as a flat array and may need to be preprocessed, which depends on the format of the data. This data representation has also been adopted by The WebGL Globe Chrome Experiment~\footnote{\bibentry{google2011globe}}, as shown in Appendix~\ref{app:globe}, is a great example of visualising a large dataset in an efficient way. This open platform project clearly demonstrates that the goals of this project are achievable. They encourage users to use their own datasets, ensuring a certain level of scalability and applications with geographical data.
+		% The data for the visualisations can easily be represented as a flat array and may need to be preprocessed, which depends on the format of the data. This data representation has also been adopted by The WebGL Globe Chrome Experiment~\footnote{\bibentry{google2011globe}}, as shown in Appendix~\ref{app:globe}, is a great example of visualising a large dataset in an efficient way. This open platform project clearly demonstrates that the goals of this project are achievable. They encourage users to use their own datasets, ensuring a certain level of scalability and applications with geographical data.
 
 	}
 
@@ -70,7 +70,7 @@
 \section{User interface} {
 \label{sec:user_interface}
 
-	The user interface for this system has combined Google's Material Design with 3D elements, to simplify the way users interact with the system.
+	The user interface for this system has combined Google's Material Design with a 3D environment, to simplify the way users interact with the system.
 
 	\subsection{Material Design} {
 	\label{sec:material_design}
@@ -79,34 +79,93 @@
 
 		\input{figures/design/material_design_principles}
 
-		Material Design uses the fundamentals of light, surface and movement to convey how objects move, interact and exist in space and in relation to each other. Elements such as typography, grids, space and colour have been designed to create meaning, maintain user focus and establish a hierarchy using depth effects. These principles aim to provide users with a unified, immersive experience across platforms and device sizes, by focusing on user actions and retaining continuity between transitions~\footnote{\bibentry{google2015material}}.
+		Material Design uses the fundamentals of light, surface and movement to convey how objects move, interact and exist in space and in relation to each other. Elements such as typography, grids, space and colour have been designed to create meaning, maintain user focus and establish a hierarchy using depth effects. These principles aim to provide users with a unified experience across platforms and device sizes, by focusing on user actions and retaining continuity between transitions~\footnote{\bibentry{google2015material}}.
 
-		Material Design composes the specifications for many components
+		Material Design details many component specifications that have been implemented by many CSS3 frameworks. Some component examples may be seen in Figure~\ref{fig:material_design_examples}.
 
-		\todo{material design to match FYP and modern look and feel}
+		\input{figures/design/material_design_examples}
 
-	}
-
-	\subsection{3D elements} {
-
-		The 3D elements encompass the visualisation
+		Google Material Design provides an immersive experience to users by adhering to good design principles. Material Design is a great design tool that has been incorporated into the existing infrastructure this project. The group project already makes use of Bootstrap Material Design, a CSS3 framework that adheres to the Google Material Design specifications. As a result of this, a teacher can transition from one system to the other seamlessly, because both systems apply the same design standards.
 
 	}
 
-	\subsection{Layout} {
+	\subsection{3D environment} {
+	\label{sec:3d_environment}
 
-		A mockup of the user interface has been shown in Figure~\ref{fig:user_interface_mockup}.
+		The visualisation being viewed by a user features a 3D environment. It has been designed with the following in mind:
+
+		\begin{itemize}
+			\item Navigation interactions -- pan, zoom and rotate.
+			\item Data points that represent the dataset are displayed as either 3D bars or NURBS.
+				\begin{itemize}
+					\item Data points should have the ability to be filtered.
+				\end{itemize}
+			\item The colour of a data point should be effected by the value it represents.
+				\begin{itemize}
+					\item e.g. Data points that represent population data may be coloured red, orange or yellow to indicate high, medium or low population areas respectively.
+				\end{itemize}
+			\item Information associated with a data point can be viewed by a user.
+				\begin{itemize}
+					\item Information is retrieved through metadata. 
+					\item Can be shown through hover effects or by outputting the dataset on the page.
+				\end{itemize}
+			\item Data points are projected from a base geometry.
+				\begin{itemize}
+					\item The geometry can be a plane or sphere and depends on the dataset being used.
+				\end{itemize}
+			\item A skybox should serve as a static background for the environment.
+		\end{itemize}
+
+	}
+
+	\subsection{Interface design} {
+	\label{sec:interface_design}
+
+		The design of the interface needs to account for both the use of Material Design and the 3D environment. 
+
+		Material Design is renowned for its sliding drawer menu, often used to maximise the viewing space for the user. This component has the potential to maintain user focus on the visualisation, while providing additional information through an unobtrusive menu. An initial mockup of this design has been demonstrated in Figure~\ref{fig:user_interface_mockup}, where the 3D environment fills the content to the right of the drawer. This design has been refined through the implementation phase described in Section~\ref{sec:features}.
+
+		\todo{possibly change section reference later}
 
 		\input{figures/design/user_interface_mockup}
 
-		This design incorporates two sections, the sidebar / classic drawer navigation and the scene. The sidebar is available for users to filter data.
+		The sliding drawer utilises Material Design components and incorporates two main features -- filtering and live configuration.
+
+		\subsubsection{Filtering} {
+		\label{sec:filtering}
+
+			Filters take advantage of slider and checkbox widgets to adjust the state of what is displayed to the user.
+
+			\emph{Sliders} adjust what data points are visible to the user. This is achieved by configuring the bounds of the available metadata in a data point. Take for example a dataset that has a range of values between 0 -- 100. If the user adjusts the value of its respective slider to be $\ge$20, then any data points that have a value \textless20 will be hidden.
+			
+			\emph{Checkboxes} are designed to be toggled on or off. This widget toggles what metadata associated with a data point is displayed to the user.
+
+		}
+
+		\subsubsection{Configuration} {
+		\label{sec:configuration}
+
+			Configuration options are designed to change the values and attributes of the 3D environment in real-time. They are organised in a folder structure, to deliver a hierarchy and logical grouping to the user. Moreover, these options should handle configuring data points and surface values.
+
+			\emph{Data point} configurations should modify the low, medium, high colour values and the range of colours displayed.
+
+			\emph{Surface} configurations should modify the midtone colours of the surface and the colour or intensity of other surface attributes.
+
+		}
 
 	}
 
 }
 
-\section{Architecture} {
-\label{sec:architecture}
+\section{User actions} {
+\label{sec:user_actions}
+
+	\todo{use case, sequence or flowchart}
+
+}
+
+\section{System architecture} {
+\label{sec:system_architecture}
 	
 	\todo{three-tier: presentation, logic, data
 
@@ -114,6 +173,21 @@
 
 		design patterns
 
-		architecture diagram}
+		architecture diagram/uml diagram
+
+		forwards ajax request to backend of fyp system for dataset
+
+		}
+
+% 		The frontend system is a separate client-server application, consisting of a node.js server component, which simply pushes the Client-side component to the client-browser. The client-side therefore contains the vast majority of application complexity which has the following architecture:
+% Uses a MVVM (Model View View-Model) architectural style to compose data bound from performing asynchronous requests to the backend API, with the view-templates via the View-Model (controllers).
+% The API-Client 
+% Much of the 'heavy lifting' of data manipulation is delegated to the backend API.
+% View-templates are a set of DSL template files that compose a particular UI component
+% These are dynamically compiled into views, incorporating data from the model.
+% The primary function of the View-Model (depicted as controllers) is to bind changes to the Model data and update the Views accordingly.
+% Conceptually this functionality requires a data-mapping sub-module, but it is likely that this will be provided by a library.
+% This all occurs in an asynchronous Event-based manner, such that the UI is never blocked.
+
 
 }

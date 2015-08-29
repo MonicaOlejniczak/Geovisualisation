@@ -3,6 +3,7 @@
   font: 1em 'RobotoDraft', 'Open sans', 'sans-serif' !important;
 }
 .dg.main .folder {
+  border-left: 0 !important;
   border-bottom: 1px #eeeeee solid;
   padding: 0 !important;
 }
@@ -81,10 +82,26 @@
   border: 1px #eeeeee solid !important;
 }
 .dg.main .dg .c .slider {
-  background: #eeeeee !important;
+  background: #fafafa !important;
+  height: 2px;
+  margin-top: 12px;
 }
 .dg.main .dg .c .slider .slider-fg {
   background: #18e1c2;
+}
+.dg.main .dg .c .slider .slider-fg:after {
+  content: '';
+  float: right;
+  width: 12px;
+  height: 12px;
+  background: #18e1c2;
+  border-radius: 100%;
+  margin-top: -5px;
+  -webkit-transform: translate(5px, 0);
+  -moz-transform: translate(5px, 0);
+  -o-transform: translate(5px, 0);
+  -khtml-transform: translate(5px, 0);
+  transform: translate(5px, 0);
 }
 .dg.main .dg .c .slider:hover .slider-fg {
   background: #41ebd1 !important;

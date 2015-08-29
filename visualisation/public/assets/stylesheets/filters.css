@@ -2,7 +2,7 @@
   margin: 1em 0;
 }
 #filters .slider {
-  background-color: #c8c8c8;
+  background-color: #fafafa;
   border: 0;
 }
 #filters .slider.noUi-connect {
@@ -13,7 +13,10 @@
   height: 2px;
   border-radius: 2px;
 }
-#filters .slider .noUi-handle {
+#filters .slider .noUi-origin {
+  background-color: #fafafa;
+}
+#filters .slider .noUi-origin .noUi-handle {
   width: 12px;
   height: 12px;
   left: -10px;
@@ -23,7 +26,7 @@
   border-radius: 100%;
   box-shadow: none;
 }
-#filters .slider .noUi-handle::before,
-#filters .slider .noUi-handle::after {
+#filters .slider .noUi-origin .noUi-handle::before,
+#filters .slider .noUi-origin .noUi-handle::after {
   display: none;
 }
