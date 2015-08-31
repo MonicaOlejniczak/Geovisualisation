@@ -18,7 +18,7 @@ define(function (require) {
 		this.$canvas = $(renderer.getCanvas());
 		this.$el = $('#information');
 		// Configure the template and add the event listeners.
-		this._configureTemplate();
+		this.configureTemplate();
 		this.addEventListeners(renderer);
 	}
 
@@ -33,11 +33,9 @@ define(function (require) {
 
 	/**
 	 * Confifures the Handlebars template by registering helpers and compiling the template.
-	 *
-	 * @private
 	 */
-	Information.prototype._configureTemplate = function () {
-		Handlebars.registerHelper('formatPosition', this._formatPosition.bind(this));
+	Information.prototype.configureTemplate = function () {
+		Handlebars.registerHelper('formatPosition', this.formatPosition.bind(this));
 		this.template = Handlebars.compile(Display);
 	};
 
@@ -46,14 +44,13 @@ define(function (require) {
 	 *
 	 * @param position The position being formatted.
 	 * @returns {string} The formatted position.
-	 * @private
 	 */
-	Information.prototype._formatPosition = function (position) {
+	Information.prototype.formatPosition = function (position) {
 		var precision = 2;
 		return '[' +
-			this._formatNumber(position.x, precision) + ', ' +
-			this._formatNumber(position.y, precision) + ', ' +
-			this._formatNumber(position.z, precision) + ']';
+			this.formatNumber(position.x, precision) + ', ' +
+			this.formatNumber(position.y, precision) + ', ' +
+			this.formatNumber(position.z, precision) + ']';
 	};
 
 	/**
@@ -62,9 +59,9 @@ define(function (require) {
 	 * @param value The number being formatted.
 	 * @param precision The precision being used.
 	 * @returns {string|*}
-	 * @private
 	 */
-	Information.prototype._formatNumber = function (value, precision) {
+	Information.prototype.formatNumber = function (value, precision) {
+		value = parseInt(value, 10);
 		return value.toFixed(precision);
 	};
 
@@ -78,12 +75,12 @@ define(function (require) {
 	 */
 	Information.prototype.onRaycast = function (event, coordinates, intersects) {
 		intersects = intersects || [];
-		this._toggleClasses(intersects);
+		this.toggleClasses(intersects);
 		intersects.forEach(function (intersect) {
 			var object = intersect.object;
 			// Only update the information if the object is is a point.
 			if (object instanceof Point) {
-				this._updateInformation(coordinates, object);
+				this.updateInformation(coordinates, object);
 			}
 		}, this);
 	};
@@ -92,9 +89,8 @@ define(function (require) {
 	 * Toggles the hidden and pointer classes based on whether an intersection exists.
 	 *
 	 * @param intersects The intersection array.
-	 * @private
 	 */
-	Information.prototype._toggleClasses = function (intersects) {
+	Information.prototype.toggleClasses = function (intersects) {
 		var hasIntersection = intersects.length > 0;
 		this.$el.toggleClass('hidden', !hasIntersection);
 		this.$canvas.toggleClass('pointer', hasIntersection);
@@ -105,9 +101,8 @@ define(function (require) {
 	 *
 	 * @param coordinates The mouse coordinates of the raycast.
 	 * @param object The intersected object.
-	 * @private
 	 */
-	Information.prototype._updateInformation = function (coordinates, object) {
+	Information.prototype.updateInformation = function (coordinates, object) {
 		this.$el.html(this.template(object))
 			.css({
 				left: coordinates.x,

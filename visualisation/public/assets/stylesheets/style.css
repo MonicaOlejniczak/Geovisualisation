@@ -93,6 +93,7 @@
 #filters .slider {
   background-color: #fafafa;
   border: 0;
+  cursor: ew-resize;
 }
 #filters .slider.noUi-connect {
   background: #18e1c2;
@@ -114,6 +115,7 @@
   border: 0;
   border-radius: 100%;
   box-shadow: none;
+  cursor: ew-resize;
 }
 #filters .slider .noUi-origin .noUi-handle::before,
 #filters .slider .noUi-origin .noUi-handle::after {
@@ -261,7 +263,7 @@ body {
   background-color: #ffffff;
   color: #000000;
   border-radius: 0.15em;
-  padding: 0.5em;
+  padding: 1em;
   margin: 1em;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2), 0 1px 6px 0 rgba(0, 0, 0, 0.2);
 }

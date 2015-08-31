@@ -8,8 +8,11 @@
 
 	.slider {
 
+		@cursor: ew-resize;
+
 		background-color: @slider-bg;
 		border: 0;
+		cursor: @cursor;
 
 		&.noUi-connect {
 			background: @slider-progress-bg;
@@ -35,6 +38,7 @@
 				border: 0;
 				border-radius: 100%;
 				box-shadow: none;
+				cursor: @cursor;
 
 				&::before, &::after {
 					display: none;

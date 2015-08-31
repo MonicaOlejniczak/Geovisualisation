@@ -4,6 +4,7 @@
 #filters .slider {
   background-color: #fafafa;
   border: 0;
+  cursor: ew-resize;
 }
 #filters .slider.noUi-connect {
   background: #18e1c2;
@@ -25,6 +26,7 @@
   border: 0;
   border-radius: 100%;
   box-shadow: none;
+  cursor: ew-resize;
 }
 #filters .slider .noUi-origin .noUi-handle::before,
 #filters .slider .noUi-origin .noUi-handle::after {
