@@ -115,9 +115,9 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 		\emph{QUnit} was immediately discarded since it does not support the BDD paradigm, and instead utilises TDD.
 
-		From these testing frameworks, \emph{Mocha} was chosen simply because of its fantastic asynchronous testing support and flexibility in choosing an assertion library and BDD style. Its user interface was transformed using customised CSS, which has been demonstrated in Figure~\ref{fig:mocha}, so the tests become more readable.
+		From these testing frameworks, \emph{Mocha} was chosen simply because of its fantastic asynchronous testing support and flexibility in choosing an assertion library and BDD style. Its user interface was transformed using customised CSS, which has been demonstrated in Figure~\ref{fig:mocha_styling}, so the tests become more readable.
 
-		\input{figures/testing/mocha}
+		\input{figures/testing/mocha/styling}
 
 	}
 
@@ -128,7 +128,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 	\emph{Chai} assertions were used with the Mocha testing framework, as they offer great flexibility. Users are able to choose their preferred BDD style, which has been illustrated in Figure~\ref{fig:chai_assertions}.
 
-	\input{figures/testing/chai_assertions}
+	\input{figures/testing/assertions/chai}
 
 	The \emph{should} style adheres to BDD and its behavioural specifications. However, this style extends \texttt{Object.prototype} which is generally considered bad practice. This style is not compatible in all browsers and results in scenarios where a test can fail~\footnote{\bibentry{luer2015assertion}}. Instead, the \emph{expect} style was used because it is compatible across all browsers and utilises chainable, natural language assertions. This style closely resembles BDD specifications, unlike the \emph{assert} style.
 
@@ -137,11 +137,11 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 		Mocha provides a way to test asynchronous code through the \texttt{done} callback or by returning a \texttt{Promise}~\footnote{\bibentry{holowaychuk2011mocha}}, which has been presented in Figure~\ref{fig:mocha_asynchronous_code}. Promises are used extensively when loading shaders, so it was important to have a clean way of testing asynchronous code. 
 
-		\input{figures/testing/mocha_asynchronous_code}
+		\input{figures/testing/mocha/asynchronous_code}
 
 		However, this method of testing asynchronous code could be improved by using the \emph{Chai as Promised} plugin for Chai. This plugin extends Chai with a fluent language for asserting facts about promises~\footnote{\bibentry{denicola2012chaiaspromised}}. An example of this improvement has been illustrated in Figure~\ref{fig:chai_as_promised}, which transforms the assertion seen in Figure~\ref{fig:mocha_asynchronous_code} down to one line.
 
-		\input{figures/testing/chai_as_promised}
+		\input{figures/testing/assertions/chai_as_promised}
 
 	}
 
@@ -159,7 +159,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 	In Mocha, the \texttt{describe} keyword is a way to group tests together, while each \texttt{it} clause represents a single test case. A simple example of a test suite has been shown in Figure~\ref{fig:mocha_example}.
 
-	\input{figures/testing/mocha_example}
+	\input{figures/testing/mocha/example}
 
 }
 
@@ -168,7 +168,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 	Mocha provides \texttt{before}, \texttt{after}, \texttt{beforeEach} and \texttt{afterEach} hooks, which are described in Figure~\ref{fig:mocha_hooks}. These hooks can be used to set up preconditions or to perform test clean up~\footnote{\bibentry{holowaychuk2011mocha}}.
 
-	\input{figures/testing/mocha_hooks}
+	\input{figures/testing/mocha/hooks}
 
 	Typically, \texttt{beforeEach} and \texttt{afterEach} hooks were used when running tests to:
 
@@ -208,7 +208,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 	An example of this style has been demonstrated in Figure~\ref{fig:testing_style}.
 
-	\input{figures/testing/testing_style}
+	\input{figures/testing/style}
 
 }
 
@@ -230,11 +230,11 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 	\href{http://blanketjs.org/}{Blanket.js} was used in this project as a code coverage tool because it seamlessly integrates with Jasmine, Mocha and QUnit. Blanket injects the code coverage results at the bottom of the HTML page, which has been demonstrated in Figure~\ref{fig:blanket}.
 
-	\input{figures/testing/blanket}
+	\input{figures/testing/code_coverage/blanket}
 
-	A result from the code coverage can be expanded to reveal more information. It displays the entire file, including line numbers, and highlights the lines of code that were not covered under the tests that were executed. This behaviour can be identified in Figure~\ref{fig:code_coverage}, which demonstrates a method that was not tested.
+	A result from the code coverage can be expanded to reveal more information. It displays the entire file, including line numbers, and highlights the lines of code that were not covered under the tests that were executed. This behaviour can be identified in Figure~\ref{fig:code_coverage_results}, which demonstrates a method that was not tested.
 
-	\input{figures/testing/code_coverage}
+	\input{figures/testing/code_coverage/results}
 
 	Code coverage was evaluated after the creation of each test suite. When a test suite was analysed, more tests would be written in an attempt to improve the overall code coverage. This process was repeated until an acceptable amount of code coverage was reached.
 

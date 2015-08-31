@@ -48,9 +48,9 @@
 \section{Dataset} {
 \label{sec:dataset}
 
-	\todo{convert stuff from interim to past tense and make datasets solid}
+	As discussed in Section~\ref{sec:project_definition}, the visualisations began with generated data so development could begin immediately. Using generated data brings control over the size of the dataset applied to a prototype and enables the scalability of each visualisation can be tested. 
 
-	% As discussed in Section~\ref{sec:deliverables}, the visualisations began with generated data so development could begin immediately. Using generated data brings control over the size of the dataset applied to a prototype and enables the scalability of each visualisation can be tested. 
+	\todo{convert rest of stuff from interim to past tense and make datasets solid}
 
 	% Following the use of fake data, each prototype had real datasets applied to them. By using the same data for both prototypes, their differences in computational requirements and scalability could be compared and analysed. GeoNames~\footnote{\bibentry{wick2005geonames}} is a geographical database that stores population data for a significant number of cities and their respective latitude and longitude coordinates. This database falls under a creative commons attribution license and will be used for both visualisations because there are no copyright concerns or immediate issues when reading and parsing the data it provides. However, some unnecessary information contained in a GeoNames dataset (such as \emph{geonameid}, \emph{feature class} and  \emph{dem}) will need to be removed. The format of the data should also be modified (from a tab separated list to a JavaScript array) when used with a prototype. These steps are necessary so the visualisations can read the data efficiently and hence reduce the loading time for the user. Other datasets can be obtained from Earthdata~\footnote{\bibentry{nasa2000data}}, but will require further investigation regarding how to extract the information from the available databases.
 
@@ -61,7 +61,6 @@
 
 		\todo{mention flat vs metadata, performance issues}
 
-		% The data for the visualisations can easily be represented as a flat array and may need to be preprocessed, which depends on the format of the data. This data representation has also been adopted by The WebGL Globe Chrome Experiment~\footnote{\bibentry{google2011globe}}, as shown in Appendix~\ref{app:globe}, is a great example of visualising a large dataset in an efficient way. This open platform project clearly demonstrates that the goals of this project are achievable. They encourage users to use their own datasets, ensuring a certain level of scalability and applications with geographical data.
 
 	}
 
@@ -116,6 +115,10 @@
 			\item A skybox should serve as a static background for the environment.
 		\end{itemize}
 
+		Example mockups of the 3D environment that fulfil the above criteria have been demonstrated in Figure~\ref{fig:environment_mockups}.
+
+		\input{figures/design/mockups/3d_environment}
+
 	}
 
 	\subsection{Interface design} {
@@ -127,7 +130,7 @@
 
 		\todo{possibly change section reference later}
 
-		\input{figures/design/user_interface_mockup}
+		\input{figures/design/mockups/user_interface}
 
 		The sliding drawer utilises Material Design components and incorporates two main features -- filtering and live configuration.
 
@@ -160,7 +163,11 @@
 \section{User actions} {
 \label{sec:user_actions}
 
-	\todo{use case, sequence or flowchart}
+	The interactions that a user can perform when using this system have been represented in Figure~\ref{fig:user_actions}.
+
+	\todo{not sure if the includes are correct? I'm bad at use-case diagrams :c}
+
+	\input{figures/design/user_actions}
 
 }
 
