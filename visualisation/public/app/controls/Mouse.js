@@ -20,11 +20,11 @@ define(function (require) {
 	 */
 	function Mouse (camera, element) {
 		// Store the viewport, camera and element.
-		this._viewport = Viewport;
+		this.viewport = Viewport;
 		this.camera = camera;
 		this.element = element;
 		// Assign the boundary values.
-		this._epsilon = 1e-4;
+		this.epsilon = 1e-4;
 		this.minCameraHeight = 1;
 		this.minPolarAngle = 0;
 		this.maxPolarAngle = Math.PI * 0.45;
@@ -58,9 +58,8 @@ define(function (require) {
 	 * its z-axis.
 	 *
 	 * @param value The value to zoom by.
-	 * @private
 	 */
-	Mouse.prototype._zoom = function (value) {
+	Mouse.prototype.zoomCamera = function (value) {
 		// Clone the original camera position.
 		var position = this.camera.position.clone();
 		// Apply the translation.
@@ -77,20 +76,21 @@ define(function (require) {
 	 * Pans the camera by adjusting the x and y values of its position based on the x and y delta values.
 	 *
 	 * @param delta The x and y delta values calculated by taking the current screen coordinates and subtracting the original screen coordinates.
-	 * @private
 	 */
-	Mouse.prototype._pan = function (delta) {
+	Mouse.prototype.panCamera = function (delta) {
 		// Clone the position of the camera.
 		var cameraPosition = this.camera.position.clone();
 		// Obtain the distance of the camera to the origin and multiply it by the top half of the camera field of view.
 		var distance = cameraPosition.length() * Math.tan(THREE.Math.degToRad(this.camera.fov * 0.5));
+		//// Store the screen coordinate used to pan.
+		var coordinate = delta.clone().multiplyScalar(distance);
 		// Store the pan position using the screen height.
 		var position = new THREE.Vector2(
-			-2 * delta.x * distance / this._viewport.getHeight(),
-			2 * delta.y * distance / this._viewport.getHeight()
+			(coordinate.x / this.viewport.getHeight()) * 2,
+			(coordinate.y / this.viewport.getHeight()) * 2
 		);
 		// Apply the position to the camera and update the origin value.
-		this.camera.translateX(position.x);
+		this.camera.translateX(-position.x);
 		this.camera.translateY(position.y);
 		this.camera.position.setY(Math.max(this.minCameraHeight, this.camera.position.y));
 		this.origin.add(this.camera.position.clone().sub(cameraPosition));
@@ -101,21 +101,21 @@ define(function (require) {
 	 * Rotates the camera by altering its position based on the x and y delta values.
 	 *
 	 * @param delta The x and y delta values calculated by taking the current screen coordinates and subtracting the original screen coordinates.
-	 * @private
 	 */
-	Mouse.prototype._rotate = function (delta) {
+	Mouse.prototype.rotateCamera = function (delta) {
 		// Get the position offset of the camera from the current origin.
 		var position = this.camera.position.clone().sub(this.origin);
 		// Get the radius of the spherical coordinate by applying sqrt(x^2 + y^2 + z^2) of the position.
 		var radius = position.length();
-		// Calculate the theta and phil delta angles i.e. the angle that the user has moved the camera on rotation.
-		var thetaDelta = -2 * Math.PI * delta.x / this._viewport.getWidth() * this.rotateSpeed;
-		var phiDelta = -2 * Math.PI * delta.y / this._viewport.getHeight() * this.rotateSpeed;
+		var tau = 2 * Math.PI;
+		// Calculate the theta and phi delta angles i.e. the angle that the user has moved the camera on rotation.
+		var thetaDelta = (delta.x / this.viewport.getWidth()) * -tau * this.rotateSpeed;
+		var phiDelta = (delta.y / this.viewport.getHeight()) * -tau * this.rotateSpeed;
 		// Calculate the theta and phi angles by getting the angle from the z-axis around the y-axis (azimuth - theta) and from the y-axis (polar - phi)
 		var theta = thetaDelta + Math.atan2(position.x, position.z);
 		var phi = phiDelta + Math.atan2(Math.sqrt(position.x * position.x + position.z * position.z), position.y);
 		// Clamp the elevation angle so it is between its minimum and maximum polar angle boundary.
-		phi = Math.min(this.maxPolarAngle - this._epsilon, Math.max(this.minPolarAngle + this._epsilon, phi));
+		phi = Math.min(this.maxPolarAngle - this.epsilon, Math.max(this.minPolarAngle + this.epsilon, phi));
 		// Apply the position to the camera.
 		this.camera.position.copy(this.origin).add(Convert.sphericalToCartesian(radius, theta, phi));
 		// Ensure the camera is facing the origin.
@@ -140,20 +140,17 @@ define(function (require) {
 	 * @param event The jQuery mousedown event.
 	 */
 	Mouse.prototype.onMouseDown = function (event) {
+		var $window = $(window);
 		switch (event.which) {
 			case 1:
 				this.panStart.set(event.clientX, event.clientY);
-				$(this.element).on({
-					'mousemove.pan': this.onPan.bind(this),
-					'mouseup.pan': this.onReleasePan.bind(this)
-				});
+				$window.on('mousemove.pan', this.onPan.bind(this));
+				$window.one('mouseup',this.onReleasePan.bind(this));
 				break;
 			case 3:
 				this.rotateStart.set(event.clientX, event.clientY);
-				$(this.element).on({
-					'mousemove.rotate': this.onRotate.bind(this),
-					'mouseup.rotate': this.onReleaseRotate.bind(this)
-				});
+				$window.on('mousemove.rotate', this.onRotate.bind(this));
+				$window.one('mouseup.rotate',this.onReleaseRotate.bind(this));
 				break;
 		}
 	};
@@ -165,12 +162,11 @@ define(function (require) {
 	 */
 	Mouse.prototype.onPan = function (event) {
 		// Get the x and y screen coordinates.
-		var x = event.clientX;
-		var y = event.clientY;
+		var coordinates = new THREE.Vector2(event.clientX, event.clientY);
 		// Call the pan function with the x and y deltas.
-		this._pan(new THREE.Vector2(x - this.panStart.x, y - this.panStart.y));
+		this.panCamera(coordinates.clone().sub(this.panStart));
 		// Update the pan start to the current screen coordinates.
-		this.panStart.set(x, y);
+		this.panStart.copy(coordinates);
 	};
 
 	/**
@@ -179,7 +175,7 @@ define(function (require) {
 	 * @param event The jQuery mouseup event registered after a left mouseclick.
 	 */
 	Mouse.prototype.onReleasePan = function (event) {
-		$(this.element).off('mousemove.pan mouseup.pan');
+		$(window).off('mousemove.pan');
 	};
 
 	/**
@@ -191,7 +187,7 @@ define(function (require) {
 		// Get the x and y screen coordinates.
 		var coordinates = new THREE.Vector2(event.clientX, event.clientY);
 		// Call the rotate function with the x and y deltas.
-		this._rotate(new THREE.Vector2(coordinates.x - this.rotateStart.x, coordinates.y - this.rotateStart.y));
+		this.rotateCamera(coordinates.clone().sub(this.rotateStart));
 		// Update the rotate start to the current screen coordinates.
 		this.rotateStart.copy(coordinates);
 	};
@@ -202,7 +198,7 @@ define(function (require) {
 	 * @param event The jQuery mouseup event registered after a right mouseclick.
 	 */
 	Mouse.prototype.onReleaseRotate = function (event) {
-		$(this.element).off('mousemove.rotate mouseup.rotate');
+		$(window).off('mousemove.rotate');
 	};
 
 	/**
@@ -214,7 +210,7 @@ define(function (require) {
 	Mouse.prototype.onMouseWheel = function (event) {
 		event.preventDefault();
 		var originalEvent = event.originalEvent;
-		this._zoom((originalEvent.wheelDeltaY || originalEvent.detail) * this.zoomFactor);
+		this.zoomCamera((originalEvent.wheelDeltaY || originalEvent.detail) * this.zoomFactor);
 	};
 
 	return Mouse;

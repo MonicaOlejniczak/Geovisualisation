@@ -104,20 +104,38 @@
 \section{Navigation} {
 \label{sec:navigation}
 
+	The navigation techniques that the user can interact with are: pan, rotate and zoom. This functionality was implemented in a single module and utilised mouse events to detect when the user was scrolling or pressing the left or right mouse button. It is important to note that Three.js uses a right-handed coordinate system, as shown in Figure~\ref{fig:threejs_coordinate_system}.
+
+	\input{figures/implementation/threejs_coordinate_system}
+
 	\subsection{Pan} {
 	\label{sec:pan}
+
+		This interaction is initiated when a \texttt{mousedown} event is fired on the canvas, followed by a \texttt{mousemove} event bound to the \texttt{window}. This simulates drag when pressing the left mouse button.
+
+		As the user moves their pointer, the camera is translated in the x and y direction. This calculation relies on converting screen coordinates to world coordinates and normalising the value so it is a ratio of the viewport height, instead of both the width and height.
+
+		Once the translation to the camera has been applied, the \texttt{origin} vector needs to be updated, which is used during rotation. An updated origin ensures there is no sudden movement when rotating, after panning the screen.
+
+		Finally, when the user releases the left mouse button, a \texttt{mouseup} event is triggered which removes the event binding for \texttt{mousemove} on the \texttt{window}. 
 
 	}
 
 	\subsection{Rotate} {
 	\label{sec:rotate}
 
-		\todo{math formulas for spherical coords}
+		Rotation uses the same event chain as panning, except instead of listening to the left mouse click, it listens to the right.
+
+		To rotate the camera, the cartesian coordinates need to be calculated from spherical coordinates, using the following formula in a right-handed mathetmatics system:
+
+		\input{formulas/implementation/spherical_to_cartesian}
 	
 	}
 
 	\subsection{Zoom} {
 	\label{sec:zoom}
+
+		This navigation technique begins when a \texttt{wheel} event is triggered from the browser. A ratio of the delta value is taken and the camera is then translated by this amount.
 	
 	}
 
@@ -126,16 +144,18 @@
 \section{Filtering} {
 \label{sec:filtering}
 
-	\todo{say how filtering was done, issues with extending it}
+	\todo{say how filtering was done, issues with extending it when I get around to implementing...should be a simple show/hide technique based on value}
 
 }
 
 \section{Configuration} {
 \label{sec:configuration}
 
-	\todo{talk about dat.gui and its ui transition -- updated display}
+	Real-time configurations are best achieved by using shaders. Shaders are computer programs that perform shading on a graphics processing unit (GPU), making them highly efficient and well suited to parallel processing~\footnote{\bibentry{gerdelan2014shaders}}. Three.js provides abstracted materials that use shaders in the background, but this method does not easily facilitate highly customisable configurations or filter effects.
 
-	\todo{shaders}
+	The configurations were implemented with \href{http://workshop.chromeexperiments.com/}{dat.GUI}, a lightweight GUI for changing JavaScript variables in real-time. This tool is easy to use, setup and can modify shader uniforms automatically or by implementing \texttt{onChange} event handlers. dat.GUI can constrain input data and provides widgets for modifying values, colours and combo boxes. While this tool is great for modifying data on the fly, it has an outdated interface that does not always adapt well to particular colour schemes and designs. For this reason, the dat.GUI styles were modified so it seamlessly integrates with the current system and the Material Design standards. The differences in design can be compared in Figure~\ref{fig:dat_gui} below.
+
+	\input{figures/implementation/dat_gui}
 
 }
 

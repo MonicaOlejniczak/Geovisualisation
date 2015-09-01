@@ -49,6 +49,7 @@ define(function (require) {
 		};
 
 		this.mode = this.Mode.BASIC;
+		this.alpha = 1;
 
 		// Set the shader path.
 		this.shaderPath = options.shaderPath || 'data/hybrid/Hybrid';
@@ -93,6 +94,7 @@ define(function (require) {
 	Points.prototype.getOptions = function () {
 		return {
 			mode: this.mode,
+			alpha: this.alpha,
 			colors: this.colors,
 			bound: new THREE.Vector2(this.getMin(), this.getMax()),
 			colorRange: this.colorRange.range
@@ -134,7 +136,7 @@ define(function (require) {
 	Points.prototype.update = function () {
 		// Load the shader before updating the points.
 		new Shader(this.shaderPath).load().then(function (shader) {
-			this._updatePoints(shader.material);
+			this.updatePoints(shader.material);
 		}.bind(this));
 	};
 
@@ -142,13 +144,12 @@ define(function (require) {
 	 * Updates the points given a parent mesh, projection and material.
 	 *
 	 * @param material The updated material for the point.
-	 * @private
 	 */
-	Points.prototype._updatePoints = function (material) {
+	Points.prototype.updatePoints = function (material) {
 		var points = this._points;
 		var options = this.getOptions();
 		for (var i = 0, len = points.length; i < len; i++) {
-			var point = this._updatePoint(points[i], material, options);
+			var point = this.updatePoint(points[i], material, options);
 			this.add(point);
 		}
 	};
@@ -160,11 +161,10 @@ define(function (require) {
 	 * @param material The updated material for the point.
 	 * @param options The material options for the shader.
 	 * @returns {Point}
-	 * @private
 	 */
-	Points.prototype._updatePoint = function (point, material, options) {
+	Points.prototype.updatePoint = function (point, material, options) {
 		options = options || {};
-		point.updateMaterial(material, options.mode, options.colors, options.bound, options.colorRange);
+		point.updateMaterial(material, options.mode, options.alpha, options.colors, options.bound, options.colorRange);
 		return point;
 	};
 

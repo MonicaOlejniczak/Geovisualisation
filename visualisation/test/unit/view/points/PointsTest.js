@@ -84,7 +84,7 @@ define(function (require) {
 			//var stub;
 
 			//beforeEach(function () {
-			//	stub = sinon.stub(points, '_updatePoints');
+			//	stub = sinon.stub(points, 'updatePoints');
 			//});
 
 			// TODO
@@ -101,7 +101,7 @@ define(function (require) {
 
 			beforeEach(function () {
 
-				stub = sinon.stub(points, '_updatePoint', function () {
+				stub = sinon.stub(points, 'updatePoint', function () {
 					return new Point([1, 1, 1]);
 				});
 
@@ -110,7 +110,7 @@ define(function (require) {
 					points.addPoint([i, i, i]);
 				}
 
-				points._updatePoints();
+				points.updatePoints();
 
 			});
 
@@ -135,12 +135,12 @@ define(function (require) {
 			});
 
 			it('should call the update material method', function () {
-				points._updatePoint(point);
+				points.updatePoint(point);
 				expect(materialStub).to.have.been.calledOnce;
 			});
 
 			it('should return the point', function () {
-				expect(points._updatePoint(point)).to.equal(point);
+				expect(points.updatePoint(point)).to.equal(point);
 			});
 
 		});

@@ -88,6 +88,8 @@ define(function (require) {
 		var folder = gui.addFolder('Data points');
 		var mode = folder.add(points, 'mode', points.Mode).name('Mode');
 
+		folder.add(points, 'alpha').min(0).max(1).name('Alpha').onChange(this.onAlpha.bind(this, points));
+
 		var basicShader = this.configureBasicShader(folder, points);
 		var gradientShader = this.configureGradientShader(folder, points);
 
@@ -97,6 +99,16 @@ define(function (require) {
 		this.configureMode(points, basicShader, gradientShader, points.mode);
 
 		mode.onChange(this.onMode.bind(this, points, basicShader, gradientShader));
+	};
+
+	/**
+	 * Configures the alpha for the points.
+	 *
+	 * @param points The points associated with the visualisation.
+	 * @param value The value of alpha.
+	 */
+	Gui.prototype.onAlpha = function (points, value) {
+		this.configurePointUniforms(points, 'uAlpha', value);
 	};
 
 	/**

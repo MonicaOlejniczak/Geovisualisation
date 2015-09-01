@@ -2,6 +2,7 @@
 
 uniform int uMode;
 uniform vec2 uBound;
+uniform float uAlpha;
 
 // Basic
 
@@ -27,5 +28,5 @@ void main() {
 	} else {
 		color = getGradientColor(uBound, vPosition, uLowColor, uMediumColor, uHighColor);
 	}
-	gl_FragColor = vec4(color, 1.0);
+	gl_FragColor = vec4(color, uAlpha);
 }

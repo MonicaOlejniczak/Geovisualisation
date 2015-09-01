@@ -154,7 +154,8 @@ define(function (require) {
 		this.material = new THREE.ShaderMaterial({
 			uniforms: uniforms,
 			vertexShader: vertexShader,
-			fragmentShader: fragmentShader
+			fragmentShader: fragmentShader,
+			transparent: true
 		});
 	};
 
