@@ -105,6 +105,7 @@
 				\end{itemize}
 			\item Information associated with a data point can be viewed by a user.
 				\begin{itemize}
+					\item Should use a simple panel interface, shown in Figure~\ref{fig:information_display_design}.
 					\item Information is retrieved through metadata. 
 					\item Can be shown through hover effects or by outputting the dataset on the page.
 				\end{itemize}
@@ -114,6 +115,8 @@
 				\end{itemize}
 			\item A skybox should serve as a static background for the environment.
 		\end{itemize}
+
+		\input{figures/design/mockups/information_display}
 
 		Example mockups of the 3D environment that fulfil the above criteria have been demonstrated in Figure~\ref{fig:environment_mockups}.
 
@@ -185,6 +188,10 @@
 		forwards ajax request to backend of fyp system for dataset
 
 		}
+
+		\todo{Everything implemented as a single module, write more / reword}
+
+		The Filter, Configuration, and Information display modules are external to the core 3D environment components, separating the components in the scene from the view controllers. This design decision also ensures that the view controllers can be removed from the application at any time, without effecting the core functionality.
 
 % 		The frontend system is a separate client-server application, consisting of a node.js server component, which simply pushes the Client-side component to the client-browser. The client-side therefore contains the vast majority of application complexity which has the following architecture:
 % Uses a MVVM (Model View View-Model) architectural style to compose data bound from performing asynchronous requests to the backend API, with the view-templates via the View-Model (controllers).

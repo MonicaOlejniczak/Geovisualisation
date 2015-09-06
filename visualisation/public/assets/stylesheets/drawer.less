@@ -2,7 +2,7 @@
 @import "mixins";
 
 @width: 300px;
-@background: @brand-default;
+@drawer-bg: @brand-default;
 @time: 500ms;
 
 #drawer-toggle-label {
@@ -76,19 +76,24 @@
 	top: 0;
 	width: @width;
 	height: 100%;
-	background: @background;
+	background: @drawer-bg;
+	font-family: 'RobotoDraft', 'Open sans', 'sans-serif';
 	overflow-x: hidden;
 	overflow-y: auto;
 	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, @alpha),0 1px 6px 0 rgba(0, 0, 0, @alpha);
 	.transition(left, @time, ease-in-out);
 
 	h1 {
-		font-family: 'RobotoDraft', 'Open sans', 'sans-serif';
 		font-weight: normal;
 		background-color: @brand-primary;
 		color: @h1-color;
 		padding: 1em;
 		margin: 0;
+	}
+
+	h2 {
+		font-weight: bold;
+		font-size: 1.2em;
 	}
 
 	ul {

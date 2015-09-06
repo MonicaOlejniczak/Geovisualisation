@@ -7,26 +7,27 @@ define(function (require) {
 
 	var THREE = require('threejs');
 
-	var HeatMap = require('view/heatmap/HeatMap');
-	var RoundSurface = require('view/surface/RoundSurface');
+	var Visualisation = require('component/visualisation/Visualisation');
+	var RoundSurface = require('component/surface/RoundSurface');
 	var Projection = require('util/Projection');
 
 	/**
 	 * Initialises the heat map with the round surface.
 	 *
 	 * @param canvas The HTML canvas.
+	 * @param points The points collection.
 	 * @constructor
 	 */
-	function RoundHeatMap (canvas) {
+	function RoundHeatMap (canvas, points) {
 		var surface = new RoundSurface(100);
 		var projection = new Projection(Projection.spherical, {radius: surface.radius});
-		HeatMap.call(this, canvas, surface, projection, {
+		Visualisation.call(this, canvas, points, projection, surface, {
 			camera: {position: new THREE.Vector3(0, 100, 300)},
 			mouseControls: true
 		});
 	}
 
-	RoundHeatMap.prototype = Object.create(HeatMap.prototype);
+	RoundHeatMap.prototype = Object.create(Visualisation.prototype);
 	RoundHeatMap.prototype.constructor = RoundHeatMap;
 
 	return RoundHeatMap;

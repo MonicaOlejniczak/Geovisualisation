@@ -18,8 +18,8 @@ define(function (require) {
 
 		THREE.Mesh.call(this);
 
-		this._baseDirectory = 'assets/images/earth/';
-		this.source = this._baseDirectory + 'earth.png';
+		this.baseDirectory = 'assets/images/earth/';
+		this.source = this.baseDirectory + 'earth.png';
 		this.size = 250;
 		this.color = new THREE.Color(0x222222);
 		this.aspectRatio = 1;
@@ -35,11 +35,10 @@ define(function (require) {
 	 * Loads the surface for the scene.
 	 *
 	 * @param geometry The geometry that defines the surface being created.
-	 * @private
 	 */
 	Surface.prototype.load = function (geometry) {
 		// Create the texture and use it for the mesh material.
-		var texture = this._createTexture();
+		var texture = this.createTexture();
 		// Create the shader.
 		var shader = new Shader('earth/Earth', {
 			uniforms: {
@@ -65,9 +64,8 @@ define(function (require) {
 	 * Creates a texture to be used with the surface.
 	 *
 	 * @returns {*}
-	 * @private
 	 */
-	Surface.prototype._createTexture = function () {
+	Surface.prototype.createTexture = function () {
 		// Load the texture using the source file stored in the ground instance variable.
 		var texture = THREE.ImageUtils.loadTexture(this.source, THREE.UVMapping, this.onTextureLoad.bind(this));
 		// Set the min and mag filter to linear for textures that are not a power of 2.

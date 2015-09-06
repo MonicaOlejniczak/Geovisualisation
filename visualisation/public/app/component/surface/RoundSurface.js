@@ -7,7 +7,7 @@ define(function (require) {
 
 	var THREE = require('threejs');
 	var Shader = require('helper/Shader');
-	var Surface = require('view/surface/Surface');
+	var Surface = require('component/surface/Surface');
 
 	/**
 	 * Initialises the surface.
@@ -18,9 +18,9 @@ define(function (require) {
 	function RoundSurface (radius) {
 		Surface.call(this, new THREE.SphereGeometry(1, 40, 30));
 		//this.radius = radius || this.size * 0.25;
-		this.clouds = this._baseDirectory + 'clouds.png';
+		this.clouds = this.baseDirectory + 'clouds.png';
 		this.radius = radius || this.size * 0.5;
-		this._atmosphere = {
+		this.atmosphere = {
 			source: 'atmosphere/Atmosphere',
 			color: new THREE.Color(0x08376b)
 		};
@@ -33,8 +33,6 @@ define(function (require) {
 	/**
 	 * A method that is triggered when the surface super class has been loaded. This method adjusts the mesh so that
 	 * it is of the correct scale and has the correct surface position uniform.
-	 *
-	 * @private
 	 */
 	RoundSurface.prototype.onReady = function () {
 		var geometry = this.geometry;
@@ -43,8 +41,8 @@ define(function (require) {
 		// Update the surface position uniform for the surface material.
 		this.material.uniforms['uSurfacePosition'] = {type: 'f', value: -this.radius};
 		// Add the clouds and the atmosphere.
-		this._addClouds(geometry);
-		this._addAtmosphere(geometry);
+		this.addClouds(geometry);
+		this.addAtmosphere(geometry);
 	};
 
 	/**
@@ -52,9 +50,8 @@ define(function (require) {
 	 *
 	 * @param geometry The geometry used for the surface.
 	 * @returns {THREE.Mesh} The cloud mesh.
-	 * @private
 	 */
-	RoundSurface.prototype._addClouds = function (geometry) {
+	RoundSurface.prototype.addClouds = function (geometry) {
 		// Load the cloud texture
 		var texture = THREE.ImageUtils.loadTexture(this.clouds);
 		texture.minFilter = THREE.NearestMipMapLinearFilter;
@@ -79,10 +76,9 @@ define(function (require) {
 	 * Creates the atmosphere for the surface and adds it to the object.
 	 *
 	 * @param geometry The geometry used for the surface.
-	 * @private
 	 */
-	RoundSurface.prototype._addAtmosphere = function (geometry) {
-		var atmosphere = this._atmosphere;
+	RoundSurface.prototype.addAtmosphere = function (geometry) {
+		var atmosphere = this.atmosphere;
 		// Load the atmosphere shader.
 		var shader = new Shader(atmosphere.source, {
 			uniforms: {

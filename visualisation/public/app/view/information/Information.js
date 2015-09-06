@@ -8,8 +8,8 @@ define(function (require) {
 	var $ = require('jquery');
 	var Handlebars = require('handlebars');
 
-	var Point = require('view/points/point/Point');
-	var Display = require('text!view/points/information/Information.hbs');
+	var Point = require('component/points/point/Point');
+	var Display = require('text!view/information/Information.hbs');
 
 	function Information (renderer, points) {
 		// Set the raycaster on the renderer.
@@ -32,7 +32,7 @@ define(function (require) {
 	};
 
 	/**
-	 * Confifures the Handlebars template by registering helpers and compiling the template.
+	 * Configures the Handlebars template by registering helpers and compiling the template.
 	 */
 	Information.prototype.configureTemplate = function () {
 		Handlebars.registerHelper('formatPosition', this.formatPosition.bind(this));

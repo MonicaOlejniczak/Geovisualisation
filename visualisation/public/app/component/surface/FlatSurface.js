@@ -6,7 +6,7 @@ define(function (require) {
 	'use strict';
 
 	var THREE = require('threejs');
-	var Surface = require('view/surface/Surface');
+	var Surface = require('component/surface/Surface');
 
 	/**
 	 * Initialises the surface.

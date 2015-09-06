@@ -196,7 +196,7 @@ define(function (require) {
 	 * @param value The new value of the material uniform.
 	 */
 	Gui.prototype.configurePointUniforms = function (points, key, value) {
-		points = points._points;
+		points = points.getPoints();
 		// Iterate through each point and update their shader material uniform.
 		for (var i = 0, len = points.length; i < len; i++) {
 			var point = points[i];

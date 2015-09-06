@@ -142,27 +142,29 @@
 }
 
 \section{Filtering} {
-\label{sec:filtering}
+\label{sec:filtering_implementation}
 
 	\todo{say how filtering was done, issues with extending it when I get around to implementing...should be a simple show/hide technique based on value}
 
 }
 
 \section{Configuration} {
-\label{sec:configuration}
+\label{sec:configuration_implementation}
 
 	Real-time configurations are best achieved by using shaders. Shaders are computer programs that perform shading on a graphics processing unit (GPU), making them highly efficient and well suited to parallel processing~\footnote{\bibentry{gerdelan2014shaders}}. Three.js provides abstracted materials that use shaders in the background, but this method does not easily facilitate highly customisable configurations or filter effects.
 
-	The configurations were implemented with \href{http://workshop.chromeexperiments.com/}{dat.GUI}, a lightweight GUI for changing JavaScript variables in real-time. This tool is easy to use, setup and can modify shader uniforms automatically or by implementing \texttt{onChange} event handlers. dat.GUI can constrain input data and provides widgets for modifying values, colours and combo boxes. While this tool is great for modifying data on the fly, it has an outdated interface that does not always adapt well to particular colour schemes and designs. For this reason, the dat.GUI styles were modified so it seamlessly integrates with the current system and the Material Design standards. The differences in design can be compared in Figure~\ref{fig:dat_gui} below.
+	The configurations were implemented with \href{http://workshop.chromeexperiments.com/}{dat.GUI}, a lightweight GUI for changing JavaScript variables in real-time. This tool is easy to use, setup and can modify shader uniforms automatically or by implementing \texttt{onChange} event handlers. dat.GUI can constrain input data and provides widgets for modifying values, colours and combo boxes. While this tool is great for modifying data on the fly, it has an outdated interface that does not always adapt well to particular colour schemes and designs. For this reason, the dat.GUI styles were modified to seamlessly integrate with the current system and the Material Design standards. The differences in design can be compared in Figure~\ref{fig:dat_gui} below.
 
 	\input{figures/implementation/dat_gui}
+
+	The design for these configurations were continually refined during implementation. Initially, the dat.GUI sliders were to remain unchanged. However, these sliders added inconsistency to the interface in regards to colour scheme and filter design. Furthermore, the bold folder colours were eventually removed to reflect drawer layouts that conform to using light navigation colours, hover effects, and left floated icons.
 
 }
 
 \section{Data display} {
 \label{sec:data_display}
 
-	\todo{write about how the data displays were implemented}
+	\todo{write about how the data displays were implemented - bunch of cubegeoms that get updated}
 
 	% The development of these visualisations will involve using the established \href{http://threejs.org/docs/#Reference/Extras.Geometries/BoxGeometry}{BoxGeometry} and NURBS surface that are available in Three.js. The \href{http://threejs.org/examples/webgl_geometry_nurbs.html}{NURBS example}, as displayed in Appendix~\ref{app:nurbs}, proves that it is possible to render a smooth 3D surface. This can be applied to represent a heat map and if there lie difficulties in implementing this, then a simpler representation can be modelled.
 
@@ -171,7 +173,9 @@
 \section{Information display} {
 \label{sec:information_display}
 
-	\todo{say how this was implemented}
+	\todo{say how this was implemented - raycaster in requestanimframe, toggles one element to hide/show so nothing new in dom is added (more performant)}
+
+	\input{figures/implementation/information_display}
 
 }
 

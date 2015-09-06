@@ -11,5 +11,9 @@
     "gulp": "^3.9.0",
     "serve-favicon": "2.0.1",
     "socket.io": "1.0.5"
+  },
+  "devDependencies": {
+    "chromedriver": "^2.18.0",
+    "selenium-webdriver": "^2.46.1"
   }
 }

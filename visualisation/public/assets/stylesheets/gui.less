@@ -1,6 +1,7 @@
 @import "theme";
 @import "mixins";
 @import "slider";
+@import "drawer";
 
 .dg.main {
 
@@ -127,13 +128,20 @@
 
 			.slider {
 
-				background: @slider-bg !important;
+
+				@border-size: (@slider-selection-height * 0.5) - (@slider-height * 0.5);
+
+				left: 3px;
 				height: @slider-height;
-				margin-top: 12px;
+				background: @slider-bg !important;
+				border-top: @border-size @drawer-bg solid;
+				border-bottom: @border-size @drawer-bg solid;
+				background-clip: content-box;
 
 				.slider-fg {
 
 					background: @slider-progress-bg;
+					height: @slider-height;
 
 					&:after {
 						content: '';
@@ -151,7 +159,13 @@
 				&:hover {
 
 					.slider-fg {
-						background: lighten(@slider-progress-bg, 10%) !important;
+
+						background: @slider-progress-hover-bg;
+
+						&:after {
+							background: @slider-progress-hover-bg;
+						}
+
 					}
 
 				}

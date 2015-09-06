@@ -20,7 +20,7 @@ define(function (require) {
 			require([url], function (generateData) {
 				var x = new THREE.Vector2(-200, 200);
 				var y = new THREE.Vector2(-100, 100);
-				var z = new THREE.Vector2(0, 100);
+				var z = new THREE.Vector2(0, 50);
 				var bound = new THREE.Vector3(x, y, z);
 				callback.call(this, generateData(100, bound));
 			}.bind(this));

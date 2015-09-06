@@ -1,47 +1,109 @@
 @import "slider";
+@import "drawer";
 
 #filters {
 
 	.filters {
-		margin: 1em 0;
-	}
 
-	.slider {
+		@slider-width: ~"calc(100% - @{slider-handle-size})";
 
-		@cursor: ew-resize;
+		margin: 1.5em;
 
-		background-color: @slider-bg;
-		border: 0;
-		cursor: @cursor;
+		.filter {
 
-		&.noUi-connect {
-			background: @slider-progress-bg;
-			box-shadow: none;
-		}
+			.slider {
 
-		&.noUi-horizontal {
-			height: @slider-height;
-			border-radius: @slider-height;
-		}
+				@cursor: ew-resize;
 
-		.noUi-origin {
-
-			background-color: @slider-bg;
-
-			.noUi-handle {
-
-				width: 12px;
-				height: 12px;
-				left: -10px;
-				top: -5px;
-				background: @slider-progress-bg;
+				width: @slider-width;
+				height: @slider-selection-height;
+				background-color: transparent;
 				border: 0;
-				border-radius: 100%;
-				box-shadow: none;
+				margin: 0 auto;
 				cursor: @cursor;
 
-				&::before, &::after {
-					display: none;
+				&:hover .noUi-connect, &:hover .noUi-handle {
+					background: @slider-progress-hover-bg !important;
+				}
+
+				&.noUi-target {
+					box-shadow: none;
+				}
+
+				.noUi-base {
+
+					@border-size: (@slider-selection-height * 0.5) - (@slider-height * 0.5);
+
+					left: 3px;
+					height: @slider-selection-height;
+					background-color: @slider-bg;
+					border-top: @border-size @drawer-bg solid;
+					border-bottom: @border-size @drawer-bg solid;
+					background-clip: content-box;
+
+					.noUi-connect {
+						height: @slider-height;
+						background: @slider-progress-bg;
+						box-shadow: none;
+					}
+
+					.noUi-origin {
+
+						.noUi-handle {
+
+							width: @slider-handle-size;
+							height: @slider-handle-size;
+							left: -10px;
+							top: -5px;
+							background: @slider-progress-bg;
+							border: 0;
+							border-radius: 100%;
+							box-shadow: none;
+							cursor: @cursor;
+
+							&::before, &::after {
+								display: none;
+							}
+
+						}
+
+						&.noUi-background {
+
+							@border-size: @slider-height * 0.5;
+
+							top: -@border-size;
+							height: @slider-height * 2;
+							border-top: @border-size @drawer-bg solid;
+							border-bottom: @border-size @drawer-bg solid;
+							background-clip: content-box;
+							box-shadow: none;
+
+						}
+
+					}
+
+				}
+
+			}
+
+			.inputs {
+
+				.group {
+
+					color: @gray;
+					padding-left: @slider-handle-size;
+
+					label {
+						font-weight: bold;
+					}
+
+					input {
+						font-family: inherit;
+						border: 0;
+						margin: 0 0.5em;
+						outline: none
+					}
+
 				}
 
 			}

@@ -7,8 +7,8 @@ define(function (require) {
 
 	var THREE = require('threejs');
 
-	var Points = require('view/points/Points');
-	var Point = require('view/points/point/Point');
+	var Points = require('component/points/Points');
+	var Point = require('component/points/point/Point');
 
 	describe('the Points module', function () {
 

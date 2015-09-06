@@ -6,27 +6,32 @@ define(function (require) {
 	'use strict';
 
 	var THREE = require('threejs');
+	var Component = require('component/Component');
 	var Convert = require('util/Convert');
 
 	/**
 	 * Initialises the point.
 	 *
-	 * @param point The point data.
+	 * @param model The point model.
 	 * @param width The width of the point.
 	 * @param height The height of the point.
 	 * @param [projection] The projection for the point.
 	 * @constructor
 	 */
-	function Point (point, width, height, projection) {
+	function Point (model, width, height, projection) {
 
-		THREE.Mesh.call(this);
+		this.model = model;
+		Component.apply(this, arguments);
+
 		// Set the transformed position data.
-		var position = Convert.transform(point[0], point[1], point[2]);
+		var position = Convert.transform(model.get('x'), model.get('y'), model.get('z'));
 
 		// Set the width, height and the magnitude of the point.
 		this.width = width;
 		this.height = height;
 		this.magnitude = position.y;
+
+		model.set('magnitude', this.magnitude);
 
 		// Create the geometry and compute its bounding box.
 		var transform = Convert.transform(this.width, this.height, this.magnitude);
@@ -46,7 +51,7 @@ define(function (require) {
 
 	}
 
-	Point.prototype = Object.create(THREE.Mesh.prototype);
+	Point.prototype = Object.create(Component.prototype);
 	Point.prototype.constructor = Point;
 
 	/**
@@ -67,7 +72,7 @@ define(function (require) {
 	 *
 	 * @param material The new material for the point.
 	 * @param mode The shader to use for displaying the data.
-	 * @param opacity The opacity of the point.
+	 * @param alpha The opacity of the point.
 	 * @param colors The colours used with the material.
 	 * @param bound The global min and max values of all points.
 	 * @param colorRange The minimum and maximum HSV colour range for the point.

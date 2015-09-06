@@ -29,6 +29,6 @@
     "handlebars": "~3.0.3",
     "nouislider": "~8.0.2",
     "robotodraft": "~1.1.0",
-    "material-design-icons": "~2.0.0"
+    "backbone": "^1.2.0"
   }
 }

@@ -34,6 +34,7 @@ define(function (require) {
 			var texture = THREE.ImageUtils.loadTexture(urls[i]);
 			materials.push(new THREE.MeshBasicMaterial({
 				side: THREE.BackSide,
+				color: new THREE.Color(),
 				map: texture
 			}));
 		}

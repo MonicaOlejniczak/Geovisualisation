@@ -55,6 +55,7 @@
   width: 300px;
   height: 100%;
   background: #ffffff;
+  font-family: 'RobotoDraft', 'Open sans', 'sans-serif';
   overflow-x: hidden;
   overflow-y: auto;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2), 0 1px 6px 0 rgba(0, 0, 0, 0.2);
@@ -65,12 +66,15 @@
   transition: left 500ms ease-in-out;
 }
 #drawer h1 {
-  font-family: 'RobotoDraft', 'Open sans', 'sans-serif';
   font-weight: normal;
   background-color: #0494aa;
   color: #ffffff;
   padding: 1em;
   margin: 0;
+}
+#drawer h2 {
+  font-weight: bold;
+  font-size: 1.2em;
 }
 #drawer ul {
   list-style: none;

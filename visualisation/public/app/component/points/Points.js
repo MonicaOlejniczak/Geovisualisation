@@ -6,29 +6,38 @@ define(function (require) {
 	'use strict';
 
 	var THREE = require('threejs');
-	var Point = require('view/points/point/Point');
+
+	var Component = require('component/Component');
+	var Point = require('component/points/point/Point');
+
+	var Filters = require('filter/Filters');
 	var Shader = require('helper/Shader');
 
 	/**
 	 * Initialises the points.
 	 *
+	 * @param collection The points collection.
+	 * @param projection The projection used with the points.
+	 * @param options
 	 * @constructor
 	 */
-	function Points (options) {
+	function Points (collection, projection, options) {
 
-		THREE.Mesh.call(this);
+		Component.apply(this, arguments);
+
+		this.collection = collection;
+		this.projection = projection;
+		this.filters = new Filters(collection);
 
 		// Ensure the options exist.
 		options = options || {};
 
-		this._points = [];
-
-		// Initalise the global min and max values.
-		this._min = this._max = 0;
+		// Initialise the global min and max values.
+		this.min = this.max = 0;
 
 		// Set the width and height of the points.
-		this.width = options.width || 1;
-		this.height = options.height || 1;
+		this.width = options.width || 0.5;
+		this.height = options.height || 0.5;
 
 		// Set the min and max HSV colour range.
 		this.colorRange = {
@@ -54,9 +63,11 @@ define(function (require) {
 		// Set the shader path.
 		this.shaderPath = options.shaderPath || 'data/hybrid/Hybrid';
 
+		this.addPoints(collection);
+
 	}
 
-	Points.prototype = Object.create(THREE.Mesh.prototype);
+	Points.prototype = Object.create(Component.prototype);
 	Points.prototype.constructor = Points;
 
 	/**
@@ -74,7 +85,7 @@ define(function (require) {
 	 * @returns {number|*}
 	 */
 	Points.prototype.getMin = function () {
-		return this._min;
+		return this.min;
 	};
 
 	/**
@@ -83,7 +94,7 @@ define(function (require) {
 	 * @returns {number|*}
 	 */
 	Points.prototype.getMax = function () {
-		return this._max;
+		return this.max;
 	};
 
 	/**
@@ -105,28 +116,28 @@ define(function (require) {
 	 * Adds a list of points to the class and then updates the uniforms.
 	 *
 	 * @param points The array of points to add.
-	 * @param projection The projection instance.
 	 */
-	Points.prototype.addPoints = function (points, projection) {
-		points.forEach(function (point) {
+	Points.prototype.addPoints = function (points) {
+		var projection = this.projection;
+		points.each(function (point) {
 			this.addPoint(point, projection);
 		}, this);
 		this.update();
 	};
 
 	/**
-	 * Adds a point to the list and calculate the new max value.
+	 * Adds a point to the mesh and calculate the new max value.
 	 *
-	 * @param data The point data used to create the point.
-	 * @param [projection] The point projection instance.
+	 * @param model The point model.
+	 * @param projection The point projection instance.
 	 * @returns {Point}
 	 */
-	Points.prototype.addPoint = function (data, projection) {
+	Points.prototype.addPoint = function (model, projection) {
 		// Create the point and adjust the min and max value of the points.
-		var point = new Point(data, this.width, this.height, projection);
-		this._max = Math.max(this.getMax(), point.max);
-		// Add the point to the list.
-		this._points.push(point);
+		var point = new Point(model, this.width, this.height, projection);
+		this.max = Math.max(this.getMax(), point.max);
+		// Add the point and then return it.
+		this.add(point);
 		return point;
 	};
 
@@ -146,11 +157,10 @@ define(function (require) {
 	 * @param material The updated material for the point.
 	 */
 	Points.prototype.updatePoints = function (material) {
-		var points = this._points;
+		var points = this.getPoints();
 		var options = this.getOptions();
 		for (var i = 0, len = points.length; i < len; i++) {
-			var point = this.updatePoint(points[i], material, options);
-			this.add(point);
+			this.updatePoint(points[i], material, options);
 		}
 	};
 
