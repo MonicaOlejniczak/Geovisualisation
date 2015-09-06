@@ -1,4 +1,3 @@
-.idea
 *.iml
 *.out
 *.aux
@@ -11,4 +10,3 @@
 *.bbl
 *.blg
 *.dvi
-visualisation/public/app/shader/data/hybrid/Hybrid.frag___jb_old___
