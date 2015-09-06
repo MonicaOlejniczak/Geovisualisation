@@ -40,6 +40,9 @@ define(function (require) {
 		var min = this.collection.min(function (model) {return model.get(property)}).get(property);
 		var max = this.collection.max(function (model) {return model.get(property)}).get(property);
 
+		min = Math.floor(min);
+		max = Math.ceil(max);
+
 		// Create the filter heading, slider and inputs.
 		var $heading = this.createHeading(property);
 		var $slider = this.createSlider(property, min, max);
@@ -151,12 +154,29 @@ define(function (require) {
 		var slider = $slider.get(0).noUiSlider;
 
 		// Listen to the change events on the sliders.
-		$min.change(slider, this.onMin.bind(this));
-		$max.change(slider, this.onMax.bind(this));
+		$min.keyup({slider: slider, callback: this.onMin}, this.onKeyUp.bind(this));
+		$max.keyup({slider: slider, callback: this.onMax}, this.onKeyUp.bind(this));
 
 		// Add an update event listener to the slider element.
 		slider.on('update', this.onUpdate.bind(this, $min, $max, property));
 
+	};
+
+	Filter.prototype.onKeyUp = function (event) {
+		var key = event.keyCode;
+		// Only initiate the key up event if the left and right arrow keys have not been pressed. This enables the user
+		// to move around the input.
+		if (key !== 37 && key !== 39) {
+			// Get the callback function and delay in milliseconds.
+			var data = event.data;
+			var callback = data.callback || function () {};
+			var delay = data.delay || 100;
+
+			// Clear the timer if it exists and initiate a new timeout with the specified callback, delaying the true
+			// keyup event.
+			this.timer && clearTimeout(this.timer);
+			this.timer = setTimeout(callback.bind(this, event), delay);
+		}
 	};
 
 	/**
@@ -193,25 +213,35 @@ define(function (require) {
 	};
 
 	/**
-	 * An event handler called when the min input value is changed.
+	 * An event handler called when the min input value has changed.
 	 *
 	 * @param event The jQuery change event.
 	 */
 	Filter.prototype.onMin = function (event) {
-		var slider = event.data;
-		var input = event.target;
-		slider.set([input.value, null]);
+		var slider = event.data.slider;
+		if (slider) {
+			var input = event.target;
+			var value = input.value;
+			if (value !== "") {
+				slider.set([value, null]);
+			}
+		}
 	};
 
 	/**
-	 * An event handler called when the max input value is changed.
+	 * An event handler called when the max input value has changed.
 	 *
 	 * @param event The jQuery change event.
 	 */
 	Filter.prototype.onMax = function (event) {
-		var slider = event.data;
-		var input = event.target;
-		slider.set([null, input.value]);
+		var slider = event.data.slider;
+		if (slider) {
+			var input = event.target;
+			var value = input.value;
+			if (value !== "") {
+				slider.set([null, value]);
+			}
+		}
 	};
 
 	return Filter;
