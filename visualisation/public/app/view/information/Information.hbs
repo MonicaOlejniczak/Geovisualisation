@@ -1,2 +1,3 @@
-<strong>Magnitude: </strong> {{magnitude}} <br>
-<strong>Position:</strong> {{formatPosition position}}
+{{#each this}}
+	<strong>{{capitalize @key}}: </strong> {{format this}} <br>
+{{/each}}
