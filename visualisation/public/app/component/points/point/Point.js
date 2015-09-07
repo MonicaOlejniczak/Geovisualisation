@@ -23,20 +23,15 @@ define(function (require) {
 		this.model = model;
 		Component.apply(this, arguments);
 
-		// Set the transformed position data.
-		var position = Convert.transform(model.get('x'), model.get('y'), model.get('z'));
-
 		// Set the width, height and the magnitude of the point.
 		this.width = width;
 		this.height = height;
-		this.magnitude = position.y;
-
-		model.set('magnitude', this.magnitude);
 
 		// Create the geometry and compute its bounding box.
-		var transform = Convert.transform(this.width, this.height, this.magnitude);
+		var magnitude = model.get('magnitude');
+		var transform = Convert.transform(new THREE.Vector3(this.width, this.height, magnitude));
 		var geometry = new THREE.BoxGeometry(transform.x, transform.y, transform.z);
-		geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, this.magnitude * 0.5, 0));
+		geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, magnitude * 0.5, 0));
 		geometry.computeBoundingBox();
 		// Set the geometry.
 		this.geometry = geometry;
@@ -47,7 +42,8 @@ define(function (require) {
 		this.min = boundingBox.min.y;
 		this.max = boundingBox.max.y;
 
-		this.updatePosition(position, projection);
+		// Set the transformed position data.
+		this.updatePosition(model.position(), projection);
 
 	}
 
@@ -86,7 +82,7 @@ define(function (require) {
 			uAlpha: {type: 'f', value: alpha},
 			uBound: {type: 'v2', value: bound},
 			// Basic shader uniforms.
-			uMagnitude: {type: 'f', value: this.magnitude},
+			uMagnitude: {type: 'f', value: this.model.get('magnitude')},
 			uColorRange: {type: 'v2', value: colorRange},
 			uSaturation: {type: 'f', value: 1.0},
 			uLightness: {type: 'f', value: 1.0},

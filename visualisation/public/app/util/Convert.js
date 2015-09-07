@@ -12,13 +12,11 @@ define(function (require) {
 	/**
 	 * Converts a coordinate into a vector with the correct 3D space.
 	 *
-	 * @param x The x-coordinate being transformed.
-	 * @param y The y-coordinate being transformed
-	 * @param z The z-coordinate being transformed
+	 * @param coordinate The coordinate being transformed.
 	 * @returns {THREE.Vector3}
 	 */
-	Convert.transform = function (x, y, z) {
-		return new THREE.Vector3(x, z, y);
+	Convert.transform = function (coordinate) {
+		return new THREE.Vector3(coordinate.x, coordinate.z, coordinate.y);
 	};
 
 	/**

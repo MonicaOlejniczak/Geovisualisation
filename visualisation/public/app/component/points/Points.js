@@ -33,7 +33,9 @@ define(function (require) {
 		options = options || {};
 
 		// Initialise the global min and max values.
-		this.min = this.max = 0;
+		var property = 'magnitude';
+		this.min = Math.max(0, this.collection.min(function (model) {return model.get(property)}).get(property));
+		this.max = this.collection.max(function (model) {return model.get(property)}).get(property);
 
 		// Set the width and height of the points.
 		this.width = options.width || 0.5;
@@ -135,7 +137,6 @@ define(function (require) {
 	Points.prototype.addPoint = function (model, projection) {
 		// Create the point and adjust the min and max value of the points.
 		var point = new Point(model, this.width, this.height, projection);
-		this.max = Math.max(this.getMax(), point.max);
 		// Add the point and then return it.
 		this.add(point);
 		return point;
