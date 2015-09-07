@@ -107,11 +107,14 @@ define(function (require) {
 	 */
 	Filter.prototype.createInputs = function (min, max) {
 
+		// Create a container for the inputs.
 		var $inputs = $(document.createElement('div')).addClass('inputs');
 
+		// Create the min and max inputs.
 		var $min = this.createInput('Min', min, min, max).addClass('min');
 		var $max = this.createInput('Max', max, min, max).addClass('max');
 
+		// Append the min and max inputs to the inputs element and return it.
 		$inputs.append($min, $max);
 		return $inputs;
 
@@ -127,9 +130,14 @@ define(function (require) {
 	 * @returns {*|jQuery}
 	 */
 	Filter.prototype.createInput = function (label, value, min, max) {
+
+		// Create an group for the label and its input.
 		var $group = $(document.createElement('div')).addClass('group');
 
+		// Create an id for the label.
 		var id = 'input-' + label.toLowerCase();
+
+		// Create the input element.
 		var $input = $(document.createElement('input')).attr({
 			id: id,
 			type: 'number',
@@ -139,21 +147,32 @@ define(function (require) {
 			step: 1
 		});
 
+		// Create the label for the input element.
 		var $label = $(document.createElement('label')).attr('for', id).html(label);
 
+		// Append the label and its input to the group.
 		$group.append($label, $input);
 		return $group;
+
 	};
 
+	/**
+	 * Adds event listeners to the slider and inputs for when their values are changed.
+	 *
+	 * @param $slider The jQuery slider element.
+	 * @param $inputs The jQuery inputs element.
+	 * @param property The property used for filtering.
+	 */
 	Filter.prototype.addEventListeners = function ($slider, $inputs, property) {
 
+		// Find the min and max input elements.
 		var $min = $inputs.find('.min input');
 		var $max = $inputs.find('.max input');
 
 		// Retrieve the noUiSlider object from the slider element.
 		var slider = $slider.get(0).noUiSlider;
 
-		// Listen to the change events on the sliders.
+		// Listen to the keyup events on the min and max inputs.
 		$min.keyup({slider: slider, callback: this.onMin}, this.onKeyUp.bind(this));
 		$max.keyup({slider: slider, callback: this.onMax}, this.onKeyUp.bind(this));
 
@@ -162,6 +181,15 @@ define(function (require) {
 
 	};
 
+	/**
+	 * An event triggered when a key is released on a filter input.
+	 *
+	 * This method checks that the left and right arrow keys have not been pressed so the user can navigate inside the
+	 * input with these keys. If these keys have not been pressed, the callback that is attached to the event object is
+	 * delayed. This ensures the user can keep typing for the delayed amount, without the callback executing.
+	 *
+	 * @param event The jQuery keyup event.
+	 */
 	Filter.prototype.onKeyUp = function (event) {
 		var key = event.keyCode;
 		// Only initiate the key up event if the left and right arrow keys have not been pressed. This enables the user
@@ -181,6 +209,11 @@ define(function (require) {
 
 	/**
 	 * An event handler called when filtering.
+	 *
+	 * This method first retrieves the min and max values from the array and checks the index of which handle on the
+	 * slider was pressed by the user. When this index is 0, it means that the min value on the slider was changed,
+	 * otherwise the max handle was changed. The collection is then filtered using a function that checks the the model
+	 * property being filtered is within the bounds of the min and max values.
 	 *
 	 * @param $min The min HTML input.
 	 * @param $max The max HTML input.
@@ -213,9 +246,9 @@ define(function (require) {
 	};
 
 	/**
-	 * An event handler called when the min input value has changed.
+	 * An event handler called when the min input value has changed on a keyup event.
 	 *
-	 * @param event The jQuery change event.
+	 * @param event The jQuery keyup event.
 	 */
 	Filter.prototype.onMin = function (event) {
 		var slider = event.data.slider;
@@ -229,9 +262,9 @@ define(function (require) {
 	};
 
 	/**
-	 * An event handler called when the max input value has changed.
+	 * An event handler called when the max input value has changed on a keyup event.
 	 *
-	 * @param event The jQuery change event.
+	 * @param event The jQuery keyup event.
 	 */
 	Filter.prototype.onMax = function (event) {
 		var slider = event.data.slider;
