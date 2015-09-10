@@ -1,3 +1,5 @@
 {{#each this}}
-	<strong>{{capitalize @key}}: </strong> {{format this}} <br>
+	{{#unless (filter @key)}}
+		<strong>{{capitalize @key}}: </strong> {{format this}} <br>
+	{{/unless}}
 {{/each}}

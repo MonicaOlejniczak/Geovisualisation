@@ -18,8 +18,11 @@ define(function (require) {
 		// Set the canvas and element.
 		this.$canvas = $(renderer.getCanvas());
 		this.$el = $('#information');
+		// Add the offset and filters.
+		this.offset = 10;
+		this.filters = ['coordinate', 'magnitude'];
 		// Configure the template and add the event listeners.
-		this.configureTemplate();
+		this.template = this.configureTemplate();
 		this.addEventListeners(renderer);
 	}
 
@@ -34,11 +37,24 @@ define(function (require) {
 
 	/**
 	 * Configures the Handlebars template by registering helpers and compiling the template.
+	 *
+	 * @returns {*}
 	 */
 	Information.prototype.configureTemplate = function () {
+		Handlebars.registerHelper('filter', this.filter.bind(this));
 		Handlebars.registerHelper('capitalize', this.capitalize.bind(this));
 		Handlebars.registerHelper('format', this.format.bind(this));
-		this.template = Handlebars.compile(Display);
+		return Handlebars.compile(Display);
+	};
+
+	/**
+	 * A helper function used to show or hide particular information based on the filters array.
+	 *
+	 * @param key The key passed into the filter helper.
+	 * @returns {boolean}
+	 */
+	Information.prototype.filter = function (key) {
+		return this.filters.indexOf(key) !== -1;
 	};
 
 	/**
@@ -48,6 +64,7 @@ define(function (require) {
 	 * @returns {string}
 	 */
 	Information.prototype.capitalize = function (str) {
+		str = str.replace('_', ' ');
 		return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 	};
 
@@ -94,13 +111,10 @@ define(function (require) {
 	 * Formats a number to a particular precision.
 	 *
 	 * @param value The number being formatted.
-	 * @param [precision] The precision being used.
 	 * @returns {string|*}
 	 */
-	Information.prototype.formatNumber = function (value, precision) {
-		value = parseInt(value, 10);
-		precision = precision || 2;
-		return value.toFixed(precision);
+	Information.prototype.formatNumber = function (value) {
+		return value.toLocaleString().replace(/,/g, ', ');
 	};
 
 	/**
@@ -141,11 +155,45 @@ define(function (require) {
 	 * @param model The model of the intersected object.
 	 */
 	Information.prototype.updateInformation = function (coordinates, model) {
-		this.$el.html(this.template(model.toJSON()))
-			.css({
-				left: coordinates.x,
-				top: coordinates.y
-			});
+		this.$el.html(this.template(model.toJSON()));
+		var position = this.calculatePosition(coordinates);
+		this.$el.css({
+			left: position.x,
+			top: position.y
+		});
+	};
+
+	/**
+	 * Calculates the position needed for the information display given a set of mouse coordinates.
+	 *
+	 * @param coordinates A set of mouse coordinates.
+	 * @returns {THREE.Vector2}
+	 */
+	Information.prototype.calculatePosition = function (coordinates) {
+		// Get the quadrant given the coordinates.
+		var quadrant = this.getQuadrant(coordinates);
+		// Calculate the x and y values based on the quadrant.
+		var x = coordinates.x + (quadrant === 1 || quadrant === 4 ? -this.$el.outerWidth() - this.offset : 1.5 * this.offset);
+		var y = coordinates.y + (quadrant === 1 || quadrant === 2 ? this.offset : -this.$el.outerHeight() + this.offset);
+		return new THREE.Vector2(x, y);
+	};
+
+	/**
+	 * Determines the quadrant for a given position within the canvas.
+	 *
+	 * @param position The current position within the element.
+	 * @returns {number}
+	 */
+	Information.prototype.getQuadrant = function (position) {
+		var $element = this.$canvas;
+		// Set the boundaries of the element.
+		var boundary = new THREE.Vector2($element.width() * 0.5, $element.height() * 0.5);
+		// Check if in quadrant 1 or 4.
+		if (position.x > boundary.x) {
+			return position.y < boundary.y ? 1 : 4;
+		}
+		// Otherwise, quadrant 2 or 3.
+		return position.y < boundary.y ? 2 : 3;
 	};
 
 	return Information;
