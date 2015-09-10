@@ -241,7 +241,7 @@ define(function (require) {
 		this.collection.filterBy(function (model) {
 			// Get the value from the model using the filter property, then filter.
 			var value = model.get(property);
-			return !(value > min && value < max);
+			return !(value > min && value <= max);
 		});
 	};
 

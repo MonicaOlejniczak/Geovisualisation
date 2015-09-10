@@ -181,9 +181,9 @@ define(function (require) {
 		var origin = new THREE.Vector2(0, 255);
 		var target = new THREE.Vector2(0, 1);
 		// Convert the RGB values to be within the target range.
-		var r = Convert.convertRange(origin, target, color.r);
-		var g = Convert.convertRange(origin, target, color.g);
-		var b = Convert.convertRange(origin, target, color.b);
+		var r = Convert.range(origin, target, color.r);
+		var g = Convert.range(origin, target, color.g);
+		var b = Convert.range(origin, target, color.b);
 		// Return the value of the converted colour.
 		return new THREE.Color(r, g, b);
 	};

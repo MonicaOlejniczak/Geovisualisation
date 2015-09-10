@@ -46,7 +46,7 @@ define(function (require) {
 	 * @param value The value in the origin range.
 	 * @returns {*}
 	 */
-	Convert.convertRange = function (origin, target, value) {
+	Convert.range = function (origin, target, value) {
 		var ratio = (target.y - target.x) / (origin.y - origin.x);
 		return (value - origin.x) * ratio + target.x;
 	};

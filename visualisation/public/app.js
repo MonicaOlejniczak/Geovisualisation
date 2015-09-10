@@ -10,9 +10,9 @@
 		baseUrl: 'app',
 		// Specify the paths.
 		paths: {
-			'jquery': '../bower_components/jquery/dist/jquery.min',
 			'text': '../bower_components/text/text',
 			'json': '../bower_components/requirejs-plugins/src/json',
+			'jquery': '../bower_components/jquery/dist/jquery.min',
 			'threejs': '../bower_components/threejs/build/three',
 			'backbone': '../bower_components/backbone/backbone',
 			'underscore': '../bower_components/underscore/underscore',
@@ -27,7 +27,7 @@
 		}
 	});
 
-	require(['Application'], function (Application) {
+	require(['Application', 'text', 'json'], function (Application, test, json) {
 		new Application();
 	});
 

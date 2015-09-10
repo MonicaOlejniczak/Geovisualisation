@@ -21,13 +21,8 @@ define(function (require) {
 	 * Loads a data file given its url and calls the callback once it has finished loading.
 	 */
 	Data.prototype.load = function () {
-		var path = this.path;
-		// Check if the url is a json file and append the json! preprocessor.
-		if (path.split('\.')[1] === 'json') {
-			path = 'json!' + path;
-		}
 		// Return the resolved require promise.
-		return Promises.requirePromise(path);
+		return Promises.requirePromise(this.path);
 	};
 
 	return Data;

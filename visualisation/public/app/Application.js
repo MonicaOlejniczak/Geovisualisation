@@ -1,3 +1,6 @@
+/**
+ * @author Monica Olejniczak
+ */
 define(function (require) {
 
 	'use strict';
@@ -18,11 +21,18 @@ define(function (require) {
 	var Filter = require('view/Filter');
 	var Gui = require('view/Gui');
 
+	/**
+	 * Instantiates the application.
+	 *
+	 * @constructor
+	 */
 	function Application () {
 		this.$canvas = $('#visualisation');
 		// Initialise the data with the specified path and then load the file.
-		var data = new Data('data/generate');
-		data.load().then(this.generateData.bind(this));
+		//var data = new Data('data/generate');
+		//data.load().then(this.generateData.bind(this));
+		var data = new Data('json!data/population.json');
+		data.load().then(this.processPopulationData.bind(this));
 	}
 
 	/**
@@ -38,38 +48,68 @@ define(function (require) {
 		var bound = new THREE.Vector3(x, y, z);
 		// Generate the data and then process it.
 		var data = generate.call(this, 100, bound);
-		var points = this.processData(data);
+		var points = this.processData(data, 'x', 'y', 'z');
 		this.processPoints(points);
 	};
 
 	/**
-	 * Processes the specified data by transforming a point model and storing it in a list so it can form a collection.
+	 * Processes population data.
 	 *
-	 * @param data The point data being processed.
-	 * @returns {Array}
+	 * @param data The population data.
 	 */
-	Application.prototype.processData = function (data) {
+	Application.prototype.processPopulationData = function (data) {
+		// Longitude = azimuthal angle, latitude = elevation.
+		this.processData(data, new THREE.Vector3('longitude', 'latitude', 'population'));
+	};
+
+	/**
+	 * Processes the specified data.
+	 *
+	 * @param data The list of points data being processed.
+	 * @param keys The keys within the point data that refer to the x, y and z values of the point.
+	 */
+	Application.prototype.processData = function (data, keys) {
 		var points = [];
 		// Iterate through all the data.
-		data.forEach(function (point) {
-			// Convert the position
-			var position = Convert.transform(new THREE.Vector3(point.x, point.y, point.z));
-			points.push(new Point({
-				coordinate: new THREE.Vector2(position.x, position.z),
-				magnitude: position.y
-			}));
-		});
-		return points;
+		//data.forEach(function (point) {
+		//	points.push(this.processDataPoint(point, x, y, z));
+		//}.bind(this));
+		for (var i = 0, len = 500; i < len; i++) {
+			points.push(this.createPoint(data[i], keys));
+		}
+		this.processPoints(new Points(points));
+	};
+
+	/**
+	 * Creates a point by processing its position and adding additional properties such as the coordinate and magnitude
+	 * to standardise filtering and position retrieval.
+	 *
+	 * @param point The point data.
+	 * @param keys The keys within the point data that refer to the x, y and z values of the point.
+	 * @returns {*}
+	 */
+	Application.prototype.createPoint = function (point, keys) {
+
+		// Store the point properties.
+		var properties = point;
+		// Get the position of the point by transforming the values
+		var position = Convert.transform(new THREE.Vector3(point[keys.x], point[keys.y], point[keys.z]));
+
+		// Add keys for the coordinate and magnitude of the point.
+		properties['coordinate'] = new THREE.Vector2(position.x, position.z);
+		properties['magnitude'] = position.y;
+
+		return new Point(properties);
+
 	};
 
 	/**
 	 * Processes the points and sets up the visualisation.
 	 *
-	 * @param data The processed points.
+	 * @param points The processed points.
 	 */
-	Application.prototype.processPoints = function (data) {
-		var points = new Points(data);
-		var visualisation = new FlatHeatMap(this.$canvas, points);
+	Application.prototype.processPoints = function (points) {
+		var visualisation = new RoundHeatMap(this.$canvas, points);
 		var information = new Information(visualisation.renderer, visualisation.points);
 		var filter = new Filter(visualisation.points.collection);
 		var gui = new Gui(visualisation);

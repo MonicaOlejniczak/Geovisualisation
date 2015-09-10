@@ -136,7 +136,7 @@ define(function (require) {
 	 */
 	Points.prototype.addPoint = function (model, projection) {
 		// Create the point and adjust the min and max value of the points.
-		var point = new Point(model, this.width, this.height, projection);
+		var point = new Point(model, this.width, this.height, this.max, projection);
 		// Add the point and then return it.
 		this.add(point);
 		return point;
@@ -175,7 +175,7 @@ define(function (require) {
 	 */
 	Points.prototype.updatePoint = function (point, material, options) {
 		options = options || {};
-		point.updateMaterial(material, options.mode, options.alpha, options.colors, options.bound, options.colorRange);
+		point.updateMaterial(material, options.mode, options.alpha, options.colors, options.colorRange);
 		return point;
 	};
 

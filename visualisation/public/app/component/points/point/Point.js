@@ -15,10 +15,11 @@ define(function (require) {
 	 * @param model The point model.
 	 * @param width The width of the point.
 	 * @param height The height of the point.
+	 * @param max The max value of all the points.
 	 * @param [projection] The projection for the point.
 	 * @constructor
 	 */
-	function Point (model, width, height, projection) {
+	function Point (model, width, height, max, projection) {
 
 		this.model = model;
 		Component.apply(this, arguments);
@@ -27,11 +28,13 @@ define(function (require) {
 		this.width = width;
 		this.height = height;
 
+		this.maxHeight = 50;
+
 		// Create the geometry and compute its bounding box.
-		var magnitude = model.get('magnitude');
+		var magnitude = Convert.range(new THREE.Vector2(0, max), new THREE.Vector2(0, this.maxHeight), model.get('magnitude'));
 		var transform = Convert.transform(new THREE.Vector3(this.width, this.height, magnitude));
 		var geometry = new THREE.BoxGeometry(transform.x, transform.y, transform.z);
-		geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, magnitude * 0.5, 0));
+		geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, geometry.parameters.height * 0.5, 0));
 		geometry.computeBoundingBox();
 		// Set the geometry.
 		this.geometry = geometry;
@@ -70,19 +73,18 @@ define(function (require) {
 	 * @param mode The shader to use for displaying the data.
 	 * @param alpha The opacity of the point.
 	 * @param colors The colours used with the material.
-	 * @param bound The global min and max values of all points.
 	 * @param colorRange The minimum and maximum HSV colour range for the point.
 	 */
-	Point.prototype.updateMaterial = function (material, mode, alpha, colors, bound, colorRange) {
+	Point.prototype.updateMaterial = function (material, mode, alpha, colors, colorRange) {
 		material = material.clone();
 		// Update the uniforms of the material.
 		material.uniforms = {
 			uMode: {type: 'i', value: mode},
 			// Shared uniforms.
 			uAlpha: {type: 'f', value: alpha},
-			uBound: {type: 'v2', value: bound},
+			uBound: {type: 'v2', value: new THREE.Vector2(0, this.maxHeight)},
 			// Basic shader uniforms.
-			uMagnitude: {type: 'f', value: this.model.get('magnitude')},
+			uMagnitude: {type: 'f', value: this.geometry.parameters.height},
 			uColorRange: {type: 'v2', value: colorRange},
 			uSaturation: {type: 'f', value: 1.0},
 			uLightness: {type: 'f', value: 1.0},

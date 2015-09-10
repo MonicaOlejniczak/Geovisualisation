@@ -15,7 +15,7 @@ define(function (require) {
 			var y = Math.random();
 			var z = Math.random();
 
-			expect(Convert.transform(x, y, z)).to.eql(new THREE.Vector3(x, z, y));
+			expect(Convert.transform(new THREE.Vector3(x, y, z))).to.eql(new THREE.Vector3(x, z, y));
 
 		});
 
@@ -33,7 +33,7 @@ define(function (require) {
 
 		});
 
-		describe('convertRange method', function () {
+		describe('range method', function () {
 
 			it('should convert a value from a smaller positive range to a larger positive range', function () {
 
@@ -41,7 +41,7 @@ define(function (require) {
 				var target = new THREE.Vector2(0, 100);
 				var value = 0.5;
 
-				expect(Convert.convertRange(origin, target, value)).to.equal(50);
+				expect(Convert.range(origin, target, value)).to.equal(50);
 
 			});
 
@@ -51,7 +51,7 @@ define(function (require) {
 				var target = new THREE.Vector2(0, 1);
 				var value = 50;
 
-				expect(Convert.convertRange(origin, target, value)).to.equal(0.5);
+				expect(Convert.range(origin, target, value)).to.equal(0.5);
 
 			});
 
@@ -61,7 +61,7 @@ define(function (require) {
 				var target = new THREE.Vector2(-100, -50);
 				var value = -750;
 
-				expect(Convert.convertRange(origin, target, value)).to.equal(-75);
+				expect(Convert.range(origin, target, value)).to.equal(-75);
 
 			});
 
@@ -71,7 +71,7 @@ define(function (require) {
 				var target = new THREE.Vector2(-1000, -500);
 				var value = -75;
 
-				expect(Convert.convertRange(origin, target, value)).to.equal(-750);
+				expect(Convert.range(origin, target, value)).to.equal(-750);
 
 			});
 
@@ -81,7 +81,7 @@ define(function (require) {
 				var target = new THREE.Vector2(-100, -50);
 				var value = 75;
 
-				expect(Convert.convertRange(origin, target, value)).to.equal(-75);
+				expect(Convert.range(origin, target, value)).to.equal(-75);
 
 			});
 
@@ -91,7 +91,7 @@ define(function (require) {
 				var target = new THREE.Vector2(50, 100);
 				var value = -75;
 
-				expect(Convert.convertRange(origin, target, value)).to.equal(75);
+				expect(Convert.range(origin, target, value)).to.equal(75);
 
 			});
 
