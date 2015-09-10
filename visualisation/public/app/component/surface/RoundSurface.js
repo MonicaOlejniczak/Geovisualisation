@@ -36,6 +36,8 @@ define(function (require) {
 	 */
 	RoundSurface.prototype.onReady = function () {
 		var geometry = this.geometry;
+		// Rotate the surface by -90deg so spherical projections are correct.
+		this.rotateY(-Math.PI * 0.5);
 		// Scale the surface to its radius.
 		this.scale.set(this.radius, this.radius, this.radius);
 		// Update the surface position uniform for the surface material.
@@ -54,8 +56,6 @@ define(function (require) {
 	RoundSurface.prototype.addClouds = function (geometry) {
 		// Load the cloud texture
 		var texture = THREE.ImageUtils.loadTexture(this.clouds);
-		texture.minFilter = THREE.NearestMipMapLinearFilter;
-		texture.magFilter = THREE.NearestMipMapLinearFilter;
 		// Load the material with the texture.
 		var material = new THREE.MeshBasicMaterial({
 			map: texture,
