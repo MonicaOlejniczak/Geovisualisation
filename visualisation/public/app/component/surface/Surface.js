@@ -18,13 +18,14 @@ define(function (require) {
 
 		THREE.Mesh.call(this);
 
+		this.baseGeometry = geometry;
 		this.baseDirectory = 'assets/images/earth/';
 		this.source = this.baseDirectory + 'earth.png';
 		this.size = 250;
 		this.color = new THREE.Color(0x222222);
 		this.aspectRatio = 1;
 		this.colorBound = new THREE.Vector2(-100, 100);
-		this.load(geometry);
+		this.load();
 
 	}
 
@@ -33,10 +34,8 @@ define(function (require) {
 
 	/**
 	 * Loads the surface for the scene.
-	 *
-	 * @param geometry The geometry that defines the surface being created.
 	 */
-	Surface.prototype.load = function (geometry) {
+	Surface.prototype.load = function () {
 		// Create the texture and use it for the mesh material.
 		var texture = this.createTexture();
 		// Create the shader.
@@ -53,11 +52,7 @@ define(function (require) {
 			}
 		});
 		// Load the shader and add the geometry and material to the mesh.
-		shader.load().then(function (shader) {
-			this.geometry = geometry;
-			this.material = shader.material;
-			this.dispatchEvent({type: 'load'});
-		}.bind(this));
+		shader.load().then(this.onShaderLoad.bind(this));
 	};
 
 	/**
@@ -84,6 +79,19 @@ define(function (require) {
 	Surface.prototype.onTextureLoad = function (texture) {
 		var image = texture.image;
 		this.aspectRatio = image.width / image.height;
+		this.dispatchEvent({type: 'texture'});
+	};
+
+	/**
+	 * This function is triggered when the shader is loaded. It sets the geometry and material of the surface and
+	 * dispatches a load event.
+	 *
+	 * @param shader The shader material.
+	 */
+	Surface.prototype.onShaderLoad = function (shader) {
+		this.geometry = this.baseGeometry;
+		this.material = shader.material;
+		this.dispatchEvent({type: 'load'});
 	};
 
 	return Surface;

@@ -72,9 +72,10 @@ define(function (require) {
 		var points = [];
 		// Iterate through all the data.
 		//data.forEach(function (point) {
-		//	points.push(this.processDataPoint(point, x, y, z));
+		//	points.push(this.createPoint(point, keys));
 		//}.bind(this));
-		for (var i = 0, len = 500; i < len; i++) {
+		console.log(data.length);
+		for (var i = 0, len = Math.min(data.length, 1000); i < len; i++) {
 			points.push(this.createPoint(data[i], keys));
 		}
 		this.processPoints(new Points(points));
@@ -111,7 +112,7 @@ define(function (require) {
 	Application.prototype.processPoints = function (points) {
 		var visualisation = new FlatHeatMap(this.$canvas, points);
 		//var visualisation = new RoundHeatMap(this.$canvas, points);
-		var information = new Information(visualisation.renderer, visualisation.points);
+		//var information = new Information(visualisation.renderer, visualisation.points);
 		var filter = new Filter(visualisation.points.collection);
 		var gui = new Gui(visualisation);
 	};

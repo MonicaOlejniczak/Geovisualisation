@@ -12,10 +12,10 @@ define(function (require) {
 		options = options || {};
 		this.projection = projection;
 		this.target = options.target || new THREE.Vector3();
+		this.bounds = options.bounds || new THREE.Vector2(new THREE.Vector2(), new THREE.Vector2());
+
 		this.offset = options.offset || 0;
 		this.radius = options.radius || 1;
-		this.thetaBound = options.thetaBound || new THREE.Vector2();
-		this.phiBound = options.phiBound || new THREE.Vector2();
 	}
 
 	/**
@@ -26,14 +26,22 @@ define(function (require) {
 	};
 
 	/**
-	 * Applies a standard projection to an object that translates its position by the specified offset.
+	 * Applies a standard projection to an object that translates its position by the specified offset and constrains
+	 * the x and z position of the coordinate to its bounds.
 	 *
 	 * @param object The object being translated.
 	 * @param offset The offset to translate by.
+	 * @param bounds
 	 */
-	Projection.standard = function (object, offset) {
+	Projection.standard = function (object, offset, bounds) {
+
+		var position  = object.position;
+
 		offset = offset || this.offset;
-		object.position.setY(offset);
+		bounds = bounds || this.bounds;
+
+		object.position.set(Convert.range(bounds.x.x, bounds.x.y, position.x), offset, Convert.range(bounds.y.x, bounds.y.y, -position.z));
+
 	};
 
 	/**
@@ -46,14 +54,16 @@ define(function (require) {
 	 * @param phi The polar angle.
 	 */
 	Projection.spherical = function (object, target, radius, theta, phi) {
+
 		var position = object.position;
 
 		target = target || this.target;
 		radius = radius || this.radius;
 
+		// TODO make nicer
 		//theta = theta || THREE.Math.degToRad(Convert.range(this.thetaBound, new THREE.Vector2(0, 360), position.x)) - Math.PI * 0.5;
 		theta = theta || THREE.Math.degToRad(position.x);
-		phi = phi || THREE.Math.degToRad(Convert.range(this.phiBound, new THREE.Vector2(0, 180), -position.z));
+		phi = phi || THREE.Math.degToRad(Convert.range(this.bounds.y.x, this.bounds.y.y, -position.z));
 
 		object.position.copy(Convert.sphericalToCartesian(radius, theta, phi));
 		object.lookAt(target);

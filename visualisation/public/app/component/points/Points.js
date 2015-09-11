@@ -44,7 +44,7 @@ define(function (require) {
 		// Set the min and max HSV colour range.
 		this.colorRange = {
 			bound: new THREE.Vector2(0, 1),
-			range: new THREE.Vector2(0.15, 0.6)
+			range: new THREE.Vector2(0.15, 0.8)
 		};
 
 		// Set the colors to be used with the points.
@@ -138,6 +138,7 @@ define(function (require) {
 		// Create the point and adjust the min and max value of the points.
 		var point = new Point(model, this.width, this.height, this.max, projection);
 		// Add the point and then return it.
+		//this.geometry.mergeMesh(point);
 		this.add(point);
 		return point;
 	};

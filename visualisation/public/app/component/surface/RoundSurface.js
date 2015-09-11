@@ -12,14 +12,13 @@ define(function (require) {
 	/**
 	 * Initialises the surface.
 	 *
-	 * @param [radius] The radius of the surface.
+	 * @param radius The radius of the surface.
 	 * @constructor
 	 */
 	function RoundSurface (radius) {
 		Surface.call(this, new THREE.SphereGeometry(1, 40, 30));
-		//this.radius = radius || this.size * 0.25;
 		this.clouds = this.baseDirectory + 'clouds.png';
-		this.radius = radius || this.size * 0.5;
+		this.radius = radius;
 		this.atmosphere = {
 			source: 'atmosphere/Atmosphere',
 			color: new THREE.Color(0x08376b)

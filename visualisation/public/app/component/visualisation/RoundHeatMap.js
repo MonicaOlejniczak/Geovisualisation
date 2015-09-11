@@ -23,8 +23,10 @@ define(function (require) {
 		var surface = new RoundSurface(100);
 		var projection = new Projection(Projection.spherical, {
 			radius: surface.radius,
-			thetaBound: new THREE.Vector2(-180, 180),
-			phiBound: new THREE.Vector2(-90, 90)
+			bounds: new THREE.Vector2(
+				new THREE.Vector2(new THREE.Vector2(-180, 180), new THREE.Vector2(0, 360)), // theta
+				new THREE.Vector2(new THREE.Vector2(-90, 90), new THREE.Vector2(0, 180)) // phi
+			)
 		});
 
 		Visualisation.call(this, canvas, points, projection, surface, {

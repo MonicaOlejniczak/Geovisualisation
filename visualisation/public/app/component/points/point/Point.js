@@ -28,7 +28,7 @@ define(function (require) {
 		this.width = width;
 		this.height = height;
 
-		this.maxHeight = 50;
+		this.maxHeight = 100;
 
 		// Create the geometry and compute its bounding box.
 		var magnitude = Convert.range(new THREE.Vector2(0, max), new THREE.Vector2(0, this.maxHeight), model.get('magnitude'));

@@ -11,12 +11,16 @@ define(function (require) {
 	/**
 	 * Initialises the surface.
 	 *
-	 * @param [height] The height of the surface.
+	 * @param width The width of the surface.
+	 * @param height The height of the surface.
+	 * @param depth The depth of the surface.
 	 * @constructor
 	 */
-	function FlatSurface (height) {
+	function FlatSurface (width, height, depth) {
 		Surface.call(this, new THREE.BoxGeometry(1, 1, 1));
-		this.height = height || 10;
+		this.width = width || 256;
+		this.height = height || 128;
+		this.depth = depth || 10;
 		this.addEventListener('load', this.onLoad.bind(this));
 	}
 
@@ -28,10 +32,10 @@ define(function (require) {
 	 * it is of the correct scale, position and contains the appropriate surface position uniform.
 	 */
 	FlatSurface.prototype.onLoad = function () {
-		// Scale the size of the mesh to match the aspect ratio of the image.
-		this.scale.set(this.size * this.aspectRatio, this.height, this.size);
+		// Scale the size of the mesh.
+		this.scale.set(this.width, this.depth, this.height);
 		// Set the position of the mesh so that it is below the data points.
-		this.position.setY(this.height * 0.5);
+		this.position.setY(this.depth * 0.5);
 		// Update the surface position uniform for the surface material.
 		this.material.uniforms['uSurfacePosition'] = {type: 'f', value: this.geometry.heightSegments * 0.5};
 		this.dispatchEvent({type: 'ready'});
