@@ -109,7 +109,8 @@ define(function (require) {
 	 * @param points The processed points.
 	 */
 	Application.prototype.processPoints = function (points) {
-		var visualisation = new RoundHeatMap(this.$canvas, points);
+		var visualisation = new FlatHeatMap(this.$canvas, points);
+		//var visualisation = new RoundHeatMap(this.$canvas, points);
 		var information = new Information(visualisation.renderer, visualisation.points);
 		var filter = new Filter(visualisation.points.collection);
 		var gui = new Gui(visualisation);

@@ -24,7 +24,7 @@ define(function (require) {
 			source: 'atmosphere/Atmosphere',
 			color: new THREE.Color(0x08376b)
 		};
-		$(this).on('ready', this.onReady.bind(this));
+		this.addEventListener('load', this.onLoad.bind(this));
 	}
 
 	RoundSurface.prototype = Object.create(Surface.prototype);
@@ -34,7 +34,7 @@ define(function (require) {
 	 * A method that is triggered when the surface super class has been loaded. This method adjusts the mesh so that
 	 * it is of the correct scale and has the correct surface position uniform.
 	 */
-	RoundSurface.prototype.onReady = function () {
+	RoundSurface.prototype.onLoad = function () {
 		var geometry = this.geometry;
 		// Rotate the surface by -90deg so spherical projections are correct.
 		this.rotateY(-Math.PI * 0.5);
@@ -43,8 +43,9 @@ define(function (require) {
 		// Update the surface position uniform for the surface material.
 		this.material.uniforms['uSurfacePosition'] = {type: 'f', value: -this.radius};
 		// Add the clouds and the atmosphere.
-		this.addClouds(geometry);
-		this.addAtmosphere(geometry);
+		this.clouds = this.addClouds(geometry);
+		//this.atmosphere = this.addAtmosphere(geometry);
+		this.dispatchEvent({type: 'ready'});
 	};
 
 	/**
@@ -69,7 +70,7 @@ define(function (require) {
 		clouds.scale.set(scale, scale, scale);
 		// Add the clouds and trigger an event.
 		this.add(clouds);
-		$(this).trigger('clouds', clouds);
+		return clouds;
 	};
 
 	/**
@@ -78,6 +79,7 @@ define(function (require) {
 	 * @param geometry The geometry used for the surface.
 	 */
 	RoundSurface.prototype.addAtmosphere = function (geometry) {
+		// TODO
 		var atmosphere = this.atmosphere;
 		// Load the atmosphere shader.
 		var shader = new Shader(atmosphere.source, {
@@ -97,7 +99,6 @@ define(function (require) {
 			atmosphere.scale.set(scale, scale, scale);
 			// Add the atmosphere and trigger an event.
 			this.add(atmosphere);
-			$(this).trigger('atmosphere', atmosphere);
 		}.bind(this));
 	};
 

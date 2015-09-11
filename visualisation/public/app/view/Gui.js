@@ -16,10 +16,10 @@ define(function (require) {
 	 * @constructor
 	 */
 	function Gui (visualisation) {
-		var gui = new dat.GUI({autoPlace: false});
+		this.gui = new dat.GUI({autoPlace: false});
 
-		$('#configuration').append(gui.domElement);
-		this.configure(gui, visualisation);
+		$('#configuration').append(this.gui.domElement);
+		this.configure(this.gui, visualisation);
 	}
 
 	/**
@@ -40,42 +40,75 @@ define(function (require) {
 	 * @param visualisation The visualisation associated with the GUI controls.
 	 */
 	Gui.prototype.configureSurface = function (gui, visualisation) {
-		var surface = visualisation.surface;
-		// Create a folder for the surface colour.
-		var folder = gui.addFolder('Surface');
-		$(surface).on({
-			ready: function (event) {
-				var material = surface.material;
-				// Get the colour bound and its min and max values.
-				var colourBound = surface.colorBound;
-				var min = colourBound.x;
-				var max = colourBound.y;
-				// Get the material uniforms.
-				var uniforms = material.uniforms;
-				// Add the colour shfit values.
-				folder.add(uniforms.uRedShift, 'value').min(min).max(max).name('Red');
-				folder.add(uniforms.uGreenShift, 'value').min(min).max(max).name('Green');
-				folder.add(uniforms.uBlueShift, 'value').min(min).max(max).name('Blue');
-			},
-			clouds: function (event, clouds) {
-				folder.add(clouds.material, 'opacity').min(0).max(1).name('Clouds');
-			},
-			atmosphere: function (event, atmosphere) {
-				var uniforms = atmosphere.material.uniforms;
-				folder.addColor(uniforms.uColor, 'value').name('Atmosphere').onChange(this.onAtmosphere.bind(this, atmosphere));
-			}.bind(this)
-		});
+		visualisation.surface.addEventListener('ready', this.onSurfaceReady.bind(this));
 	};
 
 	/**
-	 * An event that triggers when the user selects a new atmosphere colour.
+	 * An event triggered when the surface is ready.
+	 *
+	 * @param event The surface ready event.
+	 */
+	Gui.prototype.onSurfaceReady = function (event) {
+
+		var folder = this.gui.addFolder('Surface');
+		var surface = event.target;
+		var material = surface.material;
+		// Get the colour bound and its min and max values.
+		var colourBound = surface.colorBound;
+		var min = colourBound.x;
+		var max = colourBound.y;
+		// Get the material uniforms.
+		var uniforms = material.uniforms;
+		// Add the colour shfit values.
+		folder.add(uniforms.uRedShift, 'value').min(min).max(max).name('Red');
+		folder.add(uniforms.uGreenShift, 'value').min(min).max(max).name('Green');
+		folder.add(uniforms.uBlueShift, 'value').min(min).max(max).name('Blue');
+
+		// Check if clouds exist on the surface and add its configurations.
+		var clouds = surface.clouds;
+		if (clouds) {
+			this.configureClouds(folder, clouds);
+		}
+
+		// Check if an atmosphere exists on the surface and add its configuration.
+		var atmosphere = surface.atmosphere;
+		if (atmosphere) {
+			this.configureAtmosphere(folder, atmosphere);
+		}
+
+	};
+
+	/**
+	 * Configures the clouds on the surface.
+	 *
+	 * @param gui The GUI controls.
+	 * @param clouds The clouds on the surface.
+	 */
+	Gui.prototype.configureClouds = function (gui, clouds) {
+		gui.add(clouds.material, 'opacity').min(0).max(1).name('Clouds');
+	};
+
+	/**
+	 * Configures the atmosphere on the surface.
+	 *
+	 * @param gui The GUI controls.
+	 * @param atmosphere The atmosphere on the surface.
+	 */
+	Gui.prototype.configureAtmosphere = function (gui, atmosphere) {
+		var uniforms = atmosphere.material.uniforms;
+		var color = uniforms.uColor;
+		gui.addColor(color, 'value').name('Atmosphere').onChange(this.onAtmosphere.bind(this, atmosphere));
+	};
+
+	/**
+	 * An event triggered when the user selects a new atmosphere colour.
 	 *
 	 * @param atmosphere The atmosphere object.
 	 * @param color The new colour of the atmosphere.
 	 */
 	Gui.prototype.onAtmosphere = function (atmosphere, color) {
 		var material = atmosphere.material;
-		material.uniforms['uColor'].value = this._convertColor(color);
+		material.uniforms['uColor'].value = this.convertColor(color);
 	};
 
 	/**
@@ -86,9 +119,10 @@ define(function (require) {
 	 */
 	Gui.prototype.configurePoints = function (gui, points) {
 		var folder = gui.addFolder('Data points');
-		var mode = folder.add(points, 'mode', points.Mode).name('Mode');
 
 		folder.add(points, 'alpha').min(0).max(1).name('Alpha').onChange(this.onAlpha.bind(this, points));
+
+		var mode = folder.add(points, 'mode', points.Mode).name('Mode');
 
 		var basicShader = this.configureBasicShader(folder, points);
 		var gradientShader = this.configureGradientShader(folder, points);

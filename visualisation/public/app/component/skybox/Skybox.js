@@ -17,16 +17,16 @@ define(function (require) {
 	function Skybox (camera) {
 		THREE.Mesh.call(this);
 
-		this._baseDirectory = 'assets/images/skybox/space/';
-		this._fileExtension = '.png';
+		this.baseDirectory = 'assets/images/skybox/space/';
+		this.fileExtension = '.png';
 
 		var urls = [
-			this._baseDirectory + 'right' + this._fileExtension, // pos x
-			this._baseDirectory + 'left' + this._fileExtension, // neg x
-			this._baseDirectory + 'top' + this._fileExtension, // pos y
-			this._baseDirectory + 'bottom' + this._fileExtension, // neg y
-			this._baseDirectory + 'back' + this._fileExtension, // pos z
-			this._baseDirectory + 'front' + this._fileExtension // neg z
+			this.baseDirectory + 'right' + this.fileExtension, // pos x
+			this.baseDirectory + 'left' + this.fileExtension, // neg x
+			this.baseDirectory + 'top' + this.fileExtension, // pos y
+			this.baseDirectory + 'bottom' + this.fileExtension, // neg y
+			this.baseDirectory + 'back' + this.fileExtension, // pos z
+			this.baseDirectory + 'front' + this.fileExtension // neg z
 		];
 
 		var materials = [];

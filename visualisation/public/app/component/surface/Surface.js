@@ -56,7 +56,7 @@ define(function (require) {
 		shader.load().then(function (shader) {
 			this.geometry = geometry;
 			this.material = shader.material;
-			$(this).trigger('ready');
+			this.dispatchEvent({type: 'load'});
 		}.bind(this));
 	};
 

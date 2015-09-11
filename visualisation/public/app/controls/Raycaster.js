@@ -22,8 +22,8 @@ define(function (require) {
 		this.raycaster = new THREE.Raycaster();
 		this.camera = camera;
 		this.parent = parent;
-		this._mouse = new THREE.Vector2();
-		this._coordinates = new THREE.Vector2();
+		this.mouse = new THREE.Vector2();
+		this.coordinates = new THREE.Vector2();
 		$(element).on('mousemove', this.onMouseMove.bind(this));
 	}
 
@@ -35,8 +35,8 @@ define(function (require) {
 	 */
 	Raycaster.prototype.onMouseMove = function (event) {
 		var offset = Viewport.getOffset();
-		this._mouse.set(event.clientX, event.clientY);
-		this._coordinates.set(
+		this.mouse.set(event.clientX, event.clientY);
+		this.coordinates.set(
 			((event.clientX - offset.left) / Viewport.getWidth()) * 2 - 1,
 			-((event.clientY - offset.top) / Viewport.getHeight()) * 2 + 1
 		);
@@ -46,9 +46,9 @@ define(function (require) {
 	 * The update method called on each render frame.
 	 */
 	Raycaster.prototype.update = function () {
-		this.raycaster.setFromCamera(this._coordinates, this.camera);
+		this.raycaster.setFromCamera(this.coordinates, this.camera);
 		var intersects = this.raycaster.intersectObjects(this.parent.children);
-		$(this).trigger('raycast', [this._mouse, intersects]);
+		$(this).trigger('raycast', [this.mouse, intersects]);
 	};
 
 	return Raycaster;
