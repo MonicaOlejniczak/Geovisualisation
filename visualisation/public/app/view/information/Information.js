@@ -128,13 +128,17 @@ define(function (require) {
 	Information.prototype.onRaycast = function (event, coordinates, intersects) {
 		intersects = intersects || [];
 		this.toggleClasses(intersects);
-		intersects.forEach(function (intersect) {
-			var object = intersect.object;
-			// Only update the information if the object is is a point.
-			if (object instanceof Point) {
-				this.updateInformation(coordinates, object.model);
-			}
-		}, this);
+		if (intersects.length === 0) {
+			this.clear();
+		} else {
+			intersects.forEach(function (intersect) {
+				var object = intersect.object;
+				// Only update the information if the object is is a point.
+				if (object instanceof Point) {
+					this.updateInformation(coordinates, object.model);
+				}
+			}, this);
+		}
 	};
 
 	/**
@@ -147,6 +151,13 @@ define(function (require) {
 		this.$el.toggleClass('hidden', !hasIntersection);
 		this.$canvas.toggleClass('pointer', hasIntersection);
 	};
+
+	/**
+	 * Clears the information HTML.
+	 */
+	Information.prototype.clear = function () {
+		this.$el.html();
+	}
 
 	/**
 	 * Updates the information for an intersected object.
