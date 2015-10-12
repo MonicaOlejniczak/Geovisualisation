@@ -49,11 +49,15 @@
 \captionsetup[table]{belowskip=12pt}
 
 %%% Figures
+% Frames around images
+\usepackage{mdframed}
+
 \newcommand{\bordercolor}{black!40}
 \newcommand{\figureborder}[1]{
-	\begin{mdframed}[linecolor=\bordercolor,innertopmargin=0,innerrightmargin=0,innerbottommargin=0,innerleftmargin=0]
-		#1
-	\end{mdframed}
+	\setlength{\fboxsep}{0pt}
+	\setlength{\fboxrule}{0.5pt}
+	\color{\bordercolor}
+	\fbox{#1}
 }
 
 %%% Code
@@ -108,9 +112,6 @@
 
 % Floats
 \usepackage{float}
-
-% Frames around images
-\usepackage{mdframed}
 
 % Todo notes
 \usepackage{todonotes}

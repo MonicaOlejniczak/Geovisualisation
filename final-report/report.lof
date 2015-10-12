@@ -26,33 +26,37 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Three.js coordinate system}}{22}{figure.caption.27}
+\addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.2}{\ignorespaces dat.GUI interface}}{25}{figure.caption.29}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Three.js coordinate system}}{23}{figure.caption.27}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Information display hover effect}}{26}{figure.caption.32}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Filtering}}{25}{figure.caption.29}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.3}{\ignorespaces dat.GUI interface}}{26}{figure.caption.30}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Information display hover effect}}{27}{figure.caption.33}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Intern}}{31}{figure.caption.38}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Intern}}{32}{figure.caption.38}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Mocha}}{32}{figure.caption.39}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Mocha}}{33}{figure.caption.39}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Chai assertions}}{32}{figure.caption.40}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Chai assertions}}{33}{figure.caption.40}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Mocha asynchronous code}}{33}{figure.caption.41}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Mocha asynchronous code}}{34}{figure.caption.41}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Chai as Promised}}{33}{figure.caption.42}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Chai as Promised}}{34}{figure.caption.42}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Mocha example}}{34}{figure.caption.43}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Mocha example}}{35}{figure.caption.43}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Mocha hooks}}{34}{figure.caption.44}
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Mocha hooks}}{35}{figure.caption.44}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Testing style}}{36}{figure.caption.45}
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Testing style}}{37}{figure.caption.45}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Blanket code coverage}}{37}{figure.caption.46}
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Blanket code coverage}}{38}{figure.caption.46}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Code coverage results}}{38}{figure.caption.47}
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Code coverage results}}{39}{figure.caption.47}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
