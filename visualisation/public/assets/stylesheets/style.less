@@ -17,6 +17,30 @@ body {
 	font: 11px 'Open Sans', 'Helvetica', 'sans-serif';
 }
 
+input[type='checkbox'] {
+
+	@size: 24px;
+
+    display: none;
+
+	& + label {
+		display: inline-block;
+		width: @size;
+		height: @size;
+		background: url('../svg/checkbox_outline.svg') top left no-repeat;
+		padding-left: @size + 10px;
+		line-height: @size - 2px;
+		vertical-align: middle;
+		cursor: pointer;
+		.transition(background, 200ms, ease-out);
+	}
+
+	&:checked + label {
+		background: url('../svg/checkbox.svg') top left no-repeat;
+	}
+
+}
+
 .hidden {
 	display: none;
 }
@@ -56,4 +80,5 @@ main {
 		width: inherit;
 		height: inherit;
 	}
+
 }

@@ -5,108 +5,143 @@
 
 	.filters {
 
+		@spacing: 1.5em;
 		@slider-width: ~"calc(100% - @{slider-handle-size})";
 
-		margin: 1.5em;
+		margin-bottom: @spacing * 0.5;
 
 		.filter {
 
-			.slider {
+			.slider-group {
 
-				@cursor: ew-resize;
+				margin: @spacing;
+				margin-bottom: @spacing * 0.5;
 
-				width: @slider-width;
-				height: @slider-selection-height;
-				background-color: transparent;
-				border: 0;
-				margin: 0 auto;
-				cursor: @cursor;
+				.slider {
 
-				&:hover .noUi-connect, &:hover .noUi-handle {
-					background: @slider-progress-hover-bg !important;
-				}
+					@cursor: ew-resize;
 
-				&.noUi-target {
-					box-shadow: none;
-				}
-
-				.noUi-base {
-
-					@border-size: (@slider-selection-height * 0.5) - (@slider-height * 0.5);
-
-					left: 3px;
+					width: @slider-width;
 					height: @slider-selection-height;
-					background-color: @slider-bg;
-					border-top: @border-size @drawer-bg solid;
-					border-bottom: @border-size @drawer-bg solid;
-					background-clip: content-box;
+					background-color: transparent;
+					border: 0;
+					margin: 0 auto;
+					cursor: @cursor;
 
-					.noUi-connect {
-						height: @slider-height;
-						background: @slider-progress-bg;
+					&:hover .noUi-connect, &:hover .noUi-handle {
+						background: @slider-progress-hover-bg !important;
+					}
+
+					&.noUi-target {
 						box-shadow: none;
 					}
 
-					.noUi-origin {
+					.noUi-base {
 
-						.noUi-handle {
+						@border-size: (@slider-selection-height * 0.5) - (@slider-height * 0.5);
 
-							width: @slider-handle-size;
-							height: @slider-handle-size;
-							left: -10px;
-							top: -5px;
+						left: 3px;
+						height: @slider-selection-height;
+						background-color: @slider-bg;
+						border-top: @border-size @drawer-bg solid;
+						border-bottom: @border-size @drawer-bg solid;
+						background-clip: content-box;
+
+						.noUi-connect {
+							height: @slider-height;
 							background: @slider-progress-bg;
-							border: 0;
-							border-radius: 100%;
 							box-shadow: none;
-							cursor: @cursor;
+						}
 
-							&::before, &::after {
-								display: none;
+						.noUi-origin {
+
+							.noUi-handle {
+
+								width: @slider-handle-size;
+								height: @slider-handle-size;
+								left: -10px;
+								top: -5px;
+								background: @slider-progress-bg;
+								border: 0;
+								border-radius: 100%;
+								box-shadow: none;
+								cursor: @cursor;
+
+								&::before, &::after {
+									display: none;
+								}
+
+							}
+
+							&.noUi-background {
+
+								@border-size: @slider-height * 0.5;
+
+								top: -@border-size;
+								height: @slider-height * 2;
+								border-top: @border-size @drawer-bg solid;
+								border-bottom: @border-size @drawer-bg solid;
+								background-clip: content-box;
+								box-shadow: none;
+
 							}
 
 						}
 
-						&.noUi-background {
+					}
 
-							@border-size: @slider-height * 0.5;
+				}
 
-							top: -@border-size;
-							height: @slider-height * 2;
-							border-top: @border-size @drawer-bg solid;
-							border-bottom: @border-size @drawer-bg solid;
-							background-clip: content-box;
-							box-shadow: none;
+				.inputs {
 
+					.group {
+
+						display: flex;
+						color: @gray;
+						padding-left: @slider-handle-size;
+
+						label {
+							font-weight: bold;
+							margin-top: 3px;
+						}
+
+						input {
+							flex: 2;
+							font-family: inherit;
+							border: 0;
+							margin: 0 0.5em;
+							outline: none
 						}
 
 					}
 
 				}
-
 			}
 
-			.inputs {
+			.toggle {
 
-				.group {
+				display: flex;
+				flex-direction: row-reverse;
+				padding: 0.25em 0 0.25em @spacing;
+				.transition(background-color, 500ms);
 
-					display: flex;
-					color: @gray;
-					padding-left: @slider-handle-size;
+				&:hover {
+					background-color: @gray-lighter;
+				}
 
-					label {
-						margin-top: 3px;
-						font-weight: bold;
-					}
+				.checkbox:hover, label:hover {
+					cursor: pointer;
+				}
 
-					input {
-						flex: 2;
-						font-family: inherit;
-						border: 0;
-						margin: 0 0.5em;
-						outline: none
-					}
+				.checkbox {
+					float: left;
+					margin-left: 0;
+				}
 
+				label {
+					font-size: 1.2em;
+					font-weight: 500;
+					flex: 2;
 				}
 
 			}

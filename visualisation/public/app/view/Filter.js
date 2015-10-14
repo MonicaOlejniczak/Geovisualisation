@@ -22,7 +22,13 @@ define(function (require) {
 	 * Configures the filter elements.
 	 */
 	Filter.prototype.configureFilters = function ($filters) {
-		this.createFilter($filters, 'magnitude');
+		this.createSliderGroup($filters, 'magnitude');
+		var model = this.collection.first();
+		// Retrieve the properties associated with a checkbox by filtering out default model properties which represent redundant values.
+		var properties = model.keys().filter(function (property) {
+			return !(property in model.defaults);
+		});
+		this.createCheckboxes($filters, properties);
 	};
 
 	/**
@@ -31,10 +37,11 @@ define(function (require) {
 	 * @param $filters The jQuery element to append the filter to.
 	 * @param property THe property being filtered.
 	 */
-	Filter.prototype.createFilter = function ($filters, property) {
+	Filter.prototype.createSliderGroup = function ($filters, property) {
 
 		// Create a container div for the filter.
 		var $filter = $(document.createElement('div')).addClass('filter');
+		var $sliderGroup = $(document.createElement('div')).addClass('slider-group');
 
 		// Retrieve the min and max from the collection.
 		var min = this.collection.min(function (model) {return model.get(property)}).get(property);
@@ -50,8 +57,11 @@ define(function (require) {
 
 		this.addEventListeners($slider, $inputs, property);
 
-		// Append each filter item.
-		$filter.append($heading, $slider, $inputs);
+		// Append each item to the slider group.
+		$sliderGroup.append($heading, $slider, $inputs);
+
+		// Append the slider group to the filter.
+		$filter.append($sliderGroup);
 
 		// Append the filter to the filters.
 		$filters.append($filter);
@@ -275,6 +285,43 @@ define(function (require) {
 				slider.set([null, value]);
 			}
 		}
+	};
+
+	/**
+	 * Creates a checkbox for each property.
+	 *
+	 * @param $filters The jQuery element to append the filter to.
+	 * @param properties The list of properties in the model.
+	 */
+	Filter.prototype.createCheckboxes = function ($filters, properties) {
+		for (var i = 0, len = properties.length; i < len; i++) {
+			$filters.append(this.createCheckbox(properties[i]));
+		}
+	};
+
+	/**
+	 * Creates a checkbox filter.
+	 *
+	 * @param property The property associated with the checkbox.
+	 * @returns {*|jQuery}
+	 */
+	Filter.prototype.createCheckbox = function (property) {
+		var id = 'checkbox-' + property;
+
+		var $filter = $(document.createElement('div')).addClass('filter');
+		var $toggle = $(document.createElement('div')).addClass('toggle');
+		var $checkbox = $(document.createElement('input')).addClass('checkbox').attr({
+			id: id,
+			type:  'checkbox',
+			checked: true
+		});
+
+		var label = (property.charAt(0).toUpperCase() + property.substring(1).toLowerCase()).replace(/_/g, ' ');
+		var $label = $(document.createElement('label')).attr('for', id).html(label).addClass('label');
+
+		$toggle.append($checkbox, $label);
+		$filter.append($toggle);
+		return $filter;
 	};
 
 	return Filter;
