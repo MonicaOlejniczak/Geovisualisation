@@ -40,7 +40,14 @@ define(function (require) {
 		offset = offset || this.offset;
 		bounds = bounds || this.bounds;
 
-		object.position.set(Convert.range(bounds.x.x, bounds.x.y, position.x), offset, Convert.range(bounds.y.x, bounds.y.y, -position.z));
+		if (offset) {
+			object.position.setY(offset);
+		}
+
+		if (bounds) {
+			object.position.setX(Convert.range(bounds.x.x, bounds.x.y, position.x));
+			object.position.setZ(Convert.range(bounds.y.x, bounds.y.y, -position.z));
+		}
 
 	};
 

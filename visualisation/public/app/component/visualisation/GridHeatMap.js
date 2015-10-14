@@ -18,23 +18,33 @@ define(function (require) {
 	 * @constructor
 	 */
 	function GridHeatMap (canvas, points) {
-		var width = 150;
+		var maxX = points.max(function (model) {return model.get('coordinate').x}).get('coordinate').x;
+		var maxZ = points.max(function (model) {return model.get('coordinate').y}).get('coordinate').y;
+
+		var offset = 20;
+		var width = maxX + (offset * 2);
 		var height = 3;
-		var depth = 150;
+		var depth = maxZ + (offset * 2);
 
 		var surface = this.createSurface(width, height, depth);
 		var projection = new Projection(Projection.standard, {
 			offset: height,
 			bounds: new THREE.Vector2(
-				new THREE.Vector2(new THREE.Vector2(-180, 180), new THREE.Vector2(-width * 0.5, width * 0.5)),
-				new THREE.Vector2(new THREE.Vector2(-90, 90), new THREE.Vector2(-depth * 0.5, depth * 0.5))
+				new THREE.Vector2(new THREE.Vector2(-maxX, maxX), new THREE.Vector2(-maxX, maxX)),
+				new THREE.Vector2(new THREE.Vector2(-maxZ, maxZ), new THREE.Vector2(-maxZ, maxZ))
 			)
 		});
 		Visualisation.call(this, canvas, points, projection, surface, {
 			camera: {position: new THREE.Vector3(0, 100, 200)},
 			mouseControls: true,
-			skybox: false
+			skybox: false,
+			width: 5,
+			height: 5
 		});
+
+		this.points.translateX((-width * 0.5) + offset);
+		this.points.translateZ((depth * 0.5) - offset);
+
 	}
 
 	GridHeatMap.prototype = Object.create(Visualisation.prototype);

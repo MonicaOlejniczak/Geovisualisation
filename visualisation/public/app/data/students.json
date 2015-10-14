@@ -1,0 +1,730 @@
+[
+    {
+        "week": 1,
+        "progress": 1.0,
+        "group": 1,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 1,
+        "progress": 1.0,
+        "group": 2,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 1,
+        "progress": 0.46,
+        "group": 3,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 1,
+        "progress": 0.49,
+        "group": 4,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 1,
+        "progress": 0.36,
+        "group": 5,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 1,
+        "progress": 0.41,
+        "group": 6,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 1,
+        "progress": 0.36,
+        "group": 7,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 1,
+        "progress": 1.0,
+        "group": 8,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 2,
+        "progress": 0.99,
+        "group": 1,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 2,
+        "progress": 0.77,
+        "group": 2,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 2,
+        "progress": 0.49,
+        "group": 3,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 2,
+        "progress": 1.0,
+        "group": 4,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 2,
+        "progress": 0.32,
+        "group": 5,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 2,
+        "progress": 0.85,
+        "group": 6,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 2,
+        "progress": 0.87,
+        "group": 7,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 2,
+        "progress": 0.5,
+        "group": 8,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 3,
+        "progress": 0.69,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 3,
+        "progress": 1.0,
+        "group": 2,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 3,
+        "progress": 0.85,
+        "group": 3,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 3,
+        "progress": 0.87,
+        "group": 4,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 3,
+        "progress": 1.0,
+        "group": 5,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 3,
+        "progress": 1.0,
+        "group": 6,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 3,
+        "progress": 1.0,
+        "group": 7,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 3,
+        "progress": 0.75,
+        "group": 8,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 4,
+        "progress": 0.7,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 4,
+        "progress": 0.71,
+        "group": 2,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 4,
+        "progress": 0.54,
+        "group": 3,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 4,
+        "progress": 0.47,
+        "group": 4,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 4,
+        "progress": 0.89,
+        "group": 5,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 4,
+        "progress": 0.63,
+        "group": 6,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 4,
+        "progress": 0.59,
+        "group": 7,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 4,
+        "progress": 0.87,
+        "group": 8,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 5,
+        "progress": 0.53,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 5,
+        "progress": 0.89,
+        "group": 2,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 5,
+        "progress": 0.86,
+        "group": 3,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 5,
+        "progress": 0.53,
+        "group": 4,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 5,
+        "progress": 1.0,
+        "group": 5,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 5,
+        "progress": 0.77,
+        "group": 6,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 5,
+        "progress": 0.66,
+        "group": 7,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 5,
+        "progress": 1.0,
+        "group": 8,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 6,
+        "progress": 0.92,
+        "group": 1,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 6,
+        "progress": 0.42,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 6,
+        "progress": 1.0,
+        "group": 3,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 6,
+        "progress": 0.65,
+        "group": 4,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 6,
+        "progress": 0.27,
+        "group": 5,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 6,
+        "progress": 0.35,
+        "group": 6,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 6,
+        "progress": 0.71,
+        "group": 7,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 6,
+        "progress": 0.82,
+        "group": 8,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 7,
+        "progress": 1.0,
+        "group": 1,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 7,
+        "progress": 0.46,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 7,
+        "progress": 0.83,
+        "group": 3,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 7,
+        "progress": 0.4,
+        "group": 4,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 7,
+        "progress": 1.0,
+        "group": 5,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 7,
+        "progress": 0.99,
+        "group": 6,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 7,
+        "progress": 0.47,
+        "group": 7,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 7,
+        "progress": 0.29,
+        "group": 8,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 8,
+        "progress": 0.63,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 8,
+        "progress": 0.93,
+        "group": 2,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 8,
+        "progress": 0.82,
+        "group": 3,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 8,
+        "progress": 0.82,
+        "group": 4,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 8,
+        "progress": 0.36,
+        "group": 5,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 8,
+        "progress": 0.41,
+        "group": 6,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 8,
+        "progress": 0.82,
+        "group": 7,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 8,
+        "progress": 1.0,
+        "group": 8,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 9,
+        "progress": 1.0,
+        "group": 1,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 9,
+        "progress": 0.72,
+        "group": 2,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 9,
+        "progress": 0.9,
+        "group": 3,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 9,
+        "progress": 1.0,
+        "group": 4,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 9,
+        "progress": 0.5,
+        "group": 5,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 9,
+        "progress": 1.0,
+        "group": 6,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 9,
+        "progress": 1.0,
+        "group": 7,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 9,
+        "progress": 1.0,
+        "group": 8,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 10,
+        "progress": 0.64,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 10,
+        "progress": 0.85,
+        "group": 2,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 10,
+        "progress": 1.0,
+        "group": 3,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 10,
+        "progress": 0.61,
+        "group": 4,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 10,
+        "progress": 0.72,
+        "group": 5,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 10,
+        "progress": 0.3,
+        "group": 6,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 10,
+        "progress": 0.89,
+        "group": 7,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 10,
+        "progress": 0.55,
+        "group": 8,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 11,
+        "progress": 0.3,
+        "group": 1,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 11,
+        "progress": 0.32,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 11,
+        "progress": 0.75,
+        "group": 3,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 11,
+        "progress": 1.0,
+        "group": 4,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 11,
+        "progress": 1.0,
+        "group": 5,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 11,
+        "progress": 0.51,
+        "group": 6,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 11,
+        "progress": 0.83,
+        "group": 7,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 11,
+        "progress": 0.51,
+        "group": 8,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 12,
+        "progress": 1.0,
+        "group": 1,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 12,
+        "progress": 0.48,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 12,
+        "progress": 0.32,
+        "group": 3,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 12,
+        "progress": 0.92,
+        "group": 4,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 12,
+        "progress": 0.63,
+        "group": 5,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 12,
+        "progress": 0.27,
+        "group": 6,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 12,
+        "progress": 0.62,
+        "group": 7,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 12,
+        "progress": 0.78,
+        "group": 8,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 13,
+        "progress": 0.69,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 13,
+        "progress": 0.31,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information"
+    },
+    {
+        "week": 13,
+        "progress": 0.71,
+        "group": 3,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 13,
+        "progress": 1.0,
+        "group": 4,
+        "complete": true,
+        "activity": "Reflection"
+    },
+    {
+        "week": 13,
+        "progress": 0.69,
+        "group": 5,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 13,
+        "progress": 0.9,
+        "group": 6,
+        "complete": false,
+        "activity": "Goals and actions"
+    },
+    {
+        "week": 13,
+        "progress": 0.74,
+        "group": 7,
+        "complete": false,
+        "activity": "Issues and evidence"
+    },
+    {
+        "week": 13,
+        "progress": 0.65,
+        "group": 8,
+        "complete": false,
+        "activity": "Issues and evidence"
+    }
+]

@@ -32,8 +32,10 @@ define(function (require) {
 		// Initialise the data with the specified path and then load the file.
 		//var data = new Data('data/generate');
 		//data.load().then(this.generateData.bind(this));
-		var data = new Data('json!data/population.json');
-		data.load().then(this.processPopulationData.bind(this));
+		//var data = new Data('json!data/population.json');
+		//data.load().then(this.processPopulationData.bind(this));
+		var data = new Data('json!data/students.json');
+		data.load().then(this.processStudentData.bind(this));
 	}
 
 	/**
@@ -63,6 +65,10 @@ define(function (require) {
 		this.processData(data, new THREE.Vector3('longitude', 'latitude', 'population'));
 	};
 
+	Application.prototype.processStudentData = function (data) {
+		this.processGridData(data, new THREE.Vector3('group', 'week', 'progress'));
+	};
+
 	/**
 	 * Processes the specified data.
 	 *
@@ -78,6 +84,37 @@ define(function (require) {
 		this.processCollection(collection);
 	};
 
+	Application.prototype.processGridData = function (data, keys) {
+		var points = [];
+		var map = {x: {}, z: {}};
+		for (var i = 0, len = Math.min(data.length, 1000); i < len; i++) {
+			points.push(this.createGridPoint(map, data[i], keys));
+		}
+		var collection = new Points(points);
+		this.processCollection(collection);
+	};
+
+	Application.prototype.createGridPoint = function (map, point, keys) {
+		var properties = point;
+
+		properties[keys.z] = properties[keys.z] * 100;
+
+		// Get the position of the point by transforming the values
+		var position = Convert.transform(new THREE.Vector3(properties[keys.x], properties[keys.y], properties[keys.z]));
+
+		var xValue = map.x[position.x] = map.x[position.x] || [];
+		var zValue = map.z[position.z] = map.z[position.z] || [];
+
+		xValue.push(properties);
+		zValue.push(properties);
+
+		var distance = 10;
+		properties['coordinate'] = new THREE.Vector2((xValue.length - 1) * distance, (zValue.length - 1) * distance);
+		properties['magnitude'] = position.y;
+
+		return new Point(properties);
+	};
+
 	/**
 	 * Creates a point by processing its position and adding additional properties such as the coordinate and magnitude
 	 * to standardise filtering and position retrieval.
@@ -91,7 +128,7 @@ define(function (require) {
 		// Store the point properties.
 		var properties = point;
 		// Get the position of the point by transforming the values
-		var position = Convert.transform(new THREE.Vector3(point[keys.x], point[keys.y], point[keys.z]));
+		var position = Convert.transform(new THREE.Vector3(properties[keys.x], properties[keys.y], properties[keys.z]));
 
 		// Add keys for the coordinate and magnitude of the point.
 		properties['coordinate'] = new THREE.Vector2(position.x, position.z);
@@ -112,7 +149,7 @@ define(function (require) {
 		var visualisation = new GridHeatMap(this.$canvas, collection);
 
 		var points = visualisation.points;
-		var filters = ['coordinate', 'magnitude', 'timezone'];
+		var filters = ['magnitude', 'timezone'];
 
 		var information = new Information(visualisation.renderer, points, filters);
 		var filter = new Filter(collection, filters);
