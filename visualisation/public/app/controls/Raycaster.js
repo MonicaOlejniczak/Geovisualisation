@@ -47,7 +47,7 @@ define(function (require) {
 	 */
 	Raycaster.prototype.update = function () {
 		this.raycaster.setFromCamera(this.coordinates, this.camera);
-		var intersects = this.raycaster.intersectObjects(this.parent.children);
+		var intersects = this.raycaster.intersectObject(this.parent, true);
 		$(this).trigger('raycast', [this.mouse, intersects]);
 	};
 

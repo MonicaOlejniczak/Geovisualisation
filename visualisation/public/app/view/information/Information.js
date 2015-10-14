@@ -127,29 +127,26 @@ define(function (require) {
 	 */
 	Information.prototype.onRaycast = function (event, coordinates, intersects) {
 		intersects = intersects || [];
-		this.toggleClasses(intersects);
-		if (intersects.length === 0) {
-			this.clear();
-		} else {
-			intersects.forEach(function (intersect) {
-				var object = intersect.object;
-				// Only update the information if the object is is a point.
-				if (object instanceof Point) {
-					this.updateInformation(coordinates, object.model);
-				}
-			}, this);
+		this.toggleClasses(false);
+		for (var i = 0, len = intersects.length; i < len; i++) {
+			var object = intersects[i].object;
+			// Only update the information if the object is is a point.
+			if (object instanceof Point && object.visible) {
+				this.toggleClasses(true);
+				this.updateInformation(coordinates, object.model);
+				break;
+			}
 		}
 	};
 
 	/**
 	 * Toggles the hidden and pointer classes based on whether an intersection exists.
 	 *
-	 * @param intersects The intersection array.
+	 * @param hide
 	 */
-	Information.prototype.toggleClasses = function (intersects) {
-		var hasIntersection = intersects.length > 0;
-		this.$el.toggleClass('hidden', !hasIntersection);
-		this.$canvas.toggleClass('pointer', hasIntersection);
+	Information.prototype.toggleClasses = function (hide) {
+		this.$el.toggleClass('hidden', !hide);
+		this.$canvas.toggleClass('pointer', hide);
 	};
 
 	/**
