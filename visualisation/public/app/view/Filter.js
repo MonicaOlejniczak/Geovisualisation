@@ -11,10 +11,13 @@ define(function (require) {
 	 * Initialises the filter.
 	 *
 	 * @param collection The points collection.
+	 * @param [filters] The existing filters that permanently hide information.
 	 * @constructor
 	 */
-	function Filter (collection) {
+	function Filter (collection, filters) {
 		this.collection = collection;
+		this.filters = filters || [];
+		this.map = {};
 		this.configureFilters($('#filters .filters'));
 	}
 
@@ -26,8 +29,8 @@ define(function (require) {
 		var model = this.collection.first();
 		// Retrieve the properties associated with a checkbox by filtering out default model properties which represent redundant values.
 		var properties = model.keys().filter(function (property) {
-			return !(property in model.defaults);
-		});
+			return this.filters.indexOf(property) === -1;
+		}.bind(this));
 		this.createCheckboxes($filters, properties);
 	};
 
@@ -55,7 +58,7 @@ define(function (require) {
 		var $slider = this.createSlider(property, min, max);
 		var $inputs = this.createInputs(min, max);
 
-		this.addEventListeners($slider, $inputs, property);
+		this.addSliderGroupEventListeners($slider, $inputs, property);
 
 		// Append each item to the slider group.
 		$sliderGroup.append($heading, $slider, $inputs);
@@ -173,7 +176,7 @@ define(function (require) {
 	 * @param $inputs The jQuery inputs element.
 	 * @param property The property used for filtering.
 	 */
-	Filter.prototype.addEventListeners = function ($slider, $inputs, property) {
+	Filter.prototype.addSliderGroupEventListeners = function ($slider, $inputs, property) {
 
 		// Find the min and max input elements.
 		var $min = $inputs.find('.min input');
@@ -316,12 +319,34 @@ define(function (require) {
 			checked: true
 		});
 
+		this.map[id] = property;
+		$checkbox.on('change', this.onToggle.bind(this));
+
 		var label = (property.charAt(0).toUpperCase() + property.substring(1).toLowerCase()).replace(/_/g, ' ');
 		var $label = $(document.createElement('label')).attr('for', id).html(label).addClass('label');
 
 		$toggle.append($checkbox, $label);
 		$filter.append($toggle);
 		return $filter;
+	};
+
+	/**
+	 * An event triggered when a checkbox is toggled.
+	 *
+	 * @param event The jQuery click event.
+	 */
+	Filter.prototype.onToggle = function (event) {
+		var checkbox = event.currentTarget;
+		var checked = checkbox.checked;
+		var property = this.map[checkbox.id];
+		if (checked) {
+			var index = this.filters.indexOf(property);
+			if (index > -1) {
+				this.filters.splice(index, 1);
+			}
+		} else {
+			this.filters.push(property);
+		}
 	};
 
 	return Filter;

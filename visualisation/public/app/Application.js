@@ -70,15 +70,11 @@ define(function (require) {
 	 */
 	Application.prototype.processData = function (data, keys) {
 		var points = [];
-		// Iterate through all the data.
-		//data.forEach(function (point) {
-		//	points.push(this.createPoint(point, keys));
-		//}.bind(this));
-		console.log(data.length);
 		for (var i = 0, len = Math.min(data.length, 1000); i < len; i++) {
 			points.push(this.createPoint(data[i], keys));
 		}
-		this.processPoints(new Points(points));
+		var collection = new Points(points);
+		this.processCollection(collection);
 	};
 
 	/**
@@ -105,15 +101,19 @@ define(function (require) {
 	};
 
 	/**
-	 * Processes the points and sets up the visualisation.
+	 * Processes the collection of points and sets up the visualisation.
 	 *
-	 * @param points The processed points.
+	 * @param collection The processed points collection.
 	 */
-	Application.prototype.processPoints = function (points) {
-		var visualisation = new FlatHeatMap(this.$canvas, points);
+	Application.prototype.processCollection = function (collection) {
+		var visualisation = new FlatHeatMap(this.$canvas, collection);
 		//var visualisation = new RoundHeatMap(this.$canvas, points);
-		//var information = new Information(visualisation.renderer, visualisation.points);
-		var filter = new Filter(visualisation.points.collection);
+
+		var points = visualisation.points;
+		var filters = ['coordinate', 'magnitude', 'timezone'];
+
+		var information = new Information(visualisation.renderer, points, filters);
+		var filter = new Filter(collection, filters);
 		var gui = new Gui(visualisation);
 	};
 

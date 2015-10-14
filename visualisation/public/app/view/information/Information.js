@@ -12,7 +12,7 @@ define(function (require) {
 	var Point = require('component/points/point/Point');
 	var Display = require('text!view/information/Information.hbs');
 
-	function Information (renderer, points) {
+	function Information (renderer, points, filters) {
 		// Set the raycaster on the renderer.
 		renderer.setRaycaster(points);
 		// Set the canvas and element.
@@ -20,7 +20,7 @@ define(function (require) {
 		this.$el = $('#information');
 		// Add the offset and filters.
 		this.offset = 10;
-		this.filters = ['coordinate', 'magnitude'];
+		this.filters = filters || [];
 		// Configure the template and add the event listeners.
 		this.template = this.configureTemplate();
 		this.addEventListeners(renderer);
@@ -157,7 +157,7 @@ define(function (require) {
 	 */
 	Information.prototype.clear = function () {
 		this.$el.html();
-	}
+	};
 
 	/**
 	 * Updates the information for an intersected object.

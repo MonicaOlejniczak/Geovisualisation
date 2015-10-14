@@ -20,6 +20,7 @@ body {
 input[type='checkbox'] {
 
 	@size: 24px;
+	@offset: 5px;
 
     display: none;
 
@@ -28,7 +29,8 @@ input[type='checkbox'] {
 		width: @size;
 		height: @size;
 		background: url('../svg/checkbox_outline.svg') top left no-repeat;
-		padding-left: @size + 10px;
+		margin-left: -@offset;
+		padding-left: @size + @offset;
 		line-height: @size - 2px;
 		vertical-align: middle;
 		cursor: pointer;
