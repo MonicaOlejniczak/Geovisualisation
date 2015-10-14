@@ -16,6 +16,7 @@ define(function (require) {
 
 	var FlatHeatMap = require('component/visualisation/FlatHeatMap');
 	var RoundHeatMap = require('component/visualisation/RoundHeatMap');
+	var GridHeatMap = require('component/visualisation/GridHeatMap');
 
 	var Information = require('view/information/Information');
 	var Filter = require('view/Filter');
@@ -106,8 +107,9 @@ define(function (require) {
 	 * @param collection The processed points collection.
 	 */
 	Application.prototype.processCollection = function (collection) {
-		var visualisation = new FlatHeatMap(this.$canvas, collection);
-		//var visualisation = new RoundHeatMap(this.$canvas, points);
+		//var visualisation = new FlatHeatMap(this.$canvas, collection);
+		//var visualisation = new RoundHeatMap(this.$canvas, collection);
+		var visualisation = new GridHeatMap(this.$canvas, collection);
 
 		var points = visualisation.points;
 		var filters = ['coordinate', 'magnitude', 'timezone'];

@@ -24,16 +24,21 @@ define(function (require) {
 	 * @constructor
 	 */
 	function Visualisation (canvas, points, projection, surface, options) {
+		options = options || {};
 		this.renderer = new SceneRenderer(canvas.get(0), options);
 
-		var scene = this.renderer.getScene();
+		var scene = this.renderer.scene;
 
 		projection = projection || function () {};
 		projection.target = scene.position;
 
 		this.points = new Points(points, projection, options);
-		this.skybox = new Skybox(this.renderer.getCamera());
 		this.surface = surface;
+
+		if (options.skybox !== false) {
+			this.skybox = new Skybox(this.renderer.camera);
+			scene.add(this.skybox);
+		}
 
 		this.setupScene(scene);
 		this.addEventListeners(this.renderer);
@@ -47,7 +52,7 @@ define(function (require) {
 	 * @param renderer The scene renderer.
 	 */
 	Visualisation.prototype.addEventListeners = function (renderer) {
-		if (renderer.controls) {
+		if (renderer.controls && this.skybox) {
 			$(renderer.controls).on({
 				zoom: this.onControls.bind(this),
 				pan: this.onControls.bind(this),
@@ -72,12 +77,10 @@ define(function (require) {
 	 * @param scene The THREE.js scene.
 	 */
 	Visualisation.prototype.setupScene = function (scene) {
-		// Make the camera look at the scene.
-		this.renderer.getCamera().lookAt(scene.position);
-		// Create the lighting and get the surface mesh.
-		var lights = this.createLights();
-		// Add all the components of the visualisation.
-		scene.add(lights, this.surface, this.skybox, this.points);
+		this.renderer.camera.lookAt(scene.position);
+		scene.add(this.createLights());
+		scene.add(this.surface);
+		scene.add(this.points);
 	};
 
 	/**

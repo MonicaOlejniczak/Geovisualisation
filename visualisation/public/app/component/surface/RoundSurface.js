@@ -7,26 +7,29 @@ define(function (require) {
 
 	var THREE = require('threejs');
 	var Shader = require('helper/Shader');
-	var Surface = require('component/surface/Surface');
+	var ShaderSurface = require('component/surface/ShaderSurface');
 
 	/**
 	 * Initialises the surface.
 	 *
 	 * @param radius The radius of the surface.
+	 * @param options
 	 * @constructor
 	 */
-	function RoundSurface (radius) {
-		Surface.call(this, new THREE.SphereGeometry(1, 40, 30));
-		this.clouds = this.baseDirectory + 'clouds.png';
+	function RoundSurface (radius, options) {
+		ShaderSurface.call(this, new THREE.SphereGeometry(1, 40, 30), options);
 		this.radius = radius;
-		this.atmosphere = {
-			source: 'atmosphere/Atmosphere',
-			color: new THREE.Color(0x08376b)
+		this.configuration = {
+			clouds: this.baseDirectory + 'clouds.png',
+			atmosphere: {
+				source: 'atmosphere/Atmosphere',
+				color: new THREE.Color(0x08376b)
+			}
 		};
 		this.addEventListener('load', this.onLoad.bind(this));
 	}
 
-	RoundSurface.prototype = Object.create(Surface.prototype);
+	RoundSurface.prototype = Object.create(ShaderSurface.prototype);
 	RoundSurface.prototype.constructor = RoundSurface;
 
 	/**
@@ -54,8 +57,9 @@ define(function (require) {
 	 * @returns {THREE.Mesh} The cloud mesh.
 	 */
 	RoundSurface.prototype.addClouds = function (geometry) {
+		var clouds = this.configuration.clouds;
 		// Load the cloud texture
-		var texture = THREE.ImageUtils.loadTexture(this.clouds);
+		var texture = THREE.ImageUtils.loadTexture(clouds);
 		// Load the material with the texture.
 		var material = new THREE.MeshBasicMaterial({
 			map: texture,
@@ -79,7 +83,7 @@ define(function (require) {
 	 */
 	RoundSurface.prototype.addAtmosphere = function (geometry) {
 		// TODO
-		var atmosphere = this.atmosphere;
+		var atmosphere = this.configuration.atmosphere;
 		// Load the atmosphere shader.
 		var shader = new Shader(atmosphere.source, {
 			uniforms: {

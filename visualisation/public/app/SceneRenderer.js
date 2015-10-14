@@ -21,11 +21,11 @@ define(function (require) {
 	function SceneRenderer (element, options) {
 		options = options || {};
 		// Set the canvas to the element.
-		var canvas = this._canvas = element;
+		var canvas = this.canvas = element;
 		// Initialise the scene.
-		var scene = this._scene = new THREE.Scene();
+		var scene = this.scene = new THREE.Scene();
 		// Initialise the camera.
-		var camera = this._camera = new THREE.PerspectiveCamera(45, element.width / element.height, 0.1, 5000);
+		var camera = this.camera = new THREE.PerspectiveCamera(45, element.width / element.height, 0.1, 5000);
 		// Get the camera options.
 		var cameraOptions = options.camera;
 		// Check if the camera options exist.
@@ -42,8 +42,8 @@ define(function (require) {
 			}
 		}
 		// Save the viewport height and tan field of view values for resizing.
-		this._viewportHeight = Viewport.getHeight();
-		this._tanFOV = Math.tan(THREE.Math.degToRad(camera.fov * 0.5));
+		this.viewportHeight = Viewport.getHeight();
+		this.tanFOV = Math.tan(THREE.Math.degToRad(camera.fov * 0.5));
 		// Initialise the WebGL renderer.
 		this.renderer = new THREE.WebGLRenderer({
 			canvas: element,
@@ -78,56 +78,17 @@ define(function (require) {
 	 */
 	SceneRenderer.prototype.resize = function () {
 		// Retrieve the canvas and the camera.
-		var canvas = this.getCanvas();
+		var canvas = this.canvas;
 		// Lookup the size the browser is displaying the canvas.
 		var width = Viewport.getWidth();
 		var height = Viewport.getHeight();
 		// Check if a resize needs to be applied.
 		if (canvas.width != width || canvas.height != height) {
-			this._resize(width, height);
+			this.camera.aspect = width / height;
+			//camera.fov = (360 / Math.PI) * Math.atan(this.tanFOV * (height / this.viewportHeight));
+			this.camera.updateProjectionMatrix();
+			this.renderer.setSize(width, height);
 		}
-	};
-
-	/**
-	 * An internal resize method that resizes the renderer and updates the camera aspect ratio and field of view.
-	 *
-	 * @param width The width of the viewport.
-	 * @param height The height of the viewport.
-	 * @private
-	 */
-	SceneRenderer.prototype._resize = function (width, height) {
-		var camera = this.getCamera();
-		camera.aspect = width / height;
-		//camera.fov = (360 / Math.PI) * Math.atan(this._tanFOV * (height / this._viewportHeight));
-		camera.updateProjectionMatrix();
-		this.renderer.setSize(width, height);
-	};
-
-	/**
-	 * An accessor method that retrieves the scene.
-	 *
-	 * @returns {THREE.Scene|*}
-	 */
-	SceneRenderer.prototype.getScene = function () {
-		return this._scene;
-	};
-
-	/**
-	 * An accessor method that retrieves the camera.
-	 *
-	 * @returns {THREE.PerspectiveCamera|*}
-	 */
-	SceneRenderer.prototype.getCamera = function () {
-		return this._camera;
-	};
-
-	/**
-	 * An accessor method that retrieves the canvas.
-	 *
-	 * @returns {*}
-	 */
-	SceneRenderer.prototype.getCanvas = function () {
-		return this._canvas;
 	};
 
 	/**
@@ -136,8 +97,8 @@ define(function (require) {
 	 * @param parent The parent element to check for intersections.
 	 */
 	SceneRenderer.prototype.setRaycaster = function (parent) {
-		parent = parent || this.getScene();
-		this.raycaster = new Raycaster(this.getCanvas(), this.getCamera(), parent);
+		parent = parent || this.scene;
+		this.raycaster = new Raycaster(this.canvas, this.camera, parent);
 	};
 
 	/**
@@ -149,7 +110,7 @@ define(function (require) {
 		if (this.raycaster) {
 			this.raycaster.update();
 		}
-		this.renderer.render(this.getScene(), this.getCamera());
+		this.renderer.render(this.scene, this.camera);
 	};
 
 	return SceneRenderer;

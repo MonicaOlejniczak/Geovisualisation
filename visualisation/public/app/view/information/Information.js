@@ -16,7 +16,7 @@ define(function (require) {
 		// Set the raycaster on the renderer.
 		renderer.setRaycaster(points);
 		// Set the canvas and element.
-		this.$canvas = $(renderer.getCanvas());
+		this.$canvas = $(renderer.canvas);
 		this.$el = $('#information');
 		// Add the offset and filters.
 		this.offset = 10;
