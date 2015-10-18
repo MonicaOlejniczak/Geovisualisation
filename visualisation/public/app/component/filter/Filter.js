@@ -6,6 +6,8 @@ define(function (require) {
 	'use strict';
 
 	var $ = require('jquery');
+	var Checkbox = require('component/filter/checkbox/Checkbox');
+	var Slider = require('component/filter/slider/Slider');
 
 	/**
 	 * Initialises the filter.
@@ -31,7 +33,7 @@ define(function (require) {
 	Filter.prototype.configureFilters = function ($filters, keys) {
 		//$filters.append(this.createSliderGroup(keys.x));
 		//$filters.append(this.createSliderGroup(keys.y));
-		$filters.append(this.createSliderGroup(keys.z));
+		$filters.append(this.createSlider(keys.z));
 		var model = this.collection.first();
 		// Retrieve the properties associated with a checkbox by filtering out default model properties which represent redundant values.
 		var properties = model.keys().filter(function (property) {
@@ -46,11 +48,9 @@ define(function (require) {
 	 * @param property The property being filtered.
 	 * @returns {*|jQuery}
 	 */
-	Filter.prototype.createSliderGroup = function (property) {
+	Filter.prototype.createSlider = function (property) {
 
-		// Create a container div for the filter.
-		var $filter = $(document.createElement('div')).addClass('filter');
-		var $sliderGroup = $(document.createElement('div')).addClass('slider-group');
+		var heading = property;
 
 		// Retrieve the min and max from the collection.
 		var min = this.collection.min(function (model) {return model.get(property)}).get(property);
@@ -59,49 +59,17 @@ define(function (require) {
 		min = Math.floor(min);
 		max = Math.ceil(max);
 
-		// Create the filter heading, slider and inputs.
-		var $heading = this.createHeading(property);
-		var $slider = this.createSlider(property, min, max);
-		var $inputs = this.createInputs(min, max);
+		var view = new Slider({
+			model: new Backbone.Model({
+				heading: heading,
+				min: min,
+				max: max
+			})
+		});
 
-		this.addSliderGroupEventListeners($slider, $inputs, property);
-
-		// Append each item to the slider group.
-		$sliderGroup.append($heading, $slider, $inputs);
-
-		// Append the slider group to the filter.
-		$filter.append($sliderGroup);
-
-		return $filter;
-
-	};
-
-	/**
-	 * Creates the heading for the filter.
-	 *
-	 * @param property The property being filtered, which becomes the heading html.
-	 * @returns {*|jQuery}
-	 */
-	Filter.prototype.createHeading = function (property) {
-		return $(document.createElement('h2')).html(
-			property.charAt(0).toUpperCase() + property.substring(1).toLowerCase()
-		);
-	};
-
-	/**
-	 * Creates the slider for the filter.
-	 *
-	 * @param property The property being filtered.
-	 * @param min The min value of the property from the collection.
-	 * @param max The max value of the property from the collection.
-	 * @returns {*|jQuery}
-	 */
-	Filter.prototype.createSlider = function (property, min, max) {
-		// Create the slider element.
-		var $element = $(document.createElement('div')).addClass('slider');
-
-		// Create the noUiSlider with the specified range.
-		var slider = noUiSlider.create($element.get(0), {
+		var $slider = view.$el.find('.slider');
+		var slider = $slider.get(0);
+		noUiSlider.create(slider, {
 			start: [min, max],
 			connect: true,
 			range: {
@@ -110,92 +78,21 @@ define(function (require) {
 			}
 		});
 
-		// Append the slider and element to the filter.
-		$element.append(slider);
-		return $element;
-
-	};
-
-	/**
-	 * Creates user inputs for the filter.
-	 *
-	 * @param min The min value of the property from the collection.
-	 * @param max The max value of the property from the collection.
-	 * @returns {*|jQuery}
-	 */
-	Filter.prototype.createInputs = function (min, max) {
-
-		// Create a container for the inputs.
-		var $inputs = $(document.createElement('div')).addClass('inputs');
-
-		// Create the min and max inputs.
-		var $min = this.createInput('Min', min, min, max).addClass('min');
-		var $max = this.createInput('Max', max, min, max).addClass('max');
-
-		// Append the min and max inputs to the inputs element and return it.
-		$inputs.append($min, $max);
-		return $inputs;
-
-	};
-
-	/**
-	 * Creates an input with a label.
-	 *
-	 * @param label The label for the input.
-	 * @param value The value of the input.
-	 * @param min The min value of the input.
-	 * @param max The max value of the input.
-	 * @returns {*|jQuery}
-	 */
-	Filter.prototype.createInput = function (label, value, min, max) {
-
-		// Create an group for the label and its input.
-		var $group = $(document.createElement('div')).addClass('group');
-
-		// Create an id for the label.
-		var id = 'input-' + label.toLowerCase();
-
-		// Create the input element.
-		var $input = $(document.createElement('input')).attr({
-			id: id,
-			type: 'number',
-			value: value.toFixed(2),
-			min: min,
-			max: max,
-			step: 1
-		});
-
-		// Create the label for the input element.
-		var $label = $(document.createElement('label')).attr('for', id).html(label);
-
-		// Append the label and its input to the group.
-		$group.append($label, $input);
-		return $group;
-
-	};
-
-	/**
-	 * Adds event listeners to the slider and inputs for when their values are changed.
-	 *
-	 * @param $slider The jQuery slider element.
-	 * @param $inputs The jQuery inputs element.
-	 * @param property The property used for filtering.
-	 */
-	Filter.prototype.addSliderGroupEventListeners = function ($slider, $inputs, property) {
-
 		// Find the min and max input elements.
-		var $min = $inputs.find('.min input');
-		var $max = $inputs.find('.max input');
+		var $min = view.$el.find('.min input');
+		var $max = view.$el.find('.max input');
 
 		// Retrieve the noUiSlider object from the slider element.
-		var slider = $slider.get(0).noUiSlider;
+		var sliderObj = slider.noUiSlider;
 
 		// Listen to the keyup events on the min and max inputs.
-		$min.keyup({slider: slider, callback: this.onMin}, this.onKeyUp.bind(this));
-		$max.keyup({slider: slider, callback: this.onMax}, this.onKeyUp.bind(this));
+		$min.keyup({slider: sliderObj, callback: this.onMin}, this.onKeyUp.bind(this));
+		$max.keyup({slider: sliderObj, callback: this.onMax}, this.onKeyUp.bind(this));
 
 		// Add an update event listener to the slider element.
-		slider.on('update', this.onUpdate.bind(this, $min, $max, property));
+		sliderObj.on('update', this.onUpdate.bind(this, $min, $max, property));
+
+		return view.$el;
 
 	};
 
@@ -317,24 +214,19 @@ define(function (require) {
 	 */
 	Filter.prototype.createCheckbox = function (property) {
 		var id = 'checkbox-' + property;
+		var label = (property.charAt(0).toUpperCase() + property.substring(1).toLowerCase()).replace(/_/g, ' ');
 
-		var $filter = $(document.createElement('div')).addClass('filter');
-		var $toggle = $(document.createElement('div')).addClass('toggle');
-		var $checkbox = $(document.createElement('input')).addClass('checkbox').attr({
-			id: id,
-			type:  'checkbox',
-			checked: true
+		var view = new Checkbox({
+			model: new Backbone.Model({
+				id: id,
+				label: label
+			})
 		});
 
+		view.$el.find('input[type="checkbox"]').on('change', this.onToggle.bind(this));
 		this.map[id] = property;
-		$checkbox.on('change', this.onToggle.bind(this));
 
-		var label = (property.charAt(0).toUpperCase() + property.substring(1).toLowerCase()).replace(/_/g, ' ');
-		var $label = $(document.createElement('label')).attr('for', id).html(label).addClass('label');
-
-		$toggle.append($checkbox, $label);
-		$filter.append($toggle);
-		return $filter;
+		return view.$el;
 	};
 
 	/**

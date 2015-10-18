@@ -27,7 +27,8 @@
 		}
 	});
 
-	require(['Application', 'text', 'json'], function (Application, test, json) {
+	require(['Application', 'helper/Handlebars', 'text', 'json'], function (Application, HandlebarsHelper, test, json) {
+		new HandlebarsHelper();
 		new Application();
 	});
 

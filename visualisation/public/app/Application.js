@@ -18,9 +18,9 @@ define(function (require) {
 	var RoundHeatMap = require('component/visualisation/RoundHeatMap');
 	var GridHeatMap = require('component/visualisation/GridHeatMap');
 
-	var Information = require('view/information/Information');
-	var Filter = require('view/Filter');
-	var Gui = require('view/Gui');
+	var Information = require('component/information/Information');
+	var Filter = require('component/filter/Filter');
+	var Gui = require('component/Gui');
 
 	/**
 	 * Instantiates the application.
