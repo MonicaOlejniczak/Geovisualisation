@@ -11,36 +11,42 @@ define(function (require) {
 	 * Initialises the filter.
 	 *
 	 * @param collection The points collection.
+	 * @param keys The keys used for the x, y and z axis.
 	 * @param [filters] The existing filters that permanently hide information.
 	 * @constructor
 	 */
-	function Filter (collection, filters) {
+	function Filter (collection, keys, filters) {
 		this.collection = collection;
 		this.filters = filters || [];
 		this.map = {};
-		this.configureFilters($('#filters .filters'));
+		this.configureFilters($('#filters .filters'), keys);
 	}
 
 	/**
 	 * Configures the filter elements.
+	 *
+	 * @param $filters The jQuery element to append filters.
+	 * @param keys The keys used for the x, y and z axis.
 	 */
-	Filter.prototype.configureFilters = function ($filters) {
-		this.createSliderGroup($filters, 'magnitude');
+	Filter.prototype.configureFilters = function ($filters, keys) {
+		//$filters.append(this.createSliderGroup(keys.x));
+		//$filters.append(this.createSliderGroup(keys.y));
+		$filters.append(this.createSliderGroup(keys.z));
 		var model = this.collection.first();
 		// Retrieve the properties associated with a checkbox by filtering out default model properties which represent redundant values.
 		var properties = model.keys().filter(function (property) {
 			return this.filters.indexOf(property) === -1;
 		}.bind(this));
-		this.createCheckboxes($filters, properties);
+		$filters.append(this.createCheckboxes(properties));
 	};
 
 	/**
 	 * Creates a filter that contains a heading, slider and input.
 	 *
-	 * @param $filters The jQuery element to append the filter to.
-	 * @param property THe property being filtered.
+	 * @param property The property being filtered.
+	 * @returns {*|jQuery}
 	 */
-	Filter.prototype.createSliderGroup = function ($filters, property) {
+	Filter.prototype.createSliderGroup = function (property) {
 
 		// Create a container div for the filter.
 		var $filter = $(document.createElement('div')).addClass('filter');
@@ -66,8 +72,7 @@ define(function (require) {
 		// Append the slider group to the filter.
 		$filter.append($sliderGroup);
 
-		// Append the filter to the filters.
-		$filters.append($filter);
+		return $filter;
 
 	};
 
@@ -293,13 +298,15 @@ define(function (require) {
 	/**
 	 * Creates a checkbox for each property.
 	 *
-	 * @param $filters The jQuery element to append the filter to.
 	 * @param properties The list of properties in the model.
+	 * @returns {*|jQuery|HTMLElement}
 	 */
-	Filter.prototype.createCheckboxes = function ($filters, properties) {
+	Filter.prototype.createCheckboxes = function (properties) {
+		var $checkboxes = $(document.createElement('div'));
 		for (var i = 0, len = properties.length; i < len; i++) {
-			$filters.append(this.createCheckbox(properties[i]));
+			$checkboxes.append(this.createCheckbox(properties[i]));
 		}
+		return $checkboxes;
 	};
 
 	/**

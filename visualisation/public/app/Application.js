@@ -32,10 +32,10 @@ define(function (require) {
 		// Initialise the data with the specified path and then load the file.
 		//var data = new Data('data/generate');
 		//data.load().then(this.generateData.bind(this));
-		//var data = new Data('json!data/population.json');
-		//data.load().then(this.processPopulationData.bind(this));
-		var data = new Data('json!data/students.json');
-		data.load().then(this.processStudentData.bind(this));
+		var data = new Data('json!data/population.json');
+		data.load().then(this.processPopulationData.bind(this));
+		//var data = new Data('json!data/students.json');
+		//data.load().then(this.processStudentData.bind(this));
 	}
 
 	/**
@@ -51,7 +51,7 @@ define(function (require) {
 		var bound = new THREE.Vector3(x, y, z);
 		// Generate the data and then process it.
 		var data = generate.call(this, 100, bound);
-		var points = this.processData(data, 'x', 'y', 'z');
+		var points = this.processData(data, new THREE.Vector3('x', 'y', 'z'));
 		this.processPoints(points);
 	};
 
@@ -65,6 +65,11 @@ define(function (require) {
 		this.processData(data, new THREE.Vector3('longitude', 'latitude', 'population'));
 	};
 
+	/**
+	 * Processes student data.
+	 *
+	 * @param data The student data.
+	 */
 	Application.prototype.processStudentData = function (data) {
 		this.processGridData(data, new THREE.Vector3('group', 'week', 'progress'));
 	};
@@ -81,9 +86,15 @@ define(function (require) {
 			points.push(this.createPoint(data[i], keys));
 		}
 		var collection = new Points(points);
-		this.processCollection(collection);
+		this.processCollection(collection, keys);
 	};
 
+	/**
+	 * Processes grid data.
+	 *
+	 * @param data The list of points data being processed.
+	 * @param keys The keys within the point data that refer to the x, y and z values of the point.
+	 */
 	Application.prototype.processGridData = function (data, keys) {
 		var points = [];
 		var map = {x: {}, z: {}};
@@ -91,28 +102,7 @@ define(function (require) {
 			points.push(this.createGridPoint(map, data[i], keys));
 		}
 		var collection = new Points(points);
-		this.processCollection(collection);
-	};
-
-	Application.prototype.createGridPoint = function (map, point, keys) {
-		var properties = point;
-
-		properties[keys.z] = properties[keys.z] * 100;
-
-		// Get the position of the point by transforming the values
-		var position = Convert.transform(new THREE.Vector3(properties[keys.x], properties[keys.y], properties[keys.z]));
-
-		var xValue = map.x[position.x] = map.x[position.x] || [];
-		var zValue = map.z[position.z] = map.z[position.z] || [];
-
-		xValue.push(properties);
-		zValue.push(properties);
-
-		var distance = 10;
-		properties['coordinate'] = new THREE.Vector2((xValue.length - 1) * distance, (zValue.length - 1) * distance);
-		properties['magnitude'] = position.y;
-
-		return new Point(properties);
+		this.processCollection(collection, keys);
 	};
 
 	/**
@@ -139,20 +129,50 @@ define(function (require) {
 	};
 
 	/**
+	 * Creates a point by calculating its position based on how many existing values exist in the map for that property.
+	 *
+	 * @param map The map of x and z values.
+	 * @param point The point data.
+	 * @param keys The keys within the point data that refer to the x, y and z values of the point.
+	 * @returns {*}
+	 */
+	Application.prototype.createGridPoint = function (map, point, keys) {
+		var properties = point;
+
+		properties[keys.z] = properties[keys.z] * 100;
+
+		// Get the position of the point by transforming the values
+		var position = Convert.transform(new THREE.Vector3(properties[keys.x], properties[keys.y], properties[keys.z]));
+
+		var xValue = map.x[position.x] = map.x[position.x] || [];
+		var zValue = map.z[position.z] = map.z[position.z] || [];
+
+		xValue.push(properties);
+		zValue.push(properties);
+
+		var distance = 10;
+		properties['coordinate'] = new THREE.Vector2((xValue.length - 1) * distance, (zValue.length - 1) * distance);
+		properties['magnitude'] = position.y;
+
+		return new Point(properties);
+	};
+
+	/**
 	 * Processes the collection of points and sets up the visualisation.
 	 *
 	 * @param collection The processed points collection.
+	 * @param keys The keys within the point data that refer to the x, y and z values of the point.
 	 */
-	Application.prototype.processCollection = function (collection) {
-		//var visualisation = new FlatHeatMap(this.$canvas, collection);
+	Application.prototype.processCollection = function (collection, keys) {
+		var visualisation = new FlatHeatMap(this.$canvas, collection);
 		//var visualisation = new RoundHeatMap(this.$canvas, collection);
-		var visualisation = new GridHeatMap(this.$canvas, collection);
+		//var visualisation = new GridHeatMap(this.$canvas, collection);
 
 		var points = visualisation.points;
 		var filters = ['magnitude', 'timezone'];
 
 		var information = new Information(visualisation.renderer, points, filters);
-		var filter = new Filter(collection, filters);
+		var filter = new Filter(collection, keys, filters);
 		var gui = new Gui(visualisation);
 	};
 
