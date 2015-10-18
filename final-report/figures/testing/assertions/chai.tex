@@ -1,39 +1,21 @@
 %!TEX root = ../../../report.tex
 
-\newcommand{\assertionwidth}{0.328\textwidth}
-\newcommand{\assertionsize}{\tiny}
 \begin{figure}[H]
+	\newcommand{\figurewidth}{0.328\textwidth}
+	\newcommand{\basicstyle}{\tiny}
 	\centering
-	\begin{subfigure}[b]{\assertionwidth}
-        \begin{lstlisting}[basicstyle=\assertionsize]
-			chai.should();
-
-			foo.should.be.a('string');
-			foo.should.equal('bar');
-			foo.should.have.length(3);
-		\end{lstlisting}
+	\begin{subfigure}[b]{\figurewidth}
+        \input{code/testing/chai/should_style}
         \caption{Should style}
         \label{fig:should_style}
     \end{subfigure}
-    \begin{subfigure}[b]{\assertionwidth}
-		\begin{lstlisting}[basicstyle=\assertionsize]
-			var expect = chai.expect;
-				
-			expect(foo).to.be.a('string');
-			expect(foo).to.equal('bar');
-			expect(foo).to.have.length(3);
-		\end{lstlisting}
+    \begin{subfigure}[b]{\figurewidth}
+    	\input{code/testing/chai/expect_style}
         \caption{Expect style}
         \label{fig:expect_style}
     \end{subfigure}
-    \begin{subfigure}[b]{\assertionwidth}
-		\begin{lstlisting}[basicstyle=\assertionsize]
-        var assert = chai.assert;
-
-		assert.typeOf(foo, 'string');
-		assert.equal(foo, 'bar');
-		assert.lengthOf(foo, 3)
-		\end{lstlisting}
+    \begin{subfigure}[b]{\figurewidth}
+		\input{code/testing/chai/assert_style}
         \caption{Assert style}
         \label{fig:assert_style}
     \end{subfigure}

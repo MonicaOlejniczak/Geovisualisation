@@ -1,0 +1,10 @@
+%!TEX root = ../../../report.tex
+
+\begin{lstlisting}[basicstyle=\basicstyle]
+	doSomethingAsync()
+		.then(function (result) {
+			result.should.equal('foo');
+			done();
+		}
+	);
+\end{lstlisting}

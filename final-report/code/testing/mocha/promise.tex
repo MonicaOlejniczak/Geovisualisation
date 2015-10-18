@@ -1,0 +1,10 @@
+%!TEX root = ../../../report.tex
+
+\begin{lstlisting}[basicstyle=\basicstyle]
+	return doSomethingAsync()
+		.then(function (result) {
+			// Return the result from the promise.
+			return result.should.equal('foo');
+		}
+	);
+\end{lstlisting}
