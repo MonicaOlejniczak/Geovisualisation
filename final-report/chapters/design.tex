@@ -76,17 +76,9 @@
 	\subsection{Material Design} {
 	\label{sec:material_design}
 
-		Material Design is a visual language developed by Google that synthesises classic design principles with current technologies. This design revolves around three principles which have been defined in Figure~\ref{fig:material_design_principles}.
+		Material Design is a visual language developed by Google that synthesises classic design principles with current technologies. Their design aims to provide users with a unified experience across platforms and device sizes, by focusing on user actions and retaining continuity between transitions~\footnote{\bibentry{google2015material}}. Furthermore, Material Design provides an immersive experience to users by adhering to good design principles.
 
-		\input{figures/design/material_design_principles}
-
-		Material Design uses the fundamentals of light, surface and movement to convey how objects move, interact and exist in space and in relation to each other. Elements such as typography, grids, space and colour have been designed to create meaning, maintain user focus and establish a hierarchy using depth effects. These principles aim to provide users with a unified experience across platforms and device sizes, by focusing on user actions and retaining continuity between transitions~\footnote{\bibentry{google2015material}}.
-
-		Material Design details many component specifications that have been implemented by many CSS3 frameworks. Some component examples may be seen in Figure~\ref{fig:material_design_examples}.
-
-		\input{figures/design/material_design_examples}
-
-		Google Material Design provides an immersive experience to users by adhering to good design principles. Material Design is a great design tool that has been incorporated into the existing infrastructure this project and the group project. As a result of this, a teacher can transition from one system to the other seamlessly, because both systems apply the same design standards.
+		Google Material Design details many component specifications that have been implemented by several CSS3 frameworks. It is also a great design tool that has been incorporated into the existing infrastructure this project and the group project. As a result of this, a teacher can transition from one system to the other seamlessly, because both systems apply the same design standards.
 
 	}
 
@@ -131,9 +123,7 @@
 
 		The design of the interface needs to account for both the use of Material Design and the 3D environment. 
 
-		Material Design is renowned for its sliding drawer menu, often used to maximise the viewing space for the user. This component has the potential to maintain user focus on the visualisation, while providing additional information through an unobtrusive menu. An initial mockup of this design has been demonstrated in Figure~\ref{fig:user_interface_mockup}, where the 3D environment fills the content to the right of the drawer. This design has been refined through the implementation phase described in Section~\ref{sec:features}.
-
-		\todo{possibly change section reference later}
+		Material Design is renowned for its sliding drawer menu, often used to maximise the viewing space for the user. This component has the potential to maintain user focus on the visualisation, while providing additional information through an unobtrusive menu. An initial mockup of this design has been demonstrated in Figure~\ref{fig:user_interface_mockup}, where the 3D environment fills the content to the right of the drawer. This design has been refined through the implementation phase described in Section~\ref{sec:filtering_implementation} and \ref{sec:configuration_implementation}.
 
 		\input{figures/design/mockups/user_interface}
 
@@ -170,22 +160,24 @@
 
 	The interactions that a user can perform when using this system have been represented in Figure~\ref{fig:user_actions}.
 
-	\todo{not sure if the includes are correct? I'm bad at use-case diagrams :c}
-
 	\input{figures/design/user_actions}
+
+	These user actions facilitate decision making processes by allowing users to evaluate different datasets and identify key features. For instance, when the user navigates around the scene they are able to view the information associated with a data point by hovering on it. In regards to population data the smallest and largest city or country can be established using this method. This is achieved by navigating to a short or tall data point and displaying its information which contains details such as the city and country. Similarly, when a student dataset is used the best and worst performing groups can be identified on a weekly and on an average basis by analysing this information. Viewing student progress in such a manner can also aid in determining patterns with particular groups and individuals, and examining the overall complexity of a task during certain weeks. 
+
+	When filtering is applied to any dataset, the user can quickly confirm their initial observations found during the navigate and view data point information actions. This is due to the fact that a filter can determine which data points are visible to the user, by adjusting the minimum and maximum range of a property in the dataset through a widget. As an example, displaying populations that are either below or over 100,~000 individuals can easily be seen by adjusting the minimum or maximum filter bounds for the population property to 100,~000.
+
+	Finally, different configurations can be applied in order to customise the appearance of the environment. This is achieved so that a distinguished colour scheme for the data points and surface is selected. In turn, this can enhance a user's ability to identify significant features and patterns through colour palettes that make the dataset clearer to understand.
 
 }
 
-\section{System architecture} {
-\label{sec:system_architecture}
+\section{Architecture} {
+\label{sec:architecture}
 	
 	\todo{three-tier: presentation, logic, data
 
 		inheritance
 
 		design patterns
-
-		architecture diagram/uml diagram
 
 		forwards ajax request to backend of fyp system for dataset
 
@@ -194,6 +186,8 @@
 		\todo{Everything implemented as a single module, write more / reword}
 
 		The Filter, Configuration, and Information display modules are external to the core 3D environment components, separating the components in the scene from the view controllers. This design decision also ensures that the view controllers can be removed from the application at any time, without effecting the core functionality.
+
+		\input{figures/design/architecture}
 
 % 		The frontend system is a separate client-server application, consisting of a node.js server component, which simply pushes the Client-side component to the client-browser. The client-side therefore contains the vast majority of application complexity which has the following architecture:
 % Uses a MVVM (Model View View-Model) architectural style to compose data bound from performing asynchronous requests to the backend API, with the view-templates via the View-Model (controllers).
@@ -205,5 +199,12 @@
 % Conceptually this functionality requires a data-mapping sub-module, but it is likely that this will be provided by a library.
 % This all occurs in an asynchronous Event-based manner, such that the UI is never blocked.
 
+
+}
+
+\section{Evaluations} {
+\label{sec:evaluation_design}
+
+	\todo{}
 
 }

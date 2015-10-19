@@ -59,32 +59,6 @@
 
 }
 
-\section{Filtering} {
-\label{sec:filtering_implementation}
-
-	Filtering was implemented using an event-driven approach 
-
-	\todo{say how filtering was done, issues with extending it when I get around to implementing...should be a simple show/hide technique based on value}
-
-	\input{figures/implementation/filters}
-
-}
-
-\section{Configuration} {
-\label{sec:configuration_implementation}
-
-	Real-time configurations are best achieved by using shaders. Shaders are computer programs that perform shading on a graphics processing unit (GPU), making them highly efficient and well suited to parallel processing~\footnote{\bibentry{gerdelan2014shaders}}. Three.js provides abstracted materials that use shaders in the background, but this method does not easily facilitate highly customisable configurations or filter effects. Therefore, custom shaders were designed and implemented for the system to maximise efficiency and flexibility. An example of the available effects that were implemented in the system is shown in Figure~\ref{fig:shaders}.
-
-	\input{figures/implementation/shaders}
-
-	These configurations can be adjusted in real-time with \href{http://workshop.chromeexperiments.com/}{dat.GUI}, a lightweight GUI for changing JavaScript variables in real-time. This tool is easy to use, setup and can modify shader uniforms automatically or by implementing \texttt{onChange} event handlers. dat.GUI can constrain input data and provides widgets for modifying values, colours and combo boxes. While this tool is great for modifying data on the fly, it has an outdated interface that does not always adapt well to particular colour schemes and designs. For this reason, the dat.GUI styles were modified to seamlessly integrate with the current system and the Material Design standards. The differences in design can be compared in Figure~\ref{fig:dat_gui} below.
-
-	\input{figures/implementation/dat_gui}
-
-	The design for these configurations were continually refined during implementation. Initially, the dat.GUI sliders were to remain unchanged. However, these sliders proved to be inconsistent in regards to the colour scheme and filter design. Furthermore, the bold folder colours were eventually removed to reflect drawer layouts that conform to using light navigation colours, hover effects, and left floated icons.
-
-}
-
 \section{Data display} {
 \label{sec:data_display}
 
@@ -103,4 +77,37 @@
 
 }
 
-\todo{Map to project outcomes??}
+\section{Filtering} {
+\label{sec:filtering_implementation}
+
+	Filtering was implemented using an event-driven approach and a view controller for configuring the filters. This view controller composes the slider and checkbox views, which were designed using Handlebars templates and populated with a Backbone model.
+
+	recompiles the template
+
+	~\ref{sec:interface_design}.
+
+	\input{figures/implementation/filtering/comparison}
+
+	\input{figures/implementation/filtering/interface}
+
+}
+
+\section{Configuration} {
+\label{sec:configuration_implementation}
+
+	Real-time configurations are best achieved by using shaders. Shaders are computer programs that perform shading on a graphics processing unit (GPU), making them highly efficient and well suited to parallel processing~\footnote{\bibentry{gerdelan2014shaders}}. Three.js provides abstracted materials that use shaders in the background, but this method does not easily facilitate highly customisable configurations or filter effects. Therefore, custom shaders were designed and implemented for the system to maximise efficiency and flexibility. An example of the available effects that were implemented in the system is shown in Figure~\ref{fig:shaders}.
+
+	\input{figures/implementation/shaders}
+
+	These configurations can be adjusted in real-time with \href{http://workshop.chromeexperiments.com/}{dat.GUI}, a lightweight GUI for changing JavaScript variables in real-time. This tool is easy to use, setup and can modify shader uniforms automatically or by implementing \texttt{onChange} event handlers. dat.GUI can constrain input data and provides widgets for modifying values, colours and combo boxes. While this tool is great for modifying data on the fly, it has an outdated interface that does not always adapt well to particular colour schemes and designs. For this reason, the dat.GUI styles were modified to seamlessly integrate with the current system and the Material Design standards. The differences in design can be compared in Figure~\ref{fig:dat_gui} below.
+
+	\input{figures/implementation/dat_gui}
+
+	The design for these configurations were continually refined during implementation. Initially, the dat.GUI sliders were to remain unchanged. However, these sliders proved to be inconsistent in regards to the colour scheme and filter design. Furthermore, the bold folder colours were eventually removed to reflect drawer layouts that conform to using light navigation colours, hover effects, and left floated icons.
+
+}
+
+% \section{Evaluations} {
+% \label{sec:evaluations}
+
+% }
