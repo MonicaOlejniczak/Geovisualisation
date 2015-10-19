@@ -3,6 +3,7 @@
 *.aux
 *.log
 *.lof
+*.lot
 *.gz
 *.toc
 *.synctex
