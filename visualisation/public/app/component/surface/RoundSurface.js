@@ -45,8 +45,8 @@ define(function (require) {
 		// Update the surface position uniform for the surface material.
 		this.material.uniforms['uSurfacePosition'] = {type: 'f', value: -this.radius};
 		// Add the clouds and the atmosphere.
-		this.clouds = this.addClouds(geometry);
-		//this.atmosphere = this.addAtmosphere(geometry);
+		this.clouds = this.add(this.createClouds(geometry));
+		//this.atmosphere = this.add(this.createAtmosphere(geometry));
 		this.dispatchEvent({type: 'ready'});
 	};
 
@@ -56,10 +56,10 @@ define(function (require) {
 	 * @param geometry The geometry used for the surface.
 	 * @returns {THREE.Mesh} The cloud mesh.
 	 */
-	RoundSurface.prototype.addClouds = function (geometry) {
-		var clouds = this.configuration.clouds;
+	RoundSurface.prototype.createClouds = function (geometry) {
+		var config = this.configuration.clouds;
 		// Load the cloud texture
-		var texture = THREE.ImageUtils.loadTexture(clouds);
+		var texture = THREE.ImageUtils.loadTexture(config);
 		// Load the material with the texture.
 		var material = new THREE.MeshBasicMaterial({
 			map: texture,
@@ -72,7 +72,6 @@ define(function (require) {
 		var scale = 1.005;
 		clouds.scale.set(scale, scale, scale);
 		// Add the clouds and trigger an event.
-		this.add(clouds);
 		return clouds;
 	};
 
@@ -81,13 +80,13 @@ define(function (require) {
 	 *
 	 * @param geometry The geometry used for the surface.
 	 */
-	RoundSurface.prototype.addAtmosphere = function (geometry) {
+	RoundSurface.prototype.createAtmosphere = function (geometry) {
 		// TODO
-		var atmosphere = this.configuration.atmosphere;
+		var config = this.configuration.atmosphere;
 		// Load the atmosphere shader.
-		var shader = new Shader(atmosphere.source, {
+		var shader = new Shader(config.source, {
 			uniforms: {
-				uColor: {type: 'c', value: atmosphere.color}
+				uColor: {type: 'c', value: config.color}
 			}
 		});
 		shader.load().then(function (shader) {

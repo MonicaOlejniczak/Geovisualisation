@@ -10,19 +10,18 @@ define(function (require) {
 	var Handlebars = require('handlebars');
 
 	var Point = require('component/points/point/Point');
-	var Display = require('text!component/information/Information.hbs');
+	var template = require('text!component/information/Information.hbs');
 
 	function Information (renderer, points, filters) {
 		// Set the raycaster on the renderer.
 		renderer.setRaycaster(points);
-		// Set the canvas and element.
-		this.$canvas = $(renderer.canvas);
 		this.$el = $('#information');
 		// Add the offset and filters.
 		this.offset = 10;
 		this.filters = filters || [];
 		// Configure the template and add the event listeners.
-		this.template = this.configureTemplate();
+		Handlebars.registerHelper('filter', this.filter.bind(this));
+		this.template = Handlebars.compile(template);
 		this.addEventListeners(renderer);
 	}
 
@@ -33,16 +32,6 @@ define(function (require) {
 	 */
 	Information.prototype.addEventListeners = function (renderer) {
 		$(renderer.raycaster).on('raycast', this.onRaycast.bind(this));
-	};
-
-	/**
-	 * Configures the Handlebars template by registering helpers and compiling the template.
-	 *
-	 * @returns {*}
-	 */
-	Information.prototype.configureTemplate = function () {
-		Handlebars.registerHelper('filter', this.filter.bind(this));
-		return Handlebars.compile(Display);
 	};
 
 	/**
@@ -71,7 +60,7 @@ define(function (require) {
 			// Only update the information if the object is is a point.
 			if (object instanceof Point && object.visible) {
 				this.toggleClasses(true);
-				this.updateInformation(coordinates, object.model);
+				this.update(coordinates, object.model);
 				break;
 			}
 		}
@@ -84,7 +73,7 @@ define(function (require) {
 	 */
 	Information.prototype.toggleClasses = function (hide) {
 		this.$el.toggleClass('hidden', !hide);
-		this.$canvas.toggleClass('pointer', hide);
+		app.$canvas.toggleClass('pointer', hide);
 	};
 
 	/**
@@ -100,7 +89,7 @@ define(function (require) {
 	 * @param coordinates The mouse coordinates of the raycast.
 	 * @param model The model of the intersected object.
 	 */
-	Information.prototype.updateInformation = function (coordinates, model) {
+	Information.prototype.update = function (coordinates, model) {
 		this.$el.html(this.template(model.toJSON()));
 		var position = this.calculatePosition(coordinates);
 		this.$el.css({
@@ -131,7 +120,7 @@ define(function (require) {
 	 * @returns {number}
 	 */
 	Information.prototype.getQuadrant = function (position) {
-		var $element = this.$canvas;
+		var $element = app.$canvas;
 		// Set the boundaries of the element.
 		var boundary = new THREE.Vector2($element.width() * 0.5, $element.height() * 0.5);
 		// Check if in quadrant 1 or 4.

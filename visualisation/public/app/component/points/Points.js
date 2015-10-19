@@ -7,10 +7,9 @@ define(function (require) {
 
 	var THREE = require('threejs');
 
-	var Component = require('component/Component');
 	var Point = require('component/points/point/Point');
 
-	var Filters = require('filter/Filters');
+	var Filter = require('filter/Filter');
 	var Shader = require('helper/Shader');
 
 	/**
@@ -23,11 +22,11 @@ define(function (require) {
 	 */
 	function Points (collection, projection, options) {
 
-		Component.apply(this, arguments);
+		THREE.Mesh.call(this);
 
 		this.collection = collection;
 		this.projection = projection;
-		this.filters = new Filters(collection);
+		this.filter = new Filter(collection);
 
 		// Ensure the options exist.
 		options = options || {};
@@ -69,7 +68,7 @@ define(function (require) {
 
 	}
 
-	Points.prototype = Object.create(Component.prototype);
+	Points.prototype = Object.create(THREE.Mesh.prototype);
 	Points.prototype.constructor = Points;
 
 	/**

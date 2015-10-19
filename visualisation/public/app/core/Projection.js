@@ -9,13 +9,8 @@ define(function (require) {
 	var Convert = require('util/Convert');
 
 	function Projection (projection, options) {
-		options = options || {};
 		this.projection = projection;
-		this.target = options.target || new THREE.Vector3();
-		this.bounds = options.bounds || new THREE.Vector2(new THREE.Vector2(), new THREE.Vector2());
-
-		this.offset = options.offset || 0;
-		this.radius = options.radius || 1;
+		this.options = options || {};
 	}
 
 	/**
@@ -35,10 +30,11 @@ define(function (require) {
 	 */
 	Projection.standard = function (object, offset, bounds) {
 
+		var options = this.options;
 		var position  = object.position;
 
-		offset = offset || this.offset;
-		bounds = bounds || this.bounds;
+		offset = offset || options.offset || 0;
+		bounds = bounds || options.bounds || new THREE.Vector2(new THREE.Vector2(), new THREE.Vector2());
 
 		if (offset) {
 			object.position.setY(offset);
@@ -62,15 +58,18 @@ define(function (require) {
 	 */
 	Projection.spherical = function (object, target, radius, theta, phi) {
 
+		var options = this.options;
 		var position = object.position;
+		var bounds = options.bounds || new THREE.Vector2(new THREE.Vector2(), new THREE.Vector2());
 
-		target = target || this.target;
-		radius = radius || this.radius;
+		target = target || options.target || new THREE.Vector3();
+		radius = radius || options.radius || 1;
+
 
 		// TODO make nicer
 		//theta = theta || THREE.Math.degToRad(Convert.range(this.thetaBound, new THREE.Vector2(0, 360), position.x)) - Math.PI * 0.5;
 		theta = theta || THREE.Math.degToRad(position.x);
-		phi = phi || THREE.Math.degToRad(Convert.range(this.bounds.y.x, this.bounds.y.y, -position.z));
+		phi = phi || THREE.Math.degToRad(Convert.range(bounds.y.x, bounds.y.y, -position.z));
 
 		object.position.copy(Convert.sphericalToCartesian(radius, theta, phi));
 		object.lookAt(target);

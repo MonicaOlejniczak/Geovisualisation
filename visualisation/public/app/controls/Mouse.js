@@ -7,7 +7,6 @@ define(function (require) {
 
 	var $ = require('jquery');
 	var THREE = require('threejs');
-	var Viewport = require('Viewport');
 
 	var Convert = require('util/Convert');
 
@@ -19,8 +18,7 @@ define(function (require) {
 	 * @constructor
 	 */
 	function Mouse (camera, element) {
-		// Store the viewport, camera and element.
-		this.viewport = Viewport;
+		// Store the camera and element.
 		this.camera = camera;
 		this.element = element;
 		// Assign the boundary values.
@@ -78,6 +76,7 @@ define(function (require) {
 	 * @param delta The x and y delta values calculated by taking the current screen coordinates and subtracting the original screen coordinates.
 	 */
 	Mouse.prototype.panCamera = function (delta) {
+		var viewport = app.viewport;
 		// Clone the position of the camera.
 		var cameraPosition = this.camera.position.clone();
 		// Obtain the distance of the camera to the origin and multiply it by the top half of the camera field of view.
@@ -86,8 +85,8 @@ define(function (require) {
 		var coordinate = delta.clone().multiplyScalar(distance);
 		// Store the pan position using the screen height.
 		var position = new THREE.Vector2(
-			(coordinate.x / this.viewport.getHeight()) * 2,
-			(coordinate.y / this.viewport.getHeight()) * 2
+			(coordinate.x / viewport.height()) * 2,
+			(coordinate.y / viewport.height()) * 2
 		);
 		// Apply the position to the camera and update the origin value.
 		this.camera.translateX(-position.x);
@@ -103,14 +102,15 @@ define(function (require) {
 	 * @param delta The x and y delta values calculated by taking the current screen coordinates and subtracting the original screen coordinates.
 	 */
 	Mouse.prototype.rotateCamera = function (delta) {
+		var viewport = app.viewport;
 		// Get the position offset of the camera from the current origin.
 		var position = this.camera.position.clone().sub(this.origin);
 		// Get the radius of the spherical coordinate by applying sqrt(x^2 + y^2 + z^2) of the position.
 		var radius = position.length();
 		var tau = 2 * Math.PI;
 		// Calculate the theta and phi delta angles i.e. the angle that the user has moved the camera on rotation.
-		var thetaDelta = (delta.x / this.viewport.getWidth()) * -tau * this.rotateSpeed;
-		var phiDelta = (delta.y / this.viewport.getHeight()) * -tau * this.rotateSpeed;
+		var thetaDelta = (delta.x / viewport.width()) * -tau * this.rotateSpeed;
+		var phiDelta = (delta.y / viewport.height()) * -tau * this.rotateSpeed;
 		// Calculate the theta and phi angles by getting the angle from the z-axis around the y-axis (azimuth - theta) and from the y-axis (polar - phi)
 		var theta = thetaDelta + Math.atan2(position.x, position.z);
 		var phi = phiDelta + Math.atan2(Math.sqrt(position.x * position.x + position.z * position.z), position.y);

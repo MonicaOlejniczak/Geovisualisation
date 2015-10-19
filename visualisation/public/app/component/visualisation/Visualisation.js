@@ -7,7 +7,7 @@ define(function (require) {
 
 	var THREE = require('threejs');
 
-	var SceneRenderer = require('SceneRenderer');
+	var SceneRenderer = require('core/SceneRenderer');
 	var Skybox = require('component/skybox/Skybox');
 	var Points = require('component/points/Points');
 
@@ -36,14 +36,14 @@ define(function (require) {
 		this.surface = surface;
 
 		if (options.skybox !== false) {
-			this.skybox = new Skybox(this.renderer.camera);
+			this.skybox = new Skybox();
+			this.skybox.position.copy(this.renderer.camera.position);
 			scene.add(this.skybox);
 		}
 
 		this.setupScene(scene);
 		this.addEventListeners(this.renderer);
 
-		this.renderer.render();
 	}
 
 	/**

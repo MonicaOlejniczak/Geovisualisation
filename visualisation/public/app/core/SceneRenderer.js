@@ -6,9 +6,8 @@ define(function (require) {
 	'use strict';
 
 	var THREE = require('threejs');
-	var Viewport = require('Viewport');
 	var MouseControls = require('controls/Mouse');
-	var Raycaster = require('controls/Raycaster');
+	var Raycaster = require('core/Raycaster');
 	var SceneHelper = require('helper/Scene');
 
 	/**
@@ -42,8 +41,8 @@ define(function (require) {
 			}
 		}
 		// Save the viewport height and tan field of view values for resizing.
-		this.viewportHeight = Viewport.getHeight();
-		this.tanFOV = Math.tan(THREE.Math.degToRad(camera.fov * 0.5));
+		//this.viewportHeight = Viewport.getHeight();
+		//this.tanFOV = Math.tan(THREE.Math.degToRad(camera.fov * 0.5));
 		// Initialise the WebGL renderer.
 		this.renderer = new THREE.WebGLRenderer({
 			canvas: element,
@@ -78,10 +77,11 @@ define(function (require) {
 	 */
 	SceneRenderer.prototype.resize = function () {
 		// Retrieve the canvas and the camera.
+		var viewport = app.viewport;
 		var canvas = this.canvas;
 		// Lookup the size the browser is displaying the canvas.
-		var width = Viewport.getWidth();
-		var height = Viewport.getHeight();
+		var width = viewport.width();
+		var height = viewport.height();
 		// Check if a resize needs to be applied.
 		if (canvas.width != width || canvas.height != height) {
 			this.camera.aspect = width / height;

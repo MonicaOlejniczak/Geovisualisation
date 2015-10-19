@@ -6,8 +6,8 @@ define(function (require) {
 	'use strict';
 
 	var $ = require('jquery');
-	var Checkbox = require('component/filter/checkbox/Checkbox');
-	var Slider = require('component/filter/slider/Slider');
+	var Checkbox = require('component/filters/checkbox/Checkbox');
+	var Slider = require('component/filters/slider/Slider');
 
 	/**
 	 * Initialises the filter.
@@ -19,27 +19,53 @@ define(function (require) {
 	 */
 	function Filter (collection, keys, filters) {
 		this.collection = collection;
+		this.keys = keys;
 		this.filters = filters || [];
 		this.map = {};
-		this.configureFilters($('#filters .filters'), keys);
+		this.configureFilters($('#filters .filters'));
 	}
 
 	/**
 	 * Configures the filter elements.
 	 *
 	 * @param $filters The jQuery element to append filters.
-	 * @param keys The keys used for the x, y and z axis.
 	 */
-	Filter.prototype.configureFilters = function ($filters, keys) {
+	Filter.prototype.configureFilters = function ($filters) {
+		$filters.append(this.configureSliders());
+		$filters.append(this.configureCheckboxes());
+	};
+
+	/**
+	 *
+	 * @returns {Array}
+	 */
+	Filter.prototype.configureSliders = function () {
+		var sliders = [];
+		var keys = this.keys;
 		//$filters.append(this.createSliderGroup(keys.x));
 		//$filters.append(this.createSliderGroup(keys.y));
-		$filters.append(this.createSlider(keys.z));
+		sliders.push(this.createSlider(keys.z));
+		return sliders;
+	};
+
+	/**
+	 * Creates a checkbox for each property.
+	 *
+	 * @returns {*|jQuery|HTMLElement}
+	 */
+	Filter.prototype.configureCheckboxes = function () {
 		var model = this.collection.first();
 		// Retrieve the properties associated with a checkbox by filtering out default model properties which represent redundant values.
 		var properties = model.keys().filter(function (property) {
 			return this.filters.indexOf(property) === -1;
 		}.bind(this));
-		$filters.append(this.createCheckboxes(properties));
+
+		var checkboxes = [];
+		for (var i = 0, len = properties.length; i < len; i++) {
+			checkboxes.push(this.createCheckbox(properties[i]));
+		}
+
+		return checkboxes;
 	};
 
 	/**
@@ -190,20 +216,6 @@ define(function (require) {
 				slider.set([null, value]);
 			}
 		}
-	};
-
-	/**
-	 * Creates a checkbox for each property.
-	 *
-	 * @param properties The list of properties in the model.
-	 * @returns {*|jQuery|HTMLElement}
-	 */
-	Filter.prototype.createCheckboxes = function (properties) {
-		var $checkboxes = $(document.createElement('div'));
-		for (var i = 0, len = properties.length; i < len; i++) {
-			$checkboxes.append(this.createCheckbox(properties[i]));
-		}
-		return $checkboxes;
 	};
 
 	/**

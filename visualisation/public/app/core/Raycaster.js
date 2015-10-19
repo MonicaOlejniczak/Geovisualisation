@@ -8,8 +8,6 @@ define(function (require) {
 	var $ = require('jquery');
 	var THREE = require('threejs');
 
-	var Viewport = require('Viewport');
-
 	/**
 	 * Creates a raycaster.
 	 *
@@ -34,11 +32,12 @@ define(function (require) {
 	 * @param event The jQuery mousemove event.
 	 */
 	Raycaster.prototype.onMouseMove = function (event) {
-		var offset = Viewport.getOffset();
+		var viewport = app.viewport;
+		var offset = viewport.offset();
 		this.mouse.set(event.clientX, event.clientY);
 		this.coordinates.set(
-			((event.clientX - offset.left) / Viewport.getWidth()) * 2 - 1,
-			-((event.clientY - offset.top) / Viewport.getHeight()) * 2 + 1
+			((event.clientX - offset.left) / viewport.width()) * 2 - 1,
+			-((event.clientY - offset.top) / viewport.height()) * 2 + 1
 		);
 	};
 

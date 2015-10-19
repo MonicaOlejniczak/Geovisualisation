@@ -5,7 +5,7 @@ define(function (require) {
 	var Backbone = require('backbone');
 	var Handlebars = require('handlebars');
 
-	var template = require('text!component/filter/slider/Slider.hbs');
+	var template = require('text!component/filters/checkbox/Checkbox.hbs');
 
 	return Backbone.View.extend({
 		template: template,

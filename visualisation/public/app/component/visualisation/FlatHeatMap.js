@@ -9,7 +9,7 @@ define(function (require) {
 
 	var Visualisation = require('component/visualisation/Visualisation');
 	var FlatSurface = require('component/surface/FlatSurface');
-	var Projection = require('util/Projection');
+	var Projection = require('core/Projection');
 
 	/**
 	 * Initialises the heat map with the flat surface.

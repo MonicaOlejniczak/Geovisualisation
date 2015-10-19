@@ -2,12 +2,12 @@ define(function (require) {
 
 	'use strict';
 
-	function Filters (collection) {
+	function Filter (collection) {
 		this.filtered = [];
 		collection.on('filter', this.onFilter, this);
 	}
 
-	Filters.prototype.onFilter = function (filteredCollection) {
+	Filter.prototype.onFilter = function (filteredCollection) {
 		this.clear();
 
 		filteredCollection.each(function (model) {
@@ -16,7 +16,7 @@ define(function (require) {
 		}, this);
 	};
 
-	Filters.prototype.clear = function () {
+	Filter.prototype.clear = function () {
 		var filtered = this.filtered;
 		for (var i = 0, len = filtered.length; i < len; i++) {
 			var model = filtered[i];
@@ -25,6 +25,6 @@ define(function (require) {
 		this.filtered = [];
 	};
 
-	return Filters;
+	return Filter;
 
 });

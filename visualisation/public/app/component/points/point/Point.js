@@ -6,7 +6,6 @@ define(function (require) {
 	'use strict';
 
 	var THREE = require('threejs');
-	var Component = require('component/Component');
 	var Convert = require('util/Convert');
 
 	/**
@@ -21,8 +20,10 @@ define(function (require) {
 	 */
 	function Point (model, width, height, max, projection) {
 
+		THREE.Mesh.call(this);
+
 		this.model = model;
-		Component.apply(this, arguments);
+		this.model.on('applyFilter', this.onApplyFilter, this);
 
 		// Set the width, height and the magnitude of the point.
 		this.width = width;
@@ -50,7 +51,7 @@ define(function (require) {
 
 	}
 
-	Point.prototype = Object.create(Component.prototype);
+	Point.prototype = Object.create(THREE.Mesh.prototype);
 	Point.prototype.constructor = Point;
 
 	/**
@@ -95,6 +96,10 @@ define(function (require) {
 		};
 		// Obtain the mesh and update its material.
 		this.material = material;
+	};
+
+	Point.prototype.onApplyFilter = function (applyFilter) {
+		this.visible = !applyFilter;
 	};
 
 	return Point;

@@ -8,7 +8,7 @@ define(function (require) {
 	var THREE = require('threejs');
 
 	var Visualisation = require('component/visualisation/Visualisation');
-	var Projection = require('util/Projection');
+	var Projection = require('core/Projection');
 
 	/**
 	 * Initialises the heat map with the grid surface.

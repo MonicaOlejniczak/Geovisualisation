@@ -27,9 +27,9 @@
 		}
 	});
 
-	require(['Application', 'helper/Handlebars', 'text', 'json'], function (Application, HandlebarsHelper, test, json) {
+	require(['jquery', 'core/Application', 'helper/Handlebars', 'text', 'json'], function ($, Application, HandlebarsHelper, test, json) {
 		new HandlebarsHelper();
-		new Application();
+		window.app = new Application($('#visualisation'));
 	});
 
 }());

@@ -11,10 +11,9 @@ define(function (require) {
 	/**
 	 * Initialises the skybox.
 	 *
-	 * @param camera The main camera.
 	 * @constructor
 	 */
-	function Skybox (camera) {
+	function Skybox () {
 		THREE.Mesh.call(this);
 
 		this.baseDirectory = 'assets/images/skybox/space/';
@@ -45,7 +44,6 @@ define(function (require) {
 
 		this.scale.set(size, size, size);
 		this.rotateX(Math.PI * 0.5);
-		this.position.copy(camera.position);
 	}
 
 	Skybox.prototype = Object.create(THREE.Mesh.prototype);
