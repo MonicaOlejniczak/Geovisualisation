@@ -88,7 +88,11 @@
 \section{Skybox} {
 \label{sec:skybox}
 
-	\todo{write things}
+	The skybox was generated using \href{http://alexcpeterson.com/spacescape/}{Spacescape}, a program designed for creating space skyboxes with stars and nebulas. Once the skybox was created, the images were exported as six individual images. The formation of these images can be seen in Figure~\ref{fig:skybox}.
+
+	\input{figures/implementation/skybox}
+
+	The implementation of the skybox was a simple process. This process involved loading each side of the cube as a \texttt{THREE.Texture} and assigning it as a \texttt{map} in a \texttt{THREE.MeshBasicMaterial} object. Each basic material was stored in an array, so that the skybox mesh could be created using a \texttt{THREE.BoxGeometry} and \texttt{THREE.MeshFaceMaterial}. It is important that the skybox is static during navigation, particularly so that the underlying cube structure of the skybox is not noticeable and appears more realistic to the user. This was accomplished by listening to the \texttt{pan}, \texttt{zoom} and \texttt{rotate} events in the mouse controls, and updating the position of the skybox to reflect that of the camera.
 
 }
 
