@@ -14,7 +14,7 @@ int_keys = ['latitude', 'longitude', 'population']
 remove_keys = ['geonameid', 'asciiname', 'alternate_names', 'feature_class', 'feature_code', 'cc2', 'admin1_code',
               'admin2_code', 'admin3_code', 'admin4_code', 'elevation', 'dem']
 
-min_population = 80000
+min_population = 10000
 
 with codecs.open('{}countries.json'.format(input_directory), 'r', 'utf-8') as fp:
 	data = json.load(fp, 'utf-8')
@@ -23,7 +23,7 @@ with codecs.open('{}countries.json'.format(input_directory), 'r', 'utf-8') as fp
 
 with codecs.open('{}cities15000.txt'.format(input_directory), 'r', 'utf-8') as fp:
 	for line in fp.readlines():
-		words = line.split()
+		words = line.split('\t')
 		map = dict(zip(keys, words))
 		if float(map['population']) >= min_population:
 			map['city'] = map.pop('name')
