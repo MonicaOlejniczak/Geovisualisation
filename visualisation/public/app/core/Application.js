@@ -41,24 +41,24 @@ define(function (require) {
 		this.$canvas = $canvas;
 		this.viewport = new Viewport($('#content'));
 
-		//var data = PopulationData;
+		var data = PopulationData;
 		// Longitude = azimuthal angle, latitude = elevation.
-		//var keys = new THREE.Vector3('longitude', 'latitude', 'population');
-		//var collection = this.processData(data, keys);
+		var keys = new THREE.Vector3('longitude', 'latitude', 'population');
+		var collection = this.processData(data, keys);
 
-		var data = StudentData;
-		var keys = new THREE.Vector3('group', 'week', 'progress');
-		var collection = this.processGridData(data, keys);
+		//var data = StudentData;
+		//var keys = new THREE.Vector3('group', 'week', 'progress');
+		//var collection = this.processGridData(data, keys);
 
-		//this.visualisation = new FlatHeatMap($canvas, collection);
+		this.visualisation = new FlatHeatMap($canvas, collection);
 		//this.visualisation = new RoundHeatMap($canvas, collection);
-		this.visualisation = new GridHeatMap($canvas, collection);
+		//this.visualisation = new GridHeatMap($canvas, collection);
 
 		var renderer = this.visualisation.renderer;
 		var points = this.visualisation.points;
 		var filters = ['magnitude', 'timezone'];
 
-		//new Information(renderer, points, filters);
+		new Information(renderer, points, filters);
 		new Filters(collection, keys, filters);
 		new Gui(this.visualisation);
 
@@ -93,7 +93,7 @@ define(function (require) {
 	Application.prototype.processData = function (data, keys) {
 		var points = [];
 		console.log(data.length);
-		for (var i = 0, len = Math.min(data.length, data.length); i < len; i++) {
+		for (var i = 0, len = Math.min(data.length, 5000); i < len; i++) {
 			points.push(this.createPoint(data[i], keys));
 		}
 		return new Points(points);

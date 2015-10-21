@@ -77,9 +77,7 @@
 \section{Information display} {
 \label{sec:information_display}
 
-	\todo{say how this was implemented - raycaster in requestanimframe, toggles one element to hide/show so nothing new in dom is added (more performant) recompiles the template}
-
-	\todo{add for population and student data}
+	The information display utilises a \texttt{THREE.Raycaster} and a Handlebars template for displaying model information. The raycaster is updated on each render loop and is fed a series of \texttt{Point} meshes to check if the normalised mouse coordinates intersect with any data points. These intersections are listened to in the \texttt{Information} view controller, which is responsible for updating the content and visibility of the information display element. A single element has been used to display this information as the creation of DOM elements is incredibly inefficient, especially because this would entail creating an element for each intersection at run-time. When an intersection exists, the element is displayed and its HTML is updated with its model data through Handlebars. Further, the \texttt{left} and \texttt{top} position of the element is updated to match the mouse coordinates. The position of the element is improved by calculating the quadrant in which the coordinate lies and adjusting the position such that the display is always towards the centre of the screen. This prevents the information from being clipped off when the user hovers at the edge of the screen. An example of this and the design of the information display hover effect can be seen in Figure~\ref{fig:information_display}.
 
 	\input{figures/implementation/information_display}
 

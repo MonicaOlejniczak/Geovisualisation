@@ -2,7 +2,18 @@
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=1.5]{images/implementation/information_display}
-	\caption[Information display hover effect]{Information display hover effect.}
-	\label{fig:information_display_hover_effect}
+	\newcommand{\figurewidth}{0.4\textwidth}
+	\centering
+	\begin{subfigure}[b]{\figurewidth}
+        \figureborder{\includegraphics[width=\textwidth]{images/implementation/information_display/population}}
+		\caption{Information display for population data.}
+		\label{fig:information_display_population}
+	\end{subfigure}
+	\begin{subfigure}[b]{\figurewidth}
+		\figureborder{\includegraphics[width=\textwidth]{images/implementation/information_display/student}}
+		\caption{Information display for student data.}
+		\label{fig:information_display_student}
+	\end{subfigure}
+	\caption[Information display]{Information display hover effect.}
+	\label{fig:information_display}
 \end{figure}
