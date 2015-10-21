@@ -4,18 +4,18 @@
  Structure of the chapter
  Central themes of the chapter}
 
-\section{Flat surface} {
-\label{sec:flat_surface}
-	
-}
+\section{System} {
+\label{sec:system}
 
-\section{Round surface} {
-\label{sec:round_surface}
-	
-}
+	\input{figures/implementation/system/plane}
 
-\section{Grid} {
-\label{sec:grid}
+	\input{figures/implementation/system/sphere}
+
+	\input{figures/implementation/system/grid}
+
+	\todo{map to project outcomes}
+
+	\todo{highlight integration and student data}
 	
 }
 
@@ -59,36 +59,68 @@
 
 }
 
-\section{Data display} {
-\label{sec:data_display}
+\section{Data point display} {
+\label{sec:data_point_display}
+
+	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup.
 
 	\todo{write about how the data displays were implemented - bunch of cubegeoms that get updated}
 
-	% The development of these visualisations will involve using the established \href{http://threejs.org/docs/#Reference/Extras.Geometries/BoxGeometry}{BoxGeometry} and NURBS surface that are available in Three.js. The \href{http://threejs.org/examples/webgl_geometry_nurbs.html}{NURBS example}, as displayed in Appendix~\ref{app:nurbs}, proves that it is possible to render a smooth 3D surface. This can be applied to represent a heat map and if there lie difficulties in implementing this, then a simpler representation can be modelled.
+	\todo{mention flat - spherical projection for data points}
+
+	\input{figures/implementation/data_display}
+
+	% The development of these visualisations will involve using the established \href{http://threejs.org/docs/#Reference/Extras.Geometries/BoxGeometry}{BoxGeometry} that are available in Three.js.
 
 }
 
 \section{Information display} {
 \label{sec:information_display}
 
-	\todo{say how this was implemented - raycaster in requestanimframe, toggles one element to hide/show so nothing new in dom is added (more performant)}
+	\todo{say how this was implemented - raycaster in requestanimframe, toggles one element to hide/show so nothing new in dom is added (more performant) recompiles the template}
+
+	\todo{add for population and student data}
 
 	\input{figures/implementation/information_display}
+
+}
+
+\section{Skybox} {
+\label{sec:skybox}
+
+	\todo{write things}
+
+}
+
+\section{Drawer menu} {
+\label{sec:drawer}
+
+	The drawer menu is located on the left side of the system and is initially closed to maximise the visualisation viewing area. It has been built with pure CSS, using a checkbox that alters and transitions the position of the menu when the checkbox is checked. This interface has been shown in Figure~\ref{fig:drawer} below.
+
+	\input{figures/implementation/drawer}
 
 }
 
 \section{Filtering} {
 \label{sec:filtering_implementation}
 
-	Filtering was implemented using an event-driven approach and a view controller for configuring the filters. This view controller composes the slider and checkbox views, which were designed using Handlebars templates and populated with a Backbone model.
-
-	recompiles the template
-
-	~\ref{sec:interface_design}.
-
-	\input{figures/implementation/filtering/comparison}
+	Filtering was implemented using an event-driven approach and a view controller for configuring the filters. This view controller comprises the slider and checkbox views, which were designed using Handlebars templates and populated with a Backbone model. The final design of this interface has been demonstrated in Figure~\ref{fig:filtering_interface}.
 
 	\input{figures/implementation/filtering/interface}
+
+	As a user adjusts the values in the slider, an \texttt{update} event is triggered. When this occurs, the event handler adjusts the minimum and maximum input to reflect the new slider widget values. Then, the Backbone collection that represents the data displays are filtered by calling the \texttt{filterBy} function with a filter function. This method is reposnsible for iterating through each model in the collection and determining if it should be filtered. A simple example of a filter function is:
+
+	\input{code/implementation/filtering_function}
+
+	The above function utilises closure to check if the property associated with the slider is within the specified minimum and maximum bounds. If this function returns \texttt{true}, the model is added to a filtered collection. Once the collection has been iterated through, the \texttt{filterBy} function triggers a \texttt{filter} event with the filtered collection. This event is handled through other classes and ultimately modifies the visibility of the data display mesh based on the results of filtering.
+
+	A similar process occurs when the user enters a value into the minimum or maximum inputs. A \texttt{keyup} event is bound to both inputs and a timer is in place to enforce a filtering delay. This delay ensures that filtering is processed as required, when the user has stopped typing, in order to reduce performance issues. When the user stops typing, the slider values are updated to match the input and filtering then proceeds as normal.
+
+	As previously mentioned, the checkboxes represent what information is available to the user when hovering on a data display. The state of visibility for any given property is configured through a custom Handlebars helper method. This helper method is called when the information display template is updated, which is every time the user hovers on a data display. The helper method simply checks if a property is currently in a filtered list and displays the property when it is not a member of this list. So in order to configure the visibility of properties in the information display, a \texttt{change} event is bound to each chexkbox that updates the contents of the filtered list.
+
+	The sequence of images displayed in Figure~\ref{fig:filtering_comparison} presents a comparison between the results of filtering for both data displays and information displays. From this, it can be seen that the user activities outlined in Section~\ref{sec:user_actions} have the potential to be fulfilled more quickly when there is less data to navigate through.
+
+	\input{figures/implementation/filtering/comparison}
 
 }
 
@@ -107,7 +139,11 @@
 
 }
 
-% \section{Evaluations} {
-% \label{sec:evaluations}
+\section{Evaluations} {
+\label{sec:evaluations}
 
-% }
+	\todo{performance slow with large data mention filtering and configuration}
+
+	\todo{map to project outcomes and user issues here and reflect everything}
+
+}

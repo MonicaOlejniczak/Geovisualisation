@@ -89,21 +89,21 @@
 
 		\begin{itemize}
 			\item Navigation interactions -- pan, zoom and rotate.
-			\item Data points that represent the dataset are displayed as either 3D bars or NURBS.
+			\item Data point displays that represent the dataset are displayed as 3D bars.
 				\begin{itemize}
-					\item Data points should have the ability to be filtered.
+					\item Data displays should have the ability to be filtered.
 				\end{itemize}
-			\item The colour of a data point should be effected by the value it represents.
+			\item The colour of a data display should be effected by the value it represents.
 				\begin{itemize}
-					\item e.g. Data points that represent population data may be coloured red, orange or yellow to indicate high, medium or low population areas respectively.
+					\item e.g. Data displays that represent population data may be coloured red, orange or yellow to indicate high, medium or low population areas respectively.
 				\end{itemize}
-			\item Information associated with a data point can be viewed by a user.
+			\item Information associated with a data display can be viewed by a user.
 				\begin{itemize}
 					\item Should use a simple panel interface, shown in Figure~\ref{fig:information_display_design}.
 					\item Information is retrieved through metadata. 
 					\item Can be shown through hover effects or by outputting the dataset on the page.
 				\end{itemize}
-			\item Data points are projected from a base geometry.
+			\item Data displays appear projected from a base geometry.
 				\begin{itemize}
 					\item The geometry can be a plane or sphere and depends on the dataset being used.
 				\end{itemize}
@@ -134,18 +134,18 @@
 
 			Filters take advantage of slider and checkbox widgets to adjust the state of what is displayed to the user.
 
-			\emph{Sliders} adjust what data points are visible to the user. This is achieved by configuring the bounds of the available metadata in a data point. Take for example a dataset that has a range of values between 0 -- 100. If the user adjusts the value of its respective slider to be $\ge$20, then any data points that have a value \textless20 will be hidden.
+			\emph{Sliders} adjust what data displays are visible to the user. This is achieved by configuring the bounds of the available metadata in the data model. Take for example a dataset that has a range of values between 0 -- 100. If the user adjusts the value of its respective slider to be $\ge$20, then any data displays that have a value \textless20 will be hidden.
 			
-			\emph{Checkboxes} are designed to be toggled on or off. This widget toggles what metadata associated with a data point is displayed to the user.
+			\emph{Checkboxes} are designed to be toggled on or off. This widget toggles what metadata associated with a data display is shown to the user.
 
 		}
 
 		\subsubsection{Configuration} {
 		\label{sec:configuration}
 
-			Configuration options are designed to change the values and attributes of the 3D environment in real-time, promoting the analysis of the effects colour has on useability and performance. These options are organised in a folder structure, to deliver a hierarchy and logical grouping to the user. Moreover, these options should handle configuring data points and surface values which enable the user to customise the display of the system.
+			Configuration options are designed to change the values and attributes of the 3D environment in real-time, promoting the analysis of the effects colour has on useability and performance. These options are organised in a folder structure, to deliver a hierarchy and logical grouping to the user. Moreover, these options should handle configuring data displays and surface values which enable the user to customise the display of the system.
 
-			\emph{Data point} configurations should modify the low, medium, high colour values and the range of colours displayed.
+			\emph{Data display} configurations should modify the low, medium, high colour values and the range of colours displayed.
 
 			\emph{Surface} configurations should modify the midtone colours of the surface and the colour or intensity of other surface attributes.
 
@@ -162,11 +162,11 @@
 
 	\input{figures/design/user_actions}
 
-	These user actions facilitate decision making processes by allowing users to evaluate different datasets and identify key features. For instance, when the user navigates around the scene they are able to view the information associated with a data point by hovering on it. In regards to population data the smallest and largest city or country can be established using this method. This is achieved by navigating to a short or tall data point and displaying its information which contains details such as the city and country. Similarly, when a student dataset is used the best and worst performing groups can be identified on a weekly and on an average basis by analysing this information. Viewing student progress in such a manner can also aid in determining patterns with particular groups and individuals, and examining the overall complexity of a task during certain weeks. 
+	These user actions facilitate decision making processes by allowing users to evaluate different datasets and identify key features. For instance, when the user navigates around the scene they are able to view the information associated with a data display by hovering on it. In regards to population data the smallest and largest city or country can be established using this method. This is achieved by navigating to a short or tall data point and displaying its information which contains details such as the city and country. Similarly, when a student dataset is used the best and worst performing groups can be identified on a weekly and on an average basis by analysing this information. Viewing student progress in such a manner can also aid in determining patterns with particular groups and individuals, and examining the overall complexity of a task during certain weeks. 
 
-	When filtering is applied to any dataset, the user can quickly confirm their initial observations found during the navigate and view data point information actions. This is due to the fact that a filter can determine which data points are visible to the user, by adjusting the minimum and maximum range of a property in the dataset through a widget. As an example, displaying populations that are either below or over 100,~000 individuals can easily be seen by adjusting the minimum or maximum filter bounds for the population property to 100,~000.
+	When filtering is applied to any dataset, the user can quickly confirm their initial observations found during the navigate and view data point information actions. This is due to the fact that a filter can determine which data displays are visible to the user, by adjusting the minimum and maximum range of a property in the dataset through a widget. As an example, displaying populations that are either below or over 100,~000 individuals can easily be seen by adjusting the minimum or maximum filter bounds for the population property to 100,~000.
 
-	Finally, different configurations can be applied in order to customise the appearance of the environment. This is achieved so that a distinguished colour scheme for the data points and surface is selected. In turn, this can enhance a user's ability to identify significant features and patterns through colour palettes that make the dataset clearer to understand.
+	Finally, different configurations can be applied in order to customise the appearance of the environment. This is done so that a distinguished colour scheme for the data displays and surface is selected. In turn, this can enhance a user's ability to identify significant features and patterns through colour palettes that make the dataset clearer to understand.
 
 }
 
@@ -205,6 +205,6 @@
 \section{Evaluations} {
 \label{sec:evaluation_design}
 
-	\todo{}
+	\todo{The following criteria will be considered when evaluating and comparing the visualisations: time to render, time to perform operations after render, average frames per second, scaling betwen small and large datasets and how different colours and schemes effect performance.}
 
 }
