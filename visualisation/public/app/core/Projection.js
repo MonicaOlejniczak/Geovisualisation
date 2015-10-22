@@ -69,6 +69,7 @@ define(function (require) {
 		// TODO make nicer
 		//theta = theta || THREE.Math.degToRad(Convert.range(this.thetaBound, new THREE.Vector2(0, 360), position.x)) - Math.PI * 0.5;
 		theta = theta || THREE.Math.degToRad(position.x);
+		//phi = phi || THREE.Math.degToRad(-position.z);
 		phi = phi || THREE.Math.degToRad(Convert.range(bounds.y.x, bounds.y.y, -position.z));
 
 		object.position.copy(Convert.sphericalToCartesian(radius, theta, phi));

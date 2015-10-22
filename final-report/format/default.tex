@@ -1,4 +1,4 @@
-%!TEX root = report.tex
+%!TEX root = ../report.tex
 
 \usepackage[left=30mm,top=35mm,right=30mm,bottom=35mm,headheight=30pt]{geometry}
 
@@ -46,7 +46,7 @@
 % Table vertical spacing
 \renewcommand{\arraystretch}{1.5}
 % Add caption spacing
-\captionsetup[table]{belowskip=12pt}
+\captionsetup[table]{belowskip=1em}
 \captionsetup[subfigure]{aboveskip=-0.8em,belowskip=0.5em}
 
 %%% Figures
@@ -62,32 +62,7 @@
 }
 
 %%% Code
-\usepackage{courier}
-% \usepackage[scaled]{beramono}
-% \usepackage[T1]{fontenc}
-\usepackage{listings}
-
-% Begin at indentation of environment setup
-\usepackage{lstautogobble}
-
-% Define code colors
-\definecolor{comment}{RGB}{98,151,85}
-\definecolor{keyword}{RGB}{203,119,47}
-\definecolor{string}{RGB}{47,95,36}
-
-% Default code settings
-\lstset{
-	autogobble,
-	language=Java,
-	tabsize=4,
-	showstringspaces=false,
-	basicstyle=\footnotesize\ttfamily,
-	commentstyle=\color{comment},
-	% keywordstyle=\bfseries,
-	keywordstyle=\bfseries\color{keyword},
-	stringstyle=\color{string},
-	otherkeywords={var,function}
-}
+\input{format/code}
 
 %%% References
 \usepackage[backend=bibtex,style=authoryear]{biblatex}

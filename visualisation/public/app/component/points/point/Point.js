@@ -15,10 +15,9 @@ define(function (require) {
 	 * @param width The width of the point.
 	 * @param height The height of the point.
 	 * @param max The max value of all the points.
-	 * @param [projection] The projection for the point.
 	 * @constructor
 	 */
-	function Point (model, width, height, max, projection) {
+	function Point (model, width, height, max) {
 
 		THREE.Mesh.call(this);
 
@@ -47,25 +46,12 @@ define(function (require) {
 		this.max = boundingBox.max.y;
 
 		// Set the transformed position data.
-		this.updatePosition(model.position(), projection);
+		this.position.copy(model.position());
 
 	}
 
 	Point.prototype = Object.create(THREE.Mesh.prototype);
 	Point.prototype.constructor = Point;
-
-	/**
-	 * Updates the position of the point and applied a projection if it exists.
-	 *
-	 * @param position The new position for the point.
-	 * @param [projection] The projection instance.
-	 */
-	Point.prototype.updatePosition = function (position, projection) {
-		this.position.copy(position);
-		if (projection) {
-			projection.project.call(projection, this);
-		}
-	};
 
 	/**
 	 * Updates the material and the associated uniforms of the point;

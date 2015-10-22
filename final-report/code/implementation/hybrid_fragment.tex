@@ -1,0 +1,13 @@
+%!TEX root = ../../report.tex
+
+\begin{lstlisting}[language=GLSL]
+	void main() {
+		vec3 color;
+		if (uMode == 0) {
+			color = basicColor(uBound, uColorRange, uMagnitude, uSaturation, uLightness);
+		} else {
+			color = gradientColor(uBound, vPosition, uLowColor, uMediumColor, uHighColor);
+		}
+		gl_FragColor = vec4(color, uAlpha);
+	}
+\end{lstlisting}

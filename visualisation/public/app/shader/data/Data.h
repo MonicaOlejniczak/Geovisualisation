@@ -1,11 +1,11 @@
 #include "util/Convert.h"
 
-vec3 getBasicColor(vec2 uBound, vec2 uColorRange, float uMagnitude, float uSaturation, float uLightness) {
+vec3 basicColor(vec2 uBound, vec2 uColorRange, float uMagnitude, float uSaturation, float uLightness) {
 	float value = clamp(convertRange(uBound, uColorRange, uMagnitude), 0.0, 1.0);
 	return hsv2rgb(vec3(value, uSaturation, uLightness));
 }
 
-vec3 getGradientColor(vec2 uBound, vec3 vPosition, vec3 uLowColor, vec3 uMediumColor, vec3 uHighColor) {
+vec3 gradientColor(vec2 uBound, vec3 vPosition, vec3 uLowColor, vec3 uMediumColor, vec3 uHighColor) {
 	// Get the min and max from the bound.
 	float min = uBound.x;
 	float max = uBound.y;

@@ -24,9 +24,9 @@ varying vec3 vPosition;
 void main() {
 	vec3 color;
 	if (uMode == 0) {
-		color = getBasicColor(uBound, uColorRange, uMagnitude, uSaturation, uLightness);
+		color = basicColor(uBound, uColorRange, uMagnitude, uSaturation, uLightness);
 	} else {
-		color = getGradientColor(uBound, vPosition, uLowColor, uMediumColor, uHighColor);
+		color = gradientColor(uBound, vPosition, uLowColor, uMediumColor, uHighColor);
 	}
 	gl_FragColor = vec4(color, uAlpha);
 }

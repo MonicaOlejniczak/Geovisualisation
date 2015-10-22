@@ -134,10 +134,8 @@ define(function (require) {
 	 * @returns {Point}
 	 */
 	Points.prototype.addPoint = function (model, projection) {
-		// Create the point and adjust the min and max value of the points.
-		var point = new Point(model, this.width, this.height, this.max, projection);
-		// Add the point and then return it.
-		//this.geometry.mergeMesh(point);
+		var point = new Point(model, this.width, this.height, this.max);
+		projection.project.call(projection, point);
 		this.add(point);
 		return point;
 	};

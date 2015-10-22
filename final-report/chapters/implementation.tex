@@ -20,7 +20,7 @@ The purpose of this chapter is to describe the implementation of the system in g
 \section{Navigation} {
 \label{sec:navigation}
 
-	The navigation techniques that the user can interact with are: pan, rotate and zoom. This functionality was implemented in a single module and utilised mouse events to detect when the user was scrolling or pressing the left or right mouse button. It is important to note that Three.js uses a right-handed coordinate system, as shown in Figure~\ref{fig:threejs_coordinate_system}.
+	The navigation techniques that the user can interact with are pan, rotate and zoom. This functionality was implemented in a single module and utilised mouse events to detect when the user was scrolling or pressing the left or right mouse button. It is important to note that Three.js uses a right-handed coordinate system, as shown in Figure~\ref{fig:threejs_coordinate_system}.
 
 	\input{figures/implementation/threejs_coordinate_system}
 
@@ -60,11 +60,13 @@ The purpose of this chapter is to describe the implementation of the system in g
 \section{Data point display} {
 \label{sec:data_point_display}
 
-	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup.
+	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Points} class ensures that each \texttt{Point} appears as if it were on top of the surface, by applying either a standard or spherical projection. 
 
-	\todo{write about how the data displays were implemented - bunch of cubegeoms that get updated}
+	The standard projection simply sets the y-position of the object by some offset, in this case the height of the plane surface, and then converts the range of the x and z-positions so that is fits on the plane dimensions. Whereas the spherical projection first converts x-position of the object to $\theta$ and the z-position to $\phi$ in radians. These values are used, along with the radius of the sphere, to apply a spherical to cartesian conversion which denotes the position of the \texttt{Point}. Then, the point is rotated to face the position of the sphere and again in the x-direction so it is not tangential to the surface.
 
-	\todo{mention flat - spherical projection for data points}
+	Further, the shader used as the shader material in the \texttt{Point} class uses various uniforms to provide a multitude of configurations and effects to the user, which have been specified in Section~\ref{sec:configuration_implementation}. One important aspect of the data displays is their ability to change their appearance from a HSV colour range to a gradient colour scheme, which can be seen in Figure~\ref{fig:data_point_displays} below. This has been completed with a simple fragment shader that changes which scheme to use for the display of the data points. The following code demonstrates the main entry point of this shader:
+
+	\input{code/implementation/hybrid_fragment}
 
 	\input{figures/implementation/data_display}
 

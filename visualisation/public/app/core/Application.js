@@ -50,8 +50,8 @@ define(function (require) {
 		//var keys = new THREE.Vector3('group', 'week', 'progress');
 		//var collection = this.processGridData(data, keys);
 
-		this.visualisation = new FlatHeatMap($canvas, collection);
-		//this.visualisation = new RoundHeatMap($canvas, collection);
+		//this.visualisation = new FlatHeatMap($canvas, collection);
+		this.visualisation = new RoundHeatMap($canvas, collection);
 		//this.visualisation = new GridHeatMap($canvas, collection);
 
 		var renderer = this.visualisation.renderer;
@@ -93,7 +93,7 @@ define(function (require) {
 	Application.prototype.processData = function (data, keys) {
 		var points = [];
 		console.log(data.length);
-		for (var i = 0, len = Math.min(data.length, 5000); i < len; i++) {
+		for (var i = 0, len = Math.min(data.length, 1000); i < len; i++) {
 			points.push(this.createPoint(data[i], keys));
 		}
 		return new Points(points);
