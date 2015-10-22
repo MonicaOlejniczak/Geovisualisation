@@ -5,15 +5,17 @@ The purpose of this chapter is to describe the implementation of the system in g
 \section{System} {
 \label{sec:system}
 
+	The first visualisation for the system saw 
+
 	\input{figures/implementation/system/plane}
 
 	\input{figures/implementation/system/sphere}
 
+	\todo{highlight integration and student data}
+
 	\input{figures/implementation/system/grid}
 
-	\todo{map to project outcomes}
-
-	\todo{highlight integration and student data}
+	\todo{map to project outcomes and user issues}
 	
 }
 
@@ -60,7 +62,7 @@ The purpose of this chapter is to describe the implementation of the system in g
 \section{Data point display} {
 \label{sec:data_point_display}
 
-	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Points} class ensures that each \texttt{Point} appears as if it were on top of the surface, by applying either a standard or spherical projection. 
+	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Points} class ensures that each \texttt{Point} appears as if it were on top of the surface, by applying either a standard or spherical projection.
 
 	The standard projection simply sets the y-position of the object by some offset, in this case the height of the plane surface, and then converts the range of the x and z-positions so that is fits on the plane dimensions. Whereas the spherical projection first converts x-position of the object to $\theta$ and the z-position to $\phi$ in radians. These values are used, along with the radius of the sphere, to apply a spherical to cartesian conversion which denotes the position of the \texttt{Point}. Then, the point is rotated to face the position of the sphere and again in the x-direction so it is not tangential to the surface.
 
@@ -69,8 +71,6 @@ The purpose of this chapter is to describe the implementation of the system in g
 	\input{code/implementation/hybrid_fragment}
 
 	\input{figures/implementation/data_display}
-
-	% The development of these visualisations will involve using the established \href{http://threejs.org/docs/#Reference/Extras.Geometries/BoxGeometry}{BoxGeometry} that are available in Three.js.
 
 }
 

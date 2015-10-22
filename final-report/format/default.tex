@@ -46,19 +46,18 @@
 % Table vertical spacing
 \renewcommand{\arraystretch}{1.5}
 % Add caption spacing
-\captionsetup[table]{belowskip=1em}
-\captionsetup[subfigure]{aboveskip=-0.8em,belowskip=0.5em}
+\captionsetup[table]{belowskip=10pt}
+% \captionsetup[figure]{belowskip=-10pt}
+% \captionsetup[subfigure]{belowskip=10pt}
 
 %%% Figures
 % Frames around images
-\usepackage{mdframed}
-
 \newcommand{\bordercolor}{black!40}
-\newcommand{\figureborder}[1]{
-	\setlength{\fboxsep}{0pt}
-	\setlength{\fboxrule}{0.5pt}
-	\color{\bordercolor}
-	\fbox{#1}
+\newcommand{\figureborder}[1]{%
+	\setlength{\fboxsep}{0pt}%
+	\setlength{\fboxrule}{0.5pt}%
+	\color{\bordercolor}%
+	\fbox{#1}%
 }
 
 %%% Code
