@@ -38,7 +38,7 @@ define(function (require) {
 		// Create the texture and use it for the mesh material.
 		var texture = this.createTexture();
 		// Create the shader.
-		var shader = new Shader('earth/Earth', {
+		var shader = new Shader('surface/Surface', {
 			uniforms: {
 				uTexture: {type: 't', value: texture},
 				uColor: {type: 'c', value: this.color},

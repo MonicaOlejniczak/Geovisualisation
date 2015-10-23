@@ -1,22 +1,32 @@
 %!TEX root = ../report.tex
 
-The purpose of this chapter is to describe the implementation of the system in great detail. This chapter first begins by introducing the final system visualisations, which provides a brief overview of their differences and applications. Following the introduction, the rest of this chapter is structured such that the implementation of each system feature is described in more depth. The first feature to be discussed are the navigation techniques, followed by the data point and information displays and the skybox. Finally, the implementation of the drawer and its filtering and configuration components are revealed.
+The purpose of this chapter is to describe the implementation of the system in great detail. This chapter first begins by introducing the final system visualisations, which provides a brief overview of the implementation and their differences. Following the introduction, the rest of this chapter is structured such that the implementation of each system feature is described in more depth. The first item to be discussed is the dataset and navigation techniques, followed by the surface and data point displays. Then the information displays and skybox details are outlined. Finally, the implementation of the drawer and its filtering and configuration components are revealed before moving onto the implementation of the evaluation criteria.
 
 \section{System} {
 \label{sec:system}
 
-	The first visualisation for the system saw 
+	The first visualisation for the system saw the implementation of a plane surface which began with a generated dataset, before transitioning to real data. This visualisation has been presented in Figure~\ref{fig:plane_surface} and features a population dataset projected from the world map. The implementation for this visualisaton loads the dataset at application startup and processes the information such that it is stored in a Backbone collection. The processing of the dataset involves transforming the $x$, $y$ and $z$ values of the data, which are specified as $longtitude$, $latitude$ and $population$ respectively, into the THREE.js coordinate system. A $coordinate$ and $magnitude$ field is also added during processing, so that these values can be referenced when performing calculations in the \texttt{Point} class. For instance, longitude and latitude determine the initial position of the point before being projected, while the population indicates its magnitude. Once the collection has been populated with models, the visualisation is created. The visualisation contains the renderer, plane surface, data points and a projection to be applied to all points. The details for the creation of the surface, the data points and their projection has been outlined in Section~\ref{sec:surface} and~\ref{sec:data_point_display}.
 
 	\input{figures/implementation/system/plane}
 
+	The second visualisation modified the surface and projection used in the previous implementation, which have been described in Section~\ref{sec:surface} and~\ref{sec:data_point_display}. This visualisation also used a population dataset, which can be seen in Figure~\ref{fig:sphere_surface} and hence the same processing techniques were utilised during application startup.
+
 	\input{figures/implementation/system/sphere}
 
-	\todo{highlight integration and student data}
+	The final implementation for this system integrates a student progress dataset for teaching analytics using a grid surface. This visualisation can be seen in Figure~\ref{fig:grid_surface} and required alternate processing techniques for implementation. First of all, when the dataset was processed the $x$, $y$ and $z$ values were instead mapped to $group$, $week$ and $progress$. Since this dataset cannot map keys to the position of a point, as the data may include strings, the position had to be calculated using the $x$, $y$ and $z$ values. This is unlike the population dataset, which was able to map longitude and latitude to a position. Finally, there are two significant differences between this visualisation and the previous two that have been outlined. The first is that there is no skybox displayed in the scene and the second is that the surface does not utilise textures or shaders.
 
 	\input{figures/implementation/system/grid}
 
 	\todo{map to project outcomes and user issues}
 	
+}
+
+\section{Datasets} {
+\label{sec:datasets}
+	
+	
+
+
 }
 
 \section{Navigation} {
@@ -59,10 +69,19 @@ The purpose of this chapter is to describe the implementation of the system in g
 
 }
 
+\section{Surface} {
+\label{sec:surface}
+
+	\todo{something}
+
+	\input{code/implementation/surface_fragment}
+
+}
+
 \section{Data point display} {
 \label{sec:data_point_display}
 
-	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Points} class ensures that each \texttt{Point} appears as if it were on top of the surface, by applying either a standard or spherical projection.
+	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the initial position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Points} class ensures that each \texttt{Point} appears as if it were on top of the surface, by applying either a standard for planes or a spherical projection for spheres.
 
 	The standard projection simply sets the y-position of the object by some offset, in this case the height of the plane surface, and then converts the range of the x and z-positions so that is fits on the plane dimensions. Whereas the spherical projection first converts x-position of the object to $\theta$ and the z-position to $\phi$ in radians. These values are used, along with the radius of the sphere, to apply a spherical to cartesian conversion which denotes the position of the \texttt{Point}. Then, the point is rotated to face the position of the sphere and again in the x-direction so it is not tangential to the surface.
 
