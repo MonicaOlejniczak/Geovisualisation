@@ -1,0 +1,19 @@
+%!TEX root = ../../report.tex
+
+\begin{figure}[H]
+	\newcommand{\figurewidth}{0.5\textwidth}
+	\begin{subfigure}[b]{\figurewidth}
+		\centering
+		\input{code/implementation/population_dataset}		
+		\caption{Structure of the population dataset.}
+		\label{fig:population_dataset_structure}
+	\end{subfigure}
+	\begin{subfigure}[b]{\figurewidth}
+		\centering
+		\input{code/implementation/student_dataset}
+		\caption{Structure of the student dataset.}
+		\label{fig:student_dataset_structure}
+	\end{subfigure}
+	\caption[Dataset structures]{The structures used for both datasets.}
+	\label{fig:datasets}
+\end{figure}

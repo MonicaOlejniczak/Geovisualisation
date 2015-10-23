@@ -23,9 +23,29 @@ The purpose of this chapter is to describe the implementation of the system in g
 
 \section{Datasets} {
 \label{sec:datasets}
-	
-	
 
+	\subsection{Population dataset} {
+	\label{sec:population_dataset}
+
+		The GeoNames database was used as the basis for the population dataset. This data was preprocessed with a Python script and converted into a JSON structure, so it could be used with the visualisations. One issue with the dataset is that it does not contain the name of the country. This was considered an important feature, as it would enable users to identify the country associated with a data point with relative ease. This information was added by loading a separate JSON dataset that contained a list of country names and their code, and mapping each country code to its corresponding name. The GeoNames dataset contained country codes, so the country name could be accessed with this map and added to the final output for each city. Alongside this processing, unwanted information such as elevation and administration codes were filtered out and specific strings were converted to numbers before the output was exported to a JSON file.
+
+	}
+
+	\subsection{Student progress dataset} {
+	\label{sec:student_progress_dataset}
+
+		The data used to monitor student progress can be retrieved from the server used in the group project. During application startup, an AJAX request is performed to fetch this data from the live system.
+
+	}
+
+	\subsection{Structure} {
+	\label{sec:dataset_structure}
+
+		The structure used in both the population and student progress datasets has been shown in Figure~\ref{fig:datasets} below.
+
+		\input{figures/implementation/datasets}
+
+	}
 
 }
 
