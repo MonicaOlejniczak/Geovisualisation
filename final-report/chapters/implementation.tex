@@ -5,9 +5,9 @@ The purpose of this chapter is to describe the implementation of the system in g
 \section{System} {
 \label{sec:system}
 
-	The first visualisation for the system saw the implementation of a plane surface which began with a generated dataset, before transitioning to real data. This visualisation has been presented in Figure~\ref{fig:plane_surface} and features a population dataset projected from the world map. The implementation for this visualisaton loads the dataset at application startup and processes the information such that it is stored in a Backbone collection. The processing of the dataset involves transforming the $x$, $y$ and $z$ values of the data, which are specified as $longtitude$, $latitude$ and $population$ respectively, into the THREE.js coordinate system. A $coordinate$ and $magnitude$ field is also added during processing, so that these values can be referenced when performing calculations in the \texttt{Point} class. For instance, longitude and latitude determine the initial position of the point before being projected, while the population indicates its magnitude. Once the collection has been populated with models, the visualisation is created. The visualisation contains the renderer, plane surface, data points and a projection to be applied to all points. The details for the creation of the surface, the data points and their projection has been outlined in Section~\ref{sec:surface} and~\ref{sec:data_point_display}.
+	The first visualisation for the system saw the implementation of a cuboid surface which began with a generated dataset, before transitioning to real data. This visualisation has been presented in Figure~\ref{fig:cuboid_surface} and features a population dataset projected from the world map. The implementation for this visualisaton loads the dataset at application startup and processes the information such that it is stored in a Backbone collection. The processing of the dataset involves transforming the $x$, $y$ and $z$ values of the data, which are specified as $longtitude$, $latitude$ and $population$ respectively, into the THREE.js coordinate system. A $coordinate$ and $magnitude$ field is also added during processing, so that these values can be referenced when performing calculations in the \texttt{Point} class. For instance, longitude and latitude determine the initial position of the point before being projected, while the population indicates its magnitude. Once the collection has been populated with models, the visualisation is created. The visualisation contains the renderer, cuboid surface, data points and a projection to be applied to all points. The details for the creation of the surface, the data points and their projection has been outlined in Section~\ref{sec:surface} and~\ref{sec:data_point_display}.
 
-	\input{figures/implementation/system/plane}
+	\input{figures/implementation/system/cuboid}
 
 	The second visualisation modified the surface and projection used in the previous implementation, which have been described in Section~\ref{sec:surface} and~\ref{sec:data_point_display}. This visualisation also used a population dataset, which can be seen in Figure~\ref{fig:sphere_surface} and hence the same processing techniques were utilised during application startup.
 
@@ -92,18 +92,22 @@ The purpose of this chapter is to describe the implementation of the system in g
 \section{Surface} {
 \label{sec:surface}
 
-	\todo{something}
+	\begin{sloppypar}
+		A surface consists of a \texttt{THREE.Mesh} and uses either a \texttt{THREE.BoxGeometry} or \texttt{THREE.SphereGeometry} for its geometry. The material used in both the cuboid and sphere surface is a \texttt{THREE.ShaderMaterial}, which facilitates the configuration of midtone effects and other uniforms. The entry point for the shader is demonstrated below.
+	\end{sloppypar}
 
 	\input{code/implementation/surface_fragment}
+
+	The above snippet of code applies a color balance effect to every point in the fragment shader that represents the surface texture. In a cuboid surface for instance, any point that is beneath the top face is set to a solid colour. This removes the appearance of a stretched texture on all other sides of the cuboid. In contrast to this, the grid surface uses a simple \texttt{THREE.MeshBasicMaterial} as it does not contain a texture or other uniforms.
 
 }
 
 \section{Data point display} {
 \label{sec:data_point_display}
 
-	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the initial position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Points} class ensures that each \texttt{Point} appears as if it were on top of the surface, by applying either a standard for planes or a spherical projection for spheres.
+	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the initial position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Points} class ensures that each \texttt{Point} appears as if it were on top of the surface, by applying either a standard for cuboids or a spherical projection for spheres.
 
-	The standard projection simply sets the y-position of the object by some offset, in this case the height of the plane surface, and then converts the range of the x and z-positions so that is fits on the plane dimensions. Whereas the spherical projection first converts x-position of the object to $\theta$ and the z-position to $\phi$ in radians. These values are used, along with the radius of the sphere, to apply a spherical to cartesian conversion which denotes the position of the \texttt{Point}. Then, the point is rotated to face the position of the sphere and again in the x-direction so it is not tangential to the surface.
+	The standard projection simply sets the y-position of the object by some offset, in this case the height of the cuboid surface, and then converts the range of the x and z-positions so that is fits on the cuboid dimensions. Whereas the spherical projection first converts x-position of the object to $\theta$ and the z-position to $\phi$ in radians. These values are used, along with the radius of the sphere, to apply a spherical to cartesian conversion which denotes the position of the \texttt{Point}. Then, the point is rotated to face the position of the sphere and again in the x-direction so it is not tangential to the surface.
 
 	Further, the shader used as the shader material in the \texttt{Point} class uses various uniforms to provide a multitude of configurations and effects to the user, which have been specified in Section~\ref{sec:configuration_implementation}. One important aspect of the data displays is their ability to change their appearance from a HSV colour range to a gradient colour scheme, which can be seen in Figure~\ref{fig:data_point_displays} below. This has been completed with a simple fragment shader that changes which scheme to use for the display of the data points. The following code demonstrates the main entry point of this shader:
 
@@ -129,7 +133,9 @@ The purpose of this chapter is to describe the implementation of the system in g
 
 	\input{figures/implementation/skybox}
 
-	The implementation of the skybox was a simple process. This process involved loading each side of the cube as a \texttt{THREE.Texture} and assigning it as a \texttt{map} in a \texttt{THREE.MeshBasicMaterial} object. Each basic material was stored in an array, so that the skybox mesh could be created using a \texttt{THREE.BoxGeometry} and \texttt{THREE.MeshFaceMaterial}. It is important that the skybox is static during navigation, particularly so that the underlying cube structure of the skybox is not noticeable and appears more realistic to the user. This was accomplished by listening to the \texttt{pan}, \texttt{zoom} and \texttt{rotate} events in the mouse controls, and updating the position of the skybox to reflect that of the camera.
+	\begin{sloppypar}
+		The implementation of the skybox was a simple process. This process involved loading each side of the cuboid as a \texttt{THREE.Texture} and assigning it as a \texttt{map} in a \texttt{THREE.MeshBasicMaterial} object. Each basic material was stored in an array, so that the skybox mesh could be created using a \texttt{THREE.BoxGeometry} and \texttt{THREE.MeshFaceMaterial}. It is important that the skybox is static during navigation, particularly so that the underlying cuboid structure of the skybox is not noticeable and appears more realistic to the user. This was accomplished by listening to the \texttt{pan}, \texttt{zoom} and \texttt{rotate} events in the mouse controls, and updating the position of the skybox to reflect that of the camera.
+	\end{sloppypar}
 
 }
 
@@ -145,9 +151,9 @@ The purpose of this chapter is to describe the implementation of the system in g
 \section{Filtering} {
 \label{sec:filtering_implementation}
 
-	Filtering was implemented using an event-driven approach and a view controller for configuring the filters. This view controller comprises the slider and checkbox views, which were designed using Handlebars templates and populated with a Backbone model. The final design of this interface has been demonstrated in Figure~\ref{fig:filtering_interface}.
-
 	\input{figures/implementation/filtering/interface}
+
+	Filtering was implemented using an event-driven approach and a view controller for configuring the filters. This view controller comprises the slider and checkbox views, which were designed using Handlebars templates and populated with a Backbone model. The final design of this interface has been demonstrated in Figure~\ref{fig:filtering_interface}.
 
 	As a user adjusts the values in the slider, an \texttt{update} event is triggered. When this occurs, the event handler adjusts the minimum and maximum input to reflect the new slider widget values. Then, the Backbone collection that represents the data displays are filtered by calling the \texttt{filterBy} function with a filter function. This method is reposnsible for iterating through each model in the collection and determining if it should be filtered. A simple example of a filter function is:
 
