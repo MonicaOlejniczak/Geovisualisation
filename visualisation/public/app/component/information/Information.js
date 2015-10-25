@@ -12,9 +12,7 @@ define(function (require) {
 	var Point = require('component/points/point/Point');
 	var template = require('text!component/information/Information.hbs');
 
-	function Information (renderer, points, filters) {
-		// Set the raycaster on the renderer.
-		renderer.setRaycaster(points);
+	function Information (raycaster, filters) {
 		this.$el = $('#information');
 		// Add the offset and filters.
 		this.offset = 10;
@@ -22,16 +20,16 @@ define(function (require) {
 		// Configure the template and add the event listeners.
 		Handlebars.registerHelper('filter', this.filter.bind(this));
 		this.template = Handlebars.compile(template);
-		this.addEventListeners(renderer);
+		this.addEventListeners(raycaster);
 	}
 
 	/**
 	 * Adds event listeners to this class.
 	 *
-	 * @param renderer The WebGL renderer.
+	 * @param raycaster The raycaster class.
 	 */
-	Information.prototype.addEventListeners = function (renderer) {
-		$(renderer.raycaster).on('raycast', this.onRaycast.bind(this));
+	Information.prototype.addEventListeners = function (raycaster) {
+		$(raycaster).on('raycast', this.onRaycast.bind(this));
 	};
 
 	/**

@@ -13,11 +13,10 @@ define(function (require) {
 	/**
 	 * Initialises the heat map with the grid surface.
 	 *
-	 * @param canvas The HTML canvas.
 	 * @param points The points collection.
 	 * @constructor
 	 */
-	function GridHeatMap (canvas, points) {
+	function GridHeatMap (points) {
 		var maxX = points.max(function (model) {return model.get('coordinate').x}).get('coordinate').x;
 		var maxZ = points.max(function (model) {return model.get('coordinate').y}).get('coordinate').y;
 
@@ -34,9 +33,8 @@ define(function (require) {
 				new THREE.Vector2(new THREE.Vector2(-maxZ, maxZ), new THREE.Vector2(-maxZ, maxZ))
 			)
 		});
-		Visualisation.call(this, canvas, points, projection, surface, {
-			camera: {position: new THREE.Vector3(0, 100, 200)},
-			mouseControls: true,
+
+		Visualisation.call(this, points, projection, surface, {
 			skybox: false,
 			width: 5,
 			height: 5

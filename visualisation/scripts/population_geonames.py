@@ -14,7 +14,7 @@ int_keys = ['latitude', 'longitude', 'population']
 remove_keys = ['geonameid', 'asciiname', 'alternate_names', 'feature_class', 'feature_code', 'cc2', 'admin1_code',
               'admin2_code', 'admin3_code', 'admin4_code', 'elevation', 'dem']
 
-min_population = 10000
+min_population = 100000
 
 with codecs.open('{}countries.json'.format(input_directory), 'r', 'utf-8') as fp:
 	data = json.load(fp, 'utf-8')

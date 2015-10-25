@@ -14,11 +14,10 @@ define(function (require) {
 	/**
 	 * Initialises the heat map with the round surface.
 	 *
-	 * @param canvas The HTML canvas.
 	 * @param points The points collection.
 	 * @constructor
 	 */
-	function RoundHeatMap (canvas, points) {
+	function RoundHeatMap (points) {
 
 		var surface = new RoundSurface(100);
 		var projection = new Projection(Projection.spherical, {
@@ -29,10 +28,7 @@ define(function (require) {
 			)
 		});
 
-		Visualisation.call(this, canvas, points, projection, surface, {
-			camera: {position: new THREE.Vector3(0, 100, 300)},
-			mouseControls: true
-		});
+		Visualisation.call(this, points, projection, surface);
 
 	}
 

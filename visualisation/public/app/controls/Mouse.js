@@ -28,6 +28,7 @@ define(function (require) {
 		this.maxPolarAngle = Math.PI * 0.45;
 		// Add the origin vector.
 		this.origin = new THREE.Vector3();
+		//this.origin = camera.position.clone();
 		// Add the pan and rotate start.
 		this.panStart = new THREE.Vector2();
 		this.rotateStart = new THREE.Vector2();

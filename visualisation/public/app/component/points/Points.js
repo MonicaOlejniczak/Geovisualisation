@@ -37,8 +37,8 @@ define(function (require) {
 		this.max = this.collection.max(function (model) {return model.get(property)}).get(property);
 
 		// Set the width and height of the points.
-		this.width = options.width || 0.5;
-		this.height = options.height || 0.5;
+		this.width = options.width || 0.75;
+		this.height = options.height || 0.75;
 
 		// Set the min and max HSV colour range.
 		this.colorRange = {

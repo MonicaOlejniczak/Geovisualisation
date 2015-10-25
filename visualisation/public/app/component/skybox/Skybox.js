@@ -44,10 +44,20 @@ define(function (require) {
 
 		this.scale.set(size, size, size);
 		this.rotateX(Math.PI * 0.5);
+
+		$(app.controls).on({
+			zoom: this.onControls.bind(this),
+			pan: this.onControls.bind(this),
+			rotate: this.onControls.bind(this)
+		})
 	}
 
 	Skybox.prototype = Object.create(THREE.Mesh.prototype);
 	Skybox.prototype.constructor = Skybox;
+
+	Skybox.prototype.onControls = function (event, position) {
+		this.updatePosition(position);
+	};
 
 	/**
 	 * Updates the position of the skybox.

@@ -43,8 +43,11 @@ define(function (require) {
 		var sliders = [];
 		var keys = this.keys;
 		//$filters.append(this.createSliderGroup(keys.x));
-		//$filters.append(this.createSliderGroup(keys.y));
-		sliders.push(this.createSlider(keys.z));
+		if (keys.y === 'week') {
+			sliders.push(this.createSlider(keys.y));
+		} else {
+			sliders.push(this.createSlider(keys.z));
+		}
 		return sliders;
 	};
 
@@ -182,7 +185,7 @@ define(function (require) {
 		this.collection.filterBy(function (model) {
 			// Get the value from the model using the filter property, then filter.
 			var value = model.get(property);
-			return !(value > min && value <= max);
+			return !(value >= min && value <= max);
 		});
 	};
 

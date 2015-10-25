@@ -9,6 +9,7 @@ define(function (require) {
 	var THREE = require('threejs');
 
 	var Viewport = require('core/Viewport');
+	var MouseControls = require('controls/Mouse');
 
 	var Points = require('collection/Points');
 	var Point = require('model/Point');
@@ -23,6 +24,8 @@ define(function (require) {
 	var RoundHeatMap = require('component/visualisation/RoundHeatMap');
 	var GridHeatMap = require('component/visualisation/GridHeatMap');
 
+	var Raycaster = require('core/Raycaster');
+	var Help = require('component/help/Help');
 	var Information = require('component/information/Information');
 	var Filters = require('component/filters/Filters');
 	var Gui = require('component/Gui');
@@ -35,36 +38,85 @@ define(function (require) {
 	 */
 	function Application ($canvas) {
 
-		// TODO hack
-		window.app = this;
+		this.$content = $('#content');
 
 		this.$canvas = $canvas;
-		this.viewport = new Viewport($('#content'));
+		this.viewport = new Viewport(this.$content);
 
-		var data = PopulationData;
-		// Longitude = azimuthal angle, latitude = elevation.
-		var keys = new THREE.Vector3('longitude', 'latitude', 'population');
-		var collection = this.processData(data, keys);
+		this.renderer = new THREE.WebGLRenderer({
+			canvas: $canvas.get(0),
+			alpha: true,
+			antialias: true
+		});
 
-		//var data = StudentData;
-		//var keys = new THREE.Vector3('group', 'week', 'progress');
-		//var collection = this.processGridData(data, keys);
+		this.scene = new THREE.Scene();
+		this.camera = new THREE.PerspectiveCamera(45, $canvas.width() / $canvas.height(), 0.1, 5000);
+		this.controls = new MouseControls(this.camera, $canvas.get(0));
 
-		//this.visualisation = new FlatHeatMap($canvas, collection);
-		this.visualisation = new RoundHeatMap($canvas, collection);
-		//this.visualisation = new GridHeatMap($canvas, collection);
-
-		var renderer = this.visualisation.renderer;
-		var points = this.visualisation.points;
-		var filters = ['magnitude', 'timezone'];
-
-		new Information(renderer, points, filters);
-		new Filters(collection, keys, filters);
-		new Gui(this.visualisation);
-
-		renderer.render();
+		this.camera.lookAt(this.scene.position);
+		this.renderer.setSize($canvas.width(), $canvas.height());
 
 	}
+
+	Application.prototype.loadCuboid = function () {
+		var keys = new THREE.Vector3('longitude', 'latitude', 'population');
+		var collection = this.processData(PopulationData, keys);
+		var visualisation = new FlatHeatMap(collection);
+
+		this.camera.position.set(0, 200, 175);
+		this.camera.rotateX(-Math.PI / 4);
+
+		this.$content.append(new Help({model: new Backbone.Model({color: 'white'})}).$el);
+		this.run(collection, keys, visualisation);
+
+		this.scene.add(visualisation);
+
+		return visualisation;
+	};
+
+	Application.prototype.loadGlobe = function () {
+		var keys = new THREE.Vector3('longitude', 'latitude', 'population');
+		var collection = this.processData(PopulationData, keys);
+		var visualisation = new RoundHeatMap(collection);
+
+		this.camera.position.set(0, 10, 350);
+
+		this.$content.append(new Help({model: new Backbone.Model({color: 'white'})}).$el);
+		this.run(collection, keys, visualisation);
+		this.scene.add(visualisation);
+		return visualisation;
+	};
+
+	Application.prototype.loadGrid = function () {
+		var keys = new THREE.Vector3('group', 'week', 'progress');
+		var collection = this.processGridData(StudentData, keys);
+		var visualisation = new GridHeatMap(collection);
+
+		this.camera.position.set(0, 0, 300);
+		this.controls.panCamera(new THREE.Vector2(0, 100));
+
+		this.$content.append(new Help({model: new Backbone.Model({color: 'black'})}).$el);
+		this.run(collection, keys, visualisation);
+		this.scene.add(visualisation);
+		return visualisation;
+	};
+
+	Application.prototype.run = function (collection, keys, visualisation) {
+		var points = visualisation.points;
+		var filters = ['coordinate', 'magnitude', 'timezone'];
+
+
+		//var cameraPosition = new THREE.Vector3();
+		//cameraPosition.setFromMatrixPosition(this.camera.matrixWorld);
+		//this.controls.origin.copy(cameraPosition);
+
+		this.raycaster = new Raycaster(this.$canvas.get(0), this.camera, points);
+
+		new Information(this.raycaster, filters);
+		new Filters(collection, keys, filters);
+		new Gui(visualisation);
+
+	};
 
 	/**
 	 * Generates random data with the generate function.
@@ -165,6 +217,36 @@ define(function (require) {
 		properties['magnitude'] = position.y;
 
 		return new Point(properties);
+	};
+
+	/**
+	 * A method called on each render that checks if a resize needs to be applied.
+	 */
+	Application.prototype.resize = function () {
+		// Retrieve the canvas and the camera.
+		var viewport = this.viewport;
+		var $canvas = this.$canvas;
+		// Lookup the size the browser is displaying the canvas.
+		var width = viewport.width();
+		var height = viewport.height();
+		// Check if a resize needs to be applied.
+		if ($canvas.width() !== width || $canvas.height() !== height) {
+			this.camera.aspect = width / height;
+			this.camera.updateProjectionMatrix();
+			this.renderer.setSize(width, height);
+		}
+	};
+
+	/**
+	 * The rendering function that updates the canvas.
+	 */
+	Application.prototype.render = function () {
+		requestAnimationFrame(this.render.bind(this));
+		this.resize();
+		if (this.raycaster) {
+			this.raycaster.update();
+		}
+		this.renderer.render(this.scene, this.camera);
 	};
 
 	return Application;

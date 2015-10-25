@@ -45,7 +45,8 @@ define(function (require) {
 		// Update the surface position uniform for the surface material.
 		this.material.uniforms['uSurfacePosition'] = {type: 'f', value: -this.radius};
 		// Add the clouds and the atmosphere.
-		this.clouds = this.add(this.createClouds(geometry));
+		this.clouds = this.createClouds(geometry);
+		this.add(this.clouds);
 		//this.atmosphere = this.add(this.createAtmosphere(geometry));
 		this.dispatchEvent({type: 'ready'});
 	};

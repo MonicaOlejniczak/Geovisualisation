@@ -29,7 +29,15 @@
 
 	require(['jquery', 'core/Application', 'helper/Handlebars', 'text', 'json'], function ($, Application, HandlebarsHelper, test, json) {
 		new HandlebarsHelper();
-		window.app = new Application($('#visualisation'));
+
+		var application = window.app = new Application($('#visualisation'));
+
+		//var visualisation = application.loadCuboid();
+		//var visualisation = application.loadGlobe();
+		var visualisation = application.loadGrid();
+
+		application.render();
+
 	});
 
 }());
