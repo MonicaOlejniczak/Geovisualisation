@@ -13,11 +13,17 @@ The purpose of this chapter is to describe the implementation of the system in g
 
 	\input{figures/implementation/system/sphere}
 
-	The final implementation for this system integrates a student progress dataset for teaching analytics using a grid surface. This visualisation can be seen in Figure~\ref{fig:grid_surface} and required alternate processing techniques for implementation. First of all, when the dataset was processed the $x$, $y$ and $z$ values were instead mapped to $group$, $week$ and $progress$. Since this dataset cannot map keys to the position of a point, as the data may include strings, the position had to be calculated using the $x$, $y$ and $z$ values. This is unlike the population dataset, which was able to map longitude and latitude to a position. Finally, there are two significant differences between this visualisation and the previous two that have been outlined. The first is that there is no skybox displayed in the scene and the second is that the surface does not utilise textures or shaders.
+	The final implementation for this system integrates a student progress dataset for teaching analytics using a grid surface. This visualisation fulfils one of the goals and deliverables of the project and can be seen in Figure~\ref{fig:grid_surface}. This visualisation required alternate processing techniques for implementation. First of all, when the dataset was processed the $x$, $y$ and $z$ values were instead mapped to $group$, $week$ and $progress$. Since this dataset cannot map keys to the position of a point, as the data may include strings, the position had to be calculated using the $x$, $y$ and $z$ values. This is unlike the population dataset, which was able to map longitude and latitude to a position. Finally, there are two significant differences between this visualisation and the previous two that have been outlined. The first is that there is no skybox displayed in the scene and the second is that the surface does not utilise textures or shaders.
 
 	\input{figures/implementation/system/grid}
 
-	\todo{map to project outcomes and user issues}
+	The implementation of these visualisations has met all but one of the advanced system deliverables defined in Section~\ref{sec:project_definition}. It can also be observed that this project fulfils many goals by:
+
+	\begin{itemize}
+		\item Implementing the visualisations with generated, real and live datasets which are capable of being displayed in a time efficient manner.
+		\item Integrating the system with the final year project as a part of the teaching analytics component.
+		\item Conducting a user study and performance analysis outlined in Section~\ref{sec:system_evaluation} to identify user issues and performance concerns.
+	\end{itemize}
 	
 }
 
@@ -189,29 +195,31 @@ The purpose of this chapter is to describe the implementation of the system in g
 \section{System evaluation} {
 \label{sec:system_evaluation}
 
-	% \todo{performance slow with large data mention filtering and configuration}
-
-	\todo{map to project outcomes and user issues here and reflect everything}
-
-	As discussed in Section~\ref{sec:evaluation_design}, a user study and performance analysis has been undertaken as a way to measure the usability and effectiveness of the visualisations that have been implemented in this project.
+	As discussed in Section~\ref{sec:evaluation_design}, a user study and performance analysis has been undertaken as a way to measure the usability and effectiveness of the visualisations that have been implemented in this project. The details for these evaluations have been described in Section~\ref{sec:user_study} and \ref{sec:performance_analysis} respectively.
 
 	The system evaluations were performed on an MSI GS60 Ghost Pro 4K 15.6in Gaming Notebook with 16GB RAM and an NVIDIA GeForce GTX 970M dedicated graphics card. The visualisations were loaded in an offline environment using the high performance mode offered in Windows 8.1 to enhance the user experience and minimise performance issues.
 
 	\subsection{User study} {
-	\label{user_study}
+	\label{sec:user_study}
+
+		Prior to commencing the user study, there were a couple user issues that were observed throughout the development process. As a result, it was expected that users may experience difficulty navigating the population globe and may be confused as to the purpose of the checkboxes in the sidebar.
 
 		\todo{get more participants}
 
 		There were four male participants who volunteered to undertake this user study. The participants were aged between 21-28 and are enrolled in the final year project. All participants use computers on a daily basis and are familiar with navigating websites and using common functionality such as filtering.
 
-		The process began 
+		The process began by asking the participant to complete a consent form. A brief overview of each visualisation and the dataset they represent was provided after the user completed this form. The participant was given task instructions and encouraged to ask questions throughout the evaluation. They were then able to experiment with the visualisations in any order and asked to complete a questionnaire. On average the participant took approximately seven minutes to complete the study.
 
 	}
 
 	\subsection{Performance analyis} {
 	\label{sec:performance_analysis}
 
-		The performance analyis was conducted by carrying out manual performance testing, which has been outlined in Section~\ref{sec:performance_testing}. Each test was executed for a dataset size of 100, 500, 1000, 5000, 10000, 20000, five times and an average was recorded to indicate the time for the metric.
+		% \todo{performance slow with large data mention filtering and configuration}
+
+		The performance analyis was conducted by carrying out manual performance testing, which has been outlined in Section~\ref{sec:performance_testing}. Each test was executed for a dataset size of \dots
+
+		\todo{figure out sizes, 100, 500, 1000, 5000, 10000, 20000, five times and an average was recorded to indicate the time for the metric.}
 
 	}
 
