@@ -1,11 +1,11 @@
 %!TEX root = ../report.tex
 
-The purpose of this chapter is to describe the implementation of the system in great detail. This chapter first begins by introducing the final system visualisations, which provides a brief overview of the implementation and their differences. Following the introduction, the rest of this chapter is structured such that the implementation of each system feature is described in more depth. The first item to be discussed is the dataset and navigation techniques, followed by the surface and data point displays. Then the information displays and skybox details are outlined. Finally, the implementation of the drawer and its filtering and configuration components are revealed before moving onto the implementation of the evaluation criteria.
+The purpose of this chapter is to describe the implementation of the system in great detail. This chapter first begins by introducing the final system visualisations, which provides a brief overview of the implementation and their differences. Following the introduction, the rest of this chapter is structured such that the implementation of each system feature is described in more depth. The first item to be discussed is the dataset and navigation techniques, followed by the surface and data point displays. Then the information displays and skybox details are outlined. Finally, the implementation of the drawer and its filtering and configuration components are revealed before moving onto the implementation of the system evaluation.
 
 \section{System} {
 \label{sec:system}
 
-	The first visualisation for the system saw the implementation of a cuboid surface which began with a generated dataset, before transitioning to real data. This visualisation has been presented in Figure~\ref{fig:cuboid_surface} and features a population dataset projected from the world map. The implementation for this visualisaton loads the dataset at application startup and processes the information such that it is stored in a Backbone collection. The processing of the dataset involves transforming the $x$, $y$ and $z$ values of the data, which are specified as $longtitude$, $latitude$ and $population$ respectively, into the THREE.js coordinate system. A $coordinate$ and $magnitude$ field is also added during processing, so that these values can be referenced when performing calculations in the \texttt{Point} class. For instance, longitude and latitude determine the initial position of the point before being projected, while the population indicates its magnitude. Once the collection has been populated with models, the visualisation is created. The visualisation contains the renderer, cuboid surface, data points and a projection to be applied to all points. The details for the creation of the surface, the data points and their projection has been outlined in Section~\ref{sec:surface} and~\ref{sec:data_point_display}.
+	The first visualisation for the system saw the implementation of a cuboid surface which began with a generated dataset, before transitioning to real data. This visualisation has been presented in Figure~\ref{fig:cuboid_surface} and features a population dataset projected from the world map. The implementation for this visualisaton loads the dataset at application startup and processes the information such that it is stored in a Backbone collection. The processing of the dataset involves transforming the $x$, $y$ and $z$ values of the data, which are specified as $longtitude$, $latitude$ and $population$ respectively, into the THREE.js coordinate system. A $coordinate$ and $magnitude$ field is also added during processing, so that these values can be referenced when performing calculations in the \texttt{Point} class. For instance, longitude and latitude determine the initial position of the point before being projected, while the population indicates its magnitude. Once the collection has been populated with models, the visualisation is created. The visualisation contains the cuboid surface, data points and a projection to be applied to all points. The details for the creation of the surface, the data points and their projection has been outlined in Section~\ref{sec:surface} and~\ref{sec:data_point_display}.
 
 	\input{figures/implementation/system/cuboid}
 
@@ -74,7 +74,7 @@ The purpose of this chapter is to describe the implementation of the system in g
 
 		Rotation uses the same event chain as panning, except instead of listening to the left mouse click, it listens to the right.
 
-		To rotate the camera, the cartesian coordinates need to be calculated from spherical coordinates, using the following formula in a right-handed mathetmatics system:
+		To rotate the camera, the cartesian coordinates need to be calculated from spherical coordinates, using the following formula in a right-handed mathematics system:
 
 		\input{formulas/implementation/spherical_to_cartesian}
 	
@@ -186,11 +186,34 @@ The purpose of this chapter is to describe the implementation of the system in g
 
 }
 
-\section{Evaluations} {
-\label{sec:evaluations}
+\section{System evaluation} {
+\label{sec:system_evaluation}
 
-	\todo{performance slow with large data mention filtering and configuration}
+	% \todo{performance slow with large data mention filtering and configuration}
 
 	\todo{map to project outcomes and user issues here and reflect everything}
+
+	As discussed in Section~\ref{sec:evaluation_design}, a user study and performance analysis has been undertaken as a way to measure the usability and effectiveness of the visualisations that have been implemented in this project.
+
+	The system evaluations were performed on an MSI GS60 Ghost Pro 4K 15.6in Gaming Notebook with 16GB RAM and an NVIDIA GeForce GTX 970M dedicated graphics card. The visualisations were loaded in an offline environment using the high performance mode offered in Windows 8.1 to enhance the user experience and minimise performance issues.
+
+	\subsection{User study} {
+	\label{user_study}
+
+		\todo{get more participants}
+
+		There were four male participants who volunteered to undertake this user study. The participants were aged between 21-28 and are enrolled in the final year project. All participants use computers on a daily basis and are familiar with navigating websites and using common functionality such as filtering.
+
+		The process began 
+
+	}
+
+	\subsection{Performance analyis} {
+	\label{sec:performance_analysis}
+
+		The performance analyis was conducted by carrying out manual performance testing, which has been outlined in Section~\ref{sec:performance_testing}. Each test was executed for a dataset size of 100, 500, 1000, 5000, 10000, 20000, five times and an average was recorded to indicate the time for the metric.
+
+	}
+
 
 }

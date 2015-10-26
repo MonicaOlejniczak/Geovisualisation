@@ -7,6 +7,8 @@ This introductory chapter defines what Geovisualisation is, then describes the p
 
 	Geovisualisation is the interactive visualisation of geospatial information, which is closely related to the fields of scientific and information visualisation~\parencite{jiang2005geovisualization}. Geovisualisations are particularly important in data analytics and when working with large datasets, as visualising geospatial information aids data exploration and decision-making processes when combined with human understanding~\parencite{grinstein2002introduction, hendley1995case}. This is due to the addition of the geographical dimension in the visualisation process, which greatly facilitates the identification and interpretation of spatial patterns and relationships in complex data~\parencite{kwan2004geovisualization}.
 
+	\todo{add something about web visualisations}
+
 }
 
 \section{Project definition} {
@@ -32,7 +34,7 @@ This introductory chapter defines what Geovisualisation is, then describes the p
 
 	The \emph{basic deliverables} entail developing the implementation for a single visualisation, which should resemble Figure~\ref{fig:heat_map_financial}, with a small, generated dataset. This visualisation will have interactions for panning, zooming and rotating enabling users to navigate the scene.
 
-	The \emph{intermediate deliverables} are concerned with providing users with the ability to filter data, so they are able hide particular information shown on the visualisation. This set of deliverables will also see the implementation of another visualisation, similar to Figure~\ref{fig:heat_map_eeg}, which will initially be applied to a large, generated dataset. The final stage of these deliverables involves applying real datasets, as outlined in Section~\ref{sec:dataset}, to both visualisations.
+	The \emph{intermediate deliverables} are concerned with providing users with the ability to filter data, so they are able hide particular information shown on the visualisation. This set of deliverables will also see the implementation of another visualisation, similar to Figure~\ref{fig:webgl_globe}, which will initially be applied to a large, generated dataset. The final stage of these deliverables involves applying real datasets, as outlined in Section~\ref{sec:dataset}, to both visualisations.
 
 	The core \emph{advanced deliverables} requires integrating both prototypal visualisations into the group project. Other deliverables include analysing the scalability and computational power to render both visualisations, performing a user study to measure the usefulness of the visualisations and incorporating multi-touch gestures such as pan, pinch, zoom and rotate.
 	
@@ -41,14 +43,16 @@ This introductory chapter defines what Geovisualisation is, then describes the p
 \section{Research questions} {
 \label{sec:research_questions}
 
-	Geovisualisations should effectively display geospatial information in order for a user to establish decision-making processes. Scalability between small and large datasets, network limitations and computer performance must also be considered when a geovisualisation is displayed in a web environment. These concerns result in the following research questions, which will be explored throughout this thesis:
+	% Geovisualisations should effectively display geospatial information in order for a user to establish decision-making processes. 
+
+	The usability, scalability between small and large datasets and computer performance must be considered when a geovisualisation is displayed in a web environment. These concerns result in the following research questions, which will be explored throughout this thesis:
 
 	\begin{itemize}
 		\item How can a geovisualisation be visualised in WebGL?
-		\item How can a geovisualisation be scaled between small and large datasets?
+		\item How does a geovisualisation perform across small and large datasets?
 		\item How can different datasets be applied to 3D geovisualisations?
-		\item What is a practical format for a dataset?
-		\item Do particular colours have any significant effect on the useability or performance of a geovisualisation?
+		% \item What is a practical format for a dataset?
+		\item Do particular colours have any significant effect on the usability of a geovisualisation?
 		\item Do particular filters aid in the analysis of a geovisualisation?
 	\end{itemize}
 

@@ -28,26 +28,26 @@ First, the purpose and method of testing are explored, followed by an overview o
 
 		BDD specifies behaviour through \emph{user stories}, which define the scope and acceptance criteria of the feature being tested~\footnote{\bibentry{north2007story}}. A story template should contain all of the elements contained in the following template:
 
-		\begin{verbatim}
-			Title: a clear, explicit title describing the story
- 
-			Narrative:
-			As a [role]
-			I want [feature]
-			So that [benefit]
-			 
-			Acceptance criteria: presented as scenarios
-			 
-			Scenario 1: Title
+		\begin{footnotesize}
+			\begin{verbatim}
+				Title: a clear, explicit title describing the story
+	 
+				Narrative:
+				As a [role]
+				I want [feature]
+				So that [benefit]
+				 
+				Acceptance criteria: presented as scenarios
+				 
+				Scenario 1: Title
 
-			Given [context]
-			  And [some more context]
-			When  [event]
-			Then  [outcome]
-			  And [another outcome]
-
-	  		Scenario 2: ...
-		\end{verbatim}
+				Given [context]
+				  And [some more context]
+				When  [event]
+				Then  [outcome]
+				  And [another outcome]
+			\end{verbatim}
+		\end{footnotesize}
 
 	}
 
@@ -56,9 +56,9 @@ First, the purpose and method of testing are explored, followed by an overview o
 \section{Testing types} {
 \label{sec:testing_types}
 
-	This project has undertaken the following types of testing:
+	This project has undertaken both unit testing and performance testing as described below. These tests have been developed to ensure that the functionality of each module performs as expected and to monitor and improve the performance of each visualisation.
 
-	\begin{description}
+	\begin{description}[leftmargin=0pt]
 		\item[Unit testing:] Validates the smallest components of a system, ensuring it handles known inputs and outputs correctly~\footnote{\bibentry{atlassian2015testing}}.
 			\begin{itemize}
 				\item Unit tests should verify that the application works under expected, boundary, and negative cases.
@@ -67,26 +67,22 @@ First, the purpose and method of testing are explored, followed by an overview o
 		\item[Performance testing:] Determines the reliability, responsiveness, scalability, stability and throughput of a system under a particular workload~\footnote{\bibentry{microsoft2015performance}}.
 	\end{description}
 
-	\todo{evaluate why I'm using these types}
-
-	These tests have been performed 
-
 }
 
-\section{Test design} {
-\label{sec:test_design}
+% \section{Test design} {
+% \label{sec:test_design}
 
-	\todo{solid principle}
+% 	\todo{solid principle}
 
-	% http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/
+% 	% http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/
 
-	% http://www.codeproject.com/Articles/5772/Advanced-Unit-Test-Part-V-Unit-Test-Patterns#Pass/Fail Patterns2
+% 	% http://www.codeproject.com/Articles/5772/Advanced-Unit-Test-Part-V-Unit-Test-Patterns#Pass/Fail Patterns2
 
-	% http://stackoverflow.com/questions/3840125/useful-design-patterns-for-unit-testing-tdd
+% 	% http://stackoverflow.com/questions/3840125/useful-design-patterns-for-unit-testing-tdd
 
-	% http://programmers.stackexchange.com/questions/153410/what-are-the-design-principles-that-promote-testable-code-designing-testable-c
+% 	% http://programmers.stackexchange.com/questions/153410/what-are-the-design-principles-that-promote-testable-code-designing-testable-c
 	
-}
+% }
 
 \section{Environment} {
 \label{sec:testing_environment}
@@ -128,7 +124,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 \section{Assertions} {
 \label{sec:assertions}
 
-	\emph{Chai} assertions were used with the Mocha testing framework, as they offer great flexibility. Users are able to choose their preferred BDD style, which has been illustrated in Figure~\ref{fig:chai_assertions}.
+	\emph{Chai} assertions were used with the Mocha testing framework, as they offer great flexibility. Users are able to choose their preferred BDD style, which have been illustrated in Figure~\ref{fig:chai_assertions}.
 
 	\input{figures/testing/assertions/chai}
 
@@ -137,13 +133,9 @@ First, the purpose and method of testing are explored, followed by an overview o
 	\subsection{Asynchronous support} {
 	\label{sec:testing_asynchronous_support}
 
-		Mocha provides a way to test asynchronous code through the \texttt{done} callback or by returning a \texttt{Promise}~\footnote{\bibentry{holowaychuk2011mocha}}, which has been presented in Figure~\ref{fig:mocha_asynchronous_code}. Promises are used extensively when loading shaders, so it was important to have a clean way of testing asynchronous code. 
+		Mocha provides a way to test asynchronous code through the \texttt{done} callback or by returning a \texttt{Promise}~\footnote{\bibentry{holowaychuk2011mocha}}, which has been presented in Appendix~\ref{app:mocha_asynchronous_support}. Promises are used extensively when loading shaders, so it was important to have a clean way of testing asynchronous code.
 
-		\input{figures/testing/mocha/asynchronous_code}
-
-		However, this method of testing asynchronous code could be improved by using the \emph{Chai as Promised} plugin for Chai. This plugin extends Chai with a fluent language for asserting facts about promises~\footnote{\bibentry{denicola2012chaiaspromised}}. An example of this improvement has been illustrated in Figure~\ref{fig:chai_as_promised}, which transforms the assertion seen in Figure~\ref{fig:mocha_asynchronous_code} down to one line.
-
-		\input{figures/testing/assertions/chai_as_promised}
+		However, this method of testing asynchronous code was improved by using the \emph{Chai as Promised} plugin for Chai. This plugin extends Chai with a fluent language for asserting facts about promises~\footnote{\bibentry{denicola2012chaiaspromised}}. An example of this improvement has been illustrated in Appendix~\ref{fig:chai_as_promised}, which transforms the assertion seen in Appendix~\ref{app:mocha_asynchronous_support} down to one line.
 
 	}
 
@@ -159,20 +151,14 @@ First, the purpose and method of testing are explored, followed by an overview o
 \section{General structure} {
 \label{sec:testing_structure}
 
-	In Mocha, the \texttt{describe} keyword is a way to group tests together, while each \texttt{it} clause represents a single test case. A simple example of a test suite has been shown in Figure~\ref{fig:mocha_example}.
-
-	\input{figures/testing/mocha/example}
+	In Mocha, the \texttt{describe} keyword is a way to group tests together, while each \texttt{it} clause represents a single test case. A simple example of a test suite has been shown in Appendix~\ref{app:mocha_structure}.
 
 }
 
 \section{Hooks} {
 \label{sec:testing_hooks}
 
-	Mocha provides \texttt{before}, \texttt{after}, \texttt{beforeEach} and \texttt{afterEach} hooks, which are described in Figure~\ref{fig:mocha_hooks}. These hooks can be used to set up preconditions or to perform test clean up~\footnote{\bibentry{holowaychuk2011mocha}}.
-
-	\input{figures/testing/mocha/hooks}
-
-	Typically, \texttt{beforeEach} and \texttt{afterEach} hooks were used when running tests to:
+	Mocha provides \texttt{before}, \texttt{after}, \texttt{beforeEach} and \texttt{afterEach} hooks, which have been shown in Appendix~\ref{app:mocha_hooks}. These hooks can be used to set up preconditions or to perform test clean up~\footnote{\bibentry{holowaychuk2011mocha}}. Typically, \texttt{beforeEach} and \texttt{afterEach} hooks were used when running tests to:
 
 	\begin{itemize}
 		\item Initialize shared variables.
@@ -186,7 +172,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 \section{Style} {
 \label{sec:testing_style}
 
-	The style used throughout the Mocha documentation resembles Figure~\ref{fig:mocha_example} where the following is true:
+	The style used throughout the Mocha documentation is described in Section~\ref{sec:testing_structure} where the following is true:
 
 	\begin{itemize}
 		\item The top level \texttt{describe} represents the class name.
@@ -194,7 +180,7 @@ First, the purpose and method of testing are explored, followed by an overview o
 		\item Each sentence in a test case may or may not be preceeded by \texttt{should}.
 	\end{itemize}
 
-	This style was therefore found to be quite inconsistent and does not output the results in a human-readable format. Instead, the following style was developed and used when developing tests:
+	This style was therefore found to be quite inconsistent and does not output the results in a human-readable format. Instead, the style shown in Appendix~\ref{app:testing_style} was used when creating tests. It can be described with the following:
 
 	\begin{itemize}
 		\item The top level \texttt{describe} represents the name of the AMD module and reads as \texttt{the ModuleName module}.
@@ -207,10 +193,6 @@ First, the purpose and method of testing are explored, followed by an overview o
 			\end{itemize}
 		\item Each sentence in a test case is preceeded by \texttt{should}.
 	\end{itemize}
-
-	An example of this style has been demonstrated in Figure~\ref{fig:testing_style}.
-
-	\input{figures/testing/style}
 
 }
 

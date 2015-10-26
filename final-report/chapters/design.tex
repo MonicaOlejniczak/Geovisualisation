@@ -4,70 +4,6 @@
  Structure of the chapter
  Central themes of the chapter}
 
-\section{Non-functional requirements} {
-\label{sec:non_functiona_requirements}
-
-	The following non-functional requirements are considered key to the success of this project:
-
-	\begin{description}
-		\item[Modularity:] The project should be highly modular, so parts of the system can be reused and easily integrated into the group project.
-		\item[Performance:] The response time of the system is a major concern when working with a large dataset. The time to load the visualisation is highly dependent on the size of the dataset, graphical processing, network bandwidth and latency. However, once the visualisation has loaded, the user should be faced with near immediate response times (\textless 1 second).
-		\item[Scalability:] This is important when modifying the size of the dataset used with a visualisation. The visualisation should be capable of handling increased processing with a larger dataset. Not only this, but the information should remain mapped to the correct locations in the scene with increased volumes of data.
-		\item[Testability:] Highly testable code is important when writing test suites, so all aspects of the system can be easily tested to locate faults. In JavaScript:
-			\begin{itemize}
-				\item A common technique is to hide variables through the use of closure, which leads to untestable code. These variables should be replaced with public variables that are prefixed with an underscore, to indicate they are not a part of the public API.
-				\item Promises should not be used within a constructor.
-				\item Anonymous functions should be replaced with named functions so they can be tested.
-				\item Dependency injection should be used through RequireJS, so all dependencies can be mocked.
-			\end{itemize}
-	\end{description}
-
-}
-
-\section{Methodology} {
-\label{sec:methodology}
-
-	A rapid application development (RAD) approach was undertaken when developing this project. This methodology focuses on iterative development and the rapid construction of prototypes, instead of investing significant amounts of time into planning. RAD enables the software to be written quickly through the reuse of software components and engaging in less formal reviews. This process also performs unit, integration and system testing at the end of each construction phase.
-
-	\todo{insert diagram}
-
-	In this project, each visualisation can be thought of as a single prototype, where parts of the first prototype can be reused for the second visualisation. Testing should be performed during the course of the project, but particularly when a major component of a prototype has been developed, such as data filtering.
-
-	\todo{iterative, agile}
-
-	% An agile methodology will be used throughout the project, as it promotes iterative development, adaptive planning, early prototyping, and encourages flexible and rapid response to changing requirements. This is in contrast to the more traditional methodology, waterfall, which implies a much more rigid workflow, where all requirements are set in stone early in the project. The agile approach gives the project more flexibility, which is required for a project of greater complexity.
-	
-	% \subsection{Scrum} {
-
-	% 	Scrum is an iterative and incremental agile methodology, in consists of short iterative `sprints' of focused development. The decided sprint length of this project 2 weeks, and conveniently corresponds with the fortnightly client meetings.
-		
-	% 	Before each sprint, tasks are created and prioritised. These tasks are then assigned evenly across team leaders, and then are further distributed to their team members. This process can take a day or so after the last sprint has finished, using the client's feedback as motivation as to what to include in the sprint. A sprint is then started, and development is generally 'locked' until the completion of the sprint. This keeps teams focused on the issues for the sprint, which have been decided to be the most important.
-		
-	% 	The chosen issue tracking tool, JIRA, wholly supports the scrum methodology, with in-built features for creating sprints, epics and user stories. This in-built tooling support, combined with its iterative development cycle, makes Scrum a convenient and appropriate methodology for the project.
-		
-}
-
-\section{Dataset} {
-\label{sec:dataset}
-
-	As discussed in Section~\ref{sec:project_definition}, the visualisations began with generated data so development could begin immediately. Using generated data brings control over the size of the dataset applied to a prototype and enables the scalability of each visualisation can be tested. 
-
-	\todo{convert rest of stuff from interim to past tense and make datasets solid}
-
-	% Following the use of fake data, each prototype had real datasets applied to them. By using the same data for both prototypes, their differences in computational requirements and scalability could be compared and analysed. GeoNames~\footnote{\bibentry{wick2005geonames}} is a geographical database that stores population data for a significant number of cities and their respective latitude and longitude coordinates. This database falls under a creative commons attribution license and will be used for both visualisations because there are no copyright concerns or immediate issues when reading and parsing the data it provides. However, some unnecessary information contained in a GeoNames dataset (such as \emph{geonameid}, \emph{feature class} and  \emph{dem}) will need to be removed. The format of the data should also be modified (from a tab separated list to a JavaScript array) when used with a prototype. These steps are necessary so the visualisations can read the data efficiently and hence reduce the loading time for the user. Other datasets can be obtained from Earthdata~\footnote{\bibentry{nasa2000data}}, but will require further investigation regarding how to extract the information from the available databases.
-
-	% Once real data has been applied to both prototypes, the visualisations will be integrated into a live system for the teaching analytics component of the final year project. The amount of touch gestures that particular system components receive and the progress made by students, groups and tutorials will need to be collected and stored in the database. This data can be visualised to aid teachers in analysing ongoing student progress.
-
-	\subsection{Structure} {
-	\label{sec:dataset_structure}
-
-		\todo{mention flat vs metadata, performance issues}
-
-
-	}
-
-}
-
 \section{User interface} {
 \label{sec:user_interface}
 
@@ -105,7 +41,7 @@
 				\end{itemize}
 			\item Data displays appear projected from a base geometry.
 				\begin{itemize}
-					\item The geometry can be a cube or sphere and depends on the dataset being used.
+					\item The geometry can be a cuboid or sphere and depends on the dataset being used.
 				\end{itemize}
 			\item A skybox should serve as a static background for the environment.
 		\end{itemize}
@@ -143,7 +79,7 @@
 		\subsubsection{Configuration} {
 		\label{sec:configuration}
 
-			Configuration options are designed to change the values and attributes of the 3D environment in real-time, promoting the analysis of the effects colour has on useability and performance. These options are organised in a folder structure, to deliver a hierarchy and logical grouping to the user. Moreover, these options should handle configuring data displays and surface values which enable the user to customise the display of the system.
+			Configuration options are designed to change the values and attributes of the 3D environment in real-time, promoting the analysis of the effects colour has on usability and performance. These options are organised in a folder structure, to deliver a hierarchy and logical grouping to the user. Moreover, these options should handle configuring data displays and surface values which enable the user to customise the display of the system.
 
 			\emph{Data display} configurations should modify the low, medium, high colour values and the range of colours displayed.
 
@@ -170,6 +106,52 @@
 
 }
 
+\section{Methodology} {
+\label{sec:methodology}
+
+	A rapid application development (RAD) approach was undertaken when developing this project as it promotes iterative development and the rapid construction of prototypes. This software methodology is flexible and can respond to changing requirements because less time is invested into planning the project. This contrasts with the traditional waterfall approach which places greater emphasis on planning, gathering requirements, scheduling and following a rigid workflow. RAD instead enables the software to be written quickly through the reuse of software components and engaging in less formal reviews. The RAD model has been shown in Figure~\ref{fig:rad} below.
+
+	\input{figures/design/rad}
+
+	In this project, each visualisation can be thought of as a single prototype, where parts of a prototype can be reused for the next visualisation. Testing should be performed during the course of the project, but particularly when a major component of a prototype has been developed, such as data filtering.
+		
+}
+
+\section{Non-functional requirements} {
+\label{sec:non_functiona_requirements}
+
+	The following non-functional requirements are considered key to the success of this project:
+
+	\begin{description}[leftmargin=0pt]
+		\item[Modularity:] The project should be highly modular, so parts of the system can be reused and easily integrated into the group project.
+		\item[Performance:] The response time of the system is a major concern when working with a large dataset. The time to load the visualisation is highly dependent on the size of the dataset, graphical processing, network bandwidth and latency. However, once the visualisation has loaded, the user should be faced with near immediate response times (\textless 1 second).
+		\item[Scalability:] This is important when modifying the size of the dataset used with a visualisation. The visualisation should be capable of handling increased processing with a larger dataset. Not only this, but the information should remain mapped to the correct locations in the scene with increased volumes of data.
+		\item[Testability:] Highly testable code is important when writing test suites, so all aspects of the system can be easily tested to locate faults. In JavaScript:
+			\begin{itemize}
+				\item A common technique is to hide variables through the use of closure, which leads to untestable code. These variables should be replaced with public variables that are prefixed with an underscore, to indicate they are not a part of the public API.
+				\item Promises should not be used within a constructor.
+				\item Anonymous functions should be replaced with named functions so they can be tested.
+				\item Dependency injection should be used through RequireJS, so all dependencies can be mocked.
+			\end{itemize}
+	\end{description}
+
+}
+
+\section{Dataset} {
+\label{sec:dataset}
+
+	As discussed in Section~\ref{sec:project_definition}, the visualisations began with generated data so development could begin immediately. Using generated data brings control over the size of the dataset applied to a prototype and the scalability of each visualisation can be tested. 
+
+	Following the use of fake data, each prototype had real datasets applied to them. GeoNames~\footnote{\bibentry{wick2005geonames}} is a geographical database that was used for the implementation of the visualisations. This database stores population data for a significant number of cities and their respective latitude and longitude coordinates. GeoNames falls under a creative commons attribution license, so there are no copyright concerns or immediate issues when reading and parsing the data it provides. However, some unnecessary information contained in this dataset (such as \emph{geonameid}, \emph{feature class} and \emph{dem}) were removed. Furthermore, the format of the data was modified from a tab separated list to a JSON structure so the data could be read efficiently in order to reduce the loading time for the user.
+
+	Once real datasets had been applied to the visualisations, the system was integrated with the final year project to provide an analytics component for teachers. The progress made by tutorial groups were stored in the database of the group project. This data could be visualised to aid teachers in analysing ongoing student progress.
+
+	Initially, a flat array structure was considered for the design of the dataset as it is significantly more performant to parse than objects, as shown in Figure~\ref{fig:performance_test}. However, this structure is inflexible and difficult to maintain as a result of its rigid format. The use of objects are a more flexible, albeit less performant, structure that was considered in the design of the dataset. When using objects, a key can be selected as a value to be used for the x, y and z axis. Another advantage to using objects is that metadata can easily be added to the dataset. While there are certainly tradeoffs between the two structures, the flexibility of objects was valued over performance differences that would only occur during application startup. Due to these reasons, objects were used to form the structure of the datasets.
+
+	\input{figures/design/performance_test}
+
+}
+
 \section{Architecture} {
 \label{sec:architecture}
 	
@@ -185,7 +167,7 @@
 
 		\todo{Everything implemented as a single module, write more / reword}
 
-		The Filter, Configuration, and Information display modules are external to the core 3D environment components, separating the components in the scene from the view controllers. This design decision also ensures that the view controllers can be removed from the application at any time, without effecting the core functionality.
+		% The Filter, Configuration, and Information display modules are external to the core 3D environment components, separating the components in the scene from the view controllers. This design decision also ensures that the view controllers can be removed from the application at any time, without effecting the core functionality.
 
 		\input{figures/design/architecture}
 
@@ -202,9 +184,15 @@
 
 }
 
-\section{Evaluations} {
+\section{Evaluation design} {
 \label{sec:evaluation_design}
 
-	\todo{The following criteria will be considered when evaluating and comparing the visualisations: time to render, time to perform operations after render, average frames per second, scaling betwen small and large datasets and how different colours and schemes effect performance.}
+	It is important to measure the usability of the system and the tools it offers, so users can effectively interpret the information presented to them in an attempt to aid data exploration and decision-making processes. Performance plays a significant role toward the usability of the system, as it ultimately determines how responsive the system appears to the user. Both the usability and performance of the system can be assessed by performing a user study and performance evaluation respectively.
+
+	The user study has been designed to include a questionnaire and System Usability Scale, which both aim to assess the usability of the system. The objective of the questionnaire is to collect information from the user regarding their experience when using the system. The user is also asked to perform two activities and answer whether they used filtering to discover this information. Similarly, the System Usability Scale~\parencite{brooke1996sus} is a tool for measuring the usability of a system. This scale consists of a simple ten item questionnaire and is designed to be answered by respondents quickly and easily. Furthermore, the System Usability scale has become an industry standard by yielding reliable results and can be viewed in Appendix~\ref{app:system_usability_scale}.
+
+	This study has been limited to the students enrolled in the final year project. It is required that the participants sign a consent form before they evaluate the system. Likewise, the participants must be informed of how the confidentiality of the research data will be maintained. This will be supported by anonymising the research data such that the participants cannot be identified from the results presented in this thesis.
+
+	The performance and scalability of the system has been designed to be tested in an offline environment on a single high performance computer. The metrics for evaluating the performance and scalability of the system include the time to render, time to perform filtering and the average frames per second when idle and navigating the scene. These metrics have been recorded for each visualisation across small ($\approx$ $\le1000$) and large ($\approx$ $\ge10000$) datasets.
 
 }

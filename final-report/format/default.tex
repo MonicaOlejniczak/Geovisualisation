@@ -60,6 +60,9 @@
 	\fbox{#1}%
 }
 
+%%% Lists
+\usepackage{enumitem}
+
 %%% Code
 \input{format/code}
 
@@ -81,8 +84,24 @@
 \usepackage{chngcntr}
 \counterwithout{footnote}{chapter}
 
-%%% Appendices
-\usepackage[toc,page]{appendix}
+\makeatletter
+\g@addto@macro\appendix{%
+  \renewcommand*{\chapterformat}{%
+    {\chapapp\nobreakspace\thechapter\autodot\enskip}%
+  }
+  \renewcommand*{\chaptermarkformat}{%
+    {\chapapp\nobreakspace\thechapter\autodot\enskip}%
+  }
+  \let\oldaddcontentsline\addcontentsline
+  \newcommand\hackedaddcontentsline[3]{\oldaddcontentsline{#1}{#2}{\chapapp\nobreakspace#3}}
+  \let\oldchapter\chapter
+  \renewcommand*\chapter[1]{%
+    \let\addcontentsline\hackedaddcontentsline%
+    \oldchapter{#1}%
+    \let\addcontentsline\oldaddcontentsline%
+  }
+}
+\makeatother
 
 %%% Additional
 
