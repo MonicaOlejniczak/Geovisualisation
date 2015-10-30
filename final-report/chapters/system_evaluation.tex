@@ -1,0 +1,41 @@
+%!TEX root = ../report.tex
+
+As discussed in Section~\ref{sec:evaluation_design}, a user study and performance analysis was undertaken as a way to measure the usability and effectiveness of the visualisations that have been implemented in this project. The details for these evaluations have been described in Section~\ref{sec:user_study} and \ref{sec:performance_analysis} respectively.
+
+The system evaluations were performed on an MSI GS60 Ghost Pro 4K 15.6in Gaming Notebook with 16GB RAM and an NVIDIA GeForce GTX 970M dedicated graphics card. The visualisations were loaded in an offline environment using the high performance mode offered in Windows 8.1 to enhance the user experience and minimise performance issues.
+
+This chapter introduces the participants and process of the user study, outlines how the performance analysis was achieved and discusses the results of these evaluations.
+
+\section{User study} {
+\label{sec:user_study}
+
+	Prior to commencing the user study, there were a couple user issues that were observed throughout the development process. As a result, it was expected that users may experience difficulty navigating the population globe and may be confused as to the purpose of the checkboxes in the sidebar.
+
+	There were eight male participants who volunteered to undertake this user study. The participants were aged between 22-29 and are enrolled in the final year project. All participants use computers on a daily basis and are familiar with navigating websites and using common functionality such as filtering.
+
+	The process began by asking the participant to complete a consent form. A brief overview of each visualisation and the dataset they represent was provided after the user completed this form. The participant was given task instructions and encouraged to ask questions throughout the evaluation. They were then able to experiment with the visualisations in any order and asked to complete a questionnaire. On average the participant took approximately five minutes to complete the study.
+
+}
+
+\section{Performance analyis} {
+\label{sec:performance_analysis}
+
+	% \todo{performance slow with large data mention filtering and configuration}
+
+	The performance analyis was conducted by carrying out manual performance testing, which has been outlined in Section~\ref{sec:performance_testing}. Each test was executed for a dataset size of \dots
+
+	\todo{figure out sizes, 100, 500, 1000, 5000, 10000, 20000, five times and an average was recorded to indicate the time for the metric.}
+
+	confirmed estimate values with stopwatch test.
+
+}
+
+\section{Results} {
+
+	50\% of users found the navigation cumbersome to use.
+
+	88\% were able to correctly identify information in the population dataset and student dataset.
+
+	no perceived / negligible difference in fps when the raycaster was disabled (even with large datasets) and between idle and navigating. only differences in navigating are when at an angle that reduces the amount of points visible to be rendered by the renderer. noticeably less responsive with dataset of 20k. student datasets viewed from the top and more zoomed in had higher fps rates probably due to less height to render / flat structure. lower fps rates in student dataset probably because of datapoints being close together / high density, additional textures in population datasets made no difference to fps. zooming in on population dataset increased fps due to less things seen, more sporadic data and no textures. zooming in on student dataset did not effect fps.
+
+}

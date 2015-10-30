@@ -1,6 +1,6 @@
 %!TEX root = ../report.tex
 
-The purpose of this chapter is to describe the implementation of the system. This chapter first begins by introducing the final system visualisations, which provides a brief overview of the implementation and their differences. Following the introduction, the rest of this chapter is structured such that the implementation of each system feature is described. The first item to be discussed is the dataset and navigation techniques, followed by the surface and data point displays. Then the information displays and skybox details are outlined. Finally, the implementation of the drawer and its filtering and configuration components are revealed before moving onto the implementation of the system evaluation.
+The purpose of this chapter is to describe the implementation of the system. This chapter first begins by introducing the final system visualisations, which provides a brief overview of the implementation and their differences. Following the introduction, the rest of this chapter is structured such that the implementation of each system feature is described. The first item to be discussed is the dataset and navigation techniques, followed by the surface and data point displays. Then the information displays and skybox details are outlined. Finally, the implementation of the drawer and its filtering and configuration components are revealed.
 
 \section{System} {
 \label{sec:system}
@@ -13,7 +13,7 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 
 	\input{figures/implementation/system/sphere}
 
-	The final implementation for this system integrates a student progress dataset for teaching analytics using a grid surface. This visualisation fulfils one of the goals and deliverables of the project and can be seen in Figure~\ref{fig:grid_surface}. This visualisation required alternate processing techniques for implementation. First of all, when the dataset was processed the $x$, $y$ and $z$ values were instead mapped to $group$, $week$ and $progress$. Since this dataset cannot map keys to the position of a point, as the data may include strings, the position had to be calculated using the $x$, $y$ and $z$ values. This is unlike the population dataset, which was able to map longitude and latitude to a position. Finally, there are two significant differences between this visualisation and the previous two that have been outlined. The first is that there is no skybox displayed in the scene and the second is that the surface does not utilise textures or shaders.
+	The final implementation for this system integrates a student progress dataset for teaching analytics using a grid surface. This visualisation fulfils one of the goals and deliverables of the project, as shown in Figure~\ref{fig:grid_surface}, and represents the weekly progress for each student group within the case that is studied for a tutorial. This visualisation required alternate processing techniques for implementation. First of all, when the dataset was processed the $x$, $y$ and $z$ values were instead mapped to $group$, $week$ and $progress$. Since this dataset cannot map keys to the position of a point, as the data may include strings, the position had to be calculated using the $x$, $y$ and $z$ values. This is unlike the population dataset, which was able to map longitude and latitude to a position. Finally, there are two significant differences between this visualisation and the previous two that have been outlined. The first is that there is no skybox displayed in the scene and the second is that the surface does not utilise textures or shaders.
 
 	\input{figures/implementation/system/grid}
 	
@@ -25,14 +25,14 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 	\subsection{Population dataset} {
 	\label{sec:population_dataset}
 
-		The GeoNames database was used as the basis for the population dataset. This data was preprocessed with a Python script and converted into a JSON structure, so it could be used with the visualisations. One issue with the dataset is that it does not contain the name of the country. This was considered an important feature, as it would enable users to identify the country associated with a data point with relative ease. This information was added by loading a separate JSON dataset that contained a list of country names and their code, and mapping each country code to its corresponding name. The GeoNames dataset contained country codes, so the country name could be accessed with this map and added to the final output for each city. Alongside this processing, unwanted information such as elevation and administration codes were filtered out and specific strings were converted to numbers before the output was exported to a JSON file.
+		The GeoNames database was used as the basis for the population dataset. This data was preprocessed with a Python script and converted into a JSON structure, so it could be used with the visualisations. One issue with the dataset is that it does not contain the name of the country. This data could be considered important to the user, as the country associated with a data point can be identified when using the information displays. This data was added by loading a separate JSON dataset that contained a list of country names and their code, and mapping each country code to its corresponding name. The GeoNames dataset contained country codes, so the country name could be accessed with this map and added to the final output for each city. Alongside this processing, unwanted information such as elevation and administration codes were filtered out and specific strings were converted to numbers before the output was exported to a JSON file.
 
 	}
 
 	\subsection{Student progress dataset} {
 	\label{sec:student_progress_dataset}
 
-		The data used to monitor student progress can be retrieved from the server used in the group project. During application startup, an AJAX request is performed to fetch this data from the live system.
+		The data used to monitor student progress can be retrieved from the server used in the group project. During application startup, an AJAX request is performed to fetch the data from the live system. This data is then processed and stored in a Backbone collection which is to be used with the \texttt{Grid} visualisation to create each data point.
 
 	}
 
@@ -107,7 +107,7 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 
 	The standard projection simply sets the y-position of the object by some offset, in this case the height of the cuboid surface, and then converts the range of the x and z-positions so that is fits on the cuboid dimensions. Whereas the spherical projection first converts x-position of the object to $\theta$ and the z-position to $\phi$ in radians. These values are used, along with the radius of the sphere, to apply a spherical to cartesian conversion which denotes the position of the \texttt{Point}. Then, the point is rotated to face the position of the sphere and again in the x-direction so it is not tangential to the surface.
 
-	Further, the shader used as the shader material in the \texttt{Point} class uses various uniforms to provide a multitude of configurations and effects to the user, which have been specified in Section~\ref{sec:configuration_implementation}. One important aspect of the data displays is their ability to change their appearance from a HSV colour range to a gradient colour scheme, which can be seen in Figure~\ref{fig:data_point_displays} below. This has been completed with a simple fragment shader that changes which scheme to use for the display of the data points. The following code demonstrates the main entry point of this shader:
+	Further, the shader used as the shader material in the \texttt{Point} class uses various uniforms to provide a multitude of configurable effects to the user. One important aspect of the data displays is their ability to change their appearance from a Hue, Saturation and Value (HSV) colour range to a gradient colour scheme, which can be seen in Figure~\ref{fig:data_point_displays} below. This has been completed with a simple fragment shader that changes which scheme to use for the display of the data points. The following code demonstrates the main entry point of this shader:
 
 	\input{code/implementation/hybrid_fragment}
 
@@ -169,10 +169,10 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 
 }
 
-\section{Configuration} {
-\label{sec:configuration_implementation}
+\section{Configurations} {
+\label{sec:configurations}
 
-	Real-time configurations are best achieved by using shaders. Shaders are computer programs that perform shading on a graphics processing unit (GPU), making them highly efficient and well suited to parallel processing~\footnote{\bibentry{gerdelan2014shaders}}. Three.js provides abstracted materials that use shaders in the background, but this method does not easily facilitate highly customisable configurations or filter effects. Therefore, custom shaders were designed and implemented for the system to maximise efficiency and flexibility. An example of the available effects that were implemented in the system is shown in Figure~\ref{fig:shaders}.
+	Real-time configurations that modify the appearance of the visualisation are best achieved by using shaders. Shaders are computer programs that perform shading on a graphics processing unit (GPU), making them highly efficient and well suited to parallel processing~\footnote{\bibentry{gerdelan2014shaders}}. Three.js provides abstracted materials that use shaders in the background, but this method does not easily facilitate highly customisable configurations or filter effects. Therefore, custom shaders were designed and implemented for the system to maximise efficiency and flexibility. An example of the available effects that were implemented in the system is shown in Figure~\ref{fig:shaders}.
 
 	\input{figures/implementation/shaders}
 
@@ -181,39 +181,5 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 	\input{figures/implementation/dat_gui}
 
 	The design for these configurations were continually refined during implementation. Initially, the dat.GUI sliders were to remain unchanged. However, these sliders proved to be inconsistent in regards to the colour scheme and filter design. Furthermore, the bold folder colours were eventually removed to reflect drawer layouts that conform to using light navigation colours, hover effects, and left floated icons.
-
-}
-
-\section{System evaluation} {
-\label{sec:system_evaluation}
-
-	As discussed in Section~\ref{sec:evaluation_design}, a user study and performance analysis has been undertaken as a way to measure the usability and effectiveness of the visualisations that have been implemented in this project. The details for these evaluations have been described in Section~\ref{sec:user_study} and \ref{sec:performance_analysis} respectively.
-
-	The system evaluations were performed on an MSI GS60 Ghost Pro 4K 15.6in Gaming Notebook with 16GB RAM and an NVIDIA GeForce GTX 970M dedicated graphics card. The visualisations were loaded in an offline environment using the high performance mode offered in Windows 8.1 to enhance the user experience and minimise performance issues.
-
-	\subsection{User study} {
-	\label{sec:user_study}
-
-		Prior to commencing the user study, there were a couple user issues that were observed throughout the development process. As a result, it was expected that users may experience difficulty navigating the population globe and may be confused as to the purpose of the checkboxes in the sidebar.
-
-		There were eight male participants who volunteered to undertake this user study. The participants were aged between 22-29 and are enrolled in the final year project. All participants use computers on a daily basis and are familiar with navigating websites and using common functionality such as filtering.
-
-		The process began by asking the participant to complete a consent form. A brief overview of each visualisation and the dataset they represent was provided after the user completed this form. The participant was given task instructions and encouraged to ask questions throughout the evaluation. They were then able to experiment with the visualisations in any order and asked to complete a questionnaire. On average the participant took approximately five minutes to complete the study.
-
-	}
-
-	\subsection{Performance analyis} {
-	\label{sec:performance_analysis}
-
-		% \todo{performance slow with large data mention filtering and configuration}
-
-		The performance analyis was conducted by carrying out manual performance testing, which has been outlined in Section~\ref{sec:performance_testing}. Each test was executed for a dataset size of \dots
-
-		\todo{figure out sizes, 100, 500, 1000, 5000, 10000, 20000, five times and an average was recorded to indicate the time for the metric.}
-
-		confirmed estimate values with stopwatch test.
-
-	}
-
 
 }
