@@ -1,6 +1,6 @@
 %!TEX root = ../report.tex
 
-The purpose of this chapter is to describe the implementation of the system in great detail. This chapter first begins by introducing the final system visualisations, which provides a brief overview of the implementation and their differences. Following the introduction, the rest of this chapter is structured such that the implementation of each system feature is described in more depth. The first item to be discussed is the dataset and navigation techniques, followed by the surface and data point displays. Then the information displays and skybox details are outlined. Finally, the implementation of the drawer and its filtering and configuration components are revealed before moving onto the implementation of the system evaluation.
+The purpose of this chapter is to describe the implementation of the system. This chapter first begins by introducing the final system visualisations, which provides a brief overview of the implementation and their differences. Following the introduction, the rest of this chapter is structured such that the implementation of each system feature is described. The first item to be discussed is the dataset and navigation techniques, followed by the surface and data point displays. Then the information displays and skybox details are outlined. Finally, the implementation of the drawer and its filtering and configuration components are revealed before moving onto the implementation of the system evaluation.
 
 \section{System} {
 \label{sec:system}
@@ -16,14 +16,6 @@ The purpose of this chapter is to describe the implementation of the system in g
 	The final implementation for this system integrates a student progress dataset for teaching analytics using a grid surface. This visualisation fulfils one of the goals and deliverables of the project and can be seen in Figure~\ref{fig:grid_surface}. This visualisation required alternate processing techniques for implementation. First of all, when the dataset was processed the $x$, $y$ and $z$ values were instead mapped to $group$, $week$ and $progress$. Since this dataset cannot map keys to the position of a point, as the data may include strings, the position had to be calculated using the $x$, $y$ and $z$ values. This is unlike the population dataset, which was able to map longitude and latitude to a position. Finally, there are two significant differences between this visualisation and the previous two that have been outlined. The first is that there is no skybox displayed in the scene and the second is that the surface does not utilise textures or shaders.
 
 	\input{figures/implementation/system/grid}
-
-	The implementation of these visualisations has met all but one of the advanced system deliverables defined in Section~\ref{sec:project_definition}. It can also be observed that this project fulfils many goals by:
-
-	\begin{itemize}
-		\item Implementing the visualisations with generated, real and live datasets which are capable of being displayed in a time efficient manner.
-		\item Integrating the system with the final year project as a part of the teaching analytics component.
-		\item Conducting a user study and performance analysis outlined in Section~\ref{sec:system_evaluation} to identify user issues and performance concerns.
-	\end{itemize}
 	
 }
 
@@ -89,7 +81,7 @@ The purpose of this chapter is to describe the implementation of the system in g
 	\subsection{Zoom} {
 	\label{sec:zoom}
 
-		This navigation technique begins when a \texttt{wheel} event is triggered from the browser. A ratio of the delta value is taken and the camera is then translated by this amount.
+		This navigation technique begins when the user scrolls with their mouse, triggering a \texttt{wheel} event in the browser. A ratio of the delta value is taken and the camera is then translated by this amount.
 	
 	}
 
@@ -104,7 +96,7 @@ The purpose of this chapter is to describe the implementation of the system in g
 
 	\input{code/implementation/surface_fragment}
 
-	The above snippet of code applies a color balance effect to every point in the fragment shader that represents the surface texture. In a cuboid surface for instance, any point that is beneath the top face is set to a solid colour. This removes the appearance of a stretched texture on all other sides of the cuboid. In contrast to this, the grid surface uses a simple \texttt{THREE.MeshBasicMaterial} as it does not contain a texture or other uniforms.
+	The above snippet of code applies a colour balance effect to every point in the fragment shader that represents the surface texture. In a cuboid surface for instance, any point that is beneath the top face is set to a solid colour. This removes the appearance of a stretched texture on all other sides of the cuboid. In contrast to this, the grid surface uses a simple \texttt{THREE.MeshBasicMaterial} as it does not contain a texture or other uniforms.
 
 }
 
@@ -157,9 +149,9 @@ The purpose of this chapter is to describe the implementation of the system in g
 \section{Filtering} {
 \label{sec:filtering_implementation}
 
-	\input{figures/implementation/filtering/interface}
-
 	Filtering was implemented using an event-driven approach and a view controller for configuring the filters. This view controller comprises the slider and checkbox views, which were designed using Handlebars templates and populated with a Backbone model. The final design of this interface has been demonstrated in Figure~\ref{fig:filtering_interface}.
+
+	\input{figures/implementation/filtering/interface}
 
 	As a user adjusts the values in the slider, an \texttt{update} event is triggered. When this occurs, the event handler adjusts the minimum and maximum input to reflect the new slider widget values. Then, the Backbone collection that represents the data displays are filtered by calling the \texttt{filterBy} function with a filter function. This method is reposnsible for iterating through each model in the collection and determining if it should be filtered. A simple example of a filter function is:
 
@@ -204,11 +196,9 @@ The purpose of this chapter is to describe the implementation of the system in g
 
 		Prior to commencing the user study, there were a couple user issues that were observed throughout the development process. As a result, it was expected that users may experience difficulty navigating the population globe and may be confused as to the purpose of the checkboxes in the sidebar.
 
-		\todo{get more participants}
+		There were eight male participants who volunteered to undertake this user study. The participants were aged between 22-29 and are enrolled in the final year project. All participants use computers on a daily basis and are familiar with navigating websites and using common functionality such as filtering.
 
-		There were four male participants who volunteered to undertake this user study. The participants were aged between 21-28 and are enrolled in the final year project. All participants use computers on a daily basis and are familiar with navigating websites and using common functionality such as filtering.
-
-		The process began by asking the participant to complete a consent form. A brief overview of each visualisation and the dataset they represent was provided after the user completed this form. The participant was given task instructions and encouraged to ask questions throughout the evaluation. They were then able to experiment with the visualisations in any order and asked to complete a questionnaire. On average the participant took approximately seven minutes to complete the study.
+		The process began by asking the participant to complete a consent form. A brief overview of each visualisation and the dataset they represent was provided after the user completed this form. The participant was given task instructions and encouraged to ask questions throughout the evaluation. They were then able to experiment with the visualisations in any order and asked to complete a questionnaire. On average the participant took approximately five minutes to complete the study.
 
 	}
 
@@ -220,6 +210,8 @@ The purpose of this chapter is to describe the implementation of the system in g
 		The performance analyis was conducted by carrying out manual performance testing, which has been outlined in Section~\ref{sec:performance_testing}. Each test was executed for a dataset size of \dots
 
 		\todo{figure out sizes, 100, 500, 1000, 5000, 10000, 20000, five times and an average was recorded to indicate the time for the metric.}
+
+		confirmed estimate values with stopwatch test.
 
 	}
 

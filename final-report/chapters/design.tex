@@ -7,12 +7,12 @@
 \section{User interface} {
 \label{sec:user_interface}
 
-	The graphical user interface (GUI) for this system has combined Google's Material Design with a 3D environment, to simplify the way users interact with the system.
+	The graphical user interface (GUI) for this system has combined Google's Material Design~\footnote{\bibentry{google2015material}} with a 3D environment, to simplify the way users interact with the system.
 
 	\subsection{Material Design} {
 	\label{sec:material_design}
 
-		Material Design is a visual language developed by Google that synthesises classic design principles with current technologies. Their design aims to provide users with a unified experience across platforms and device sizes, by focusing on user actions and retaining continuity between transitions~\footnote{\bibentry{google2015material}}. Furthermore, Material Design provides an immersive experience to users by adhering to good design principles.
+		Material Design is a visual language developed by Google that synthesises classic design principles with current technologies. Their design aims to provide users with a unified experience across platforms and device sizes, by focusing on user actions and retaining continuity between transitions. Furthermore, Material Design provides an immersive experience to users by adhering to good design principles.
 
 		Google Material Design details many component specifications that have been implemented by several CSS3 frameworks. It is also a great design tool that has been incorporated into the existing infrastructure this project and the group project. As a result of this, a teacher can transition from one system to the other seamlessly, because both systems apply the same design standards.
 
@@ -109,7 +109,7 @@
 \section{Methodology} {
 \label{sec:methodology}
 
-	A rapid application development (RAD) approach was undertaken when developing this project as it promotes iterative development and the rapid construction of prototypes. This software methodology is flexible and can respond to changing requirements because less time is invested into planning the project. This contrasts with the traditional waterfall approach which places greater emphasis on planning, gathering requirements, scheduling and following a rigid workflow. RAD instead enables the software to be written quickly through the reuse of software components and engaging in less formal reviews. The RAD model has been shown in Figure~\ref{fig:rad} below.
+	A rapid application development (RAD) approach was undertaken when developing this project as it promotes iterative development and the rapid construction of prototypes. This software methodology is flexible and can respond to changing requirements because less time is invested into planning the project. This contrasts with the traditional waterfall approach which places greater emphasis on planning, gathering requirements, scheduling and following a rigid workflow. RAD instead enables the software to be written quickly through the reuse of software components and engaging in less formal reviews. The RAD model has been shown in Figure~\ref{fig:rad}.
 
 	\input{figures/design/rad}
 
@@ -131,7 +131,7 @@
 				\item A common technique is to hide variables through the use of closure, which leads to untestable code. These variables should be replaced with public variables that are prefixed with an underscore, to indicate they are not a part of the public API.
 				\item Promises should not be used within a constructor.
 				\item Anonymous functions should be replaced with named functions so they can be tested.
-				\item Dependency injection should be used through RequireJS, so all dependencies can be mocked.
+				\item Dependency injection should be handled through a module loader.
 			\end{itemize}
 	\end{description}
 
