@@ -38,7 +38,7 @@ This chapter serves as a foundation for the implementation details outlined in C
 \section{CSS} {
 \label{sec:css}
 
-	Less is a CSS pre-processor that extends the CSS language by allowing variables, mixins, functions and other techniques to generate CSS that is more maintainable, themable and extendable~\footnote{\bibentry{sellier2009less}}. Less was used in this project over Sass due to its simplicity. Sass is more powerful than Less, but requires the installation of Ruby to compile \texttt{scss} files. Less is more intuitive than Sass and incorporates all the necessary features that would be used in this project. Consequently, this makes Less the more feasible and optimal solution for creating CSS and as a result has been used for the system implementation.
+	Less~\footnote{\bibentry{sellier2009less}} is a CSS pre-processor that extends the CSS language by allowing variables, mixins, functions and other techniques to generate CSS that is more maintainable, themable and extendable. Less was used in this project over Sass due to its simplicity. Sass is more powerful than Less, but requires the installation of Ruby to compile \texttt{scss} files. Less is more intuitive than Sass and incorporates all the necessary features that would be used in this project. Consequently, this makes Less the more feasible and optimal solution for creating CSS and as a result has been used for the system implementation.
 
 }
 
@@ -105,5 +105,14 @@ This chapter serves as a foundation for the implementation details outlined in C
 		Materialize is a promising framework from the above options. However, since so few components are being used in this project, it was decided to manually design the components to reflect the Material Design specifications. This method provides the most flexibility as components are fully customised and it is also the most lightweight solution.
 
 	}
+
+}
+
+\section{Pipeline} {
+\label{sec:technology_pipeline}
+
+	A high level view of the technology pipeline has been demonstrated in Figure~\ref{fig:technology_pipeline}. The Node.js web server listens to a specific port that can be accessed in the web browser, where the \texttt{index.html} page acts as the main entry point of the system. This entry point immediately loads RequireJS and the Application. The Application defines the routes to each dependency, so they can be loaded by RequireJS when requested and as necessary. The Application uses THREE.js to render the components in a scene on the HTML5 canvas which is displayed on the web page. The Application also makes use of the Handlebars library to add helper methods for Handlebars view templates. These methods are generally used to add formatting and display logic to the view. Moreover, the Application uses Backbone Collections, Models and ViewControllers. Collections and Models are used to store a processed dataset, while the Application appends the HTML generated from a ViewController, which compiles and renders a Handlebars view template.
+
+	\input{figures/technologies/pipeline}
 
 }
