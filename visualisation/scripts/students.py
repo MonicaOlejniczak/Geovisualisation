@@ -5,9 +5,9 @@ import random
 output = []
 output_directory = '../public/app/data/'
 
-weeks = 13
+weeks = 200
 tutorials = 1
-groups = 8
+groups = 100
 activities = ['Case information', 'Issues and evidence', 'Goals and actions', 'Reflection']
 
 for week in range(1, weeks + 1):
@@ -29,6 +29,8 @@ for week in range(1, weeks + 1):
 				'complete': complete
 			})
 		# output.append(current_week)
+
+print 'length {}'.format(len(output))
 
 with codecs.open('{}students.json'.format(output_directory), 'w', 'utf-8') as fp:
 	json.dump(output, fp, indent=4, separators=(',', ': '))

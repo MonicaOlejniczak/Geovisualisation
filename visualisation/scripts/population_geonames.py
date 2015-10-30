@@ -14,7 +14,8 @@ int_keys = ['latitude', 'longitude', 'population']
 remove_keys = ['geonameid', 'asciiname', 'alternate_names', 'feature_class', 'feature_code', 'cc2', 'admin1_code',
               'admin2_code', 'admin3_code', 'admin4_code', 'elevation', 'dem']
 
-min_population = 100000
+min_population = 10000
+max_iterations = 10000
 
 with codecs.open('{}countries.json'.format(input_directory), 'r', 'utf-8') as fp:
 	data = json.load(fp, 'utf-8')
@@ -34,6 +35,10 @@ with codecs.open('{}cities15000.txt'.format(input_directory), 'r', 'utf-8') as f
 			for key in remove_keys:
 				del map[key]
 			output.append(map)
+			if len(output) == max_iterations:
+				break
+
+print 'length {}'.format(len(output))
 
 with codecs.open('{}population.json'.format(output_directory), 'w', 'utf-8') as fp:
 	json.dump(output, fp, sort_keys=True, indent=4, separators=(',', ': '))
