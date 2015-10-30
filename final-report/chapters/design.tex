@@ -4,6 +4,23 @@
  Structure of the chapter
  Central themes of the chapter}
 
+\section{System components} {
+\label{sec:system_components}
+
+	The application consists of five high-level modular components, which can be seen in Figure~\ref{sec:system_components} and are described below.
+
+	\begin{description}[leftmargin=0pt]
+		\item[Navigation:] The navigation interactions between the user and the visualisation including pan, zoom and rotate.
+		\item[Visualisation:] The visualisation encompasses the 3D environment viewed by the user.
+		\item[Information:] The information component refers to additional information pertaining to the dataset that can be viewed by the user. This component is supported by utilising metadata in the dataset.
+		\item[Filtering:] This component is responsible for filtering data in the visualisation. It controls the visibility of data points and their information.
+		\item[Configurations:] Settings that modify the appearance of the visualisation.
+	\end{description}
+
+	\input{figures/design/system_components}
+
+}
+
 \section{User interface} {
 \label{sec:user_interface}
 
@@ -21,28 +38,23 @@
 	\subsection{3D environment} {
 	\label{sec:3d_environment}
 
-		The visualisation being viewed by a user features a 3D environment. It has been designed with the following in mind:
+		The visualisation viewed by a user features a 3D environment which has been designed with the following in mind:
 
 		\begin{itemize}
-			\item Navigation interactions -- pan, zoom and rotate.
 			\item Data point displays that represent the dataset are displayed as 3D bars.
 				\begin{itemize}
-					\item Data displays should have the ability to be filtered.
+					\item These displays should have the ability to be filtered.
 				\end{itemize}
-			\item The colour of a data display should be effected by the value it represents.
+			\item The colour of a data display can be configured and should be effected by the value it represents.
 				\begin{itemize}
 					\item e.g. Data displays that represent population data may be coloured red, orange or yellow to indicate high, medium or low population areas respectively.
+					\item Colour accessibility issues are reduced by enabling the user to modify the colours of the data display.
 				\end{itemize}
-			\item Information associated with a data display can be viewed by a user.
+			\item Information associated with a data display can be viewed by a user, either through hover effects or by outputting the dataset on the page.
 				\begin{itemize}
-					\item Should use a simple panel interface, shown in Figure~\ref{fig:information_display_design}.
-					\item Information is retrieved through metadata. 
-					\item Can be shown through hover effects or by outputting the dataset on the page.
+					\item The interface should use a simple panel interface, shown in Figure~\ref{fig:information_display_design}.
 				\end{itemize}
-			\item Data displays appear projected from a base geometry.
-				\begin{itemize}
-					\item The geometry can be a cuboid or sphere and depends on the dataset being used.
-				\end{itemize}
+			\item Data displays appear projected from a base geometry, either a cuboid or sphere depending on the dataset being used.
 			\item A skybox should serve as a static background for the environment.
 		\end{itemize}
 
@@ -68,16 +80,16 @@
 		\subsubsection{Filtering} {
 		\label{sec:filtering}
 
-			Filters take advantage of slider and checkbox widgets to adjust the state of what is displayed to the user. Their purpose is to provide users with the ability to identify characteristics of the dataset more quickly.
+			Filters take advantage of slider and checkbox widgets to adjust the state of what is displayed to the user. Their purpose is to provide users with the ability to identify characteristics of the dataset more quickly. For example, the data displays for a population dataset could be filtered so that cities of particular population, longitude or latitude range are visible. The user could then perhaps identify which cities are densly populated in certain regions on the world map. 
 
-			\emph{Sliders} adjust what data displays are visible to the user. This is achieved by configuring the bounds of the available metadata in the data model. Take for example a dataset that has a range of values between 0 -- 100. If the user adjusts the value of its respective slider to be $\ge$20, then any data displays that have a value \textless20 will be hidden.
+			\emph{Sliders} adjust what data displays are visible to the user. This is achieved by configuring the bounds of the available metadata in the data model. Take for example a dataset that has a range of values between 0 -- 100. If the user adjusts the value of its respective slider to be $\ge$20, then any data displays that have a value \textless20 will be hidden. As the ranges of a dataset become very small and precise (e.g. 0.001 -- 0.01) or large (e.g. 1,~000,~000 -- 1,~000,~000,~000), the step size for a slider may need to be adjusted to account for such values. In the case of small and precise ranges the step size may default to integer increments. This would become problematic for the user as the slider cannot be adjusted to decimal values. Similarly, for large ranges the user may wish to utilise larger increments as smaller step sizes could introduce performance issues when filtering on each unique value.
 			
 			\emph{Checkboxes} are designed to be toggled on or off. This widget toggles what metadata associated with a data display is shown to the user.
 
 		}
 
-		\subsubsection{Configuration} {
-		\label{sec:configuration}
+		\subsubsection{Configurations} {
+		\label{sec:configurations}
 
 			Configuration options are designed to change the values and attributes of the 3D environment in real-time, promoting the analysis of the effects colour has on usability and identifying pertinent information. These options are organised in a folder structure, to deliver a hierarchy and logical grouping to the user. Moreover, these options should handle configuring data displays and surface values which enable the user to customise the display of the system.
 
@@ -98,18 +110,18 @@
 
 	\input{figures/design/user_actions}
 
-	These user actions facilitate decision making processes by allowing users to evaluate different datasets and identify key features. For instance, when the user navigates around the scene they are able to view the information associated with a data display by hovering on it. In regards to population data the smallest and largest city or country can be established using this method. This is achieved by navigating to a short or tall data point and displaying its information which contains details such as the city and country. Similarly, when a student dataset is used the best and worst performing groups can be identified on a weekly and on an average basis by analysing this information. Viewing student progress in such a manner can also aid in determining patterns with particular groups and individuals, and examining the overall complexity of a task during certain weeks. 
+	These user actions facilitate decision making processes by allowing users to evaluate the dataset loaded with a visualisation in order to identify key features. For instance, when the user navigates around the scene they are able to view the information associated with a data display by hovering on it. In regards to population data the smallest and largest city or country can be established using this method. This is achieved by navigating to a short or tall data point and displaying its information which contains details such as the city and country. Similarly, when a student dataset is used the best and worst performing groups can be identified on a weekly and on an average basis by analysing this information. Viewing student progress in such a manner can also aid in determining patterns with particular groups and individuals, and examining the overall complexity of a task during certain weeks. 
 
-	When filtering is applied to any dataset, the user can quickly confirm their initial observations found during the navigate and view data point information actions. This is due to the fact that a filter can determine which data displays are visible to the user, by adjusting the minimum and maximum range of a property in the dataset through a widget. As an example, displaying populations that are either below or over 100,~000 individuals can easily be seen by adjusting the minimum or maximum filter bounds for the population property to 100,~000.
+	When filtering is applied to any dataset, the user can confirm their initial observations found during the navigate and view data point information actions. This is due to the fact that a filter can determine which data displays are visible to the user, by adjusting the minimum and maximum range of a property in the dataset through a widget. As an example, displaying populations that are either below or over 100,~000 individuals can easily be seen by adjusting the minimum or maximum filter bounds for the population property to 100,~000.
 
-	Finally, different configurations can be applied in order to customise the appearance of the environment. This is done so that a distinguished colour scheme for the data displays and surface is selected. In turn, this can enhance a user's ability to identify significant features and patterns through colour palettes that make the dataset clearer to understand.
+	Finally, different configurations can be applied to customise the appearance of the environment. This is done so that a distinguished colour scheme for the data displays and surface is selected. In turn, this can enhance a user's ability to identify significant features and patterns through colour palettes that make the dataset clearer to understand.
 
 }
 
 \section{Methodology} {
 \label{sec:methodology}
 
-	A rapid application development (RAD) approach was undertaken when developing this project as it promotes iterative development and the rapid construction of prototypes. This software methodology is flexible and can respond to changing requirements because less time is invested into planning the project. This contrasts with the traditional waterfall approach which places greater emphasis on planning, gathering requirements, scheduling and following a rigid workflow. RAD instead enables the software to be written quickly through the reuse of software components and engaging in less formal reviews. The RAD model has been shown in Figure~\ref{fig:rad}.
+	A rapid application development (RAD) approach~\parencite{martin1991rapid} was undertaken when developing this project as it promotes iterative development and the rapid construction of prototypes. This software methodology is flexible and can respond to changing requirements because less time is invested into planning the project. This contrasts with the traditional waterfall~\parencite{huo2004software} approach which places greater emphasis on planning, gathering requirements, scheduling and following a rigid workflow. RAD instead enables the software to be written quickly through the reuse of software components and engaging in less formal reviews. The RAD model has been shown in Figure~\ref{fig:rad}.
 
 	\input{figures/design/rad}
 
