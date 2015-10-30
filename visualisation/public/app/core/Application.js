@@ -7,6 +7,7 @@ define(function (require) {
 
 	var $ = require('jquery');
 	var THREE = require('threejs');
+	//var Stats = require('stats');
 
 	var Viewport = require('core/Viewport');
 	var MouseControls = require('controls/Mouse');
@@ -18,7 +19,7 @@ define(function (require) {
 
 	var PopulationData = require('json!data/population.json');
 	//var PopulationData = require('json!data/population_google.json');
-	var StudentData = require('json!data/students.json');
+	//var StudentData = require('json!data/students.json');
 
 	var FlatHeatMap = require('component/visualisation/FlatHeatMap');
 	var RoundHeatMap = require('component/visualisation/RoundHeatMap');
@@ -56,7 +57,24 @@ define(function (require) {
 		this.camera.lookAt(this.scene.position);
 		this.renderer.setSize($canvas.width(), $canvas.height());
 
+		//this.addStats();
+
 	}
+	
+	Application.prototype.addStats = function () {
+		this.stats = new Stats();
+		this.stats.setMode(0);
+
+		var $stats = $(this.stats.domElement);
+
+		$stats.css({
+			position: 'absolute',
+			right: 0,
+			top: 0
+		});
+
+		this.$content.append($stats);
+	};
 
 	Application.prototype.loadCuboid = function () {
 		var keys = new THREE.Vector3('longitude', 'latitude', 'population');
@@ -92,7 +110,7 @@ define(function (require) {
 		var collection = this.processGridData(StudentData, keys);
 		var visualisation = new GridHeatMap(collection);
 
-		this.camera.position.set(0, 0, 300);
+		this.camera.position.set(0, 0, 500);
 		this.controls.panCamera(new THREE.Vector2(0, 100));
 
 		this.$content.append(new Help({model: new Backbone.Model({color: 'black'})}).$el);
@@ -104,11 +122,6 @@ define(function (require) {
 	Application.prototype.run = function (collection, keys, visualisation) {
 		var points = visualisation.points;
 		var filters = ['coordinate', 'magnitude', 'timezone'];
-
-
-		//var cameraPosition = new THREE.Vector3();
-		//cameraPosition.setFromMatrixPosition(this.camera.matrixWorld);
-		//this.controls.origin.copy(cameraPosition);
 
 		this.raycaster = new Raycaster(this.$canvas.get(0), this.camera, points);
 
@@ -144,8 +157,10 @@ define(function (require) {
 	 */
 	Application.prototype.processData = function (data, keys) {
 		var points = [];
-		console.log(data.length);
-		for (var i = 0, len = Math.min(data.length, 5000); i < len; i++) {
+		var size = Math.min(data.length, 1000);
+		//var size = data.length;
+		console.log(size);
+		for (var i = 0, len = size; i < len; i++) {
 			points.push(this.createPoint(data[i], keys));
 		}
 		return new Points(points);
@@ -161,7 +176,10 @@ define(function (require) {
 	Application.prototype.processGridData = function (data, keys) {
 		var points = [];
 		var map = {x: {}, z: {}};
-		for (var i = 0, len = Math.min(data.length, 1000); i < len; i++) {
+		//var size = Math.min(data.length, 20000);
+		var size = data.length;
+		console.log(size);
+		for (var i = 0, len = size; i < len; i++) {
 			points.push(this.createGridPoint(data[i], keys, map));
 		}
 		return new Points(points);
@@ -242,11 +260,13 @@ define(function (require) {
 	 */
 	Application.prototype.render = function () {
 		requestAnimationFrame(this.render.bind(this));
+		//this.stats.begin();
 		this.resize();
 		if (this.raycaster) {
 			this.raycaster.update();
 		}
 		this.renderer.render(this.scene, this.camera);
+		//this.stats.end();
 	};
 
 	return Application;

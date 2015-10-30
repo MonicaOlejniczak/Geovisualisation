@@ -16,10 +16,12 @@
 			'threejs': '../bower_components/threejs/build/three',
 			'backbone': '../bower_components/backbone/backbone',
 			'underscore': '../bower_components/underscore/underscore',
-			'handlebars': '../bower_components/handlebars/handlebars'
+			'handlebars': '../bower_components/handlebars/handlebars',
+			'stats': '../bower_components/stats.js/build/stats.min'
 		},
 		shim: {
 			threejs: {exports: 'THREE'},
+			stats: {exports: 'Stats'},
 			backbone: {
 				deps: ['jquery', 'underscore'],
 				exports: 'Backbone'
@@ -33,8 +35,8 @@
 		var application = window.app = new Application($('#visualisation'));
 
 		//var visualisation = application.loadCuboid();
-		//var visualisation = application.loadGlobe();
-		var visualisation = application.loadGrid();
+		var visualisation = application.loadGlobe();
+		//var visualisation = application.loadGrid();
 
 		application.render();
 
