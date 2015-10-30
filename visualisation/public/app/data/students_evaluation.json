@@ -1,0 +1,834 @@
+[
+    {
+        "week": 1,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.59,
+        "tutorial": 1
+    },
+    {
+        "week": 1,
+        "group": 2,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.72,
+        "tutorial": 1
+    },
+    {
+        "week": 1,
+        "group": 3,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 1,
+        "group": 4,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.86,
+        "tutorial": 1
+    },
+    {
+        "week": 1,
+        "group": 5,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 1,
+        "group": 6,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 1,
+        "group": 7,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.39,
+        "tutorial": 1
+    },
+    {
+        "week": 1,
+        "group": 8,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.3,
+        "tutorial": 1
+    },
+    {
+        "week": 2,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.64,
+        "tutorial": 1
+    },
+    {
+        "week": 2,
+        "group": 2,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.95,
+        "tutorial": 1
+    },
+    {
+        "week": 2,
+        "group": 3,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 2,
+        "group": 4,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.93,
+        "tutorial": 1
+    },
+    {
+        "week": 2,
+        "group": 5,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.81,
+        "tutorial": 1
+    },
+    {
+        "week": 2,
+        "group": 6,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.4,
+        "tutorial": 1
+    },
+    {
+        "week": 2,
+        "group": 7,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.77,
+        "tutorial": 1
+    },
+    {
+        "week": 2,
+        "group": 8,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 3,
+        "group": 1,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.49,
+        "tutorial": 1
+    },
+    {
+        "week": 3,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.26,
+        "tutorial": 1
+    },
+    {
+        "week": 3,
+        "group": 3,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 3,
+        "group": 4,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.73,
+        "tutorial": 1
+    },
+    {
+        "week": 3,
+        "group": 5,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.84,
+        "tutorial": 1
+    },
+    {
+        "week": 3,
+        "group": 6,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 3,
+        "group": 7,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 3,
+        "group": 8,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.59,
+        "tutorial": 1
+    },
+    {
+        "week": 4,
+        "group": 1,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.92,
+        "tutorial": 1
+    },
+    {
+        "week": 4,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.26,
+        "tutorial": 1
+    },
+    {
+        "week": 4,
+        "group": 3,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 4,
+        "group": 4,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 4,
+        "group": 5,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.62,
+        "tutorial": 1
+    },
+    {
+        "week": 4,
+        "group": 6,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 4,
+        "group": 7,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.77,
+        "tutorial": 1
+    },
+    {
+        "week": 4,
+        "group": 8,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.7,
+        "tutorial": 1
+    },
+    {
+        "week": 5,
+        "group": 1,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 5,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.32,
+        "tutorial": 1
+    },
+    {
+        "week": 5,
+        "group": 3,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.5,
+        "tutorial": 1
+    },
+    {
+        "week": 5,
+        "group": 4,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.64,
+        "tutorial": 1
+    },
+    {
+        "week": 5,
+        "group": 5,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.44,
+        "tutorial": 1
+    },
+    {
+        "week": 5,
+        "group": 6,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.69,
+        "tutorial": 1
+    },
+    {
+        "week": 5,
+        "group": 7,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.89,
+        "tutorial": 1
+    },
+    {
+        "week": 5,
+        "group": 8,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.74,
+        "tutorial": 1
+    },
+    {
+        "week": 6,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.66,
+        "tutorial": 1
+    },
+    {
+        "week": 6,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.43,
+        "tutorial": 1
+    },
+    {
+        "week": 6,
+        "group": 3,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.83,
+        "tutorial": 1
+    },
+    {
+        "week": 6,
+        "group": 4,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 6,
+        "group": 5,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.7,
+        "tutorial": 1
+    },
+    {
+        "week": 6,
+        "group": 6,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 6,
+        "group": 7,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.52,
+        "tutorial": 1
+    },
+    {
+        "week": 6,
+        "group": 8,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.56,
+        "tutorial": 1
+    },
+    {
+        "week": 7,
+        "group": 1,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.95,
+        "tutorial": 1
+    },
+    {
+        "week": 7,
+        "group": 2,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.79,
+        "tutorial": 1
+    },
+    {
+        "week": 7,
+        "group": 3,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.69,
+        "tutorial": 1
+    },
+    {
+        "week": 7,
+        "group": 4,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.28,
+        "tutorial": 1
+    },
+    {
+        "week": 7,
+        "group": 5,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.92,
+        "tutorial": 1
+    },
+    {
+        "week": 7,
+        "group": 6,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.98,
+        "tutorial": 1
+    },
+    {
+        "week": 7,
+        "group": 7,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.44,
+        "tutorial": 1
+    },
+    {
+        "week": 7,
+        "group": 8,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.27,
+        "tutorial": 1
+    },
+    {
+        "week": 8,
+        "group": 1,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.77,
+        "tutorial": 1
+    },
+    {
+        "week": 8,
+        "group": 2,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.55,
+        "tutorial": 1
+    },
+    {
+        "week": 8,
+        "group": 3,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.56,
+        "tutorial": 1
+    },
+    {
+        "week": 8,
+        "group": 4,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.34,
+        "tutorial": 1
+    },
+    {
+        "week": 8,
+        "group": 5,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.27,
+        "tutorial": 1
+    },
+    {
+        "week": 8,
+        "group": 6,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.73,
+        "tutorial": 1
+    },
+    {
+        "week": 8,
+        "group": 7,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 8,
+        "group": 8,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.47,
+        "tutorial": 1
+    },
+    {
+        "week": 9,
+        "group": 1,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.39,
+        "tutorial": 1
+    },
+    {
+        "week": 9,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.31,
+        "tutorial": 1
+    },
+    {
+        "week": 9,
+        "group": 3,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 9,
+        "group": 4,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.93,
+        "tutorial": 1
+    },
+    {
+        "week": 9,
+        "group": 5,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.57,
+        "tutorial": 1
+    },
+    {
+        "week": 9,
+        "group": 6,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 9,
+        "group": 7,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.67,
+        "tutorial": 1
+    },
+    {
+        "week": 9,
+        "group": 8,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.35,
+        "tutorial": 1
+    },
+    {
+        "week": 10,
+        "group": 1,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.32,
+        "tutorial": 1
+    },
+    {
+        "week": 10,
+        "group": 2,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.65,
+        "tutorial": 1
+    },
+    {
+        "week": 10,
+        "group": 3,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.89,
+        "tutorial": 1
+    },
+    {
+        "week": 10,
+        "group": 4,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 10,
+        "group": 5,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.72,
+        "tutorial": 1
+    },
+    {
+        "week": 10,
+        "group": 6,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 10,
+        "group": 7,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.38,
+        "tutorial": 1
+    },
+    {
+        "week": 10,
+        "group": 8,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.33,
+        "tutorial": 1
+    },
+    {
+        "week": 11,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.53,
+        "tutorial": 1
+    },
+    {
+        "week": 11,
+        "group": 2,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.49,
+        "tutorial": 1
+    },
+    {
+        "week": 11,
+        "group": 3,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.97,
+        "tutorial": 1
+    },
+    {
+        "week": 11,
+        "group": 4,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.97,
+        "tutorial": 1
+    },
+    {
+        "week": 11,
+        "group": 5,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.53,
+        "tutorial": 1
+    },
+    {
+        "week": 11,
+        "group": 6,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.44,
+        "tutorial": 1
+    },
+    {
+        "week": 11,
+        "group": 7,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.36,
+        "tutorial": 1
+    },
+    {
+        "week": 11,
+        "group": 8,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.81,
+        "tutorial": 1
+    },
+    {
+        "week": 12,
+        "group": 1,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.74,
+        "tutorial": 1
+    },
+    {
+        "week": 12,
+        "group": 2,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 12,
+        "group": 3,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.85,
+        "tutorial": 1
+    },
+    {
+        "week": 12,
+        "group": 4,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.78,
+        "tutorial": 1
+    },
+    {
+        "week": 12,
+        "group": 5,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 12,
+        "group": 6,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 12,
+        "group": 7,
+        "complete": false,
+        "activity": "Issues and evidence",
+        "progress": 0.55,
+        "tutorial": 1
+    },
+    {
+        "week": 12,
+        "group": 8,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.8,
+        "tutorial": 1
+    },
+    {
+        "week": 13,
+        "group": 1,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.39,
+        "tutorial": 1
+    },
+    {
+        "week": 13,
+        "group": 2,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.84,
+        "tutorial": 1
+    },
+    {
+        "week": 13,
+        "group": 3,
+        "complete": true,
+        "activity": "Reflection",
+        "progress": 1.0,
+        "tutorial": 1
+    },
+    {
+        "week": 13,
+        "group": 4,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.76,
+        "tutorial": 1
+    },
+    {
+        "week": 13,
+        "group": 5,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.27,
+        "tutorial": 1
+    },
+    {
+        "week": 13,
+        "group": 6,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.39,
+        "tutorial": 1
+    },
+    {
+        "week": 13,
+        "group": 7,
+        "complete": false,
+        "activity": "Case information",
+        "progress": 0.43,
+        "tutorial": 1
+    },
+    {
+        "week": 13,
+        "group": 8,
+        "complete": false,
+        "activity": "Goals and actions",
+        "progress": 0.81,
+        "tutorial": 1
+    }
+]
