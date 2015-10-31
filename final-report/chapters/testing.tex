@@ -227,8 +227,16 @@ First, the purpose and method of testing are explored, followed by an overview o
 \section{Performance testing} {
 \label{sec:performance_testing}
 
-	Performance testing was completed by manually analysing the results of Google Chrome's Developer Tools. The performance and memory of a system can be profiled using the Timeline and Profiles tools~\footnote{\bibentry{google2015profile}}, which have been represented in Figure~\ref{fig:performance_tools} below.
+	Performance testing was predominantly completed by manually analysing the results of Google Chrome's Developer Tools. The performance and memory of a system can be profiled using the Timeline and Profiles tools~\footnote{\bibentry{google2015profile}}, which have been represented in Figure~\ref{fig:performance_tools} below.
 
 	\input{figures/testing/performance}
 
+	The performance tests were undertaken in a controlled environment as a way of increasing the accuracy of the results. This involved recording data with minimal applications open and disabling browser extensions, limiting resource consumption from other programs that could potentially interfere with the results of the test. Another method that provided control to the environment was to begin profiling from new browser tabs, as recording from an existing page can add loading times to the website being tested that do not exist. Some performance results were also compared with a stopwatch test (i.e. manually recording load times with a stopwatch) to estimate and confirm the values presented in the performance tools.
+
+	In contrast to preparing results manually, the frames rendered in the last second (FPS) were measured with a \href{https://github.com/mrdoob/stats.js/}{JavaScript Performance Monitor} which is commonly used in Three.js applications. This tool is initialised in the main JavaScript application logic, which places a performance monitoring widget on the web page. An example of the widgets available in the performance monitor is presented in Figure~\ref{fig:js_performance_monitor}. Further, this performance tool is typically updated inside the render loop, so that the frames are updated each time the scene is rendered.
+
+	\input{figures/testing/js_performance_monitor}
+
 }
+
+
