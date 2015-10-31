@@ -5,7 +5,7 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 \section{System} {
 \label{sec:system}
 
-	The first visualisation for the system saw the implementation of a cuboid surface which began with a generated dataset, before transitioning to real data. This visualisation has been presented in Figure~\ref{fig:cuboid_surface} and features a population dataset projected from the world map. The implementation for this visualisaton loads the dataset at application startup and processes the information such that it is stored in a Backbone collection. The processing of the dataset involves transforming the $x$, $y$ and $z$ values of the data, which are specified as $longtitude$, $latitude$ and $population$ respectively, into the THREE.js coordinate system. A $coordinate$ and $magnitude$ field is also added during processing, so that these values can be referenced when performing calculations in the \texttt{Point} class. For instance, longitude and latitude determine the initial position of the point before being projected, while the population indicates its magnitude. Once the collection has been populated with models, the visualisation is created. The visualisation contains the cuboid surface, data points and a projection to be applied to all points. The details for the creation of the surface, the data points and their projection has been outlined in Section~\ref{sec:surface} and~\ref{sec:data_point_display}.
+	The first visualisation for the system saw the implementation of a cuboid surface which began with a generated dataset, before transitioning to real data. This visualisation has been presented in Figure~\ref{fig:cuboid_surface} and features a population dataset projected from the world map. The implementation for this visualisaton loads the dataset at application startup and processes the information such that it is stored in a Backbone collection. The processing of the dataset involves transforming the $x$, $y$ and $z$ values of the data, which are specified as $longtitude$, $latitude$ and $population$ respectively, into the THREE.js coordinate system. A $coordinate$ and $magnitude$ field is also added during processing, so that these values can be referenced when performing calculations in the \texttt{Point} class. For instance, longitude and latitude determine the initial position of the point before being projected, while the population indicates its magnitude and how tall the data point appears to the user. Once the collection has been populated with models, the visualisation is created. The visualisation contains the cuboid surface, data points and a projection to be applied to all points. The details for the creation of the surface, the data points and their projection has been outlined in Section~\ref{sec:surface} and~\ref{sec:data_point_display}.
 
 	\input{figures/implementation/system/cuboid}
 
@@ -13,10 +13,23 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 
 	\input{figures/implementation/system/sphere}
 
-	The final implementation for this system integrates a student progress dataset for teaching analytics using a grid surface. This visualisation fulfils one of the goals and deliverables of the project, as shown in Figure~\ref{fig:grid_surface}, and represents the weekly progress for each student group within the case that is studied for a tutorial. This visualisation required alternate processing techniques for implementation. First of all, when the dataset was processed the $x$, $y$ and $z$ values were instead mapped to $group$, $week$ and $progress$. Since this dataset cannot map keys to the position of a point, as the data may include strings, the position had to be calculated using the $x$, $y$ and $z$ values. This is unlike the population dataset, which was able to map longitude and latitude to a position. Finally, there are two significant differences between this visualisation and the previous two that have been outlined. The first is that there is no skybox displayed in the scene and the second is that the surface does not utilise textures or shaders.
+	The final implementation for this system attempts to facilitate the analysis of ongoing student progress for a tutorial as shown in Figure~\ref{fig:grid_surface}. The data in this visualisation represents the weekly progress for each student group within a case scenario. Data points indicate how much a group has progressed (e.g. Issues and Evidence) in their case activities for a particular week, where taller data points correspond to a greater value of completion.
 
 	\input{figures/implementation/system/grid}
+
+	Furthermore, the student grid visualisation required alternate processing techniques for implementation. First of all, when the dataset was processed the $x$, $y$ and $z$ values were instead mapped to $group$, $week$ and $progress$. Since this dataset cannot map keys to the position of a point, as the data may include strings, the position had to be calculated using the $x$, $y$ and $z$ values. This is unlike the population dataset, which was able to map longitude and latitude to a position. Finally, there are two significant differences between this visualisation and the previous two that have been outlined. The first is that there is no skybox displayed in the scene and the second is that the surface does not utilise textures or shaders.
 	
+}
+
+\section{Architecture} {
+\label{sec:architecture}
+
+	The system architecture for this system has been shown through a conceptual class diagram as seen in Figure~\ref{fig:conceptual_class_diagram}. For a more detailed architecture class diagram, refer to Appendix~\ref{app:architecture}.
+
+	\input{figures/design/conceptual_class_diagram}
+
+	The system is highly inheritance-based especially by using \texttt{THREE.Mesh} and Backbone Views, Models and Collections.
+
 }
 
 \section{Datasets} {
@@ -183,3 +196,5 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 	The design for these configurations were continually refined during implementation. Initially, the dat.GUI sliders were to remain unchanged. However, these sliders proved to be inconsistent in regards to the colour scheme and filter design. Furthermore, the bold folder colours were eventually removed to reflect drawer layouts that conform to using light navigation colours, hover effects, and left floated icons.
 
 }
+
+Three visualisations were developed to demonstrate the potential of geovisualisations and how they can be applied to different datasets. Each visualisation utilises common navigation techniques

@@ -1,13 +1,11 @@
 %!TEX root = ../report.tex
 
-\todo{Purpose of the chapter
- Structure of the chapter
- Central themes of the chapter}
+This chapter explores the design of the system by first introducing the main system components that comprise the application. Following this, the requirements for the user interface are refined before the user actions and activities are investigated. Next, the development methodology, design patterns, non-functional requirements and the dataset design are discussed. At the end of this chapter, the design of system evaluations is examined.
 
 \section{System components} {
 \label{sec:system_components}
 
-	The application consists of five high-level modular components, which can be seen in Figure~\ref{sec:system_components} and are described below.
+	The application consists of five high-level modular components, which can be seen in Figure~\ref{sec:system_components} and are described below. This design decision ensures that a module can be removed from the application at any time, without effecting the other modules.
 
 	\begin{description}[leftmargin=0pt]
 		\item[Navigation:] The navigation interactions between the user and the visualisation including pan, zoom and rotate.
@@ -31,7 +29,9 @@
 
 		Material Design is a visual language developed by Google that synthesises classic design principles with current technologies. Their design aims to provide users with a unified experience across platforms and device sizes, by focusing on user actions and retaining continuity between transitions. Furthermore, Material Design provides an immersive experience to users by adhering to good design principles.
 
-		Google Material Design details many component specifications that have been implemented by several CSS3 frameworks. It is also a great design tool that has been incorporated into the existing infrastructure this project and the group project. As a result of this, a teacher can transition from one system to the other seamlessly, because both systems apply the same design standards.
+		Google Material Design details many component specifications that have been implemented by several CSS3 frameworks. It is also a great design tool that has been incorporated into both the existing infrastructure of this project and the group project.
+
+		% As a result of this, a user can transition from one system to the other seamlessly, because both systems apply the same design standards.
 
 	}
 
@@ -129,6 +129,19 @@
 		
 }
 
+\section{Design patterns} {
+\label{sec:design_patterns}
+
+	This system has combined asynchronous event-driven programming, through the Observer pattern~\parencite{osmani2012learning}, with the Model-View-Controller~\parencite{krasner1988description} (MVC) design pattern to create a modular application.
+
+	Event-driven programming is a programming paradigm where the flow of the program is determined by events which include user actions or messages from other programs. This paradigm is suited to web applications as actions can be performed in response to user input such as mouse clicks and keyboard input. Moreover, event-driven programming promotes the implementation of loosely-coupled modules.
+
+	The role of the MVC design pattern is to separate the concerns between the representation of information from the way this information is presented and manipulated by the user, as shown in Figure~\ref{fig:mvc}. This pattern also increases the scalability, maintainability and extensibility of applications.
+
+	\input{figures/design/mvc}
+
+}
+
 \section{Non-functional requirements} {
 \label{sec:non_functiona_requirements}
 
@@ -152,47 +165,11 @@
 \section{Dataset} {
 \label{sec:dataset}
 
-	As discussed in Section~\ref{sec:project_definition}, the visualisations began with generated data so development could begin immediately. Using generated data brings control over the size of the dataset applied to a prototype and the scalability of each visualisation can be tested. 
-
-	Following the use of fake data, each prototype had real datasets applied to them. GeoNames~\footnote{\bibentry{wick2005geonames}} is a geographical database that was used for the implementation of the visualisations. This database stores population data for a significant number of cities and their respective latitude and longitude coordinates. GeoNames falls under a creative commons attribution license, so there are no copyright concerns or immediate issues when reading and parsing the data it provides. However, some unnecessary information contained in this dataset (such as \emph{geonameid}, \emph{feature class} and \emph{dem}) were removed. Furthermore, the format of the data was modified from a tab separated list to a JSON structure so the data could be read efficiently in order to reduce the loading time for the user.
-
-	Once real datasets had been applied to the visualisations, the system was integrated with the final year project to provide an analytics component for teachers. The progress made by tutorial groups were stored in the database of the group project. This data could be visualised to aid teachers in analysing ongoing student progress.
+	As discussed in Section~\ref{sec:project_definition}, the visualisations began with generated data so development could begin immediately. Using generated data brings control over the size of the dataset applied to a prototype and the scalability of each visualisation can be tested. Following the use of fake data, each prototype had real datasets applied to them. GeoNames~\footnote{\bibentry{wick2005geonames}} is a geographical database that was used for the implementation of the visualisations. This database stores population data for a significant number of cities and their respective latitude and longitude coordinates. GeoNames falls under a creative commons attribution license, so there are no copyright concerns or immediate issues when reading and parsing the data it provides. However, some information contained in this dataset (such as \emph{geonameid}, \emph{feature class} and \emph{dem}) are not necessary to be included for processing and when viewed by the user. Furthermore, the format of this dataset is not appropriate for parsing. The tab separated list should be converted to a JSON structure so the data can be read efficiently in order to reduce the loading time for the user. Once real datasets had been applied to the visualisations, the system was integrated with a student progress dataset to provide an analytics component for teachers.
 
 	Initially, a flat array structure was considered for the design of the dataset as it is significantly more performant to parse than objects, as shown in Figure~\ref{fig:performance_test}. However, this structure is inflexible and difficult to maintain as a result of its rigid format. The use of objects are a more flexible, albeit less performant, structure that was considered in the design of the dataset. When using objects, a key can be selected as a value to be used for the x, y and z axis. Another advantage to using objects is that metadata can easily be added to the dataset. While there are certainly tradeoffs between the two structures, the flexibility of objects was valued over performance differences that would only occur during application startup. Due to these reasons, objects were used to form the structure of the datasets.
 
 	\input{figures/design/performance_test}
-
-}
-
-\section{Architecture} {
-\label{sec:architecture}
-	
-	\todo{three-tier: presentation, logic, data
-
-		inheritance
-
-		design patterns
-
-		forwards ajax request to backend of fyp system for dataset
-
-		}
-
-		\todo{Everything implemented as a single module, write more / reword}
-
-		% The Filter, Configuration, and Information display modules are external to the core 3D environment components, separating the components in the scene from the view controllers. This design decision also ensures that the view controllers can be removed from the application at any time, without effecting the core functionality.
-
-		\input{figures/design/architecture}
-
-% 		The frontend system is a separate client-server application, consisting of a node.js server component, which simply pushes the Client-side component to the client-browser. The client-side therefore contains the vast majority of application complexity which has the following architecture:
-% Uses a MVVM (Model View View-Model) architectural style to compose data bound from performing asynchronous requests to the backend API, with the view-templates via the View-Model (controllers).
-% The API-Client 
-% Much of the 'heavy lifting' of data manipulation is delegated to the backend API.
-% View-templates are a set of DSL template files that compose a particular UI component
-% These are dynamically compiled into views, incorporating data from the model.
-% The primary function of the View-Model (depicted as controllers) is to bind changes to the Model data and update the Views accordingly.
-% Conceptually this functionality requires a data-mapping sub-module, but it is likely that this will be provided by a library.
-% This all occurs in an asynchronous Event-based manner, such that the UI is never blocked.
-
 
 }
 
@@ -208,3 +185,5 @@
 	The performance and scalability of the system has been designed to be tested in an offline environment on a single high performance computer. The metrics for evaluating the performance and scalability of the system include the time to render, time to perform filtering and the average frames per second when idle and navigating the scene. These metrics have been recorded for each visualisation across small ($\approx$ $\le1000$) and large ($\approx$ $\ge10000$) datasets.
 
 }
+
+This thesis has illustrated the design of the system which takes a rapid application development approach to implement the visualisations using event-driven programming and the MVC design pattern. The system consists of five highly modular components including the navigation interactions, the 3D environment and dataset information, data filtering and configuration settings. Modern interface design principles have been incorporated into the design which have been presented through design mockups. Moreover, there are also several activities that the user can undertake based on the dataset used with the visualisation.
