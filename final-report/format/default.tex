@@ -67,7 +67,7 @@
 \input{format/code}
 
 %%% References
-\usepackage[backend=bibtex,style=authoryear]{biblatex}
+\usepackage[backend=bibtex,style=authoryear,maxcitenames=2,maxbibnames=10]{biblatex}
 \addbibresource{references.bib}
 
 % Change font size
@@ -75,9 +75,9 @@
 
 % Add exclude category with a bibentry command
 \DeclareBibliographyCategory{exclude}
-\newcommand{\bibentry}[1]{
-	\addtocategory{exclude}{#1}
-	\fullcite{#1}
+\newcommand{\bibentry}[1]{%
+	\addtocategory{exclude}{#1}%
+	\fullcite{#1}%
 }
 
 % Continue footnotes after chapters
