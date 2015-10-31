@@ -56,15 +56,6 @@ define(function (require) {
 	Skybox.prototype.constructor = Skybox;
 
 	Skybox.prototype.onControls = function (event, position) {
-		this.updatePosition(position);
-	};
-
-	/**
-	 * Updates the position of the skybox.
-	 *
-	 * @param position The new position of the skybox.
-	 */
-	Skybox.prototype.updatePosition = function (position) {
 		this.position.copy(position);
 	};
 

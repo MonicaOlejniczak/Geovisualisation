@@ -60,7 +60,7 @@ define(function (require) {
 		//this.addStats();
 
 	}
-	
+
 	Application.prototype.addStats = function () {
 		this.stats = new Stats();
 		this.stats.setMode(0);
