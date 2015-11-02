@@ -29,6 +29,11 @@ define(function (require) {
 		projection.target = this.position;
 
 		this.points = new Points(points, projection, options);
+
+		this.points.children.forEach(function (point) {
+			projection.project.call(projection, point);
+		});
+
 		this.surface = surface;
 
 		if (options.skybox !== false) {

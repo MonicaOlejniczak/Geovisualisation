@@ -157,7 +157,7 @@ define(function (require) {
 	 */
 	Application.prototype.processData = function (data, keys) {
 		var points = [];
-		var size = Math.min(data.length, 1000);
+		var size = Math.min(data.length, 5000);
 		//var size = data.length;
 		console.log(size);
 		for (var i = 0, len = size; i < len; i++) {

@@ -9,24 +9,20 @@ define(function (require) {
 
 	var Point = require('component/points/point/Point');
 
-	var Filter = require('filter/Filter');
 	var Shader = require('helper/Shader');
 
 	/**
 	 * Initialises the points.
 	 *
 	 * @param collection The points collection.
-	 * @param projection The projection used with the points.
 	 * @param options
 	 * @constructor
 	 */
-	function Points (collection, projection, options) {
+	function Points (collection, options) {
 
 		THREE.Mesh.call(this);
 
 		this.collection = collection;
-		this.projection = projection;
-		this.filter = new Filter(collection);
 
 		// Ensure the options exist.
 		options = options || {};
@@ -119,9 +115,8 @@ define(function (require) {
 	 * @param points The array of points to add.
 	 */
 	Points.prototype.addPoints = function (points) {
-		var projection = this.projection;
 		points.each(function (point) {
-			this.addPoint(point, projection);
+			this.addPoint(point);
 		}, this);
 		this.update();
 	};
@@ -130,12 +125,10 @@ define(function (require) {
 	 * Adds a point to the mesh and calculate the new max value.
 	 *
 	 * @param model The point model.
-	 * @param projection The point projection instance.
 	 * @returns {Point}
 	 */
-	Points.prototype.addPoint = function (model, projection) {
+	Points.prototype.addPoint = function (model) {
 		var point = new Point(model, this.width, this.height, this.max);
-		projection.project.call(projection, point);
 		this.add(point);
 		return point;
 	};

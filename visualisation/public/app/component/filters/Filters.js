@@ -6,6 +6,7 @@ define(function (require) {
 	'use strict';
 
 	var $ = require('jquery');
+	var Filter = require('filter/Filter');
 	var Checkbox = require('component/filters/checkbox/Checkbox');
 	var Slider = require('component/filters/slider/Slider');
 
@@ -17,7 +18,10 @@ define(function (require) {
 	 * @param [filters] The existing filters that permanently hide information.
 	 * @constructor
 	 */
-	function Filter (collection, keys, filters) {
+	function Filters (collection, keys, filters) {
+
+		new Filter(collection);
+
 		this.collection = collection;
 		this.keys = keys;
 		this.filters = filters || [];
@@ -25,12 +29,23 @@ define(function (require) {
 		this.configureFilters($('#filters .filters'));
 	}
 
+	Filters.prototype.filterBy = function (fn) {
+		var filteredCollection = new Backbone.Collection();
+		this.collection.each(function (model) {
+			if (fn.call(this, model)) {
+				filteredCollection.add(model);
+			}
+		}, this);
+		this.collection.trigger('filter', filteredCollection);
+		return filteredCollection;
+	};
+
 	/**
 	 * Configures the filter elements.
 	 *
 	 * @param $filters The jQuery element to append filters.
 	 */
-	Filter.prototype.configureFilters = function ($filters) {
+	Filters.prototype.configureFilters = function ($filters) {
 		$filters.append(this.configureSliders());
 		$filters.append(this.configureCheckboxes());
 	};
@@ -39,7 +54,7 @@ define(function (require) {
 	 *
 	 * @returns {Array}
 	 */
-	Filter.prototype.configureSliders = function () {
+	Filters.prototype.configureSliders = function () {
 		var sliders = [];
 		var keys = this.keys;
 		//$filters.append(this.createSliderGroup(keys.x));
@@ -56,7 +71,7 @@ define(function (require) {
 	 *
 	 * @returns {*|jQuery|HTMLElement}
 	 */
-	Filter.prototype.configureCheckboxes = function () {
+	Filters.prototype.configureCheckboxes = function () {
 		var model = this.collection.first();
 		// Retrieve the properties associated with a checkbox by filtering out default model properties which represent redundant values.
 		var properties = model.keys().filter(function (property) {
@@ -77,7 +92,7 @@ define(function (require) {
 	 * @param property The property being filtered.
 	 * @returns {*|jQuery}
 	 */
-	Filter.prototype.createSlider = function (property) {
+	Filters.prototype.createSlider = function (property) {
 
 		var heading = property;
 
@@ -134,7 +149,7 @@ define(function (require) {
 	 *
 	 * @param event The jQuery keyup event.
 	 */
-	Filter.prototype.onKeyUp = function (event) {
+	Filters.prototype.onKeyUp = function (event) {
 		var key = event.keyCode;
 		// Only initiate the key up event if the left and right arrow keys have not been pressed. This enables the user
 		// to move around the input.
@@ -165,7 +180,7 @@ define(function (require) {
 	 * @param values The input values on the slider.
 	 * @param handle The index of the selected handler.
 	 */
-	Filter.prototype.onUpdate = function ($min, $max, property, values, handle) {
+	Filters.prototype.onUpdate = function ($min, $max, property, values, handle) {
 		var min = parseInt(values[0], 10);
 		var max = parseInt(values[1], 10);
 
@@ -182,7 +197,7 @@ define(function (require) {
 		}
 
 		// Filter the collection using the specified callback function.
-		this.collection.filterBy(function (model) {
+		this.filterBy(function (model) {
 			// Get the value from the model using the filter property, then filter.
 			var value = model.get(property);
 			return !(value >= min && value <= max);
@@ -194,7 +209,7 @@ define(function (require) {
 	 *
 	 * @param event The jQuery keyup event.
 	 */
-	Filter.prototype.onMin = function (event) {
+	Filters.prototype.onMin = function (event) {
 		var slider = event.data.slider;
 		if (slider) {
 			var input = event.target;
@@ -210,7 +225,7 @@ define(function (require) {
 	 *
 	 * @param event The jQuery keyup event.
 	 */
-	Filter.prototype.onMax = function (event) {
+	Filters.prototype.onMax = function (event) {
 		var slider = event.data.slider;
 		if (slider) {
 			var input = event.target;
@@ -227,7 +242,7 @@ define(function (require) {
 	 * @param property The property associated with the checkbox.
 	 * @returns {*|jQuery}
 	 */
-	Filter.prototype.createCheckbox = function (property) {
+	Filters.prototype.createCheckbox = function (property) {
 		var id = 'checkbox-' + property;
 		var label = (property.charAt(0).toUpperCase() + property.substring(1).toLowerCase()).replace(/_/g, ' ');
 
@@ -249,7 +264,7 @@ define(function (require) {
 	 *
 	 * @param event The jQuery click event.
 	 */
-	Filter.prototype.onToggle = function (event) {
+	Filters.prototype.onToggle = function (event) {
 		var checkbox = event.currentTarget;
 		var checked = checkbox.checked;
 		var property = this.map[checkbox.id];
@@ -263,6 +278,6 @@ define(function (require) {
 		}
 	};
 
-	return Filter;
+	return Filters;
 
 });
