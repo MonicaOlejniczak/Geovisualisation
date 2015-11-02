@@ -1,6 +1,6 @@
 %!TEX root = ../report.tex
 
-As discussed in Section~\ref{sec:evaluation_design}, a user study and performance analysis was undertaken as a way to measure the usability and effectiveness of the visualisations that have been implemented in this project. The details for these evaluations have been described in Section~\ref{sec:user_study} and \ref{sec:performance_analysis} respectively.
+As discussed in Section~\ref{sec:evaluation_design} of the Design chapter, a user study and performance analysis was undertaken as a way to measure the usability and effectiveness of the visualisations that have been implemented in this project. The details for these evaluations have been described in Section~\ref{sec:user_study} and \ref{sec:performance_analysis} respectively.
 
 The system evaluations were performed on an MSI GS60 Ghost Pro 4K 15.6in Gaming Notebook with 16GB RAM and an NVIDIA GeForce GTX 970M dedicated graphics card. The visualisations were loaded in an offline environment using the high performance mode offered in Windows 8.1 to enhance the user experience and minimise performance issues.
 
@@ -11,7 +11,7 @@ This chapter introduces the participants and process of the user study, outlines
 
 	Prior to commencing the user study, there were a couple user issues that were observed throughout the development process. As a result, it was expected that users may experience difficulty navigating the population globe and may be confused as to the purpose of the checkboxes in the sidebar.
 
-	There were eight male participants who volunteered to undertake this user study. The participants were aged between 22-29 and are enrolled in the final year project. All participants use computers on a daily basis and are familiar with navigating websites and using common functionality such as filtering.
+	There were eight male participants who volunteered to undertake this user study. The participants were aged between 22-29 and are all enrolled in the final year project. All participants come from a technical background, use computers on a daily basis and are familiar with navigating websites and using common functionality such as data filtering.
 
 	The process began by asking the participant to complete a consent form. A brief overview of each visualisation and the dataset they represent was provided after the user completed this form. The participant was given task instructions and encouraged to ask questions throughout the evaluation. They were then able to experiment with the visualisations in any order and asked to complete a questionnaire. On average the participant took approximately five minutes to complete the study.
 
@@ -22,20 +22,58 @@ This chapter introduces the participants and process of the user study, outlines
 
 	% \todo{performance slow with large data mention filtering and configuration}
 
-	The performance analyis was conducted by carrying out manual performance testing, which has been outlined in Section~\ref{sec:performance_testing}. Each test was executed for a dataset size of \dots
-
-	\todo{figure out sizes, 100, 500, 1000, 5000, 10000, 20000, five times and an average was recorded to indicate the time for the metric.}
-
-	confirmed estimate values with stopwatch test.
+	The performance analyis was conducted by carrying out performance testing, which has been outlined in Section~\ref{sec:performance_testing}. The tests were executed with a dataset size of 500, 1000, 5000, 10 000 and 20 000 for each visualisation. These tests were each performed three times and the average was then recorded, introducing another measure for increasing the accuracy of the results in the controlled environment.
 
 }
 
 \section{Results} {
+\label{sec:results}
 
-	50\% of users found the navigation cumbersome to use.
+	\subsection{Questionnaire} {
+	\label{sec:questionnaire}
 
-	88\% were able to correctly identify information in the population dataset and student dataset.
+		Half of the participants found the navigation cumbersome to use. In particular, participants commented that they could pan and zoom across the screen without experiencing any difficuly, but often struggled to rotate the scene. The rotation in the population globe was particularly troublesome to use by the participants. This is a direct result of the limits placed on the polar angle in the navigation, which were designed primarily for the cuboid surface. These limits prevent the user from rotating the sphere in a downward direction and thus the bottom could not be viewed adequately. The system would benefit from having separate navigation controls for a visualisation using the sphere surface, by performing rotation on the sphere itself instead of rotating the camera around the scene. This change in the system would enable users to have complete control over the rotation of the sphere and hence all of the data points. It would also be worthwhile investigating other techniques implementing navigation, such as \href{http://threejs.org/examples/misc_controls_trackball.html}{trackball controls} to improve the usability of the navigation controls for the user.
 
-	no perceived / negligible difference in fps when the raycaster was disabled (even with large datasets) and between idle and navigating. only differences in navigating are when at an angle that reduces the amount of points visible to be rendered by the renderer. noticeably less responsive with dataset of 20k. student datasets viewed from the top and more zoomed in had higher fps rates probably due to less height to render / flat structure. lower fps rates in student dataset probably because of datapoints being close together / high density, additional textures in population datasets made no difference to fps. zooming in on population dataset increased fps due to less things seen, more sporadic data and no textures. zooming in on student dataset did not effect fps.
+		The majority of the participants (88\%) were able to correctly identify information in the population and student dataset through the tasks set in the questionnaire. These participants also answered which visualisation they thought was the easiest to use and locate information in, as shown in Figure~\ref{fig:most_popular_visualisation}. 
+
+		\input{figures/results/most_popular_visualisation}
+
+		This result revealed that the population cuboid was the most popular gaining 63\% of total votes, while the population globe was favoured by 38\% of the participants. This can be attributed to the fact that the population globe featured poor navigation controls, which would greatly effect its usability and ability for users to locate information. Another factor for this result is that the data in the population cuboid is completely visible to the user when viewed from afar. In contrast to this, the data points in the population globe wrap around the surface and can appear hidden to the user until they rotate around the surface. 
+
+		Unfortunately, the student grid was considered the least user-friendly. It was observed that some participants initially had trouble identifying what the student dataset represented. After some time, the participant could deduce this or instead asked for clarification. This issue could be solved by labelling the axes for a visualisation that uses a grid surface. It is also important to consider the way the information is presented to the user in this visualisation. The student grid displays highly clustered information and it can be challenging to identify information when filtering is not used. It would be valuable to explore methods for increasing the usability of this visualisation, especially in regards to how the sizes and spacing between the data points impact the interpretation of the dataset.
+
+		Many participants (75\%) applied filtering when completing the activities presented in the questionnaire. Of those participants, 67\% applied filtering for the population dataset whereas the student dataset was filtered by all the participants that performed filtering. This finding strongly suggests that the participants found it more difficult to locate information in the student dataset, which is also supported in the previous result. This data also indicates that it is easier to locate information in the population dataset simply by comparing the height of the data points and the values shown in the information displays. This method was used by both participants that did and did not apply filtering.
+
+		When observing the participants, it was obvious that the purpose of the checkboxes, used for toggling the data shown in the information displays, was unclear. The participants that attempted to use this feature often toggled the checkbox multiple times expecting it to effect the visibility of the data points. This feature should be clearly documented, through help text or tooltips, in the system and perhaps placed under a different heading such as \emph{information display control} to concisely convey the purpose of the feature to the user.
+
+		Only some of the participants (38\%) applied custom configurations when answering the questions. The participants that did utilise this feature did not use it in a way that helped them interpret the data presented in the visualisation. This feature was instead used briefly by the participants as a way of experimenting with the output of the available shader effects. This result, when combined with the participant behaviour, implies that the colours in the system did not have a significant impact on the usability of the system. However, this feature can still prove to be useful for other users and those who suffer from a visual impairment such as colour blindness. The latter could not be tested in this user study as no participants reported that they had any significant visual impairments.
+
+	}
+
+	\subsection{System Usability Scale} {
+	\label{sec:sus_results}
+
+		\input{figures/results/sus_score}
+
+		\input{figures/results/normalised_sus_score}
+
+	}
+
+	\subsection{Performance} {
+	\label{sec:performance}
+
+		\input{figures/results/average_startup_time}
+
+		\input{figures/results/startup_events}
+
+		no perceived / negligible difference in fps when the raycaster was disabled (even with large datasets) and between idle and navigating. only differences in navigating are when at an angle that reduces the amount of points visible to be rendered by the renderer. noticeably less responsive with dataset of 20k. student datasets viewed from the top and more zoomed in had higher fps rates probably due to less height to render / flat structure. lower fps rates in student dataset probably because of datapoints being close together / high density, additional textures in population datasets made no difference to fps. zooming in on population dataset increased fps due to less things seen, more sporadic data and no textures. zooming in on student dataset did not effect fps.
+
+		fps rapidly declined with larger datasets
+
+		\input{figures/results/average_fps}
+
+	}
 
 }
+
+small sample size and untargeted demographic could easily skew results

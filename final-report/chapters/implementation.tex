@@ -28,7 +28,23 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 
 	\input{figures/design/conceptual_class_diagram}
 
-	The system is highly inheritance-based especially by using \texttt{THREE.Mesh} and Backbone Views, Models and Collections.
+	The system is highly inheritance-based by incorporating the \texttt{THREE.Mesh} for each item in the 3D environment. An overview of the core modules has been described below:
+
+	\begin{sloppypar}
+		\begin{description}[leftmargin=0pt]
+			\item [Application:] This module sets up the \texttt{THREE.Scene}, \texttt{THREE.Camera} and \texttt{THREE.WebGLRenderer} so the visualisation can be rendered in the main render loop. The Application module is also responsible for processing the dataset, loading the Visualisation and creating the Navigation, Information, Filters and Configurations modules. 
+			\item[Visualisation:] A mesh that adds the Points, Surface and Skybox components as children. The Visualisation also applies the projection to each Point in the Points mesh.
+			\item[Points:] The Points mesh is associated with the Points Backbone collection, which was processed in the Application module. This module simply adds a Point mesh for every model in the collection.
+			\item[Point:] This mesh consists of a Point model, \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. The magnitude of the mesh is also converted so that it is capped to a maximum height.
+			\item[Surface:] A base class that represents a mesh for the Cuboid and Sphere surfaces.
+			\item[Skybox:] This mesh asynchronously loads six image resources as textures, which are then applied to each side of the cube geometry to form the appearance of the skybox.
+			\item[Projection:] A class that modifies the position and rotation of an object to simulate a mathematical projection. This is achieved through a custom function, which typically applies a standard or spherical projection.
+			\item[Navigation:] Listens to mouse events on the specified element, in this case the HTML5 canvas, and adjusts the position and rotation of the camera to reflect user input. The possible navigation techniques are pan, zoom and rotate.
+			\item[Information:] This module listens for events in the Raycaster. It updates the view with the correct model data and recalculates the position of the display when an intersection between the mouse pointer and a data point occurs.
+			\item[Filters:] Creates Slider and Checkbox view controllers based on the values in the Backbone collection. It also listens to \texttt{change} events on the sliders and their number inputs as well as the checkboxes. The event handlers for these widgets filters the data, firing a \texttt{filter} event with the filtered collection. The filter event is then caught by the Filter module, which handles the processing of the collection and in turn the visibility of the Points.
+			\item[Configurations:] Initialises the real-time configuration widgets that adjust the appearance of the 3D environment. This module listens to \texttt{change} events on each input in order to update the shader uniforms for a mesh, which requires custom event handlers and conversions between units.
+		\end{description}
+	\end{sloppypar}
 
 }
 
@@ -104,7 +120,7 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 \label{sec:surface}
 
 	\begin{sloppypar}
-		A surface consists of a \texttt{THREE.Mesh} and uses either a \texttt{THREE.BoxGeometry} or \texttt{THREE.SphereGeometry} for its geometry. The material used in both the cuboid and sphere surface is a \texttt{THREE.ShaderMaterial}, which facilitates the configuration of midtone effects and other uniforms. The entry point for the shader is demonstrated below.
+		A surface consists of a \texttt{THREE.Mesh} and uses either a \texttt{THREE.BoxGeometry} or \texttt{THREE.SphereGeometry} for its geometry. The material used in both the cuboid and sphere surface is a \texttt{THREE.ShaderMaterial}, which facilitates the configuration of midtone effects and other uniforms. The entry point for the shader using the GLSL language is demonstrated below.
 	\end{sloppypar}
 
 	\input{code/implementation/surface_fragment}
@@ -116,7 +132,7 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 \section{Data point display} {
 \label{sec:data_point_display}
 
-	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the initial position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Points} class ensures that each \texttt{Point} appears as if it were on top of the surface, by applying either a standard for cuboids or a spherical projection for spheres.
+	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the initial position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Visualisation} class ensures that each \texttt{Point} in the \texttt{Points} mesh appears as if it were on top of the surface, by applying either a standard for cuboids or a spherical projection for spheres.
 
 	The standard projection simply sets the y-position of the object by some offset, in this case the height of the cuboid surface, and then converts the range of the x and z-positions so that is fits on the cuboid dimensions. Whereas the spherical projection first converts x-position of the object to $\theta$ and the z-position to $\phi$ in radians. These values are used, along with the radius of the sphere, to apply a spherical to cartesian conversion which denotes the position of the \texttt{Point}. Then, the point is rotated to face the position of the sphere and again in the x-direction so it is not tangential to the surface.
 
@@ -170,7 +186,7 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 
 	\input{code/implementation/filtering_function}
 
-	The above function utilises closure to check if the property associated with the slider is within the specified minimum and maximum bounds. If this function returns \texttt{true}, the model is added to a filtered collection. Once the collection has been iterated through, the \texttt{filterBy} function triggers a \texttt{filter} event with the filtered collection. This event is handled through other classes and ultimately modifies the visibility of the data display mesh based on the results of filtering.
+	The above function utilises closure to check if the property associated with the slider is within the specified minimum and maximum bounds. If this function returns \texttt{true}, the model is added to a filtered collection. Once the collection has been iterated through, the \texttt{filterBy} function triggers a \texttt{filter} event with the filtered collection. The visibility of the data display mesh can then be modified based on the results of filtering.
 
 	A similar process occurs when the user enters a value into the minimum or maximum inputs. A \texttt{keyup} event is bound to both inputs and a timer is in place to enforce a filtering delay. This delay ensures that filtering is processed as required, when the user has stopped typing, in order to reduce performance issues. When the user stops typing, the slider values are updated to match the input and filtering then proceeds as normal.
 
@@ -197,4 +213,4 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 
 }
 
-Three visualisations were developed to demonstrate the potential of geovisualisations and how they can be applied to different datasets. Each visualisation utilises common navigation techniques
+Three inheritance-based visualisations were developed to demonstrate the potential of geovisualisations and how they can be applied to different datasets. Each visualisation utilises common navigation techniques, information displays for the data displays, filtering and configurable environment settings. Lastly, these features have been developed to provide the user with a range of tools for analysing the data presented to them.
