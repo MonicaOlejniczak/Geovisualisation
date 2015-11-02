@@ -22,7 +22,7 @@ This chapter introduces the participants and process of the user study, outlines
 
 	% \todo{performance slow with large data mention filtering and configuration}
 
-	The performance analyis was conducted by carrying out performance testing, which has been outlined in Section~\ref{sec:performance_testing}. The tests were executed with a dataset size of 500, 1000, 5000, 10 000 and 20 000 for each visualisation. These tests were each performed three times and the average was then recorded, introducing another measure for increasing the accuracy of the results in the controlled environment.
+	The performance analyis was conducted by carrying out performance testing, which has been outlined in Section~\ref{sec:performance_testing} of the Testing chapter. The tests were executed with a dataset size of 500, 1000, 5000, 10 000 and 20 000 for each visualisation. These tests were each performed three times and the average was then recorded, introducing another measure for increasing the accuracy of the results in the controlled environment.
 
 }
 
@@ -46,16 +46,26 @@ This chapter introduces the participants and process of the user study, outlines
 
 		When observing the participants, it was obvious that the purpose of the checkboxes, used for toggling the data shown in the information displays, was unclear. The participants that attempted to use this feature often toggled the checkbox multiple times expecting it to effect the visibility of the data points. This feature should be clearly documented, through help text or tooltips, in the system and perhaps placed under a different heading such as \emph{information display control} to concisely convey the purpose of the feature to the user.
 
-		Only some of the participants (38\%) applied custom configurations when answering the questions. The participants that did utilise this feature did not use it in a way that helped them interpret the data presented in the visualisation. This feature was instead used briefly by the participants as a way of experimenting with the output of the available shader effects. This result, when combined with the participant behaviour, implies that the colours in the system did not have a significant impact on the usability of the system. However, this feature can still prove to be useful for other users and those who suffer from a visual impairment such as colour blindness. The latter could not be tested in this user study as no participants reported that they had any significant visual impairments.
+		Only some of the participants (38\%) applied custom configurations when answering the questions. The participants that did utilise this feature did not use it in a way that helped them interpret the data presented in the visualisation. This feature was instead used briefly by the participants as a way of experimenting with the output of the available shader effects. This result, when combined with the participant behaviour, implies either one of two things. The first is that the default colours used in the visualisations were suitable for interpreting the dataset, or that the colours did not have a significant impact on the usability of the system. However, this feature can still prove to be useful for other users and those who suffer from a visual impairment such as colour blindness. The latter could not be tested in this user study as no participants reported that they had any significant visual impairments.
 
 	}
 
 	\subsection{System Usability Scale} {
 	\label{sec:sus_results}
 
+		The average System Usability Scale score for the system was 71.56, which ranks higher than the average~\parencite{brooke2013sus} SUS score of 68. This indicates that the system demonstrated good usability, but could still be improved thoroughly. Moreover, the overall SUS score across all participants has been shown in Figure~\ref{fig:sus_score_participants}.
+
 		\input{figures/results/sus_score}
 
+		In Figure~\ref{fig:sus_score_questions}, the SUS score across all questions is shown. From these results, it can be concluded that consistency is the greatest strength in the system by receiving the highest average SUS score of 87.5. Another asset was, aside from a single outlier, that 87.5\% of participants did not need to learn many things before they could begin using the system. However, the greatest downfalls of the system are that the participants did not feel confident using the system, nor would they use the system frequently. Both of these scores fell below the average SUS score with confidence measuring at 65.63 and future usability at 56.25. While participants felt that they would not use the system frequently, this result was expected given the demographic of the participants as they are not concerned with the field of data analytics or analysing the datasets presented to them.
+
 		\input{figures/results/normalised_sus_score}
+
+		In addition to the above results, it was almost unanimously agreed upon by the participants that the system was easy to use given the above average score of 75. While this score is representative of a user-friendly system, only one of the participants strongly agreed that it was easy to use and thus the usability of the system could still be improved greatly. 
+
+		On the whole participants did not think the system was cumbersome to use and disagreed when asked if they thought the system was unnecessarily complex. These metrics both received a passable SUS score of 68.75, which is considered just above average. Similarly, the majority of the participants, totalling 75\% for both agree and strongly agree, concluded that other people would learn to use this system very quickly.
+
+		The participants were also asked to consider if they would need the support of a technical person to use the system and if they thought the various functions of the system were well integrated. The responses for both criteria were just above average and sat at 71.88, where participants ranged greatly in regards to needing technical support and either remained neutral, agreed or strongly agreed when responding to the integration of system functions. This score could be improved with the integration of an in-built tutorial and help elements.
 
 	}
 
