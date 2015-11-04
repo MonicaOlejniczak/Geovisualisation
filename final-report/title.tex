@@ -5,26 +5,44 @@
 
 	\vspace*{\fill}
 
-	\setstretch{1.0}
-	\huge\textbf{\textsf{\@title}}
+	{
+		\setstretch{1}
+		\huge{\textbf{\textsf{\@title}}}
+		\par
+	}
 
-	\vspace{0.5cm}\par
+	\vspace{0.25cm}\par
 	\begin{center}
-		\LARGE\textbf{\@author}
+		\sffamily
+		\LARGE{\textbf{\@author}} \\
+		\vspace{0.05cm}\par
+		\large{\textbf{Supervisor:} \supervisor}
 	\end{center}
-		
-	\vspace{0.5cm}\par
-	\Large{A thesis submitted in partial fulfilment of the requirements for the degree of \degree}
+	\vspace{0.25cm}\par
+
+	{
+		\setstretch{1}
+		\Large{A thesis submitted in partial fulfilment of the requirements for the degree of \degree}
+		\par
+	}
 
 	\vspace{1cm}\par
 
 	\begin{center}
-		\includegraphics[height=4cm]{images/title/uon_logo}
+		\includegraphics[height=3.5cm]{images/title/uon_logo}
 		\vspace{1cm}\par
 		\Large{\institute \\ \today}
 	\end{center}
 
 	\vspace*{\fill}
+
+	\sffamily
+	\textbf{Word count:} 14, 000
+	\vspace{0.5cm}\par
+	\begin{tabularx}{\textwidth}{@{}XX@{}}
+		\textbf{Signed:} & \textbf{Signed:} \\
+		\textbf{Student:} & \textbf{Supervisor:} \\
+	\end{tabularx}
 
 \makeatother
 \end{titlepage}
