@@ -17,12 +17,12 @@ This chapter introduces the participants and process of the user study, outlines
 
 }
 
-\section{Performance analyis} {
+\section{Performance analysis} {
 \label{sec:performance_analysis}
 
 	% \todo{performance slow with large data mention filtering and configuration}
 
-	The performance analyis was conducted by carrying out performance testing, which has been outlined in Section~\ref{sec:performance_testing} of the Testing chapter. The tests were executed with a dataset size of 500, 1000, 5000, 10 000 and 20 000 for each visualisation. These tests were each performed three times and the average was then recorded, introducing another measure for increasing the accuracy of the results in the controlled environment.
+	The performance analysis was conducted by carrying out performance testing, which has been outlined in Section~\ref{sec:performance_testing} of the Testing chapter. The tests were executed with a dataset size of 500, 1000, 5000, 10 000 and 20 000 for each visualisation. These tests were each performed three times and the average was then recorded, introducing another measure for increasing the accuracy of the results in the controlled environment.
 
 }
 
@@ -32,7 +32,7 @@ This chapter introduces the participants and process of the user study, outlines
 	\subsection{Questionnaire} {
 	\label{sec:questionnaire}
 
-		Half of the participants found the navigation controls cumbersome to use. In particular, participants commented that they could pan and zoom across the screen without experiencing any difficuly, but often struggled to rotate the scene. The rotation in the population globe was particularly troublesome to use by the participants. This is a direct result of the limits placed on the polar angle in the navigation, which were designed primarily for the cuboid surface. These limits prevent the user from rotating the sphere in a downward direction and thus the bottom could not be viewed adequately. 
+		Half of the participants found the navigation controls cumbersome to use. In particular, participants commented that they could pan and zoom across the screen without experiencing any difficulty, but often struggled to rotate the scene. The rotation in the population globe was particularly troublesome to use by the participants. This is a direct result of the limits placed on the polar angle in the navigation, which were designed primarily for the cuboid surface. These limits prevent the user from rotating the sphere in a downward direction and thus the bottom could not be viewed adequately. 
 
 		The system would benefit from having separate navigation controls for a visualisation using the sphere surface, by performing rotation on the sphere itself instead of rotating the camera around the scene. This change in the system would enable users to have complete control over the rotation of the sphere and hence all of the data points. It would also be worthwhile investigating other techniques implementing navigation, such as \href{http://threejs.org/examples/misc_controls_trackball.html}{trackball controls} to improve the usability of the navigation controls for the user.
 
@@ -104,6 +104,6 @@ This chapter introduces the participants and process of the user study, outlines
 
 This chapter has described the process undergone through the user study and performance analysis and presented and discussed the results of these findings. It was found that the system was overall easy to use and very consistent. However, users did not feel confident using the system and many features could be improved to provide a more positive user experience. The small participant pool and restricted demographic could attribute to some of these results and should be taken into consideration. 
 
-The usability results also determined that slider filters aid the analysis of geospatial data while the colours used in the geovisualisation did not have a significant effect on the usability of a geovisualisation. Instead, the height of the data points, filters and information displays helped with the analysis of the visualisations. 
+The usability results also determined that slider filters aid the analysis of geospatial data while the colours used in the geovisualisation did not have a significant impact on the usability of a geovisualisation. Instead, the height of the data points, filters and information displays helped with the analysis of the visualisations. 
 
 Similarly, the performance analysis revealed that the application startup time and run-time performance declined significantly as the size of the dataset increased. The overall frame rate became too low for dataset sizes of $\geqslant5000$, while the average startup time became high for sizes of $\geqslant10, 000$ and should be improved in the future.

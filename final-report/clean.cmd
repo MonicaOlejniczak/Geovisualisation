@@ -1,0 +1,13 @@
+rm *.out
+rm *.aux
+rm *.log
+rm *.lof
+rm *.lot
+rm *.gz
+rm *.toc
+rm *.synctex
+rm *.swp
+rm *.pdf
+rm *.bbl
+rm *.blg
+rm *.dvi

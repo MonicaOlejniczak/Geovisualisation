@@ -71,7 +71,7 @@ This chapter explores the design of the system by first introducing the main sys
 
 		The design of the interface needs to account for both the use of Material Design and the 3D environment. 
 
-		Material Design is renowned for its sliding drawer menu, often used to maximise the viewing space for the user. This component has the potential to maintain user focus on the visualisation, while providing additional information through an unobtrusive menu. An initial mockup of this design has been demonstrated in Figure~\ref{fig:user_interface_mockup}, where the 3D environment fills the content to the right of the drawer. This design has been refined through the implementation phase described in Section~\ref{sec:filtering_implementation} and \ref{sec:configuration_implementation}.
+		Material Design is renowned for its sliding drawer menu, often used to maximise the viewing space for the user. This component has the potential to maintain user focus on the visualisation, while providing additional information through an unobtrusive menu. An initial mockup of this design has been demonstrated in Figure~\ref{fig:user_interface_mockup}, where the 3D environment fills the content to the right of the drawer. This design has been refined through the implementation phase described in Section~\ref{sec:filtering_implementation} and \ref{sec:real_time_configurations}.
 
 		\input{figures/design/mockups/user_interface}
 
@@ -80,7 +80,7 @@ This chapter explores the design of the system by first introducing the main sys
 		\subsubsection{Filtering} {
 		\label{sec:filtering}
 
-			Filters take advantage of slider and checkbox widgets to adjust the state of what is displayed to the user. Their purpose is to provide users with the ability to identify characteristics of the dataset more quickly. For example, the data displays for a population dataset could be filtered so that cities of particular population, longitude or latitude range are visible. The user could then perhaps identify which cities are densly populated in certain regions on the world map. 
+			Filters take advantage of slider and checkbox widgets to adjust the state of what is displayed to the user. Their purpose is to provide users with the ability to identify characteristics of the dataset more quickly. For example, the data displays for a population dataset could be filtered so that cities of particular population, longitude or latitude range are visible. The user could then perhaps identify which cities are densely populated in certain regions on the world map. 
 
 			\emph{Sliders} adjust what data displays are visible to the user. This is achieved by configuring the bounds of the available metadata in the data model. Take for example a dataset that has a range of values between 0 -- 100. If the user adjusts the value of its respective slider to be $\geqslant$20, then any data displays that have a value \textless20 will be hidden. As the ranges of a dataset become very small and precise (e.g. 0.001 -- 0.01) or large (e.g. 1,~000,~000 -- 1,~000,~000,~000), the step size for a slider may need to be adjusted to account for such values. In the case of small and precise ranges the step size may default to integer increments. This would become problematic for the user as the slider cannot be adjusted to decimal values. Similarly, for large ranges the user may wish to utilise larger increments as smaller step sizes could introduce performance issues when filtering on each unique value.
 			

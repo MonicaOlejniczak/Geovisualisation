@@ -51,7 +51,9 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 \section{Datasets} {
 \label{sec:datasets}
 
-	The datasets used for the implementation of the visualisations was the population and student progress datasets, which have been outlined in Section~\ref{sec:population_dataset} and \ref{sec:student_progress_dataset} respectively. The structure for both of these datasets has been identified in Section~\ref{sec:dataset_structure}. Moreover, it is important to note that any geographical dataset can be applied to the cuboid and sphere surface by converting the data structure to a JSON object.
+	This system has been designed such that almost any geographical dataset can be applied to the cuboid and sphere surface. The only requirement for this is that the dataset must contain a latitude and longitude coordinate as well as some other value that can be mapped to the magnitude of a data point. If a dataset adheres to this requirement, then the data can be converted to a JSON object through preprocessing techniques and can then be visualised.
+
+	The datasets used for the implementation of the visualisations was the population and student progress datasets, which have been outlined in Section~\ref{sec:population_dataset} and \ref{sec:student_progress_dataset} respectively. The structure for both of these datasets has been identified in Section~\ref{sec:dataset_structure}.
 
 	\subsection{Population dataset} {
 	\label{sec:population_dataset}
@@ -134,13 +136,15 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 \section{Data point display} {
 \label{sec:data_point_display}
 
-	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is repsonsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the initial position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Visualisation} class ensures that each \texttt{Point} in the \texttt{Points} mesh appears as if it were on top of the surface, by applying either a standard for cuboids or a spherical projection for spheres.
+	The data point displays were implemented by creating a \texttt{THREE.Mesh} that acts as a \texttt{Points} container for all \texttt{Point} meshes. The \texttt{Points} class is responsible for creating all of the data point displays, using the \texttt{Point} Backbone collection created and populated with information from the dataset during application startup. Each model in this collection specifies the initial position and magnitude of the \texttt{Point} mesh, which consists of a \texttt{THREE.BoxGeometry} and \texttt{THREE.ShaderMaterial}. Additionally, the \texttt{Visualisation} class ensures that each \texttt{Point} in the \texttt{Points} mesh appears as if it were on top of the surface, by applying either a standard for cuboids or a spherical projection for spheres.
 
 	The standard projection simply sets the y-position of the object by some offset, in this case the height of the cuboid surface, and then converts the range of the x and z-positions so that is fits on the cuboid dimensions. Whereas the spherical projection first converts x-position of the object to $\theta$ and the z-position to $\phi$ in radians. These values are used, along with the radius of the sphere, to apply a spherical to cartesian conversion which denotes the position of the \texttt{Point}. Then, the point is rotated to face the position of the sphere and again in the x-direction so it is not tangential to the surface.
 
 	Further, the shader used as the shader material in the \texttt{Point} class uses various uniforms to provide a multitude of configurable effects to the user. One important aspect of the data displays is their ability to change their appearance from a Hue, Saturation and Value (HSV) colour range to a gradient colour scheme, which can be seen in Figure~\ref{fig:data_point_displays} below. This has been completed with a simple fragment shader that changes which scheme to use for the display of the data points. The following code demonstrates the main entry point of this shader:
 
 	\input{code/implementation/hybrid_fragment}
+
+	In the basic colour shader, tall data points will be set to a colour with a higher Hue value in the HSV colour spectrum (see Appendix~\ref{app:hsv}) and vice versa for short data points. On the other hand, the gradient shader uses three different colours (\texttt{uLowColor}, \texttt{uMediumColor} and \texttt{uHighColor}) to differentiate the appearance of the data points. All three colours are interpolated between the current position of the vertex with the maximum height of the geometry.
 
 	\input{figures/implementation/data_display}
 
@@ -184,7 +188,7 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 
 	\input{figures/implementation/filtering/interface}
 
-	As a user adjusts the values in the slider, an \texttt{update} event is triggered. When this occurs, the event handler adjusts the minimum and maximum input to reflect the new slider widget values. Then, the Backbone collection that represents the data displays are filtered by calling the \texttt{filterBy} function with a filter function. This method is reposnsible for iterating through each model in the collection and determining if it should be filtered. A simple example of a filter function is:
+	As a user adjusts the values in the slider, an \texttt{update} event is triggered. When this occurs, the event handler adjusts the minimum and maximum input to reflect the new slider widget values. Then, the Backbone collection that represents the data displays are filtered by calling the \texttt{filterBy} function with a filter function. This method is responsible for iterating through each model in the collection and determining if it should be filtered. A simple example of a filter function is:
 
 	\input{code/implementation/filtering_function}
 
@@ -192,7 +196,7 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 
 	A similar process occurs when the user enters a value into the minimum or maximum inputs. A \texttt{keyup} event is bound to both inputs and a timer is in place to enforce a filtering delay. This delay ensures that filtering is processed as required, when the user has stopped typing, in order to reduce performance issues. When the user stops typing, the slider values are updated to match the input and filtering then proceeds as normal.
 
-	As previously mentioned, the checkboxes represent what information is available to the user when hovering on a data display. The state of visibility for any given property is configured through a custom Handlebars helper method. This helper method is called when the information display template is updated, which is every time the user hovers on a data display. The helper method simply checks if a property is currently in a filtered list and displays the property when it is not a member of this list. So in order to configure the visibility of properties in the information display, a \texttt{change} event is bound to each chexkbox that updates the contents of the filtered list.
+	As previously mentioned, the checkboxes represent what information is available to the user when hovering on a data display. The state of visibility for any given property is configured through a custom Handlebars helper method. This helper method is called when the information display template is updated, which is every time the user hovers on a data display. The helper method simply checks if a property is currently in a filtered list and displays the property when it is not a member of this list. So in order to configure the visibility of properties in the information display, a \texttt{change} event is bound to each checkbox that updates the contents of the filtered list.
 
 	The sequence of images displayed in Figure~\ref{fig:filtering_comparison} presents a comparison between the results of filtering for both data displays and information displays. From this, it can be seen that the user activities outlined in Section~\ref{sec:user_actions} have the potential to be fulfilled more quickly when there is less data to navigate through.
 
@@ -200,8 +204,8 @@ The purpose of this chapter is to describe the implementation of the system. Thi
 
 }
 
-\section{Configurations} {
-\label{sec:configurations}
+\section{Real-time configurations} {
+\label{sec:real_time_configurations}
 
 	Real-time configurations that modify the appearance of the visualisation are best achieved by using shaders. Shaders are computer programs that perform shading on a graphics processing unit (GPU), making them highly efficient and well suited to parallel processing~\footnote{\bibentry{gerdelan2014shaders}}. Three.js provides abstracted materials that use shaders in the background, but this method does not easily facilitate highly customisable configurations or filter effects. Therefore, custom shaders were designed and implemented for the system to maximise efficiency and flexibility. An example of the available effects that were implemented in the system is shown in Figure~\ref{fig:shaders}.
 

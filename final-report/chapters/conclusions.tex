@@ -1,0 +1,49 @@
+%!TEX root = ../report.tex
+
+This chapter presents the contributions and limitations of the current work and then outlines the directions for future work.
+
+\section{Contributions} {
+\label{sec:contributions}
+	
+	The aim of this thesis was to develop a set of prototypal 3D geovisualisations using HTML5 and WebGL web technologies to improve the analysis of geospatial information. This has been achieved by creating a highly interactive environment which provides users with the necessary features and tools for effectively analysing geospatial data, including navigation interactions, information displays, filtering tools and custom environment configurations.
+
+	A number of research questions were proposed in the beginning of this thesis in Chapter~\ref{ch:introduction}. These research questions can be used to measure the success of the project and have been answered throughout the thesis. In this section, these answers have been summarised concisely below.
+
+	% How can a geovisualisation be visualised in WebGL?
+	This thesis has shown that geovisualisations can be visualised in WebGL by combining 3D representations of the real world with abstract data through the inclusion of data displays. These data displays were visualised by projecting a mesh onto the representation of the real world, which is either a sphere or cuboid surface. The geovisualisations were primarily developed with the Three.js library, which was utilised as a WebGL abstraction layer. This library facilitates the creation of inheritance-based 3D components and containers, such as the data points and surfaces, which were added to the scene and rendered to form the geovisualisation.
+
+	% How can different datasets be applied to 3D geovisualisations?
+	Many different geospatial datasets can be applied to the geovisualisations developed in this thesis. The only requirement for this is that the dataset must contain a latitude and longitude coordinate as well as some other value that can be mapped to the magnitude of a data point. If a dataset adheres to this requirement, then the data can be converted to a JSON object through preprocessing techniques and can then be visualised.
+
+	% Do particular colours have any significant effect on the usability of a geovisualisation?
+	% Do particular filters aid in the analysis of a geovisualisation?
+	The user study revealed that slider filters aid the analysis of geospatial data while the colours used in the geovisualisation did not have a significant impact on the usability of a geovisualisation. Instead, the height of the data points, filters and information displays helped with the analysis of the visualisations. 
+
+	% How does a geovisualisation perform across small and large datasets?
+	In the performance analysis, it was evident that the application startup time and run-time performance declined significantly as the size of the dataset increased. This rapid decline made the application virtually unusable for the user when the dataset size was approximately 20, 000. In contrast to this, small datasets of size 1000 displayed little to no latency.
+
+	% Additionally, the success of the project can be measured with the non-functional requirements outlined in the Design chapter.
+
+}
+
+\section{Limitations} {
+\label{sec:limitations}
+	
+	The greatest limitations of the system are its performance and inability to compare multiple datasets in the same instance of the application. Additionally, the usability of the system proved to be a concern as many users reported they did not feel confident using the system during the user study. Furthermore, these limitations indicate that the system needs several improvements toward its usability and performance before it can be considered an effective tool for the analysis of geospatial data.
+
+}
+
+\section{Future work} {
+\label{sec:future_work}
+
+	This thesis has demonstrated the potential of geovisualisations by creating visualisations that can be applied to geospatial datasets. As outlined in the previous section, there are still some limitations with the system that present opportunities for improvement and extending the scope of this thesis.
+
+	One direction for future work would be to load multiple datasets into a visualisation which can be viewed, compared and analysed by the user in the same browser window. Currently, the user would have to load these datasets separately in different instances of the application and compare the visualisations side by side in separate browser windows. These datasets could be compared by creating split screen windows within the application for each visualisation with a different dataset. Otherwise the user could select a dataset, which would load the data and replace the contents of the scene. In this case, the height of the data points could be animated if there were variations between the datasets that did not effect the x or z coordinates, such as the year that the data was recorded.
+
+	Another area of future work would be to improve the usability of the visualisations. This would involve conducting extensive research into good user interface practices and correcting the known issues with the system discovered from the user study. Other navigation techniques should be investigated to improve the rotation of visualisations and the navigation techniques should be specific to the visualisation. For example, in the population globe the rotation should be performed on the surface instead of the camera. The system should also include an in-built tutorial for first time users, clearer text for information checkboxes and labelled axes for the grid surface. Furthermore, another user study would be performed to evaluate the changes in the system in order to analyse and determine if the usability has improved.
+
+	Additionally, a network analysis should be organised in the future. This analysis would be used to measure the expected application startup time for the user when this system is deployed to a production environment.
+
+	Finally, the performance of the system could be improved significantly. The first change would be to offload the dataset processing to the Node.js server, which would decrease the load time of the application. Another method for decreasing the startup time would be to develop production scripts and compress texture resources. Moreover, the geometries should be merged and an alternate object picking method should be investigated as a way of improving the performance of the system.
+
+}
