@@ -11,7 +11,7 @@ uniform vec2 uColorRange;
 uniform float uMagnitude;
 
 uniform float uSaturation;
-uniform float uLightness;
+uniform float uValue;
 
 // Gradient
 
@@ -24,7 +24,7 @@ varying vec3 vPosition;
 void main() {
 	vec3 color;
 	if (uMode == 0) {
-		color = basicColor(uBound, uColorRange, uMagnitude, uSaturation, uLightness);
+		color = basicColor(uBound, uColorRange, uMagnitude, uSaturation, uValue);
 	} else {
 		color = gradientColor(uBound, vPosition, uLowColor, uMediumColor, uHighColor);
 	}

@@ -7,7 +7,7 @@ define(function (require) {
 
 	var $ = require('jquery');
 	var THREE = require('threejs');
-	//var Stats = require('stats');
+	var Stats = require('stats');
 
 	var Viewport = require('core/Viewport');
 	var MouseControls = require('controls/Mouse');
@@ -19,7 +19,7 @@ define(function (require) {
 
 	var PopulationData = require('json!data/population.json');
 	//var PopulationData = require('json!data/population_google.json');
-	//var StudentData = require('json!data/students.json');
+	var StudentData = require('json!data/students.json');
 
 	var FlatHeatMap = require('component/visualisation/FlatHeatMap');
 	var RoundHeatMap = require('component/visualisation/RoundHeatMap');
@@ -57,7 +57,7 @@ define(function (require) {
 		this.camera.lookAt(this.scene.position);
 		this.renderer.setSize($canvas.width(), $canvas.height());
 
-		//this.addStats();
+		this.addStats();
 
 	}
 
@@ -113,7 +113,7 @@ define(function (require) {
 		this.camera.position.set(0, 0, 500);
 		this.controls.panCamera(new THREE.Vector2(0, 100));
 
-		this.$content.append(new Help({model: new Backbone.Model({color: 'black'})}).$el);
+		//this.$content.append(new Help({model: new Backbone.Model({color: 'black'})}).$el);
 		this.run(collection, keys, visualisation);
 		this.scene.add(visualisation);
 		return visualisation;
@@ -176,7 +176,7 @@ define(function (require) {
 	Application.prototype.processGridData = function (data, keys) {
 		var points = [];
 		var map = {x: {}, z: {}};
-		//var size = Math.min(data.length, 20000);
+		var size = Math.min(data.length, 5000);
 		var size = data.length;
 		console.log(size);
 		for (var i = 0, len = size; i < len; i++) {
@@ -260,13 +260,13 @@ define(function (require) {
 	 */
 	Application.prototype.render = function () {
 		requestAnimationFrame(this.render.bind(this));
-		//this.stats.begin();
+		this.stats.begin();
 		this.resize();
 		if (this.raycaster) {
 			this.raycaster.update();
 		}
 		this.renderer.render(this.scene, this.camera);
-		//this.stats.end();
+		this.stats.end();
 	};
 
 	return Application;

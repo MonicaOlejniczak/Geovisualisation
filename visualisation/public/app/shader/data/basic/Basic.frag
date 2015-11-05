@@ -6,9 +6,9 @@ uniform vec2 uColorRange;
 uniform float uMagnitude;
 
 uniform float uSaturation;
-uniform float uLightness;
+uniform float uValue;
 
 void main() {
-	vec3 color = getBasicColor(uBound, uColorRange, uMagnitude, uSaturation, uLightness);
+	vec3 color = getBasicColor(uBound, uColorRange, uMagnitude, uSaturation, uValue);
 	gl_FragColor = vec4(color, 1.0);
 }

@@ -74,7 +74,7 @@ define(function (require) {
 			uMagnitude: {type: 'f', value: this.geometry.parameters.height},
 			uColorRange: {type: 'v2', value: colorRange},
 			uSaturation: {type: 'f', value: 1.0},
-			uLightness: {type: 'f', value: 1.0},
+			uValue: {type: 'f', value: 1.0},
 			// Gradient shader uniforms.
 			uLowColor: {type: 'c', value: colors.low},
 			uMediumColor: {type: 'c', value: colors.medium},
